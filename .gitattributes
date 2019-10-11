@@ -1,0 +1,5 @@
+*.ac       text eol=lf
+*.am       text eol=lf
+*.sh       text eol=lf
+*.pl       text eol=lf
+*.py       text eol=lf
