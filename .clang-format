@@ -1,0 +1,20 @@
+# Run manually to reformat a file:
+# clang-format -i --style=file <file>
+Language: Cpp
+BasedOnStyle: Google
+ColumnLimit: 79
+BinPackArguments: true
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+BinPackParameters: true
+BinPackArguments: true
+ReflowComments: false
+#AlwaysBreakTemplateDeclarations: MultiLine
+AlignAfterOpenBracket: AlwaysBreak
+AlignEscapedNewlines: DontAlign
+AlignConsecutiveDeclarations: false
+AlignOperands: true
+AlignTrailingComments: true
+#AllowShortLambdasOnASingleLine: inline
+#AllowAllArgumentsOnNextLine: true
+#AllowAllConstructorInitializersOnNextLine: true
+#AllowAllParametersOfDeclarationOnNextLine: true
