@@ -1,0 +1,38 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsCreateRawTransactionRequest",
+    "version": 2,
+    "version:type": "uint32_t",
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "txins": [
+      {
+        ":class": "ElementsTxInRequest",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t"
+      }
+    ],
+    "txouts": [
+      {
+        ":class": "ElementsTxOutRequest",
+        "address": "",
+        "amount": 0,
+        "asset": "",
+        "isRemoveNonce": false
+      }
+    ],
+    "fee": {
+      ":class": "ElementsTxOutFeeRequest",
+      "amount": 0,
+      "asset": ""
+    }
+  },
+  "response": {
+    ":class": "ElementsCreateRawTransactionResponse",
+    "hex": ""
+  }
+}

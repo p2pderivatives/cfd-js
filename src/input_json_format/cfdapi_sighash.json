@@ -1,0 +1,30 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateSignatureHashRequest",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "txin": {
+      ":class": "CreateSignatureHashTxInRequest",
+      "txid": "",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "keyData": {
+        ":class": "SignatureHashKeyData",
+        "hex": "",
+        "type": "pubkey",
+        "type:hint": "pubkey, redeem_script"
+      },
+      "amount": 0,
+      "amount:type": "int64_t",
+      "hashType": "p2wsh",
+      "sighashType": "all",
+      "sighashType:hint": "all, none, single",
+      "sighashAnyoneCanPay": false
+    }
+  },
+  "response": {
+    ":class": "CreateSignatureHashResponse",
+    "sighash": ""
+  }
+}

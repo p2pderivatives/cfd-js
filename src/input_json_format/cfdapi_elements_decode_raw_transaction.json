@@ -1,0 +1,100 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsDecodeRawTransactionRequest",
+    "hex": "",
+    "network": "liquidv1",
+    "network:hint": "liquidv1, regtest",
+    "mainchainNetwork": "",
+    "mainchainNetwork:hint": "mainnet, testnet, regtest or blank. Must be set for pegout transactions.",
+    "iswitness": true
+  },
+  "response": {
+    ":class": "ElementsDecodeRawTransactionResponse",
+    "txid": "",
+    "hash": "",
+    "wtxid": "",
+    "withash": "",
+    "version": 0,
+    "version:type": "uint32_t",
+    "size": 0,
+    "vsize": 0,
+    "weight": 0,
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "vin": [
+      {
+        ":class": "ElementsDecodeRawTransactionTxIn",
+        "coinbase": "",
+        "coinbase:hint": "coinbase is only ", 
+        "txid": "",
+        "vout": 0,
+        "scriptSig": {
+          ":class": "ElementsDecodeUnlockingScript",
+          "asm": "",
+          "hex": ""
+        },
+        "is_pegin": false,
+        "sequence": 0,
+        "txinwitness": [
+          ""
+        ],
+        "pegin_witness": [
+          ""
+        ],
+        "issuance": {
+          ":class": "ElementsDecodeIssuance",
+          "assetBlindingNonce": "",
+          "assetEntropy": "",
+          "isreissuance": false,
+          "token": "",
+          "asset": "",
+          "assetamount": 0,
+          "assetamount:type": "double",
+          "assetamountcommitment": "",
+          "tokenamount": 0,
+          "tokenamount:type": "double",
+          "tokenamountcommitment": ""
+        }
+      }
+    ],
+    "vout": [
+      {
+        ":class": "ElementsDecodeRawTransactionTxOut",
+        "value": 0,
+        "value:type": "double",
+        "value-minimum": 0,
+        "value-minimum:type": "double",
+        "value-maximum": 0,
+        "value-maximum:type": "double",
+        "ct-exponent": 0,
+        "ct-bits": 0,
+        "surjectionproof": "",
+        "valuecommitment": "",
+        "asset": "",
+        "assetcommitment": "",
+        "commitmentnonce": "",
+        "commitmentnonce_fully_valid": false,
+        "n": 0,
+        "scriptPubKey": {
+          ":class": "ElementsDecodeLockingScript",
+          "asm": "",
+          "hex": "",
+          "reqSigs": 0,
+          "type": "",
+          "addresses": [
+            ""
+          ],
+          "pegout_chain": "",
+          "pegout_asm": "",
+          "pegout_hex": "",
+          "pegout_reqSigs": 0,
+          "pegout_type": "",
+          "pegout_addresses": [
+            ""
+          ]
+        }
+      }
+    ]
+  }
+}

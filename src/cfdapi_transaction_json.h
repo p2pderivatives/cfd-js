@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class TxInRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -94,7 +94,7 @@ class TxInRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -137,7 +137,7 @@ class TxInRequest
    * @brief sequence 取得処理
    * @return sequence
    */
-  uint32_t GetSequence() {
+  uint32_t GetSequence() const {
     return sequence_;
   }
   /**
@@ -185,15 +185,15 @@ class TxInRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const TxInRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   TxInRequestStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class TxOutRequest
    * @brief address 取得処理
    * @return address
    */
-  std::string GetAddress() {
+  std::string GetAddress() const {
     return address_;
   }
   /**
@@ -326,7 +326,7 @@ class TxOutRequest
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -374,15 +374,15 @@ class TxOutRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const TxOutRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   TxOutRequestStruct ConvertToStruct()  const;
 
@@ -468,7 +468,7 @@ class CreateRawTransactionRequest
    * @brief version 取得処理
    * @return version
    */
-  uint32_t GetVersion() {
+  uint32_t GetVersion() const {
     return version_;
   }
   /**
@@ -511,7 +511,7 @@ class CreateRawTransactionRequest
    * @brief locktime 取得処理
    * @return locktime
    */
-  uint32_t GetLocktime() {
+  uint32_t GetLocktime() const {
     return locktime_;
   }
   /**
@@ -645,15 +645,15 @@ class CreateRawTransactionRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateRawTransactionRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateRawTransactionRequestStruct ConvertToStruct()  const;
 
@@ -747,7 +747,7 @@ class CreateRawTransactionResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -795,15 +795,15 @@ class CreateRawTransactionResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateRawTransactionResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateRawTransactionResponseStruct ConvertToStruct()  const;
 

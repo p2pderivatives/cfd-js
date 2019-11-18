@@ -1,0 +1,16 @@
+# ./include/cfdjs/Makefile.srclist
+
+CFDJS_ELEMENTS_PKGINCLUDE_FILES = \
+  cfdjs_elements_address.h \
+  cfdjs_elements_transaction.h
+
+CFDJS_PKGINCLUDE_FILES = \
+  cfdjs_common.h \
+  cfdjs_address.h \
+  cfdjs_hdwallet.h \
+  cfdjs_key.h \
+  cfdjs_struct.h \
+  cfdjs_transaction.h \
+  cfdjs_utility.h \
+  $(CFDJS_ELEMENTS_PKGINCLUDE_FILES)
+

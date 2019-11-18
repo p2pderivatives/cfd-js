@@ -1,0 +1,17 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateExtkeyFromParentPathRequest",
+    "extkey": "",
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "",
+    "extkeyType:hint": "extPrivkey or extPubkey",
+    "childNumberArray": [0],
+    "childNumberArray:hint": "hardened is logical sum 0x80000000"
+  },
+  "response": {
+    ":class": "CreateExtkeyFromParentPathResponse",
+    "extkey": ""
+  }
+}

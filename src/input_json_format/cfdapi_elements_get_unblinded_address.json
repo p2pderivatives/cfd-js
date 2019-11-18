@@ -1,0 +1,11 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetUnblindedAddressRequest",
+    "confidentialAddress": ""
+  },
+  "response": {
+    ":class": "GetUnblindedAddressResponse",
+    "unblindedAddress": ""
+  }
+}

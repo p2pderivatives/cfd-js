@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsPeginWitness
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsPeginWitness
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -137,7 +137,7 @@ class ElementsPeginWitness
    * @brief mainchainGenesisBlockHash 取得処理
    * @return mainchainGenesisBlockHash
    */
-  std::string GetMainchainGenesisBlockHash() {
+  std::string GetMainchainGenesisBlockHash() const {
     return mainchain_genesis_block_hash_;
   }
   /**
@@ -180,7 +180,7 @@ class ElementsPeginWitness
    * @brief claimScript 取得処理
    * @return claimScript
    */
-  std::string GetClaimScript() {
+  std::string GetClaimScript() const {
     return claim_script_;
   }
   /**
@@ -223,7 +223,7 @@ class ElementsPeginWitness
    * @brief mainchainRawTransaction 取得処理
    * @return mainchainRawTransaction
    */
-  std::string GetMainchainRawTransaction() {
+  std::string GetMainchainRawTransaction() const {
     return mainchain_raw_transaction_;
   }
   /**
@@ -266,7 +266,7 @@ class ElementsPeginWitness
    * @brief mainchainTxoutproof 取得処理
    * @return mainchainTxoutproof
    */
-  std::string GetMainchainTxoutproof() {
+  std::string GetMainchainTxoutproof() const {
     return mainchain_txoutproof_;
   }
   /**
@@ -314,15 +314,15 @@ class ElementsPeginWitness
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPeginWitnessStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPeginWitnessStruct ConvertToStruct()  const;
 
@@ -424,7 +424,7 @@ class ElementsPeginTxIn
    * @brief isPegin 取得処理
    * @return isPegin
    */
-  bool GetIsPegin() {
+  bool GetIsPegin() const {
     return is_pegin_;
   }
   /**
@@ -467,7 +467,7 @@ class ElementsPeginTxIn
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -510,7 +510,7 @@ class ElementsPeginTxIn
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -553,7 +553,7 @@ class ElementsPeginTxIn
    * @brief sequence 取得処理
    * @return sequence
    */
-  uint32_t GetSequence() {
+  uint32_t GetSequence() const {
     return sequence_;
   }
   /**
@@ -639,7 +639,7 @@ class ElementsPeginTxIn
    * @brief isRemoveMainchainTxWitness 取得処理
    * @return isRemoveMainchainTxWitness
    */
-  bool GetIsRemoveMainchainTxWitness() {
+  bool GetIsRemoveMainchainTxWitness() const {
     return is_remove_mainchain_tx_witness_;
   }
   /**
@@ -687,15 +687,15 @@ class ElementsPeginTxIn
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPeginTxInStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPeginTxInStruct ConvertToStruct()  const;
 
@@ -797,7 +797,7 @@ class ElementsPeginTxOut
    * @brief address 取得処理
    * @return address
    */
-  std::string GetAddress() {
+  std::string GetAddress() const {
     return address_;
   }
   /**
@@ -840,7 +840,7 @@ class ElementsPeginTxOut
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -883,7 +883,7 @@ class ElementsPeginTxOut
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -926,7 +926,7 @@ class ElementsPeginTxOut
    * @brief isRemoveNonce 取得処理
    * @return isRemoveNonce
    */
-  bool GetIsRemoveNonce() {
+  bool GetIsRemoveNonce() const {
     return is_remove_nonce_;
   }
   /**
@@ -974,15 +974,15 @@ class ElementsPeginTxOut
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPeginTxOutStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPeginTxOutStruct ConvertToStruct()  const;
 
@@ -1076,7 +1076,7 @@ class ElementsPeginTxOutFee
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -1119,7 +1119,7 @@ class ElementsPeginTxOutFee
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -1167,15 +1167,15 @@ class ElementsPeginTxOutFee
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPeginTxOutFeeStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPeginTxOutFeeStruct ConvertToStruct()  const;
 
@@ -1261,7 +1261,7 @@ class ElementsCreateRawPeginRequest
    * @brief version 取得処理
    * @return version
    */
-  uint32_t GetVersion() {
+  uint32_t GetVersion() const {
     return version_;
   }
   /**
@@ -1304,7 +1304,7 @@ class ElementsCreateRawPeginRequest
    * @brief locktime 取得処理
    * @return locktime
    */
-  uint32_t GetLocktime() {
+  uint32_t GetLocktime() const {
     return locktime_;
   }
   /**
@@ -1476,7 +1476,7 @@ class ElementsCreateRawPeginRequest
    * @brief isRandomSortTxOut 取得処理
    * @return isRandomSortTxOut
    */
-  bool GetIsRandomSortTxOut() {
+  bool GetIsRandomSortTxOut() const {
     return is_random_sort_tx_out_;
   }
   /**
@@ -1524,15 +1524,15 @@ class ElementsCreateRawPeginRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateRawPeginRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateRawPeginRequestStruct ConvertToStruct()  const;
 
@@ -1634,7 +1634,7 @@ class ElementsCreateRawPeginResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1682,15 +1682,15 @@ class ElementsCreateRawPeginResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateRawPeginResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateRawPeginResponseStruct ConvertToStruct()  const;
 

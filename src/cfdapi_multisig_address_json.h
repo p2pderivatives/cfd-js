@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class CreateMultisigRequest
    * @brief nrequired 取得処理
    * @return nrequired
    */
-  uint8_t GetNrequired() {
+  uint8_t GetNrequired() const {
     return nrequired_;
   }
   /**
@@ -137,7 +137,7 @@ class CreateMultisigRequest
    * @brief isElements 取得処理
    * @return isElements
    */
-  bool GetIsElements() {
+  bool GetIsElements() const {
     return is_elements_;
   }
   /**
@@ -180,7 +180,7 @@ class CreateMultisigRequest
    * @brief network 取得処理
    * @return network
    */
-  std::string GetNetwork() {
+  std::string GetNetwork() const {
     return network_;
   }
   /**
@@ -223,7 +223,7 @@ class CreateMultisigRequest
    * @brief hashType 取得処理
    * @return hashType
    */
-  std::string GetHashType() {
+  std::string GetHashType() const {
     return hash_type_;
   }
   /**
@@ -271,15 +271,15 @@ class CreateMultisigRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateMultisigRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateMultisigRequestStruct ConvertToStruct()  const;
 
@@ -377,7 +377,7 @@ class CreateMultisigResponse
    * @brief address 取得処理
    * @return address
    */
-  std::string GetAddress() {
+  std::string GetAddress() const {
     return address_;
   }
   /**
@@ -420,7 +420,7 @@ class CreateMultisigResponse
    * @brief redeemScript 取得処理
    * @return redeemScript
    */
-  std::string GetRedeemScript() {
+  std::string GetRedeemScript() const {
     return redeem_script_;
   }
   /**
@@ -463,7 +463,7 @@ class CreateMultisigResponse
    * @brief witnessScript 取得処理
    * @return witnessScript
    */
-  std::string GetWitnessScript() {
+  std::string GetWitnessScript() const {
     return witness_script_;
   }
   /**
@@ -511,15 +511,15 @@ class CreateMultisigResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateMultisigResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateMultisigResponseStruct ConvertToStruct()  const;
 

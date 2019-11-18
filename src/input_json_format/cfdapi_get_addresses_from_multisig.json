@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetAddressesFromMultisigRequest",
+    "isElements": false,
+    "redeemScript": "",
+    "redeemScript:comment": "redeem script on multisig",
+    "network": "mainnet",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "hashType": "p2wpkh",
+    "hashType:hint": "p2wpkh, p2pkh, p2sh-p2wpkh"
+  },
+  "response": {
+    ":class": "GetAddressesFromMultisigResponse",
+    "addresses": [""],
+    "pubkeys": [""]
+  }
+}

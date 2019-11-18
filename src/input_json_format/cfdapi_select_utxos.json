@@ -1,0 +1,72 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "SelectUtxosRequest",
+    "utxos": [{
+      ":class": "UtxoJsonData",
+      "txid": "",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "amount": 0,
+      "amount:type": "int64_t",
+      "asset": "",
+      "asset:hint": "This field is available only elements utxo.",
+      "descriptor": "",
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount"
+    }],
+    "targetAmount": 0,
+    "targetAmount:type": "int64_t",
+    "targetAmount:hint": "This field is available only bitcoin.",
+    "isElements": false,
+    "targets": [{
+      ":class": "TargetAmountMapData",
+      "asset": "",
+      "amount": 0,
+      "amount:type": "int64_t"
+    }],
+    "targets:hint": "This field is available only elements.",
+    "feeInfo": {
+      ":class": "CoinSelectionFeeInfomationField",
+      "txFeeAmount": 0,
+      "txFeeAmount:type": "int64_t",
+      "feeRate": 20,
+      "feeRate:type": "double",
+      "feeRate:hint": "network fee rate",
+      "longTermFeeRate": 20,
+      "longTermFeeRate:type": "double",
+      "longTermFeeRate:hint": "network long-term fee rate",
+      "knapsackMinChange": -1,
+      "knapsackMinChange:hint": "knapsack minimum change amount.",
+      "feeAsset": "",
+      "feeAsset:hint": "This field is available only elements."
+    }
+  },
+  "response": {
+    ":class": "SelectUtxosResponse",
+    "utxos": [{
+      ":class": "UtxoJsonData",
+      "txid": "",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "amount": 0,
+      "amount:type": "int64_t",
+      "asset": "",
+      "asset:hint": "This field is avalable only elements utxo.",
+      "descriptor": "",
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount"
+    }],
+    "selectedAmount": 0,
+    "selectedAmount:type": "int64_t",
+    "selectedAmounts": [{
+      ":class": "TargetAmountMapData",
+      "asset": "",
+      "amount": 0,
+      "amount:type": "int64_t"
+    }],
+    "feeAmount": 0,
+    "feeAmount:type": "int64_t",
+    "feeAmount:hint": "This field is avalable only searched by BnB algorithm.",
+    "utxoFeeAmount": 0,
+    "utxoFeeAmount:type": "int64_t"
+  }
+}

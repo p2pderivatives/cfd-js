@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsCreatePegInAddressRequest
    * @brief fedpegscript 取得処理
    * @return fedpegscript
    */
-  std::string GetFedpegscript() {
+  std::string GetFedpegscript() const {
     return fedpegscript_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsCreatePegInAddressRequest
    * @brief pubkey 取得処理
    * @return pubkey
    */
-  std::string GetPubkey() {
+  std::string GetPubkey() const {
     return pubkey_;
   }
   /**
@@ -137,7 +137,7 @@ class ElementsCreatePegInAddressRequest
    * @brief network 取得処理
    * @return network
    */
-  std::string GetNetwork() {
+  std::string GetNetwork() const {
     return network_;
   }
   /**
@@ -185,15 +185,15 @@ class ElementsCreatePegInAddressRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreatePegInAddressRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreatePegInAddressRequestStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class ElementsCreatePegInAddressResponse
    * @brief mainchainAddress 取得処理
    * @return mainchainAddress
    */
-  std::string GetMainchainAddress() {
+  std::string GetMainchainAddress() const {
     return mainchain_address_;
   }
   /**
@@ -326,7 +326,7 @@ class ElementsCreatePegInAddressResponse
    * @brief claimScript 取得処理
    * @return claimScript
    */
-  std::string GetClaimScript() {
+  std::string GetClaimScript() const {
     return claim_script_;
   }
   /**
@@ -369,7 +369,7 @@ class ElementsCreatePegInAddressResponse
    * @brief tweakFedpegscript 取得処理
    * @return tweakFedpegscript
    */
-  std::string GetTweakFedpegscript() {
+  std::string GetTweakFedpegscript() const {
     return tweak_fedpegscript_;
   }
   /**
@@ -417,15 +417,15 @@ class ElementsCreatePegInAddressResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreatePegInAddressResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreatePegInAddressResponseStruct ConvertToStruct()  const;
 

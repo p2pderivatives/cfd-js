@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class GetWitnessStackNumTxInRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -94,7 +94,7 @@ class GetWitnessStackNumTxInRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -142,15 +142,15 @@ class GetWitnessStackNumTxInRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetWitnessStackNumTxInRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetWitnessStackNumTxInRequestStruct ConvertToStruct()  const;
 
@@ -236,7 +236,7 @@ class GetWitnessStackNumRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -279,7 +279,7 @@ class GetWitnessStackNumRequest
    * @brief isElements 取得処理
    * @return isElements
    */
-  bool GetIsElements() {
+  bool GetIsElements() const {
     return is_elements_;
   }
   /**
@@ -370,15 +370,15 @@ class GetWitnessStackNumRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetWitnessStackNumRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetWitnessStackNumRequestStruct ConvertToStruct()  const;
 
@@ -468,7 +468,7 @@ class GetWitnessStackNumResponse
    * @brief count 取得処理
    * @return count
    */
-  int64_t GetCount() {
+  int64_t GetCount() const {
     return count_;
   }
   /**
@@ -516,15 +516,15 @@ class GetWitnessStackNumResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetWitnessStackNumResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetWitnessStackNumResponseStruct ConvertToStruct()  const;
 

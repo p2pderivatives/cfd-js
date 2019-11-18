@@ -1,0 +1,13 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ConvertEntropyToMnemonicRequest",
+    "entropy": "",
+    "language": "en",
+    "language:hint": "support [en es fr it jp zhs zht]"
+  },
+  "response": {
+    ":class": "ConvertEntropyToMnemonicResponse",
+    "mnemonic": [""]
+  }
+}

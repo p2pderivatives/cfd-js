@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class CreateKeyPairRequest
    * @brief wif 取得処理
    * @return wif
    */
-  bool GetWif() {
+  bool GetWif() const {
     return wif_;
   }
   /**
@@ -94,7 +94,7 @@ class CreateKeyPairRequest
    * @brief network 取得処理
    * @return network
    */
-  std::string GetNetwork() {
+  std::string GetNetwork() const {
     return network_;
   }
   /**
@@ -137,7 +137,7 @@ class CreateKeyPairRequest
    * @brief isCompressed 取得処理
    * @return isCompressed
    */
-  bool GetIsCompressed() {
+  bool GetIsCompressed() const {
     return is_compressed_;
   }
   /**
@@ -185,15 +185,15 @@ class CreateKeyPairRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateKeyPairRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateKeyPairRequestStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class CreateKeyPairResponse
    * @brief privkey 取得処理
    * @return privkey
    */
-  std::string GetPrivkey() {
+  std::string GetPrivkey() const {
     return privkey_;
   }
   /**
@@ -326,7 +326,7 @@ class CreateKeyPairResponse
    * @brief pubkey 取得処理
    * @return pubkey
    */
-  std::string GetPubkey() {
+  std::string GetPubkey() const {
     return pubkey_;
   }
   /**
@@ -374,15 +374,15 @@ class CreateKeyPairResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateKeyPairResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateKeyPairResponseStruct ConvertToStruct()  const;
 

@@ -1,0 +1,39 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "SetRawIssueAssetRequest",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "isRandomSortTxOut": false,
+    "issuances": [
+      {
+        ":class": "IssuanceDataRequest",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "assetAmount": 0,
+        "assetAddress": "",
+        "tokenAmount": 0,
+        "tokenAddress": "",
+        "isBlind": true,
+        "contractHash": "",
+        "isRemoveNonce": false
+      }
+    ]
+  },
+  "response": {
+    ":class": "SetRawIssueAssetResponse",
+    "hex": "",
+    "issuances": [
+      {
+        ":class": "IssuanceDataResponse",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "asset": "",
+        "entropy": "",
+        "token": ""
+      }
+    ]
+  }
+}

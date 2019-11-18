@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -94,7 +94,7 @@ class ConvertMnemonicToSeedRequest
    * @brief passphrase 取得処理
    * @return passphrase
    */
-  std::string GetPassphrase() {
+  std::string GetPassphrase() const {
     return passphrase_;
   }
   /**
@@ -137,7 +137,7 @@ class ConvertMnemonicToSeedRequest
    * @brief strictCheck 取得処理
    * @return strictCheck
    */
-  bool GetStrictCheck() {
+  bool GetStrictCheck() const {
     return strict_check_;
   }
   /**
@@ -180,7 +180,7 @@ class ConvertMnemonicToSeedRequest
    * @brief language 取得処理
    * @return language
    */
-  std::string GetLanguage() {
+  std::string GetLanguage() const {
     return language_;
   }
   /**
@@ -223,7 +223,7 @@ class ConvertMnemonicToSeedRequest
    * @brief useIdeographicSpace 取得処理
    * @return useIdeographicSpace
    */
-  bool GetUseIdeographicSpace() {
+  bool GetUseIdeographicSpace() const {
     return use_ideographic_space_;
   }
   /**
@@ -271,15 +271,15 @@ class ConvertMnemonicToSeedRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ConvertMnemonicToSeedRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ConvertMnemonicToSeedRequestStruct ConvertToStruct()  const;
 
@@ -377,7 +377,7 @@ class ConvertMnemonicToSeedResponse
    * @brief seed 取得処理
    * @return seed
    */
-  std::string GetSeed() {
+  std::string GetSeed() const {
     return seed_;
   }
   /**
@@ -420,7 +420,7 @@ class ConvertMnemonicToSeedResponse
    * @brief entropy 取得処理
    * @return entropy
    */
-  std::string GetEntropy() {
+  std::string GetEntropy() const {
     return entropy_;
   }
   /**
@@ -468,15 +468,15 @@ class ConvertMnemonicToSeedResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ConvertMnemonicToSeedResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ConvertMnemonicToSeedResponseStruct ConvertToStruct()  const;
 

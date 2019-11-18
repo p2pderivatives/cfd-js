@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class MultisigSignData
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -94,7 +94,7 @@ class MultisigSignData
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -137,7 +137,7 @@ class MultisigSignData
    * @brief derEncode 取得処理
    * @return derEncode
    */
-  bool GetDerEncode() {
+  bool GetDerEncode() const {
     return der_encode_;
   }
   /**
@@ -180,7 +180,7 @@ class MultisigSignData
    * @brief sighashType 取得処理
    * @return sighashType
    */
-  std::string GetSighashType() {
+  std::string GetSighashType() const {
     return sighash_type_;
   }
   /**
@@ -223,7 +223,7 @@ class MultisigSignData
    * @brief sighashAnyoneCanPay 取得処理
    * @return sighashAnyoneCanPay
    */
-  bool GetSighashAnyoneCanPay() {
+  bool GetSighashAnyoneCanPay() const {
     return sighash_anyone_can_pay_;
   }
   /**
@@ -266,7 +266,7 @@ class MultisigSignData
    * @brief relatedPubkey 取得処理
    * @return relatedPubkey
    */
-  std::string GetRelatedPubkey() {
+  std::string GetRelatedPubkey() const {
     return related_pubkey_;
   }
   /**
@@ -314,15 +314,15 @@ class MultisigSignData
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const MultisigSignDataStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   MultisigSignDataStruct ConvertToStruct()  const;
 
@@ -424,7 +424,7 @@ class AddMultisigSignTxInRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -467,7 +467,7 @@ class AddMultisigSignTxInRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -553,7 +553,7 @@ class AddMultisigSignTxInRequest
    * @brief redeemScript 取得処理
    * @return redeemScript
    */
-  std::string GetRedeemScript() {
+  std::string GetRedeemScript() const {
     return redeem_script_;
   }
   /**
@@ -596,7 +596,7 @@ class AddMultisigSignTxInRequest
    * @brief witnessScript 取得処理
    * @return witnessScript
    */
-  std::string GetWitnessScript() {
+  std::string GetWitnessScript() const {
     return witness_script_;
   }
   /**
@@ -639,7 +639,7 @@ class AddMultisigSignTxInRequest
    * @brief hashType 取得処理
    * @return hashType
    */
-  std::string GetHashType() {
+  std::string GetHashType() const {
     return hash_type_;
   }
   /**
@@ -682,7 +682,7 @@ class AddMultisigSignTxInRequest
    * @brief clearStack 取得処理
    * @return clearStack
    */
-  bool GetClearStack() {
+  bool GetClearStack() const {
     return clear_stack_;
   }
   /**
@@ -730,15 +730,15 @@ class AddMultisigSignTxInRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const AddMultisigSignTxInRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   AddMultisigSignTxInRequestStruct ConvertToStruct()  const;
 
@@ -844,7 +844,7 @@ class AddMultisigSignRequest
    * @brief isElements 取得処理
    * @return isElements
    */
-  bool GetIsElements() {
+  bool GetIsElements() const {
     return is_elements_;
   }
   /**
@@ -887,7 +887,7 @@ class AddMultisigSignRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -978,15 +978,15 @@ class AddMultisigSignRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const AddMultisigSignRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   AddMultisigSignRequestStruct ConvertToStruct()  const;
 
@@ -1076,7 +1076,7 @@ class AddMultisigSignResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1124,15 +1124,15 @@ class AddMultisigSignResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const AddMultisigSignResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   AddMultisigSignResponseStruct ConvertToStruct()  const;
 
