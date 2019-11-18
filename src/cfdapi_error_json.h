@@ -7,9 +7,9 @@
 #ifndef CFD_JS_SRC_CFDAPI_ERROR_JSON_H_
 #define CFD_JS_SRC_CFDAPI_ERROR_JSON_H_
 
-#include "cfd/cfdapi_struct.h"
 #include "cfdapi_error_base_json.h"  // NOLINT
 #include "cfdcore/cfdcore_exception.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {

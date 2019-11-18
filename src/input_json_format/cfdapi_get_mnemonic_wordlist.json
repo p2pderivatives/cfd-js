@@ -1,0 +1,12 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetMnemonicWordlistRequest",
+    "language": "en",
+    "language:hint": "support [en es fr it jp zhs zht]"
+  },
+  "response": {
+    ":class": "GetMnemonicWordlistResponse",
+    "wordlist": [""]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "SetRawReissueAssetRequest",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "isRandomSortTxOut": false,
+    "issuances": [
+      {
+        ":class": "ReissuanceDataRequest",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "amount": 0,
+        "address": "",
+        "assetBlindingNonce": "",
+        "assetEntropy": "",
+        "isRemoveNonce": false
+      }
+    ]
+  },
+  "response": {
+    ":class": "SetRawReissueAssetResponse",
+    "hex": "",
+    "issuances": [
+      {
+        ":class": "ReissuanceDataResponse",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "asset": "",
+        "entropy": ""
+      }
+    ]
+  }
+}

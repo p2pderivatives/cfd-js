@@ -1,0 +1,15 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateKeyPairRequest",
+    "wif": true,
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest",
+    "isCompressed": true
+  },
+  "response": {
+    ":class": "CreateKeyPairResponse",
+    "privkey": "",
+    "pubkey": ""
+  }
+}

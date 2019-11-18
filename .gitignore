@@ -152,7 +152,13 @@ test-driver
 /test/test_wallet.log
 /test/test_wallet.trs
 /pc/*.pc
+!/pc/cfd-js.pc.in
 
 external/*
 !external/CMakeLists.txt
+!external/googletest_CMakeLists.txt.in
 !external/template_CMakeLists.txt.in
+/external_project_debug.config
+
+/doc/*.bat
+/tools/*localdebug.bat

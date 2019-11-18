@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsDestroyAmountTxIn
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsDestroyAmountTxIn
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -137,7 +137,7 @@ class ElementsDestroyAmountTxIn
    * @brief sequence 取得処理
    * @return sequence
    */
-  uint32_t GetSequence() {
+  uint32_t GetSequence() const {
     return sequence_;
   }
   /**
@@ -185,15 +185,15 @@ class ElementsDestroyAmountTxIn
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDestroyAmountTxInStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDestroyAmountTxInStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class ElementsDestroyAmountTxOut
    * @brief address 取得処理
    * @return address
    */
-  std::string GetAddress() {
+  std::string GetAddress() const {
     return address_;
   }
   /**
@@ -326,7 +326,7 @@ class ElementsDestroyAmountTxOut
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -369,7 +369,7 @@ class ElementsDestroyAmountTxOut
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -412,7 +412,7 @@ class ElementsDestroyAmountTxOut
    * @brief isRemoveNonce 取得処理
    * @return isRemoveNonce
    */
-  bool GetIsRemoveNonce() {
+  bool GetIsRemoveNonce() const {
     return is_remove_nonce_;
   }
   /**
@@ -460,15 +460,15 @@ class ElementsDestroyAmountTxOut
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDestroyAmountTxOutStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDestroyAmountTxOutStruct ConvertToStruct()  const;
 
@@ -562,7 +562,7 @@ class ElementsDestroyAmount
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -605,7 +605,7 @@ class ElementsDestroyAmount
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -653,15 +653,15 @@ class ElementsDestroyAmount
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDestroyAmountStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDestroyAmountStruct ConvertToStruct()  const;
 
@@ -747,7 +747,7 @@ class ElementsDestroyAmountFee
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -790,7 +790,7 @@ class ElementsDestroyAmountFee
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -838,15 +838,15 @@ class ElementsDestroyAmountFee
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDestroyAmountFeeStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDestroyAmountFeeStruct ConvertToStruct()  const;
 
@@ -932,7 +932,7 @@ class ElementsCreateDestroyAmountRequest
    * @brief version 取得処理
    * @return version
    */
-  uint32_t GetVersion() {
+  uint32_t GetVersion() const {
     return version_;
   }
   /**
@@ -975,7 +975,7 @@ class ElementsCreateDestroyAmountRequest
    * @brief locktime 取得処理
    * @return locktime
    */
-  uint32_t GetLocktime() {
+  uint32_t GetLocktime() const {
     return locktime_;
   }
   /**
@@ -1195,15 +1195,15 @@ class ElementsCreateDestroyAmountRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateDestroyAmountRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateDestroyAmountRequestStruct ConvertToStruct()  const;
 
@@ -1305,7 +1305,7 @@ class ElementsCreateDestroyAmountResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1353,15 +1353,15 @@ class ElementsCreateDestroyAmountResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateDestroyAmountResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateDestroyAmountResponseStruct ConvertToStruct()  const;
 

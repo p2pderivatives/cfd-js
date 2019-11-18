@@ -1,5 +1,6 @@
 @echo off
 cd ..
+call :search_lint include\cfdjs ..\..
 call :search_lint src ..
 
 exit /b

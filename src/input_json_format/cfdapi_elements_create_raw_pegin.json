@@ -1,0 +1,51 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsCreateRawPeginRequest",
+    "version": 2,
+    "version:type": "uint32_t",
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "txins": [
+      {
+        ":class": "ElementsPeginTxIn",
+        "isPegin": true,
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t",
+        "peginwitness": {
+          ":class": "ElementsPeginWitness",
+          "amount": 0,
+          "asset": "",
+          "mainchainGenesisBlockHash": "",
+          "claimScript": "",
+          "mainchainRawTransaction": "",
+          "mainchainTxoutproof": ""
+        },
+        "isRemoveMainchainTxWitness": false,
+        "isRemoveMainchainTxWitness:hint": "It is necessary to set true for Elements v0.18 or higher."
+      }
+    ],
+    "txouts": [
+      {
+        ":class": "ElementsPeginTxOut",
+        "address": "",
+        "amount": 0,
+        "asset": "",
+        "isRemoveNonce": false
+      }
+    ],
+    "fee": {
+      ":class": "ElementsPeginTxOutFee",
+      "amount": 0,
+      "asset": ""
+    },
+    "isRandomSortTxOut": false
+  },
+  "response": {
+    ":class": "ElementsCreateRawPeginResponse",
+    "hex": ""
+  }
+}

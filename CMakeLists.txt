@@ -35,6 +35,7 @@ set(CFD_OBJ_BINARY_DIR   ${CMAKE_BINARY_DIR}/${WORK_WINDOWS_BINARY_DIR_NAME})
 set(CFD_ROOT_BINARY_DIR  ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  ${CFD_OBJ_BINARY_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  ${CFD_OBJ_BINARY_DIR}) # for linux
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${CFD_OBJ_BINARY_DIR})
 endif()
 
 
@@ -67,8 +68,6 @@ if(NOT CFD_SINGLE_BUILD)
 add_subdirectory(external)
 endif()
 add_subdirectory(src)
-# add native node module for test temporary
-add_subdirectory(wrap_js)
 
 
 ####################

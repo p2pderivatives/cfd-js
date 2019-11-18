@@ -1,0 +1,20 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CalculateEcSignatureRequest",
+    "sighash": "",
+    "privkeyData": {
+      ":class": "PrivkeyData",
+      "privkey": "",
+      "wif": true,
+      "network": "mainnet",
+      "network:hint": "mainnet, testnet or regtest",
+      "isCompressed": true
+    },
+    "isGrindR": true
+  },
+  "response": {
+    ":class": "CalculateEcSignatureResponse",
+    "signature": ""
+  }
+}

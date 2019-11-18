@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class IssuanceDataRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -94,7 +94,7 @@ class IssuanceDataRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -137,7 +137,7 @@ class IssuanceDataRequest
    * @brief assetAmount 取得処理
    * @return assetAmount
    */
-  int64_t GetAssetAmount() {
+  int64_t GetAssetAmount() const {
     return asset_amount_;
   }
   /**
@@ -180,7 +180,7 @@ class IssuanceDataRequest
    * @brief assetAddress 取得処理
    * @return assetAddress
    */
-  std::string GetAssetAddress() {
+  std::string GetAssetAddress() const {
     return asset_address_;
   }
   /**
@@ -223,7 +223,7 @@ class IssuanceDataRequest
    * @brief tokenAmount 取得処理
    * @return tokenAmount
    */
-  int64_t GetTokenAmount() {
+  int64_t GetTokenAmount() const {
     return token_amount_;
   }
   /**
@@ -266,7 +266,7 @@ class IssuanceDataRequest
    * @brief tokenAddress 取得処理
    * @return tokenAddress
    */
-  std::string GetTokenAddress() {
+  std::string GetTokenAddress() const {
     return token_address_;
   }
   /**
@@ -309,7 +309,7 @@ class IssuanceDataRequest
    * @brief isBlind 取得処理
    * @return isBlind
    */
-  bool GetIsBlind() {
+  bool GetIsBlind() const {
     return is_blind_;
   }
   /**
@@ -352,7 +352,7 @@ class IssuanceDataRequest
    * @brief contractHash 取得処理
    * @return contractHash
    */
-  std::string GetContractHash() {
+  std::string GetContractHash() const {
     return contract_hash_;
   }
   /**
@@ -395,7 +395,7 @@ class IssuanceDataRequest
    * @brief isRemoveNonce 取得処理
    * @return isRemoveNonce
    */
-  bool GetIsRemoveNonce() {
+  bool GetIsRemoveNonce() const {
     return is_remove_nonce_;
   }
   /**
@@ -443,15 +443,15 @@ class IssuanceDataRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const IssuanceDataRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   IssuanceDataRequestStruct ConvertToStruct()  const;
 
@@ -565,7 +565,7 @@ class SetRawIssueAssetRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -608,7 +608,7 @@ class SetRawIssueAssetRequest
    * @brief isRandomSortTxOut 取得処理
    * @return isRandomSortTxOut
    */
-  bool GetIsRandomSortTxOut() {
+  bool GetIsRandomSortTxOut() const {
     return is_random_sort_tx_out_;
   }
   /**
@@ -699,15 +699,15 @@ class SetRawIssueAssetRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const SetRawIssueAssetRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   SetRawIssueAssetRequestStruct ConvertToStruct()  const;
 
@@ -797,7 +797,7 @@ class IssuanceDataResponse
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -840,7 +840,7 @@ class IssuanceDataResponse
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -883,7 +883,7 @@ class IssuanceDataResponse
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -926,7 +926,7 @@ class IssuanceDataResponse
    * @brief entropy 取得処理
    * @return entropy
    */
-  std::string GetEntropy() {
+  std::string GetEntropy() const {
     return entropy_;
   }
   /**
@@ -969,7 +969,7 @@ class IssuanceDataResponse
    * @brief token 取得処理
    * @return token
    */
-  std::string GetToken() {
+  std::string GetToken() const {
     return token_;
   }
   /**
@@ -1017,15 +1017,15 @@ class IssuanceDataResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const IssuanceDataResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   IssuanceDataResponseStruct ConvertToStruct()  const;
 
@@ -1123,7 +1123,7 @@ class SetRawIssueAssetResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1214,15 +1214,15 @@ class SetRawIssueAssetResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const SetRawIssueAssetResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   SetRawIssueAssetResponseStruct ConvertToStruct()  const;
 

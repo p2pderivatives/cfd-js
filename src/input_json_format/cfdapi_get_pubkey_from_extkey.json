@@ -1,0 +1,13 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetPubkeyFromExtkeyRequest",
+    "extkey": "",
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest"
+  },
+  "response": {
+    ":class": "GetPubkeyFromExtkeyResponse",
+    "pubkey": ""
+  }
+}

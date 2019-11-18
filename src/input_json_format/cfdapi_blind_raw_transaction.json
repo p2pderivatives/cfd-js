@@ -1,0 +1,40 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "BlindRawTransactionRequest",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "txins": [
+      {
+        ":class": "BlindTxInRequest",
+        "txid": "",
+        "vout": 0,
+        "asset": "",
+        "blindFactor": "",
+        "assetBlindFactor": "",
+        "amount": 0
+      }
+    ],
+    "txouts": [
+      {
+        ":class": "BlindTxOutRequest",
+        "index": 0,
+        "index:type": "uint32_t",
+        "blindPubkey": ""
+      }
+    ],
+    "issuances":[
+      {
+        ":class": "BlindIssuanceRequest",
+        "txid": "",
+        "vout": 0,
+        "assetBlindingKey":"",
+        "tokenBlindingKey":""
+      }
+    ]
+  },
+  "response": {
+    ":class": "BlindRawTransactionResponse",
+    "hex": ""
+  }
+}

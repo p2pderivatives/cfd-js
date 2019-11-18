@@ -1,0 +1,12 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetPubkeyFromPrivkeyRequest",
+    "privkey": "",
+    "isCompressed": true
+  },
+  "response": {
+    ":class": "GetPubkeyFromPrivkeyResponse",
+    "pubkey": ""
+  }
+}

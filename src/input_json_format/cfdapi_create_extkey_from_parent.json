@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateExtkeyFromParentRequest",
+    "extkey": "",
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "",
+    "extkeyType:hint": "extPrivkey or extPubkey",
+    "childNumber": 0,
+    "hardened": false,
+    "hardened:hint": "true is extPrivkey only."
+  },
+  "response": {
+    ":class": "CreateExtkeyFromParentResponse",
+    "extkey": ""
+  }
+}

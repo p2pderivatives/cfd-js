@@ -1,0 +1,20 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ConvertMnemonicToSeedRequest",
+    "mnemonic": [""],
+    "passphrase": "",
+    "strictCheck": false,
+    "strictCheck:comment": "Check mnemonic words strictly",
+    "language": "",
+    "language:hint": "support [en es fr it jp zhs zht]",
+    "useIdeographicSpace": false,
+    "useIdeographicSpace:comment": "Currently, this flag is valid only the language is set \"jp\"."
+  },
+  "response": {
+    ":class": "ConvertMnemonicToSeedResponse",
+    "seed": "",
+    "entropy": "",
+    "entropy:comment": "This field is only set if \"language\" is set in the request"
+  }
+}

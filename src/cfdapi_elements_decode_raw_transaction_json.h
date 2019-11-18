@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsDecodeRawTransactionRequest
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsDecodeRawTransactionRequest
    * @brief network 取得処理
    * @return network
    */
-  std::string GetNetwork() {
+  std::string GetNetwork() const {
     return network_;
   }
   /**
@@ -137,7 +137,7 @@ class ElementsDecodeRawTransactionRequest
    * @brief mainchainNetwork 取得処理
    * @return mainchainNetwork
    */
-  std::string GetMainchainNetwork() {
+  std::string GetMainchainNetwork() const {
     return mainchain_network_;
   }
   /**
@@ -180,7 +180,7 @@ class ElementsDecodeRawTransactionRequest
    * @brief iswitness 取得処理
    * @return iswitness
    */
-  bool GetIswitness() {
+  bool GetIswitness() const {
     return iswitness_;
   }
   /**
@@ -228,15 +228,15 @@ class ElementsDecodeRawTransactionRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeRawTransactionRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeRawTransactionRequestStruct ConvertToStruct()  const;
 
@@ -330,7 +330,7 @@ class ElementsDecodeUnlockingScript
    * @brief asm 取得処理
    * @return asm
    */
-  std::string GetAsm() {
+  std::string GetAsm() const {
     return asm__;
   }
   /**
@@ -373,7 +373,7 @@ class ElementsDecodeUnlockingScript
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -421,15 +421,15 @@ class ElementsDecodeUnlockingScript
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeUnlockingScriptStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeUnlockingScriptStruct ConvertToStruct()  const;
 
@@ -515,7 +515,7 @@ class ElementsDecodeIssuance
    * @brief assetBlindingNonce 取得処理
    * @return assetBlindingNonce
    */
-  std::string GetAssetBlindingNonce() {
+  std::string GetAssetBlindingNonce() const {
     return asset_blinding_nonce_;
   }
   /**
@@ -558,7 +558,7 @@ class ElementsDecodeIssuance
    * @brief assetEntropy 取得処理
    * @return assetEntropy
    */
-  std::string GetAssetEntropy() {
+  std::string GetAssetEntropy() const {
     return asset_entropy_;
   }
   /**
@@ -601,7 +601,7 @@ class ElementsDecodeIssuance
    * @brief isreissuance 取得処理
    * @return isreissuance
    */
-  bool GetIsreissuance() {
+  bool GetIsreissuance() const {
     return isreissuance_;
   }
   /**
@@ -644,7 +644,7 @@ class ElementsDecodeIssuance
    * @brief token 取得処理
    * @return token
    */
-  std::string GetToken() {
+  std::string GetToken() const {
     return token_;
   }
   /**
@@ -687,7 +687,7 @@ class ElementsDecodeIssuance
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -730,7 +730,7 @@ class ElementsDecodeIssuance
    * @brief assetamount 取得処理
    * @return assetamount
    */
-  double GetAssetamount() {
+  double GetAssetamount() const {
     return assetamount_;
   }
   /**
@@ -773,7 +773,7 @@ class ElementsDecodeIssuance
    * @brief assetamountcommitment 取得処理
    * @return assetamountcommitment
    */
-  std::string GetAssetamountcommitment() {
+  std::string GetAssetamountcommitment() const {
     return assetamountcommitment_;
   }
   /**
@@ -816,7 +816,7 @@ class ElementsDecodeIssuance
    * @brief tokenamount 取得処理
    * @return tokenamount
    */
-  double GetTokenamount() {
+  double GetTokenamount() const {
     return tokenamount_;
   }
   /**
@@ -859,7 +859,7 @@ class ElementsDecodeIssuance
    * @brief tokenamountcommitment 取得処理
    * @return tokenamountcommitment
    */
-  std::string GetTokenamountcommitment() {
+  std::string GetTokenamountcommitment() const {
     return tokenamountcommitment_;
   }
   /**
@@ -907,15 +907,15 @@ class ElementsDecodeIssuance
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeIssuanceStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeIssuanceStruct ConvertToStruct()  const;
 
@@ -1029,7 +1029,7 @@ class ElementsDecodeRawTransactionTxIn
    * @brief coinbase 取得処理
    * @return coinbase
    */
-  std::string GetCoinbase() {
+  std::string GetCoinbase() const {
     return coinbase_;
   }
   /**
@@ -1072,7 +1072,7 @@ class ElementsDecodeRawTransactionTxIn
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -1115,7 +1115,7 @@ class ElementsDecodeRawTransactionTxIn
    * @brief vout 取得処理
    * @return vout
    */
-  int64_t GetVout() {
+  int64_t GetVout() const {
     return vout_;
   }
   /**
@@ -1201,7 +1201,7 @@ class ElementsDecodeRawTransactionTxIn
    * @brief is_pegin 取得処理
    * @return is_pegin
    */
-  bool GetIs_pegin() {
+  bool GetIs_pegin() const {
     return is_pegin_;
   }
   /**
@@ -1244,7 +1244,7 @@ class ElementsDecodeRawTransactionTxIn
    * @brief sequence 取得処理
    * @return sequence
    */
-  int64_t GetSequence() {
+  int64_t GetSequence() const {
     return sequence_;
   }
   /**
@@ -1421,15 +1421,15 @@ class ElementsDecodeRawTransactionTxIn
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeRawTransactionTxInStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeRawTransactionTxInStruct ConvertToStruct()  const;
 
@@ -1543,7 +1543,7 @@ class ElementsDecodeLockingScript
    * @brief asm 取得処理
    * @return asm
    */
-  std::string GetAsm() {
+  std::string GetAsm() const {
     return asm__;
   }
   /**
@@ -1586,7 +1586,7 @@ class ElementsDecodeLockingScript
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1629,7 +1629,7 @@ class ElementsDecodeLockingScript
    * @brief reqSigs 取得処理
    * @return reqSigs
    */
-  int64_t GetReqSigs() {
+  int64_t GetReqSigs() const {
     return req_sigs_;
   }
   /**
@@ -1672,7 +1672,7 @@ class ElementsDecodeLockingScript
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -1758,7 +1758,7 @@ class ElementsDecodeLockingScript
    * @brief pegout_chain 取得処理
    * @return pegout_chain
    */
-  std::string GetPegout_chain() {
+  std::string GetPegout_chain() const {
     return pegout_chain_;
   }
   /**
@@ -1801,7 +1801,7 @@ class ElementsDecodeLockingScript
    * @brief pegout_asm 取得処理
    * @return pegout_asm
    */
-  std::string GetPegout_asm() {
+  std::string GetPegout_asm() const {
     return pegout_asm_;
   }
   /**
@@ -1844,7 +1844,7 @@ class ElementsDecodeLockingScript
    * @brief pegout_hex 取得処理
    * @return pegout_hex
    */
-  std::string GetPegout_hex() {
+  std::string GetPegout_hex() const {
     return pegout_hex_;
   }
   /**
@@ -1887,7 +1887,7 @@ class ElementsDecodeLockingScript
    * @brief pegout_reqSigs 取得処理
    * @return pegout_reqSigs
    */
-  int64_t GetPegout_reqSigs() {
+  int64_t GetPegout_reqSigs() const {
     return pegout_req_sigs_;
   }
   /**
@@ -1930,7 +1930,7 @@ class ElementsDecodeLockingScript
    * @brief pegout_type 取得処理
    * @return pegout_type
    */
-  std::string GetPegout_type() {
+  std::string GetPegout_type() const {
     return pegout_type_;
   }
   /**
@@ -2021,15 +2021,15 @@ class ElementsDecodeLockingScript
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeLockingScriptStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeLockingScriptStruct ConvertToStruct()  const;
 
@@ -2151,7 +2151,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief value 取得処理
    * @return value
    */
-  double GetValue() {
+  double GetValue() const {
     return value_;
   }
   /**
@@ -2194,7 +2194,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief value-minimum 取得処理
    * @return value-minimum
    */
-  double GetValue_minimum() {
+  double GetValue_minimum() const {
     return value_minimum_;
   }
   /**
@@ -2237,7 +2237,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief value-maximum 取得処理
    * @return value-maximum
    */
-  double GetValue_maximum() {
+  double GetValue_maximum() const {
     return value_maximum_;
   }
   /**
@@ -2280,7 +2280,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief ct-exponent 取得処理
    * @return ct-exponent
    */
-  int64_t GetCt_exponent() {
+  int64_t GetCt_exponent() const {
     return ct_exponent_;
   }
   /**
@@ -2323,7 +2323,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief ct-bits 取得処理
    * @return ct-bits
    */
-  int64_t GetCt_bits() {
+  int64_t GetCt_bits() const {
     return ct_bits_;
   }
   /**
@@ -2366,7 +2366,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief surjectionproof 取得処理
    * @return surjectionproof
    */
-  std::string GetSurjectionproof() {
+  std::string GetSurjectionproof() const {
     return surjectionproof_;
   }
   /**
@@ -2409,7 +2409,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief valuecommitment 取得処理
    * @return valuecommitment
    */
-  std::string GetValuecommitment() {
+  std::string GetValuecommitment() const {
     return valuecommitment_;
   }
   /**
@@ -2452,7 +2452,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -2495,7 +2495,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief assetcommitment 取得処理
    * @return assetcommitment
    */
-  std::string GetAssetcommitment() {
+  std::string GetAssetcommitment() const {
     return assetcommitment_;
   }
   /**
@@ -2538,7 +2538,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief commitmentnonce 取得処理
    * @return commitmentnonce
    */
-  std::string GetCommitmentnonce() {
+  std::string GetCommitmentnonce() const {
     return commitmentnonce_;
   }
   /**
@@ -2581,7 +2581,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief commitmentnonce_fully_valid 取得処理
    * @return commitmentnonce_fully_valid
    */
-  bool GetCommitmentnonce_fully_valid() {
+  bool GetCommitmentnonce_fully_valid() const {
     return commitmentnonce_fully_valid_;
   }
   /**
@@ -2624,7 +2624,7 @@ class ElementsDecodeRawTransactionTxOut
    * @brief n 取得処理
    * @return n
    */
-  int64_t GetN() {
+  int64_t GetN() const {
     return n_;
   }
   /**
@@ -2715,15 +2715,15 @@ class ElementsDecodeRawTransactionTxOut
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeRawTransactionTxOutStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeRawTransactionTxOutStruct ConvertToStruct()  const;
 
@@ -2853,7 +2853,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -2896,7 +2896,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief hash 取得処理
    * @return hash
    */
-  std::string GetHash() {
+  std::string GetHash() const {
     return hash_;
   }
   /**
@@ -2939,7 +2939,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief wtxid 取得処理
    * @return wtxid
    */
-  std::string GetWtxid() {
+  std::string GetWtxid() const {
     return wtxid_;
   }
   /**
@@ -2982,7 +2982,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief withash 取得処理
    * @return withash
    */
-  std::string GetWithash() {
+  std::string GetWithash() const {
     return withash_;
   }
   /**
@@ -3025,7 +3025,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief version 取得処理
    * @return version
    */
-  uint32_t GetVersion() {
+  uint32_t GetVersion() const {
     return version_;
   }
   /**
@@ -3068,7 +3068,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief size 取得処理
    * @return size
    */
-  int64_t GetSize() {
+  int64_t GetSize() const {
     return size_;
   }
   /**
@@ -3111,7 +3111,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief vsize 取得処理
    * @return vsize
    */
-  int64_t GetVsize() {
+  int64_t GetVsize() const {
     return vsize_;
   }
   /**
@@ -3154,7 +3154,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief weight 取得処理
    * @return weight
    */
-  int64_t GetWeight() {
+  int64_t GetWeight() const {
     return weight_;
   }
   /**
@@ -3197,7 +3197,7 @@ class ElementsDecodeRawTransactionResponse
    * @brief locktime 取得処理
    * @return locktime
    */
-  uint32_t GetLocktime() {
+  uint32_t GetLocktime() const {
     return locktime_;
   }
   /**
@@ -3331,15 +3331,15 @@ class ElementsDecodeRawTransactionResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsDecodeRawTransactionResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsDecodeRawTransactionResponseStruct ConvertToStruct()  const;
 
