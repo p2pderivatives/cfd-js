@@ -814,16 +814,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = ../include/cfdjs \
-                         ../src \
-                         ../external/cfd/include/cfd \
-                         ../external/cfd/src \
-                         ../external/cfd-core/include/cfdcore \
-                         ../external/cfd-core/src/include/cfdcore \
-                         ../external/cfd-core/src \
-                         ../external/cfd-core/src/univalue/include \
-                         ../external/cfd-core/src/include/spdlog
-#                         ../external/libwally-core/include \
-#                         ../external/libwally-core/src/secp256k1/include \
+                         ../src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
