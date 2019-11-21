@@ -1,6 +1,7 @@
 {
   "name": "cfd-js",
   "version": "0.0.0",
+  "main": "index.js",
   "description": "cfd node.js api",
   "scripts": {
     "preinstall": "",
