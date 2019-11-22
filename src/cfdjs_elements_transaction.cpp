@@ -1428,12 +1428,6 @@ void ElementsTransactionJsonApi::FundRawTransaction(
     option.SetFeeAsset(fee_asset);
   }
 
-  if (fee_info.GetFeeRate() > 0) {
-    throw CfdException(
-        CfdError::kCfdIllegalArgumentError,
-        "Elements FundRawTransaction not implements.");
-  }
-
   std::map<std::string, Amount> target_amount_map;
   std::map<std::string, std::string> reserve_address_map;
   for (const auto& target : request->GetTargets()) {
