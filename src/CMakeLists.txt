@@ -98,6 +98,7 @@ project(cfd_js CXX)
 set(CFD_LIBRARY cfd)
 set(CFDCORE_LIBRARY cfdcore)
 set(UNIVALUE_LIBRARY univalue)
+set(LIBWALLY_LIBRARY wally)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -297,6 +298,7 @@ target_link_libraries(${PROJECT_NAME}
     ${CFD_LIBRARY}
     ${CFDCORE_LIBRARY}
     ${UNIVALUE_LIBRARY}
+    ${LIBWALLY_LIBRARY}
 )
 
 add_dependencies(${PROJECT_NAME} ${CFDJS_LIBRARY})
