@@ -90,7 +90,7 @@ endif()
 ####################
 # node build
 ####################
-if(CMAKE_JS_INC AND ENABLE_SHARED)
+if(CMAKE_JS_INC)
 message(STATUS "[CMAKE_JS_INC]=${CMAKE_JS_INC}")
 
 # cfd-js
@@ -98,6 +98,7 @@ project(cfd_js CXX)
 set(CFD_LIBRARY cfd)
 set(CFDCORE_LIBRARY cfdcore)
 set(UNIVALUE_LIBRARY univalue)
+set(LIBWALLY_LIBRARY wally)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -115,7 +116,11 @@ execute_process(COMMAND node -p "require('node-addon-api').include"
 
 # node-api library
 set(CFDJS_LIBRARY cfdjs)
+if(ENABLE_SHARED)
 add_library(${CFDJS_LIBRARY} SHARED)
+else()
+add_library(${CFDJS_LIBRARY} STATIC)
+endif()
 target_sources(${CFDJS_LIBRARY}
   PRIVATE
     cfdjs_node_addon.cpp
@@ -173,6 +178,7 @@ target_sources(${CFDJS_LIBRARY}
     cfdapi_update_witness_json.cpp
     cfdapi_select_utxos_json.cpp
     cfdapi_select_utxos_wrapper_json.cpp
+    ${CMAKE_JS_SRC}
 )
 
 target_compile_options(${CFDJS_LIBRARY}
@@ -184,6 +190,7 @@ target_compile_options(${CFDJS_LIBRARY}
     >
 )
 #     -fstack-protector
+if(ENABLE_SHARED)
 target_compile_definitions(${CFDJS_LIBRARY}
   PRIVATE
     CFD_JS_BUILD=1
@@ -192,6 +199,14 @@ target_compile_definitions(${CFDJS_LIBRARY}
     ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
+else()
+target_compile_definitions(${CFDJS_LIBRARY}
+  PRIVATE
+    CFD_JS_BUILD=1
+    ${CFD_BITCOIN_USE}
+    ${CFD_ELEMENTS_USE}
+)
+endif()
 
 # Include N-API wrappers
 string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
@@ -240,6 +255,7 @@ target_compile_options(${PROJECT_NAME}
     >
 )
 #     -fstack-protector
+if(ENABLE_SHARED)
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
     CFD_JS_SHARED=1
@@ -248,6 +264,13 @@ target_compile_definitions(${PROJECT_NAME}
     ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
+else()
+target_compile_definitions(${PROJECT_NAME}
+  PRIVATE
+    ${CFD_BITCOIN_USE}
+    ${CFD_ELEMENTS_USE}
+)
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
 # Include N-API wrappers
@@ -272,7 +295,11 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     ${CFDJS_LIBRARY}
     ${CMAKE_JS_LIB}
+    ${CFD_LIBRARY}
+    ${CFDCORE_LIBRARY}
+    ${UNIVALUE_LIBRARY}
+    ${LIBWALLY_LIBRARY}
 )
 
 add_dependencies(${PROJECT_NAME} ${CFDJS_LIBRARY})
-endif()		# CMAKE_JS_INC AND ENABLE_SHARED
+endif()		# CMAKE_JS_INC

@@ -523,8 +523,8 @@ const elementsErrorCase = [
   })(),
 ];
 
-TestHelper.doTest('SelectUtxos', testCase);
-TestHelper.doTest('SelectUtxos ErrorCase', errorCase);
+TestHelper.doTest('EstimateFee', testCase);
+TestHelper.doTest('EstimateFee - Error', errorCase);
 
-TestHelper.doTest('SelectUtxos - Elements', elementsTestCase);
-TestHelper.doTest('SelectUtxos ErrorCase - Elements', elementsErrorCase);
+TestHelper.doTest('EstimateFee - Elements', elementsTestCase);
+TestHelper.doTest('EstimateFee - Elements - Error', elementsErrorCase);

@@ -133,12 +133,16 @@ class TestHelper {
 
         beforeEach(testCase.setupFuncion);
         it(testCase.testCaseName, () => {
-          const received = testCase.testFunction(...testCase.testArguments);
-          if (testCase.convertFunction !== null) {
-            const received2 = testCase.convertFunction(received);
-            expect(received2).toEqual(testCase.expected);
+          const expected = testCase.expected;
+          let received = testCase.testFunction(...testCase.testArguments);
+          if (testCase.convertFunction) {
+            received = testCase.convertFunction(received);
+          }
+          if (Array.isArray(expected)) {
+            // 本来の利用方法とは異なるが、複数の値を返却する場合を懸念
+            expect(expected).toContain(received);
           } else {
-            expect(received).toEqual(testCase.expected);
+            expect(received).toEqual(expected);
           }
         });
         afterEach(testCase.teardownFunction);
