@@ -38,7 +38,7 @@ xcode-select --install
 brew install cmake python node
 ```
 
-### Linux(Ubuntsu)
+### Linux(Ubuntu)
 
 ```Shell
 # install dependencies using APT package Manager
