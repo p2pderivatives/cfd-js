@@ -1736,6 +1736,29 @@ struct ParseDescriptorResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// ParseScriptRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief ParseScriptRequestStruct 構造体
+ */
+struct ParseScriptRequestStruct {
+  std::string script = "";  //!< script  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// ParseScriptResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief ParseScriptResponseStruct 構造体
+ */
+struct ParseScriptResponseStruct {
+  std::vector<std::string> script_items;  //!< script_items  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // UtxoJsonDataStruct
 // ------------------------------------------------------------------------
 /**

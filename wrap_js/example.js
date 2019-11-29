@@ -32,6 +32,7 @@ const {
   GetAddressesFromMultisig,
   FundRawTransaction,
   ParseDescriptor,
+  ParseScript,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -964,4 +965,15 @@ let parseDescriptorResult;
   console.log('*** Request ***\n', reqJson);
   parseDescriptorResult = ParseDescriptor(reqJson);
   console.log('*** Response ***\n', parseDescriptorResult);
+}
+
+let parseScriptResult;
+{
+  console.log('-- ParseScript start --');
+  const reqJson = {
+    script: '0047304402206fc4cc7e489208a2f4d24f5d35466debab2ce7aa34b5d00e0a9426c9d63529cf02202ec744939ef0b4b629c7d87bc2d017714b52bb86dccb0fd0f10148f62b7a09ba01473044022073ea24720b24c736bcb305a5de2fd8117ca2f0a85d7da378fae5b90dc361d227022004c0088bf1b73a56ae5ec407cf9c330d7206ffbcd0c9bb1c72661726fd4990390147522102bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae',
+  };
+  console.log('*** Request ***\n', reqJson);
+  parseScriptResult = ParseScript(reqJson);
+  console.log('*** Response ***\n', parseScriptResult);
 }
