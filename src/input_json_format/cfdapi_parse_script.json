@@ -1,0 +1,13 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ParseScriptRequest",
+    "script": "",
+    "script:comment": "script hex."
+  },
+  "response": {
+    ":class": "ParseScriptResponse",
+    "scriptItems": [""],
+    "scriptItems:comment": "parse script item. (First level's item only)"
+  }
+}
