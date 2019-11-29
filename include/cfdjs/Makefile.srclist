@@ -9,6 +9,7 @@ CFDJS_PKGINCLUDE_FILES = \
   cfdjs_address.h \
   cfdjs_hdwallet.h \
   cfdjs_key.h \
+  cfdjs_script.h \
   cfdjs_struct.h \
   cfdjs_transaction.h \
   cfdjs_utility.h \

@@ -13,6 +13,7 @@
 #include "cfdjs/cfdjs_elements_transaction.h"
 #include "cfdjs/cfdjs_hdwallet.h"
 #include "cfdjs/cfdjs_key.h"
+#include "cfdjs/cfdjs_script.h"
 #include "cfdjs/cfdjs_transaction.h"
 #include "cfdjs/cfdjs_utility.h"
 
@@ -54,6 +55,7 @@
 #include "cfdapi_get_witness_num_json.h"                    // NOLINT
 #include "cfdapi_multisig_address_json.h"                   // NOLINT
 #include "cfdapi_parse_descriptor_json.h"                   // NOLINT
+#include "cfdapi_parse_script_json.h"                       // NOLINT
 #include "cfdapi_select_utxos_wrapper_json.h"               // NOLINT
 #include "cfdapi_sighash_elements_json.h"                   // NOLINT
 #include "cfdapi_sighash_json.h"                            // NOLINT
@@ -70,6 +72,7 @@
 using cfd::js::api::AddressStructApi;
 using cfd::js::api::HDWalletStructApi;
 using cfd::js::api::KeyStructApi;
+using cfd::js::api::ScriptStructApi;
 using cfd::js::api::TransactionStructApi;
 using cfd::js::api::UtilStructApi;
 #ifndef CFD_DISABLE_ELEMENTS
@@ -726,6 +729,18 @@ Value CreateKeyPair(const CallbackInfo &information) {
 }
 
 /**
+ * @brief ParseScriptのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value ParseScript(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::ParseScriptRequest, api::json::ParseScriptResponse,
+      api::ParseScriptRequestStruct, api::ParseScriptResponseStruct>(
+      information, ScriptStructApi::ParseScript);
+}
+
+/**
  * @brief CalculateEcSignatureのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -1127,6 +1142,8 @@ void InitializeJsonApi(Env env, Object *exports) {
       Function::New(env, CreateExtPubkey));
   exports->Set(
       String::New(env, "CreateKeyPair"), Function::New(env, CreateKeyPair));
+  exports->Set(
+      String::New(env, "ParseScript"), Function::New(env, ParseScript));
   exports->Set(
       String::New(env, "CalculateEcSignature"),
       Function::New(env, CalculateEcSignature));
