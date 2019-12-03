@@ -58,7 +58,8 @@ endfunction()
 ####################
 # test
 ####################
-if(MSVC OR ENABLE_TESTS)
+project(cfdjs_all_test CXX)
+if(ENABLE_TESTS)
 enable_testing()
 endif()		# ENABLE_TESTS
 
