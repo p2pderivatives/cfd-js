@@ -47,12 +47,12 @@ void SelectUtxosWrapRequest::PostDeserialize() {
   if (elements_flag) {
     JsonObjectVector<TargetAmountMapData, TargetAmountMapDataStruct>&
         json_target_list = GetTargets();
-    auto ite = json_target_list.cbegin();
-    const auto& ite_end = json_target_list.cend();
-    while (ite != ite_end) {
+    auto ite2 = json_target_list.cbegin();
+    const auto& ite_end2 = json_target_list.cend();
+    while (ite2 != ite_end2) {
       map_target_amount_.insert(std::make_pair(
-          ite->GetAsset(), Amount::CreateBySatoshiAmount(ite->GetAmount())));
-      ++ite;
+          ite2->GetAsset(), Amount::CreateBySatoshiAmount(ite2->GetAmount())));
+      ++ite2;
     }
   }
 }
