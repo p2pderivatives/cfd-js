@@ -688,6 +688,49 @@ class ElementsPegout
   }
 
   /**
+   * @brief elementsNetwork 取得処理
+   * @return elementsNetwork
+   */
+  std::string GetElementsNetwork() const {
+    return elements_network_;
+  }
+  /**
+   * @brief elementsNetwork 設定処理
+   * @param[in] elements_network    設定値
+   */
+  void SetElementsNetwork(  // line separate
+    const std::string& elements_network) {  // NOLINT
+    this->elements_network_ = elements_network;
+  }
+  /**
+   * @brief elementsNetwork データ型の取得処理
+   * @return elementsNetworkのデータ型
+   */
+  static std::string GetElementsNetworkFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief elementsNetwork フィールドのJSON文字列取得処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @return JSON文字列
+   */
+  static std::string GetElementsNetworkString(  // line separate
+      const ElementsPegout& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.elements_network_);
+  }
+  /**
+   * @brief elementsNetwork フィールドへのJSON情報設定処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @param[in] json_value  JSON情報
+   */
+  static void SetElementsNetworkString(  // line separate
+      ElementsPegout& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.elements_network_, json_value);
+  }
+
+  /**
    * @brief mainchainGenesisBlockHash 取得処理
    * @return mainchainGenesisBlockHash
    */
@@ -1069,6 +1112,10 @@ class ElementsPegout
    * @brief JsonAPI(network) のvalue
    */
   std::string network_ = "mainnet";
+  /**
+   * @brief JsonAPI(elementsNetwork) のvalue
+   */
+  std::string elements_network_ = "";
   /**
    * @brief JsonAPI(mainchainGenesisBlockHash) のvalue
    */

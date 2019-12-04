@@ -31,6 +31,8 @@
       "asset": "",
       "network": "mainnet",
       "network:hint": "mainnet, testnet or regtest",
+      "elementsNetwork": "",
+      "elementsNetwork:hint": "liquidv1, regtest",
       "mainchainGenesisBlockHash":"",
       "btcAddress": "",
       "onlinePubkey":"",
