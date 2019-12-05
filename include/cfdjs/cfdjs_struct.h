@@ -97,7 +97,7 @@ struct AddMultisigSignResponseStruct {
  */
 struct SignDataStruct {
   std::string hex = "";                 //!< hex  // NOLINT
-  std::string type = "binary";          //!< type  // NOLINT
+  std::string type = "text";            //!< type  // NOLINT
   bool der_encode = false;              //!< der_encode  // NOLINT
   std::string sighash_type = "all";     //!< sighash_type  // NOLINT
   bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT

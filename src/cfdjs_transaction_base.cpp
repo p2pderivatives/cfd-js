@@ -50,6 +50,8 @@ static SignDataType ConvertToSignDataType(const std::string& data_type) {
     return SignDataType::kPubkey;
   } else if (data_type == "redeem_script") {
     return SignDataType::kRedeemScript;
+  } else if (data_type == "op_code") {
+    return SignDataType::kOpCode;
   } else {
     warn(
         CFD_LOG_SOURCE,
@@ -65,6 +67,10 @@ static SignDataType ConvertToSignDataType(const std::string& data_type) {
 template <class SignStructClass>
 SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
     const SignStructClass& sign_data) {
+  if (sign_data.type == "text") {
+    // insert text directly
+    return SignParameter(sign_data.hex);
+  }
   SignDataType data_type = ConvertToSignDataType(sign_data.type);
   switch (data_type) {
     case kSign:
@@ -72,6 +78,8 @@ SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
           ByteData(sign_data.hex), sign_data.der_encode,
           TransactionStructApiBase::ConvertSigHashType(
               sign_data.sighash_type, sign_data.sighash_anyone_can_pay));
+    case kOpCode:
+      return SignParameter(ScriptOperator::Get(sign_data.hex));
     case kPubkey:
       return SignParameter(Pubkey(sign_data.hex));
     case kRedeemScript:
