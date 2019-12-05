@@ -1180,6 +1180,16 @@ ElementsTransactionStructApi::CreateRawPegoutTransaction(  // NOLINT
     }
     pegout_data.net_type =
         AddressStructApi::ConvertNetType(request.pegout.network);
+    std::string elements_nettype = request.pegout.elements_network;
+    if (elements_nettype.empty()) {
+      if (pegout_data.net_type == NetType::kMainnet) {
+        elements_nettype = "liquidv1";
+      } else {
+        elements_nettype = "regtest";
+      }
+    }
+    pegout_data.elements_net_type =
+        ElementsAddressStructApi::ConvertElementsNetType(elements_nettype);
     if (!request.pegout.online_pubkey.empty() &&
         !request.pegout.master_online_key.empty()) {
       if (request.pegout.master_online_key.size() ==
