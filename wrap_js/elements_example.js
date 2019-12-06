@@ -965,6 +965,7 @@ if (!supportFunctions.elements) {
         'amount': 1000000000,
         'asset': '5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225',
         'network': 'regtest',
+        'elementsNetwork': 'regtest',
         'mainchainGenesisBlockHash': '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206',
         'btcAddress': '',
         'onlinePubkey': '0214156e4ae9168289b4d0c034da94025121d33ad8643663454885032d77640e3d',

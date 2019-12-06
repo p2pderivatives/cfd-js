@@ -50,9 +50,39 @@ cmake version 3.14.2 or lower, download from website and install cmake.
 
 ---
 
-## Build
+## Use case
 
-### Using cmake-js
+### add dependencies on package.json
+
+Add cfd-js github on caller app's package.json.
+
+ex)
+```
+  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#master",
+```
+
+When npm is installed, the cfd-js build is executed.
+
+### Electron
+
+Add cmake-js setting on caller app's package.json.
+
+ex)
+```
+"cmake-js": {
+  "runtime": "electron",
+  "runtimeVersion": "6.0.11",
+  "arch": "x64"
+},
+```
+
+---
+
+## for Developper
+
+### Build
+
+#### Using cmake-js
 
 When using the cmake-js package and npm script, the options for compilation are already set.
 
@@ -60,10 +90,6 @@ When using the cmake-js package and npm script, the options for compilation are 
 npm install
 npm run cmake_all
 ```
-
----
-
-## Example
 
 ### Test
 
@@ -73,13 +99,13 @@ npm run test_all
 
 ### Example
 
-### Bitcoin
+#### Bitcoin
 
 ```
 npm run example
 ```
 
-### Elements
+#### Elements
 
 ```
 npm run elements_example

@@ -97,7 +97,7 @@ struct AddMultisigSignResponseStruct {
  */
 struct SignDataStruct {
   std::string hex = "";                 //!< hex  // NOLINT
-  std::string type = "binary";          //!< type  // NOLINT
+  std::string type = "auto";            //!< type  // NOLINT
   bool der_encode = false;              //!< der_encode  // NOLINT
   std::string sighash_type = "all";     //!< sighash_type  // NOLINT
   bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT
@@ -789,6 +789,7 @@ struct ElementsPegoutStruct {
   int64_t amount = 0;                             //!< amount  // NOLINT
   std::string asset = "";                         //!< asset  // NOLINT
   std::string network = "mainnet";                //!< network  // NOLINT
+  std::string elements_network = "";              //!< elements_network  // NOLINT
   std::string mainchain_genesis_block_hash = "";  //!< mainchain_genesis_block_hash  // NOLINT
   std::string btc_address = "";                   //!< btc_address  // NOLINT
   std::string online_pubkey = "";                 //!< online_pubkey  // NOLINT

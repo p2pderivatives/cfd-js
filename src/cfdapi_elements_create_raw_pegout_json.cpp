@@ -172,6 +172,13 @@ void ElementsPegout::CollectFieldName() {
   json_mapper.emplace("network", func_table);
   item_list.push_back("network");
   func_table = {
+    ElementsPegout::GetElementsNetworkString,
+    ElementsPegout::SetElementsNetworkString,
+    ElementsPegout::GetElementsNetworkFieldType,
+  };
+  json_mapper.emplace("elementsNetwork", func_table);
+  item_list.push_back("elementsNetwork");
+  func_table = {
     ElementsPegout::GetMainchainGenesisBlockHashString,
     ElementsPegout::SetMainchainGenesisBlockHashString,
     ElementsPegout::GetMainchainGenesisBlockHashFieldType,
@@ -227,6 +234,7 @@ void ElementsPegout::ConvertFromStruct(
   amount_ = data.amount;
   asset_ = data.asset;
   network_ = data.network;
+  elements_network_ = data.elements_network;
   mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
   btc_address_ = data.btc_address;
   online_pubkey_ = data.online_pubkey;
@@ -242,6 +250,7 @@ ElementsPegoutStruct ElementsPegout::ConvertToStruct() const {  // NOLINT
   result.amount = amount_;
   result.asset = asset_;
   result.network = network_;
+  result.elements_network = elements_network_;
   result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
   result.btc_address = btc_address_;
   result.online_pubkey = online_pubkey_;

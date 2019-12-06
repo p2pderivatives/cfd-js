@@ -29,8 +29,8 @@ ParseScriptResponseStruct ScriptStructApi::ParseScript(
     for (const auto& elem : script.GetElementList()) {
       std::string data;
       if (elem.IsOpCode()) {
-        // OP_CODE をHEXに変換
-        data = elem.GetData().GetHex();
+        // Convert to OpCode string
+        data = elem.GetOpCode().ToCodeString();
       } else {
         data = elem.ToString();
       }
