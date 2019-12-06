@@ -1,0 +1,48 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "EstimateFeeRequest",
+    "selectUtxos": [{
+      ":class": "SelectUtxoData",
+      "txid": "",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "asset": "",
+      "asset:hint": "This field is avalable only elements utxo.",
+      "redeemScript": "",
+      "redeemScript:hint": "This field is avalable only p2sh or p2wsh.",
+      "descriptor": "",
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount",
+      "isIssuance": false,
+      "isIssuance:hint": "This field is avalable only elements.",
+      "isBlindIssuance": false,
+      "isBlindIssuance:hint": "This field is avalable only elements.",
+      "isPegin": false,
+      "isPegin:hint": "This field is avalable only elements.",
+      "peginBtcTxSize": 0,
+      "peginBtcTxSize:hint": "This field is avalable only elements.",
+      "fedpegScript": "",
+      "fedpegScript:hint": "This field is avalable only elements."
+    }],
+    "feeRate": 1,
+    "feeRate:type": "double",
+    "feeRate:hint": "network fee rate",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:hint": "require when you set the transaction field",
+    "isBlind": true,
+    "isBlind:hint": "This field is avalable only elements.",
+    "feeAsset": "",
+    "feeAsset:hint": "This field is avalable only elements."
+  },
+  "response": {
+    ":class": "EstimateFeeResponse",
+    "feeAmount": 0,
+    "feeAmount:type": "int64_t",
+    "txFeeAmount": 0,
+    "txFeeAmount:type": "int64_t",
+    "utxoFeeAmount": 0,
+    "utxoFeeAmount:type": "int64_t"
+  }
+}

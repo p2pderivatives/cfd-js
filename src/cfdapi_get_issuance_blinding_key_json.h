@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class GetIssuanceBlindingKeyRequest
    * @brief masterBlindingKey 取得処理
    * @return masterBlindingKey
    */
-  std::string GetMasterBlindingKey() {
+  std::string GetMasterBlindingKey() const {
     return master_blinding_key_;
   }
   /**
@@ -94,7 +94,7 @@ class GetIssuanceBlindingKeyRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -137,7 +137,7 @@ class GetIssuanceBlindingKeyRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -185,15 +185,15 @@ class GetIssuanceBlindingKeyRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetIssuanceBlindingKeyRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetIssuanceBlindingKeyRequestStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class GetIssuanceBlindingKeyResponse
    * @brief blindingKey 取得処理
    * @return blindingKey
    */
-  std::string GetBlindingKey() {
+  std::string GetBlindingKey() const {
     return blinding_key_;
   }
   /**
@@ -331,15 +331,15 @@ class GetIssuanceBlindingKeyResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetIssuanceBlindingKeyResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetIssuanceBlindingKeyResponseStruct ConvertToStruct()  const;
 

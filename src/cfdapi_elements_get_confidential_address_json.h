@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class GetConfidentialAddressRequest
    * @brief unblindedAddress 取得処理
    * @return unblindedAddress
    */
-  std::string GetUnblindedAddress() {
+  std::string GetUnblindedAddress() const {
     return unblinded_address_;
   }
   /**
@@ -94,7 +94,7 @@ class GetConfidentialAddressRequest
    * @brief key 取得処理
    * @return key
    */
-  std::string GetKey() {
+  std::string GetKey() const {
     return key_;
   }
   /**
@@ -142,15 +142,15 @@ class GetConfidentialAddressRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetConfidentialAddressRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetConfidentialAddressRequestStruct ConvertToStruct()  const;
 
@@ -236,7 +236,7 @@ class GetConfidentialAddressResponse
    * @brief confidentialAddress 取得処理
    * @return confidentialAddress
    */
-  std::string GetConfidentialAddress() {
+  std::string GetConfidentialAddress() const {
     return confidential_address_;
   }
   /**
@@ -284,15 +284,15 @@ class GetConfidentialAddressResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const GetConfidentialAddressResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   GetConfidentialAddressResponseStruct ConvertToStruct()  const;
 

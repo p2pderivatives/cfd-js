@@ -1,0 +1,16 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateExtkeyFromSeedRequest",
+    "seed": "",
+    "seed:hint": "seed hex data",
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "extPrivkey",
+    "extkeyType:hint": "extPrivkey or extPubkey"
+  },
+  "response": {
+    ":class": "CreateExtkeyFromSeedResponse",
+    "extkey": ""
+  }
+}

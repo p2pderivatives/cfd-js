@@ -1,0 +1,55 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsCreateRawPegoutRequest",
+    "version": 2,
+    "version:type": "uint32_t",
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "txins": [
+      {
+        ":class": "ElementsPegoutTxIn",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t"
+      }
+    ],
+    "txouts": [
+      {
+        ":class": "ElementsPegoutTxOut",
+        "address": "",
+        "amount": 0,
+        "asset": "",
+        "isRemoveNonce": false
+      }
+    ],
+    "pegout": {
+      ":class": "ElementsPegout",
+      "amount": 0,
+      "asset": "",
+      "network": "mainnet",
+      "network:hint": "mainnet, testnet or regtest",
+      "elementsNetwork": "",
+      "elementsNetwork:hint": "liquidv1, regtest",
+      "mainchainGenesisBlockHash":"",
+      "btcAddress": "",
+      "onlinePubkey":"",
+      "masterOnlineKey":"",
+      "bitcoinDescriptor":"",
+      "bip32Counter":0,
+      "whitelist":""
+    },
+    "fee": {
+      ":class": "ElementsPegoutTxOutFee",
+      "amount": 0,
+      "asset": ""
+    }
+  },
+  "response": {
+    ":class": "ElementsCreateRawPegoutResponse",
+    "hex": "",
+    "btcAddress": ""
+  }
+}

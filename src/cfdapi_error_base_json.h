@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class InnerErrorResponse
    * @brief code 取得処理
    * @return code
    */
-  int64_t GetCode() {
+  int64_t GetCode() const {
     return code_;
   }
   /**
@@ -94,7 +94,7 @@ class InnerErrorResponse
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -137,7 +137,7 @@ class InnerErrorResponse
    * @brief message 取得処理
    * @return message
    */
-  std::string GetMessage() {
+  std::string GetMessage() const {
     return message_;
   }
   /**
@@ -185,15 +185,15 @@ class InnerErrorResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const InnerErrorResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   InnerErrorResponseStruct ConvertToStruct()  const;
 

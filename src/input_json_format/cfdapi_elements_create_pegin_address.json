@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsCreatePegInAddressRequest",
+    "fedpegscript": "",
+    "fedpegscript:hint": "fedpegscript comes from 'getsidechaininfo' rpc command.",
+    "pubkey": "",
+    "pubkey:hint": "pubkey related to mainchainAddress",
+    "network": "mainnet",
+    "network:hint": "mainnet, testnet or regtest"
+  },
+  "response": {
+    ":class": "ElementsCreatePegInAddressResponse",
+    "mainchainAddress": "",
+    "claimScript": "",
+    "tweakFedpegscript": ""
+  }
+}

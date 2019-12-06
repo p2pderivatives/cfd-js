@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsSignatureHashKeyData
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsSignatureHashKeyData
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -142,15 +142,15 @@ class ElementsSignatureHashKeyData
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsSignatureHashKeyDataStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsSignatureHashKeyDataStruct ConvertToStruct()  const;
 
@@ -236,7 +236,7 @@ class CreateElementsSignatureHashTxIn
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -279,7 +279,7 @@ class CreateElementsSignatureHashTxIn
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -365,7 +365,7 @@ class CreateElementsSignatureHashTxIn
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -408,7 +408,7 @@ class CreateElementsSignatureHashTxIn
    * @brief confidentialValueCommitment 取得処理
    * @return confidentialValueCommitment
    */
-  std::string GetConfidentialValueCommitment() {
+  std::string GetConfidentialValueCommitment() const {
     return confidential_value_commitment_;
   }
   /**
@@ -451,7 +451,7 @@ class CreateElementsSignatureHashTxIn
    * @brief hashType 取得処理
    * @return hashType
    */
-  std::string GetHashType() {
+  std::string GetHashType() const {
     return hash_type_;
   }
   /**
@@ -494,7 +494,7 @@ class CreateElementsSignatureHashTxIn
    * @brief sighashType 取得処理
    * @return sighashType
    */
-  std::string GetSighashType() {
+  std::string GetSighashType() const {
     return sighash_type_;
   }
   /**
@@ -537,7 +537,7 @@ class CreateElementsSignatureHashTxIn
    * @brief sighashAnyoneCanPay 取得処理
    * @return sighashAnyoneCanPay
    */
-  bool GetSighashAnyoneCanPay() {
+  bool GetSighashAnyoneCanPay() const {
     return sighash_anyone_can_pay_;
   }
   /**
@@ -585,15 +585,15 @@ class CreateElementsSignatureHashTxIn
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateElementsSignatureHashTxInStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateElementsSignatureHashTxInStruct ConvertToStruct()  const;
 
@@ -703,7 +703,7 @@ class CreateElementsSignatureHashRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -794,15 +794,15 @@ class CreateElementsSignatureHashRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateElementsSignatureHashRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateElementsSignatureHashRequestStruct ConvertToStruct()  const;
 
@@ -888,7 +888,7 @@ class CreateElementsSignatureHashResponse
    * @brief sighash 取得処理
    * @return sighash
    */
-  std::string GetSighash() {
+  std::string GetSighash() const {
     return sighash_;
   }
   /**
@@ -936,15 +936,15 @@ class CreateElementsSignatureHashResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateElementsSignatureHashResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateElementsSignatureHashResponseStruct ConvertToStruct()  const;
 

@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class ElementsPegoutTxIn
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -94,7 +94,7 @@ class ElementsPegoutTxIn
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -137,7 +137,7 @@ class ElementsPegoutTxIn
    * @brief sequence 取得処理
    * @return sequence
    */
-  uint32_t GetSequence() {
+  uint32_t GetSequence() const {
     return sequence_;
   }
   /**
@@ -185,15 +185,15 @@ class ElementsPegoutTxIn
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPegoutTxInStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPegoutTxInStruct ConvertToStruct()  const;
 
@@ -283,7 +283,7 @@ class ElementsPegoutTxOut
    * @brief address 取得処理
    * @return address
    */
-  std::string GetAddress() {
+  std::string GetAddress() const {
     return address_;
   }
   /**
@@ -326,7 +326,7 @@ class ElementsPegoutTxOut
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -369,7 +369,7 @@ class ElementsPegoutTxOut
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -412,7 +412,7 @@ class ElementsPegoutTxOut
    * @brief isRemoveNonce 取得処理
    * @return isRemoveNonce
    */
-  bool GetIsRemoveNonce() {
+  bool GetIsRemoveNonce() const {
     return is_remove_nonce_;
   }
   /**
@@ -460,15 +460,15 @@ class ElementsPegoutTxOut
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPegoutTxOutStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPegoutTxOutStruct ConvertToStruct()  const;
 
@@ -562,7 +562,7 @@ class ElementsPegout
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -605,7 +605,7 @@ class ElementsPegout
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -648,7 +648,7 @@ class ElementsPegout
    * @brief network 取得処理
    * @return network
    */
-  std::string GetNetwork() {
+  std::string GetNetwork() const {
     return network_;
   }
   /**
@@ -688,10 +688,53 @@ class ElementsPegout
   }
 
   /**
+   * @brief elementsNetwork 取得処理
+   * @return elementsNetwork
+   */
+  std::string GetElementsNetwork() const {
+    return elements_network_;
+  }
+  /**
+   * @brief elementsNetwork 設定処理
+   * @param[in] elements_network    設定値
+   */
+  void SetElementsNetwork(  // line separate
+    const std::string& elements_network) {  // NOLINT
+    this->elements_network_ = elements_network;
+  }
+  /**
+   * @brief elementsNetwork データ型の取得処理
+   * @return elementsNetworkのデータ型
+   */
+  static std::string GetElementsNetworkFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief elementsNetwork フィールドのJSON文字列取得処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @return JSON文字列
+   */
+  static std::string GetElementsNetworkString(  // line separate
+      const ElementsPegout& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.elements_network_);
+  }
+  /**
+   * @brief elementsNetwork フィールドへのJSON情報設定処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @param[in] json_value  JSON情報
+   */
+  static void SetElementsNetworkString(  // line separate
+      ElementsPegout& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.elements_network_, json_value);
+  }
+
+  /**
    * @brief mainchainGenesisBlockHash 取得処理
    * @return mainchainGenesisBlockHash
    */
-  std::string GetMainchainGenesisBlockHash() {
+  std::string GetMainchainGenesisBlockHash() const {
     return mainchain_genesis_block_hash_;
   }
   /**
@@ -734,7 +777,7 @@ class ElementsPegout
    * @brief btcAddress 取得処理
    * @return btcAddress
    */
-  std::string GetBtcAddress() {
+  std::string GetBtcAddress() const {
     return btc_address_;
   }
   /**
@@ -777,7 +820,7 @@ class ElementsPegout
    * @brief onlinePubkey 取得処理
    * @return onlinePubkey
    */
-  std::string GetOnlinePubkey() {
+  std::string GetOnlinePubkey() const {
     return online_pubkey_;
   }
   /**
@@ -820,7 +863,7 @@ class ElementsPegout
    * @brief masterOnlineKey 取得処理
    * @return masterOnlineKey
    */
-  std::string GetMasterOnlineKey() {
+  std::string GetMasterOnlineKey() const {
     return master_online_key_;
   }
   /**
@@ -863,7 +906,7 @@ class ElementsPegout
    * @brief bitcoinDescriptor 取得処理
    * @return bitcoinDescriptor
    */
-  std::string GetBitcoinDescriptor() {
+  std::string GetBitcoinDescriptor() const {
     return bitcoin_descriptor_;
   }
   /**
@@ -906,7 +949,7 @@ class ElementsPegout
    * @brief bip32Counter 取得処理
    * @return bip32Counter
    */
-  int64_t GetBip32Counter() {
+  int64_t GetBip32Counter() const {
     return bip32_counter_;
   }
   /**
@@ -949,7 +992,7 @@ class ElementsPegout
    * @brief whitelist 取得処理
    * @return whitelist
    */
-  std::string GetWhitelist() {
+  std::string GetWhitelist() const {
     return whitelist_;
   }
   /**
@@ -997,15 +1040,15 @@ class ElementsPegout
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPegoutStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPegoutStruct ConvertToStruct()  const;
 
@@ -1070,6 +1113,10 @@ class ElementsPegout
    */
   std::string network_ = "mainnet";
   /**
+   * @brief JsonAPI(elementsNetwork) のvalue
+   */
+  std::string elements_network_ = "";
+  /**
    * @brief JsonAPI(mainchainGenesisBlockHash) のvalue
    */
   std::string mainchain_genesis_block_hash_ = "";
@@ -1123,7 +1170,7 @@ class ElementsPegoutTxOutFee
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -1166,7 +1213,7 @@ class ElementsPegoutTxOutFee
    * @brief asset 取得処理
    * @return asset
    */
-  std::string GetAsset() {
+  std::string GetAsset() const {
     return asset_;
   }
   /**
@@ -1214,15 +1261,15 @@ class ElementsPegoutTxOutFee
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsPegoutTxOutFeeStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsPegoutTxOutFeeStruct ConvertToStruct()  const;
 
@@ -1308,7 +1355,7 @@ class ElementsCreateRawPegoutRequest
    * @brief version 取得処理
    * @return version
    */
-  uint32_t GetVersion() {
+  uint32_t GetVersion() const {
     return version_;
   }
   /**
@@ -1351,7 +1398,7 @@ class ElementsCreateRawPegoutRequest
    * @brief locktime 取得処理
    * @return locktime
    */
-  uint32_t GetLocktime() {
+  uint32_t GetLocktime() const {
     return locktime_;
   }
   /**
@@ -1571,15 +1618,15 @@ class ElementsCreateRawPegoutRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateRawPegoutRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateRawPegoutRequestStruct ConvertToStruct()  const;
 
@@ -1681,7 +1728,7 @@ class ElementsCreateRawPegoutResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -1724,7 +1771,7 @@ class ElementsCreateRawPegoutResponse
    * @brief btcAddress 取得処理
    * @return btcAddress
    */
-  std::string GetBtcAddress() {
+  std::string GetBtcAddress() const {
     return btc_address_;
   }
   /**
@@ -1772,15 +1819,15 @@ class ElementsCreateRawPegoutResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const ElementsCreateRawPegoutResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   ElementsCreateRawPegoutResponseStruct ConvertToStruct()  const;
 

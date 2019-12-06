@@ -1,0 +1,45 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ParseDescriptorRequest",
+    "isElements": false,
+    "descriptor": "",
+    "descriptor:comment": "output descriptor",
+    "network": "mainnet",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "bip32DerivationPath": "",
+    "bip32DerivationPath:hint": "derive path"
+  },
+  "response": {
+    ":class": "ParseDescriptorResponse",
+    "type": "",
+    "type:hint": "",
+    "address": "",
+    "address:hint": "This field is only available for types other than `raw`.",
+    "type:hint": "",
+    "lockingScript": "",
+    "hashType": "",
+    "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh",
+    "redeemScript": "",
+    "redeemScript:hint": "This field is only avalable when hashType is p2wsh, p2sh, or p2sh-p2wsh.",
+    "scripts": [{
+      ":class": "DescriptorScriptJson",
+      "depth": 0,
+      "depth:type": "uint32_t",
+      "lockingScript": "",
+      "address": "",
+      "hashType": "",
+      "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh",
+      "redeemScript": "",
+      "redeemScript:hint": "This field is only avalable when hashType is p2wsh, p2sh, or p2sh-p2wsh.",
+      "keyType": "",
+      "key": "",
+      "key:hint": "This field is only avalable when hashType is p2wpkh, p2pkh, or p2pk.",
+      "keys": [{
+        ":class": "DescriptorKeyJson",
+        "keyType": "",
+        "key": ""
+      }]
+    }]
+  }
+}

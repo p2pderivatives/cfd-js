@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetWitnessStackNumRequest",
+    "tx": "",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "txin": {
+      ":class": "GetWitnessStackNumTxInRequest",
+      "txid": "",
+      "vout": 0,
+      "vout:type": "uint32_t"
+    }
+  },
+  "response": {
+    ":class": "GetWitnessStackNumResponse",
+    "count": 0
+  }
+}

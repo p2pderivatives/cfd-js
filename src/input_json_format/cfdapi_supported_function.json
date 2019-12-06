@@ -1,0 +1,8 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "response": {
+    ":class": "GetSupportedFunctionResponse",
+    "bitcoin": false,
+    "elements": false
+  }
+}

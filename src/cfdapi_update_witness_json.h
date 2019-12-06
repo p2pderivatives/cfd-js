@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class WitnessStackData
    * @brief index 取得処理
    * @return index
    */
-  uint64_t GetIndex() {
+  uint64_t GetIndex() const {
     return index_;
   }
   /**
@@ -94,7 +94,7 @@ class WitnessStackData
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -137,7 +137,7 @@ class WitnessStackData
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -180,7 +180,7 @@ class WitnessStackData
    * @brief derEncode 取得処理
    * @return derEncode
    */
-  bool GetDerEncode() {
+  bool GetDerEncode() const {
     return der_encode_;
   }
   /**
@@ -223,7 +223,7 @@ class WitnessStackData
    * @brief sighashType 取得処理
    * @return sighashType
    */
-  std::string GetSighashType() {
+  std::string GetSighashType() const {
     return sighash_type_;
   }
   /**
@@ -266,7 +266,7 @@ class WitnessStackData
    * @brief sighashAnyoneCanPay 取得処理
    * @return sighashAnyoneCanPay
    */
-  bool GetSighashAnyoneCanPay() {
+  bool GetSighashAnyoneCanPay() const {
     return sighash_anyone_can_pay_;
   }
   /**
@@ -314,15 +314,15 @@ class WitnessStackData
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const WitnessStackDataStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   WitnessStackDataStruct ConvertToStruct()  const;
 
@@ -424,7 +424,7 @@ class UpdateWitnessStackTxInRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -467,7 +467,7 @@ class UpdateWitnessStackTxInRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -558,15 +558,15 @@ class UpdateWitnessStackTxInRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const UpdateWitnessStackTxInRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   UpdateWitnessStackTxInRequestStruct ConvertToStruct()  const;
 
@@ -656,7 +656,7 @@ class UpdateWitnessStackRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -699,7 +699,7 @@ class UpdateWitnessStackRequest
    * @brief isElements 取得処理
    * @return isElements
    */
-  bool GetIsElements() {
+  bool GetIsElements() const {
     return is_elements_;
   }
   /**
@@ -790,15 +790,15 @@ class UpdateWitnessStackRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const UpdateWitnessStackRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   UpdateWitnessStackRequestStruct ConvertToStruct()  const;
 
@@ -888,7 +888,7 @@ class UpdateWitnessStackResponse
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -936,15 +936,15 @@ class UpdateWitnessStackResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const UpdateWitnessStackResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   UpdateWitnessStackResponseStruct ConvertToStruct()  const;
 

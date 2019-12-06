@@ -1,0 +1,43 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsCreateDestroyAmountRequest",
+    "version": 2,
+    "version:type": "uint32_t",
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "txins": [
+      {
+        ":class": "ElementsDestroyAmountTxIn",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t"
+      }
+    ],
+    "txouts": [
+      {
+        ":class": "ElementsDestroyAmountTxOut",
+        "address": "",
+        "amount": 0,
+        "asset": "",
+        "isRemoveNonce": false
+      }
+    ],
+    "destroy": {
+      ":class": "ElementsDestroyAmount",
+      "amount": 0,
+      "asset": ""
+    },
+    "fee": {
+      ":class": "ElementsDestroyAmountFee",
+      "amount": 0,
+      "asset": ""
+    }
+  },
+  "response": {
+    ":class": "ElementsCreateDestroyAmountResponse",
+    "hex": ""
+  }
+}

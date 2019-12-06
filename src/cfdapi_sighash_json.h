@@ -13,7 +13,7 @@
 
 #include "cfdcore/cfdcore_json_mapping_base.h"
 
-#include "cfd/cfdapi_struct.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
@@ -51,7 +51,7 @@ class SignatureHashKeyData
    * @brief hex 取得処理
    * @return hex
    */
-  std::string GetHex() {
+  std::string GetHex() const {
     return hex_;
   }
   /**
@@ -94,7 +94,7 @@ class SignatureHashKeyData
    * @brief type 取得処理
    * @return type
    */
-  std::string GetType() {
+  std::string GetType() const {
     return type_;
   }
   /**
@@ -142,15 +142,15 @@ class SignatureHashKeyData
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const SignatureHashKeyDataStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   SignatureHashKeyDataStruct ConvertToStruct()  const;
 
@@ -236,7 +236,7 @@ class CreateSignatureHashTxInRequest
    * @brief txid 取得処理
    * @return txid
    */
-  std::string GetTxid() {
+  std::string GetTxid() const {
     return txid_;
   }
   /**
@@ -279,7 +279,7 @@ class CreateSignatureHashTxInRequest
    * @brief vout 取得処理
    * @return vout
    */
-  uint32_t GetVout() {
+  uint32_t GetVout() const {
     return vout_;
   }
   /**
@@ -365,7 +365,7 @@ class CreateSignatureHashTxInRequest
    * @brief amount 取得処理
    * @return amount
    */
-  int64_t GetAmount() {
+  int64_t GetAmount() const {
     return amount_;
   }
   /**
@@ -408,7 +408,7 @@ class CreateSignatureHashTxInRequest
    * @brief hashType 取得処理
    * @return hashType
    */
-  std::string GetHashType() {
+  std::string GetHashType() const {
     return hash_type_;
   }
   /**
@@ -451,7 +451,7 @@ class CreateSignatureHashTxInRequest
    * @brief sighashType 取得処理
    * @return sighashType
    */
-  std::string GetSighashType() {
+  std::string GetSighashType() const {
     return sighash_type_;
   }
   /**
@@ -494,7 +494,7 @@ class CreateSignatureHashTxInRequest
    * @brief sighashAnyoneCanPay 取得処理
    * @return sighashAnyoneCanPay
    */
-  bool GetSighashAnyoneCanPay() {
+  bool GetSighashAnyoneCanPay() const {
     return sighash_anyone_can_pay_;
   }
   /**
@@ -542,15 +542,15 @@ class CreateSignatureHashTxInRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateSignatureHashTxInRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateSignatureHashTxInRequestStruct ConvertToStruct()  const;
 
@@ -656,7 +656,7 @@ class CreateSignatureHashRequest
    * @brief tx 取得処理
    * @return tx
    */
-  std::string GetTx() {
+  std::string GetTx() const {
     return tx_;
   }
   /**
@@ -747,15 +747,15 @@ class CreateSignatureHashRequest
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateSignatureHashRequestStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateSignatureHashRequestStruct ConvertToStruct()  const;
 
@@ -841,7 +841,7 @@ class CreateSignatureHashResponse
    * @brief sighash 取得処理
    * @return sighash
    */
-  std::string GetSighash() {
+  std::string GetSighash() const {
     return sighash_;
   }
   /**
@@ -889,15 +889,15 @@ class CreateSignatureHashResponse
   }
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief 構造体からクラスへ変換する.
+   * @param[in] data   構造体データ
    */
   void ConvertFromStruct(
       const CreateSignatureHashResponseStruct& data);
 
   /**
-   * @brief 無視対象アイテムを設定する。
-   * @param[in] key   無視対象アイテムのキー名称
+   * @brief クラスから構造体へ変換する.
+   * @return  構造体データ
    */
   CreateSignatureHashResponseStruct ConvertToStruct()  const;
 

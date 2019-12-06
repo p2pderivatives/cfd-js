@@ -1,0 +1,57 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "DecodeRawTransactionRequest",
+    "hex": "",
+    "network": "mainnet",
+    "iswitness": true
+  },
+  "response": {
+    ":class": "DecodeRawTransactionResponse",
+    "txid": "",
+    "hash": "",
+    "version": 0,
+    "version:type": "uint32_t",
+    "size": 0,
+    "vsize": 0,
+    "weight": 0,
+    "locktime": 0,
+    "locktime:type": "uint32_t",
+    "vin": [
+      {
+        ":class": "DecodeRawTransactionTxIn",
+        "coinbase": "",
+        "coinbase:hint": "coinbase is only ", 
+        "txid": "",
+        "vout": 0,
+        "scriptSig": {
+          ":class": "DecodeUnlockingScript",
+          "asm": "",
+          "hex": ""
+        },
+        "txinwitness": [
+          ""
+        ],
+        "sequence": 0
+      }
+    ],
+    "vout": [
+      {
+        ":class": "DecodeRawTransactionTxOut",
+        "value": 0,
+        "value:type": "double",
+        "n": 0,
+        "scriptPubKey": {
+          ":class": "DecodeLockingScript",
+          "asm": "",
+          "hex": "",
+          "reqSigs": 0,
+          "type": "",
+          "addresses": [
+            ""
+          ]
+        }
+      }
+    ]
+  }
+}
