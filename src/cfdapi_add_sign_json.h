@@ -338,7 +338,7 @@ class SignData
   /**
    * @brief JsonAPI(type) のvalue
    */
-  std::string type_ = "text";
+  std::string type_ = "auto";
   /**
    * @brief JsonAPI(derEncode) のvalue
    */

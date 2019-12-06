@@ -67,9 +67,16 @@ static SignDataType ConvertToSignDataType(const std::string& data_type) {
 template <class SignStructClass>
 SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
     const SignStructClass& sign_data) {
-  if (sign_data.type == "text") {
+  if (sign_data.type == "auto") {
     // insert text directly
-    return SignParameter(sign_data.hex);
+    if (sign_data.der_encode) {
+      return SignParameter(
+          sign_data.hex, sign_data.der_encode,
+          TransactionStructApiBase::ConvertSigHashType(
+              sign_data.sighash_type, sign_data.sighash_anyone_can_pay));
+    } else {
+      return SignParameter(sign_data.hex);
+    }
   }
   SignDataType data_type = ConvertToSignDataType(sign_data.type);
   switch (data_type) {
