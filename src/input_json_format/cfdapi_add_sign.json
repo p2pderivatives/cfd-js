@@ -15,9 +15,11 @@
         {
           ":class": "SignData",
           "hex": "",
-          "type": "binary",
-          "type:hint": "binary, sign, pubkey, redeem_script",
+          "hex:comment": "If the type is auto or op_code, character string input is enabled. Others are hex byte array only.",
+          "type": "auto",
+          "type:hint": "auto, binary, sign, pubkey, redeem_script, op_code",
           "derEncode": false,
+          "derEncode:comment": "Valid when type is auto or sign.",
           "sighashType": "all",
           "sighashType:hint": "all, none, single",
           "sighashAnyoneCanPay": false
