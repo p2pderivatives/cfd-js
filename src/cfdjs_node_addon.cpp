@@ -41,6 +41,7 @@
 #include "cfdapi_elements_set_rawissueasset_json.h"         // NOLINT
 #include "cfdapi_elements_set_rawreissueasset_json.h"       // NOLINT
 #include "cfdapi_elements_unblind_raw_transaction_json.h"   // NOLINT
+#include "cfdapi_encode_signature_by_der_json.h"            // NOLINT
 #include "cfdapi_error_base_json.h"                         // NOLINT
 #include "cfdapi_error_json.h"                              // NOLINT
 #include "cfdapi_estimate_fee_json.h"                       // NOLINT
@@ -595,6 +596,20 @@ Value CreateSignatureHash(const CallbackInfo &information) {
 }
 
 /**
+ * @brief EncodeSignatureByDer の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value EncodeSignatureByDer(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::EncodeSignatureByDerRequest,
+      api::json::EncodeSignatureByDerResponse,
+      api::EncodeSignatureByDerRequestStruct,
+      api::EncodeSignatureByDerResponseStruct>(
+      information, UtilStructApi::EncodeSignatureByDer);
+}
+
+/**
  * @brief GetMnemonicWordlistのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -1104,6 +1119,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreateSignatureHash"),
       Function::New(env, CreateSignatureHash));
+  exports->Set(
+      String::New(env, "EncodeSignatureByDer"),
+      Function::New(env, EncodeSignatureByDer));
   exports->Set(
       String::New(env, "GetWitnessStackNum"),
       Function::New(env, GetWitnessStackNum));

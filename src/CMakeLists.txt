@@ -157,6 +157,7 @@ target_sources(${CFDJS_LIBRARY}
     cfdapi_elements_unblind_raw_transaction_json.cpp
     cfdapi_elements_set_rawissueasset_json.cpp
     cfdapi_elements_set_rawreissueasset_json.cpp
+    cfdapi_encode_signature_by_der_json.cpp
     cfdapi_error_base_json.cpp
     cfdapi_error_json.cpp
     cfdapi_estimate_fee_json.cpp

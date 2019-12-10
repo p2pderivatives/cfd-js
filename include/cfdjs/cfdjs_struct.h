@@ -1288,6 +1288,31 @@ struct UnblindRawTransactionResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// EncodeSignatureByDerRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief EncodeSignatureByDerRequestStruct 構造体
+ */
+struct EncodeSignatureByDerRequestStruct {
+  std::string signature = "";           //!< signature  // NOLINT
+  std::string sighash_type = "all";     //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// EncodeSignatureByDerResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief EncodeSignatureByDerResponseStruct 構造体
+ */
+struct EncodeSignatureByDerResponseStruct {
+  std::string signature = "";  //!< signature  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // SelectUtxoDataStruct
 // ------------------------------------------------------------------------
 /**

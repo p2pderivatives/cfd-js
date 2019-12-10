@@ -33,6 +33,7 @@ const {
   FundRawTransaction,
   ParseDescriptor,
   ParseScript,
+  EncodeSignatureByDer,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -363,6 +364,22 @@ let addP2shP2wpkhTxWitness;
   console.log('*** Request ***\n', reqJson);
   addP2shP2wpkhTxWitness = AddSign(reqJson);
   console.log('\n*** Response ***\n', addP2shP2wpkhTxWitness, '\n');
+
+  // der encoding signature
+  let derSignatureRet;
+  {
+    console.log('\n===== AddSign : EncodeSignatureByDer =====');
+    const reqJson = {
+      'signature': signatureRet.signature,
+      'sighashType': 'all',
+      'sighashAnyoneCanPay': false,
+    };
+    derSignatureRet = EncodeSignatureByDer(reqJson);
+    console.log('\n*** CalculateEcSignature Response ***\n',
+        derSignatureRet, '\n');
+    decodedTx = DecodeRawTransaction({'hex': addP2shP2wpkhTxWitness.hex});
+    console.log('\n*** DecodedSignature ***\n', decodedTx.vin[0].txinwitness[0], '\n');
+  }
 }
 let addP2shP2wpkhTxStack;
 {
