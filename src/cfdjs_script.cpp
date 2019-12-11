@@ -7,6 +7,8 @@
 #include <string>
 
 #include "cfdcore/cfdcore_common.h"
+#include "cfdcore/cfdcore_exception.h"
+#include "cfdcore/cfdcore_logger.h"
 #include "cfdcore/cfdcore_script.h"
 
 #include "cfdjs/cfdjs_script.h"
@@ -16,7 +18,11 @@ namespace cfd {
 namespace js {
 namespace api {
 
+using cfd::core::CfdError;
+using cfd::core::CfdException;
+using cfd::core::logger::warn;
 using cfd::core::Script;
+using cfd::core::ScriptBuilder;
 using cfd::core::ScriptElement;
 
 ParseScriptResponseStruct ScriptStructApi::ParseScript(
@@ -42,6 +48,37 @@ ParseScriptResponseStruct ScriptStructApi::ParseScript(
   ParseScriptResponseStruct result;
   result =
       ExecuteStructApi<ParseScriptRequestStruct, ParseScriptResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+CreateScriptResponseStruct ScriptStructApi::CreateScript(
+    const CreateScriptRequestStruct& request) {
+  auto call_func = [](const CreateScriptRequestStruct& request)
+      -> CreateScriptResponseStruct {
+    CreateScriptResponseStruct response;
+
+    if(request.items.size() < 1) {
+      warn(
+          CFD_LOG_SOURCE, "empty script items.");
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Failed to CreateScript. empty script items.");
+    }
+
+    ScriptBuilder sb = ScriptBuilder();
+    for (const auto& item : request.items) {
+      sb.AppendString(item);
+    }
+    Script script = sb.Build();
+
+    response.hex = script.GetHex();
+    return response;
+  };
+
+  CreateScriptResponseStruct result;
+  result =
+      ExecuteStructApi<CreateScriptRequestStruct, CreateScriptResponseStruct>(
           request, call_func, std::string(__FUNCTION__));
   return result;
 }
