@@ -80,7 +80,7 @@ const errorCase = [
   TestHelper.createBitcoinTestCase(
     'CreateScript - Error - empty items',
     CreateScript,
-    ['{"items":[""]}'],
+    ['{"items":[]}'],
     '{"error":{"code":1,"type":"illegal_argument","message":"Failed to CreateScript. empty script items."}}',
   ),
 ];

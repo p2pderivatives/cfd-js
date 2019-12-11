@@ -3,7 +3,7 @@
   "request": {
     ":class": "CreateScriptRequest",
     "items": [""],
-    "items:comment": "item array accepts op_code string, hex string, number string"
+    "items:comment": "item array accepts string of op_code, binary hex or number"
   },
   "response": {
     ":class": "CreateScriptResponse",

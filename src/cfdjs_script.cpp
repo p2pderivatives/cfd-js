@@ -58,7 +58,7 @@ CreateScriptResponseStruct ScriptStructApi::CreateScript(
       -> CreateScriptResponseStruct {
     CreateScriptResponseStruct response;
 
-    if(request.items.size() < 1) {
+    if(request.items.size() == 0) {
       warn(
           CFD_LOG_SOURCE, "empty script items.");
       throw CfdException(
