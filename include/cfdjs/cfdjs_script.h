@@ -32,6 +32,14 @@ class CFD_JS_EXPORT ScriptStructApi {
   static ParseScriptResponseStruct ParseScript(
       const ParseScriptRequestStruct& request);
 
+  /**
+   * @brief 渡された Script 要素から Script を構築して返却する.
+   * @param[in] request   script 要素を含むパラメータ
+   * @return 構築された Script Hex を含む構造体
+   */
+  static CreateScriptResponseStruct CreateScript(
+      const CreateScriptRequestStruct& request);
+
  private:
   ScriptStructApi();
 };

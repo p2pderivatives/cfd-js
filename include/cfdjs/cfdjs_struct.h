@@ -472,6 +472,29 @@ struct CreateKeyPairResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// CreateScriptRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateScriptRequestStruct 構造体
+ */
+struct CreateScriptRequestStruct {
+  std::vector<std::string> items;  //!< items  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateScriptResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateScriptResponseStruct 構造体
+ */
+struct CreateScriptResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // DecodeRawTransactionRequestStruct
 // ------------------------------------------------------------------------
 /**
