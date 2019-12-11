@@ -20,10 +20,10 @@ namespace api {
 
 using cfd::core::CfdError;
 using cfd::core::CfdException;
-using cfd::core::logger::warn;
 using cfd::core::Script;
 using cfd::core::ScriptBuilder;
 using cfd::core::ScriptElement;
+using cfd::core::logger::warn;
 
 ParseScriptResponseStruct ScriptStructApi::ParseScript(
     const ParseScriptRequestStruct& request) {
@@ -58,9 +58,8 @@ CreateScriptResponseStruct ScriptStructApi::CreateScript(
       -> CreateScriptResponseStruct {
     CreateScriptResponseStruct response;
 
-    if(request.items.size() == 0) {
-      warn(
-          CFD_LOG_SOURCE, "empty script items.");
+    if (request.items.size() == 0) {
+      warn(CFD_LOG_SOURCE, "empty script items.");
       throw CfdException(
           CfdError::kCfdIllegalArgumentError,
           "Failed to CreateScript. empty script items.");
