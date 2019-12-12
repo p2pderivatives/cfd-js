@@ -29,6 +29,7 @@
 #include "cfdapi_create_extkey_from_seed_json.h"            // NOLINT
 #include "cfdapi_create_extpubkey_json.h"                   // NOLINT
 #include "cfdapi_create_key_pair_json.h"                    // NOLINT
+#include "cfdapi_create_multisig_scriptsig_json.h"          // NOLINT
 #include "cfdapi_create_script_json.h"                      // NOLINT
 #include "cfdapi_decode_transaction_json.h"                 // NOLINT
 #include "cfdapi_elements_create_destroy_amount_json.h"     // NOLINT
@@ -769,6 +770,20 @@ Value CreateScript(const CallbackInfo &information) {
 }
 
 /**
+ * @brief CreateMultisigScriptSig のJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value CreateMultisigScriptSig(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::CreateMultisigScriptSigRequest,
+      api::json::CreateMultisigScriptSigResponse,
+      api::CreateMultisigScriptSigRequestStruct,
+      api::CreateMultisigScriptSigResponseStruct>(
+      information, ScriptStructApi::CreateMultisigScriptSig);
+}
+
+/**
  * @brief CalculateEcSignatureのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -1177,6 +1192,9 @@ void InitializeJsonApi(Env env, Object *exports) {
       String::New(env, "ParseScript"), Function::New(env, ParseScript));
   exports->Set(
       String::New(env, "CreateScript"), Function::New(env, CreateScript));
+  exports->Set(
+      String::New(env, "CreateMultisigScriptSig"),
+      Function::New(env, CreateMultisigScriptSig));
   exports->Set(
       String::New(env, "CalculateEcSignature"),
       Function::New(env, CalculateEcSignature));

@@ -147,6 +147,7 @@ target_sources(${CFDJS_LIBRARY}
     cfdapi_create_extkey_from_seed_json.cpp
     cfdapi_create_extpubkey_json.cpp
     cfdapi_create_key_pair_json.cpp
+    cfdapi_create_multisig_scriptsig_json.cpp
     cfdapi_create_script_json.cpp
     cfdapi_decode_transaction_json.cpp
     cfdapi_elements_create_raw_transaction_json.cpp

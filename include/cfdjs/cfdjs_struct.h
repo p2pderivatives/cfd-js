@@ -472,6 +472,46 @@ struct CreateKeyPairResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// MultisigScriptSigDataStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief MultisigScriptSigDataStruct 構造体
+ */
+struct MultisigScriptSigDataStruct {
+  std::string hex = "";                 //!< hex  // NOLINT
+  std::string type = "sign";            //!< type  // NOLINT
+  bool der_encode = true;               //!< der_encode  // NOLINT
+  std::string sighash_type = "all";     //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT
+  std::string related_pubkey = "";      //!< related_pubkey  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateMultisigScriptSigRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateMultisigScriptSigRequestStruct 構造体
+ */
+struct CreateMultisigScriptSigRequestStruct {
+  std::vector<MultisigScriptSigDataStruct> sign_params;  //!< sign_params  // NOLINT
+  std::string redeem_script = "";                        //!< redeem_script  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateMultisigScriptSigResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateMultisigScriptSigResponseStruct 構造体
+ */
+struct CreateMultisigScriptSigResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // CreateScriptRequestStruct
 // ------------------------------------------------------------------------
 /**
