@@ -1,0 +1,25 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateMultisigScriptSigRequest",
+    "signParams": [
+      {
+        ":class": "MultisigScriptSigData",
+        "hex": "",
+        "type": "sign",
+        "type:hint": "sign only",
+        "derEncode": true,
+        "sighashType": "all",
+        "sighashType:hint": "all, none or single",
+        "sighashAnyoneCanPay": false,
+        "relatedPubkey": ""
+      }
+    ],
+    "redeemScript": "",
+    "redeemScript:comment": "multisig script"
+  },
+  "response": {
+    ":class": "CreateMultisigScriptSigResponse",
+    "hex": ""
+  }
+}

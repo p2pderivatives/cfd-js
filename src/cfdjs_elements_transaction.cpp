@@ -664,7 +664,7 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
   auto call_func = [](const CreateElementsSignatureHashRequestStruct& request)
       -> CreateElementsSignatureHashResponseStruct {  // NOLINT
     CreateElementsSignatureHashResponseStruct response;
-    ByteData sig_hash;
+    std::string sig_hash;
     int64_t amount = request.txin.amount;
     const std::string& hashtype_str = request.txin.hash_type;
     const std::string& value_hex = request.txin.confidential_value_commitment;
@@ -711,7 +711,7 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
           "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
     }
 
-    response.sighash = sig_hash.GetHex();
+    response.sighash = sig_hash;
     return response;
   };
 
