@@ -147,6 +147,8 @@ target_sources(${CFDJS_LIBRARY}
     cfdapi_create_extkey_from_seed_json.cpp
     cfdapi_create_extpubkey_json.cpp
     cfdapi_create_key_pair_json.cpp
+    cfdapi_create_multisig_scriptsig_json.cpp
+    cfdapi_create_script_json.cpp
     cfdapi_decode_transaction_json.cpp
     cfdapi_elements_create_raw_transaction_json.cpp
     cfdapi_elements_create_raw_pegin_json.cpp
@@ -157,6 +159,7 @@ target_sources(${CFDJS_LIBRARY}
     cfdapi_elements_unblind_raw_transaction_json.cpp
     cfdapi_elements_set_rawissueasset_json.cpp
     cfdapi_elements_set_rawreissueasset_json.cpp
+    cfdapi_encode_signature_by_der_json.cpp
     cfdapi_error_base_json.cpp
     cfdapi_error_json.cpp
     cfdapi_estimate_fee_json.cpp
