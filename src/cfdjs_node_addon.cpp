@@ -29,6 +29,8 @@
 #include "cfdapi_create_extkey_from_seed_json.h"            // NOLINT
 #include "cfdapi_create_extpubkey_json.h"                   // NOLINT
 #include "cfdapi_create_key_pair_json.h"                    // NOLINT
+#include "cfdapi_create_multisig_scriptsig_json.h"          // NOLINT
+#include "cfdapi_create_script_json.h"                      // NOLINT
 #include "cfdapi_decode_transaction_json.h"                 // NOLINT
 #include "cfdapi_elements_create_destroy_amount_json.h"     // NOLINT
 #include "cfdapi_elements_create_pegin_address_json.h"      // NOLINT
@@ -41,6 +43,7 @@
 #include "cfdapi_elements_set_rawissueasset_json.h"         // NOLINT
 #include "cfdapi_elements_set_rawreissueasset_json.h"       // NOLINT
 #include "cfdapi_elements_unblind_raw_transaction_json.h"   // NOLINT
+#include "cfdapi_encode_signature_by_der_json.h"            // NOLINT
 #include "cfdapi_error_base_json.h"                         // NOLINT
 #include "cfdapi_error_json.h"                              // NOLINT
 #include "cfdapi_estimate_fee_json.h"                       // NOLINT
@@ -595,6 +598,20 @@ Value CreateSignatureHash(const CallbackInfo &information) {
 }
 
 /**
+ * @brief EncodeSignatureByDer の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value EncodeSignatureByDer(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::EncodeSignatureByDerRequest,
+      api::json::EncodeSignatureByDerResponse,
+      api::EncodeSignatureByDerRequestStruct,
+      api::EncodeSignatureByDerResponseStruct>(
+      information, UtilStructApi::EncodeSignatureByDer);
+}
+
+/**
  * @brief GetMnemonicWordlistのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -738,6 +755,32 @@ Value ParseScript(const CallbackInfo &information) {
       api::json::ParseScriptRequest, api::json::ParseScriptResponse,
       api::ParseScriptRequestStruct, api::ParseScriptResponseStruct>(
       information, ScriptStructApi::ParseScript);
+}
+
+/**
+ * @brief CreateScript のJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value CreateScript(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::CreateScriptRequest, api::json::CreateScriptResponse,
+      api::CreateScriptRequestStruct, api::CreateScriptResponseStruct>(
+      information, ScriptStructApi::CreateScript);
+}
+
+/**
+ * @brief CreateMultisigScriptSig のJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value CreateMultisigScriptSig(const CallbackInfo &information) {
+  return NodeAddonJsonApi<
+      api::json::CreateMultisigScriptSigRequest,
+      api::json::CreateMultisigScriptSigResponse,
+      api::CreateMultisigScriptSigRequestStruct,
+      api::CreateMultisigScriptSigResponseStruct>(
+      information, ScriptStructApi::CreateMultisigScriptSig);
 }
 
 /**
@@ -1105,6 +1148,9 @@ void InitializeJsonApi(Env env, Object *exports) {
       String::New(env, "CreateSignatureHash"),
       Function::New(env, CreateSignatureHash));
   exports->Set(
+      String::New(env, "EncodeSignatureByDer"),
+      Function::New(env, EncodeSignatureByDer));
+  exports->Set(
       String::New(env, "GetWitnessStackNum"),
       Function::New(env, GetWitnessStackNum));
   exports->Set(String::New(env, "AddSign"), Function::New(env, AddSign));
@@ -1144,6 +1190,11 @@ void InitializeJsonApi(Env env, Object *exports) {
       String::New(env, "CreateKeyPair"), Function::New(env, CreateKeyPair));
   exports->Set(
       String::New(env, "ParseScript"), Function::New(env, ParseScript));
+  exports->Set(
+      String::New(env, "CreateScript"), Function::New(env, CreateScript));
+  exports->Set(
+      String::New(env, "CreateMultisigScriptSig"),
+      Function::New(env, CreateMultisigScriptSig));
   exports->Set(
       String::New(env, "CalculateEcSignature"),
       Function::New(env, CalculateEcSignature));

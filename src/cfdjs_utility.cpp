@@ -7,12 +7,15 @@
 #include <string>
 #include <vector>
 
+#include "cfdcore/cfdcore_bytedata.h"
 #include "cfdcore/cfdcore_exception.h"
 #include "cfdcore/cfdcore_logger.h"
+#include "cfdcore/cfdcore_util.h"
 
 #include "cfd/cfd_common.h"
 #include "cfdjs/cfdjs_utility.h"
-#include "cfdjs_internal.h"  // NOLINT
+#include "cfdjs_internal.h"          // NOLINT
+#include "cfdjs_transaction_base.h"  // NOLINT
 
 namespace cfd {
 namespace js {
@@ -20,8 +23,11 @@ namespace api {
 
 using cfd::GetSupportedFunction;
 using cfd::LibraryFunction;
+using cfd::core::ByteData;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
+using cfd::core::CryptoUtil;
+using cfd::core::SigHashType;
 using cfd::core::logger::warn;
 
 GetSupportedFunctionResponseStruct UtilStructApi::GetSupportedFunction() {
@@ -45,9 +51,31 @@ GetSupportedFunctionResponseStruct UtilStructApi::GetSupportedFunction() {
   return result;
 }
 
+EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
+    EncodeSignatureByDerRequestStruct request) {
+  auto call_func = [](const EncodeSignatureByDerRequestStruct& request)
+      -> EncodeSignatureByDerResponseStruct {
+    EncodeSignatureByDerResponseStruct result;
+
+    SigHashType sighash_type = TransactionStructApiBase::ConvertSigHashType(
+        request.sighash_type, request.sighash_anyone_can_pay);
+    const ByteData der_signature =
+        CryptoUtil::ConvertSignatureToDer(request.signature, sighash_type);
+
+    result.signature = der_signature.GetHex();
+    return result;
+  };
+
+  EncodeSignatureByDerResponseStruct result;
+  result = ExecuteStructApi<
+      EncodeSignatureByDerRequestStruct, EncodeSignatureByDerResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 // 実体定義用(多重定義防止のためCPP側に定義)
 InnerErrorResponseStruct ConvertCfdExceptionToStruct(
-    const CfdException &cfde) {
+    const CfdException& cfde) {
   InnerErrorResponseStruct result;
   result.code = cfde.GetErrorCode();
   result.type = cfde.GetErrorType();

@@ -402,7 +402,7 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
       -> CreateSignatureHashResponseStruct {  // NOLINT
     CreateSignatureHashResponseStruct response;
 
-    ByteData sig_hash;
+    std::string sig_hash;
     Amount amount = Amount::CreateBySatoshiAmount(request.txin.amount);
     const Txid& txid = Txid(request.txin.txid);
     uint32_t vout = request.txin.vout;
@@ -446,7 +446,7 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
     }
 
     // レスポンスとなるモデルへ変換
-    response.sighash = sig_hash.GetHex();
+    response.sighash = sig_hash;
     return response;
   };
 
