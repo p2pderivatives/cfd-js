@@ -32,6 +32,22 @@ class CFD_JS_EXPORT ScriptStructApi {
   static ParseScriptResponseStruct ParseScript(
       const ParseScriptRequestStruct& request);
 
+  /**
+   * @brief 渡された Script 要素から Script を構築して返却する.
+   * @param[in] request   script 要素を含むパラメータ
+   * @return 構築された Script Hex を含む構造体
+   */
+  static CreateScriptResponseStruct CreateScript(
+      const CreateScriptRequestStruct& request);
+
+  /**
+   * @brief 渡された Multisig の署名要素から ScriptSig を構築して返却する.
+   * @param[in] request   Multisig の署名要素を含むパラメータ
+   * @return 構築された ScriptSig Hex を含む構造体
+   */
+  static CreateMultisigScriptSigResponseStruct CreateMultisigScriptSig(
+      const CreateMultisigScriptSigRequestStruct& request);
+
  private:
   ScriptStructApi();
 };

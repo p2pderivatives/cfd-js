@@ -472,6 +472,69 @@ struct CreateKeyPairResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// MultisigScriptSigDataStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief MultisigScriptSigDataStruct 構造体
+ */
+struct MultisigScriptSigDataStruct {
+  std::string hex = "";                 //!< hex  // NOLINT
+  std::string type = "sign";            //!< type  // NOLINT
+  bool der_encode = true;               //!< der_encode  // NOLINT
+  std::string sighash_type = "all";     //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT
+  std::string related_pubkey = "";      //!< related_pubkey  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateMultisigScriptSigRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateMultisigScriptSigRequestStruct 構造体
+ */
+struct CreateMultisigScriptSigRequestStruct {
+  std::vector<MultisigScriptSigDataStruct> sign_params;  //!< sign_params  // NOLINT
+  std::string redeem_script = "";                        //!< redeem_script  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateMultisigScriptSigResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateMultisigScriptSigResponseStruct 構造体
+ */
+struct CreateMultisigScriptSigResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateScriptRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateScriptRequestStruct 構造体
+ */
+struct CreateScriptRequestStruct {
+  std::vector<std::string> items;  //!< items  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateScriptResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateScriptResponseStruct 構造体
+ */
+struct CreateScriptResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // DecodeRawTransactionRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -1283,6 +1346,31 @@ struct UnblindRawTransactionResponseStruct {
   std::string hex = "";                                       //!< hex  // NOLINT
   std::vector<UnblindOutputStruct> outputs;                   //!< outputs  // NOLINT
   std::vector<UnblindIssuanceOutputStruct> issuance_outputs;  //!< issuance_outputs  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// EncodeSignatureByDerRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief EncodeSignatureByDerRequestStruct 構造体
+ */
+struct EncodeSignatureByDerRequestStruct {
+  std::string signature = "";           //!< signature  // NOLINT
+  std::string sighash_type = "all";     //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;  //!< sighash_anyone_can_pay  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// EncodeSignatureByDerResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief EncodeSignatureByDerResponseStruct 構造体
+ */
+struct EncodeSignatureByDerResponseStruct {
+  std::string signature = "";  //!< signature  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };

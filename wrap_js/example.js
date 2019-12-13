@@ -33,6 +33,8 @@ const {
   FundRawTransaction,
   ParseDescriptor,
   ParseScript,
+  EncodeSignatureByDer,
+  CreateMultisigScriptSig,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -363,6 +365,22 @@ let addP2shP2wpkhTxWitness;
   console.log('*** Request ***\n', reqJson);
   addP2shP2wpkhTxWitness = AddSign(reqJson);
   console.log('\n*** Response ***\n', addP2shP2wpkhTxWitness, '\n');
+
+  // der encoding signature
+  let derSignatureRet;
+  {
+    console.log('\n===== AddSign : EncodeSignatureByDer =====');
+    const reqJson = {
+      'signature': signatureRet.signature,
+      'sighashType': 'all',
+      'sighashAnyoneCanPay': false,
+    };
+    derSignatureRet = EncodeSignatureByDer(reqJson);
+    console.log('\n*** CalculateEcSignature Response ***\n',
+        derSignatureRet, '\n');
+    decodedTx = DecodeRawTransaction({'hex': addP2shP2wpkhTxWitness.hex});
+    console.log('\n*** DecodedSignature ***\n', decodedTx.vin[0].txinwitness[0], '\n');
+  }
 }
 let addP2shP2wpkhTxStack;
 {
@@ -976,4 +994,40 @@ let parseScriptResult;
   console.log('*** Request ***\n', reqJson);
   parseScriptResult = ParseScript(reqJson);
   console.log('*** Response ***\n', parseScriptResult);
+}
+
+let createMultisigScriptSigResult;
+{
+  console.log('\n===== CreateMultisigScriptSig =====');
+  const multisigData = CreateMultisig({
+    'nrequired': 2,
+    'keys': [
+      '0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe',
+      '02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5',
+    ],
+    'network': NET_TYPE,
+    'hashType': 'p2sh-p2wsh',
+  });
+  const reqJson = {
+    signParams: [
+      {
+        hex: '00000000000000000000000000000000', // dummy signature
+        type: 'sign',
+        derEncode: false,
+      },
+      {
+        hex: '11111111111111111111111111111111', // dummy signature
+        type: 'sign',
+        derEncode: false,
+      },
+    ],
+    redeemScript: multisigData.witnessScript,
+  };
+  console.log('*** Request ***\n', reqJson);
+  createMultisigScriptSigResult = CreateMultisigScriptSig(reqJson);
+  console.log('\n*** Response ***\n', createMultisigScriptSigResult, '\n');
+  const parseResult = ParseScript({
+    script: createMultisigScriptSigResult.hex,
+  });
+  console.log('*** ParseScript ***\n', parseResult);
 }
