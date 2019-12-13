@@ -4,7 +4,6 @@
   "main": "index.js",
   "description": "cfd node.js api",
   "scripts": {
-    "preinstall": "",
     "install": "run-s cmake_clean cmake_install_configure cmake_compile",
     "cmake_compile": "cmake-js compile -O wrap_js/build",
     "cmake_install_configure": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=off --CDENABLE_TESTS=off --CDTARGET_RPATH=\"@executable_path;./build/Release;./wrap_js/build/Release\" -C",
