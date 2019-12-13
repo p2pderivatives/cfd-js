@@ -1,11 +1,20 @@
 project(external_download NONE)
 
 # load file
-set(EXTERNAL_DEBUG_FILENAME  local_resource/external_project_local_setting.config)
-set(DEBUG_VERSION_FILE  ${CMAKE_SOURCE_DIR}/${EXTERNAL_DEBUG_FILENAME})
-if(EXISTS ${DEBUG_VERSION_FILE})
-transform_makefile_srclist(${DEBUG_VERSION_FILE} "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_DEBUG_FILENAME}.cmake")
-include(${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_DEBUG_FILENAME}.cmake)
+set(EXTERNAL_LOCAL_FILENAME  local_resource/external_project_local_setting.config)
+set(LOCAL_VERSION_FILE  ${CMAKE_SOURCE_DIR}/${EXTERNAL_LOCAL_FILENAME})
+if(EXISTS ${LOCAL_VERSION_FILE})
+transform_makefile_srclist(${LOCAL_VERSION_FILE} "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_LOCAL_FILENAME}.cmake")
+include(${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_LOCAL_FILENAME}.cmake)
+endif()
+
+# load current repository file
+set(LOCAL_CURRENT_VERSION_FILE  ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL_LOCAL_FILENAME})
+set(EXTERNAL_LOCAL_CURRENT_FILENAME  local_resource/external_project_local_setting2.config)
+if((NOT CFD_TARGET_VERSION) AND (NOT CFD_TARGET_URL) AND (EXISTS ${LOCAL_CURRENT_VERSION_FILE}))
+transform_makefile_srclist(${LOCAL_CURRENT_VERSION_FILE} "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_LOCAL_CURRENT_FILENAME}.cmake")
+include(${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_LOCAL_CURRENT_FILENAME}.cmake)
+message(STATUS "[external project local] load current cfd-js file")
 endif()
 
 # cfd
