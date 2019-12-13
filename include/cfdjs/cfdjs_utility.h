@@ -32,6 +32,14 @@ class CFD_JS_EXPORT UtilStructApi {
    */
   static GetSupportedFunctionResponseStruct GetSupportedFunction();
 
+  /**
+   * @brief Encode the secp signature by der encodeing
+   * @param[in] request   request struct from json
+   * @return response struct including encoded signature
+   */
+  static EncodeSignatureByDerResponseStruct EncodeSignatureByDer(
+      EncodeSignatureByDerRequestStruct request);
+
  private:
   UtilStructApi();
 };

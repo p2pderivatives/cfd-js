@@ -1,0 +1,15 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "EncodeSignatureByDerRequest",
+    "signature": "",
+    "signature:comment": "signature",
+    "sighashType": "all",
+    "sighashType:hint": "all, none, single",
+    "sighashAnyoneCanPay": false
+  },
+  "response": {
+    ":class": "EncodeSignatureByDerResponse",
+    "signature": ""
+  }
+}
