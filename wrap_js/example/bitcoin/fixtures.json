@@ -1,7 +1,0 @@
-{
-  "network": {
-    "mainnet": "mainnet",
-    "testnet": "testnet",
-    "regtest": "regtest"
-  }
-}
