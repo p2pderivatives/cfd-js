@@ -856,6 +856,49 @@ class DescriptorScriptJson
   }
 
   /**
+   * @brief reqNum 取得処理
+   * @return reqNum
+   */
+  int64_t GetReqNum() const {
+    return req_num_;
+  }
+  /**
+   * @brief reqNum 設定処理
+   * @param[in] req_num    設定値
+   */
+  void SetReqNum(  // line separate
+    const int64_t& req_num) {  // NOLINT
+    this->req_num_ = req_num;
+  }
+  /**
+   * @brief reqNum データ型の取得処理
+   * @return reqNumのデータ型
+   */
+  static std::string GetReqNumFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief reqNum フィールドのJSON文字列取得処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @return JSON文字列
+   */
+  static std::string GetReqNumString(  // line separate
+      const DescriptorScriptJson& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.req_num_);
+  }
+  /**
+   * @brief reqNum フィールドへのJSON情報設定処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @param[in] json_value  JSON情報
+   */
+  static void SetReqNumString(  // line separate
+      DescriptorScriptJson& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.req_num_, json_value);
+  }
+
+  /**
    * @brief 無視対象アイテムを設定する。
    * @param[in] key   無視対象アイテムのキー名称
    */
@@ -956,6 +999,10 @@ class DescriptorScriptJson
    * @brief JsonAPI(keys) のvalue
    */
   JsonObjectVector<DescriptorKeyJson, DescriptorKeyJsonStruct> keys_;  // NOLINT
+  /**
+   * @brief JsonAPI(reqNum) のvalue
+   */
+  int64_t req_num_ = 0;
 };
 
 // ------------------------------------------------------------------------
@@ -1194,6 +1241,49 @@ class ParseDescriptorResponse
   }
 
   /**
+   * @brief includeMultisig 取得処理
+   * @return includeMultisig
+   */
+  bool GetIncludeMultisig() const {
+    return include_multisig_;
+  }
+  /**
+   * @brief includeMultisig 設定処理
+   * @param[in] include_multisig    設定値
+   */
+  void SetIncludeMultisig(  // line separate
+    const bool& include_multisig) {  // NOLINT
+    this->include_multisig_ = include_multisig;
+  }
+  /**
+   * @brief includeMultisig データ型の取得処理
+   * @return includeMultisigのデータ型
+   */
+  static std::string GetIncludeMultisigFieldType() {
+    return "bool";
+  }
+  /**
+   * @brief includeMultisig フィールドのJSON文字列取得処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @return JSON文字列
+   */
+  static std::string GetIncludeMultisigString(  // line separate
+      const ParseDescriptorResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.include_multisig_);
+  }
+  /**
+   * @brief includeMultisig フィールドへのJSON情報設定処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @param[in] json_value  JSON情報
+   */
+  static void SetIncludeMultisigString(  // line separate
+      ParseDescriptorResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.include_multisig_, json_value);
+  }
+
+  /**
    * @brief scripts 取得処理
    * @return scripts
    */
@@ -1325,6 +1415,10 @@ class ParseDescriptorResponse
    * @brief JsonAPI(redeemScript) のvalue
    */
   std::string redeem_script_ = "";
+  /**
+   * @brief JsonAPI(includeMultisig) のvalue
+   */
+  bool include_multisig_ = false;
   /**
    * @brief JsonAPI(scripts) のvalue
    */

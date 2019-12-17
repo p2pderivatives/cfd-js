@@ -197,6 +197,13 @@ void DescriptorScriptJson::CollectFieldName() {
   };
   json_mapper.emplace("keys", func_table);
   item_list.push_back("keys");
+  func_table = {
+    DescriptorScriptJson::GetReqNumString,
+    DescriptorScriptJson::SetReqNumString,
+    DescriptorScriptJson::GetReqNumFieldType,
+  };
+  json_mapper.emplace("reqNum", func_table);
+  item_list.push_back("reqNum");
 }
 
 void DescriptorScriptJson::ConvertFromStruct(
@@ -209,6 +216,7 @@ void DescriptorScriptJson::ConvertFromStruct(
   key_type_ = data.key_type;
   key_ = data.key;
   keys_.ConvertFromStruct(data.keys);
+  req_num_ = data.req_num;
   ignore_items = data.ignore_items;
 }
 
@@ -222,6 +230,7 @@ DescriptorScriptJsonStruct DescriptorScriptJson::ConvertToStruct() const {  // N
   result.key_type = key_type_;
   result.key = key_;
   result.keys = keys_.ConvertToStruct();
+  result.req_num = req_num_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -275,6 +284,13 @@ void ParseDescriptorResponse::CollectFieldName() {
   json_mapper.emplace("redeemScript", func_table);
   item_list.push_back("redeemScript");
   func_table = {
+    ParseDescriptorResponse::GetIncludeMultisigString,
+    ParseDescriptorResponse::SetIncludeMultisigString,
+    ParseDescriptorResponse::GetIncludeMultisigFieldType,
+  };
+  json_mapper.emplace("includeMultisig", func_table);
+  item_list.push_back("includeMultisig");
+  func_table = {
     ParseDescriptorResponse::GetScriptsString,
     ParseDescriptorResponse::SetScriptsString,
     ParseDescriptorResponse::GetScriptsFieldType,
@@ -290,6 +306,7 @@ void ParseDescriptorResponse::ConvertFromStruct(
   locking_script_ = data.locking_script;
   hash_type_ = data.hash_type;
   redeem_script_ = data.redeem_script;
+  include_multisig_ = data.include_multisig;
   scripts_.ConvertFromStruct(data.scripts);
   ignore_items = data.ignore_items;
 }
@@ -301,6 +318,7 @@ ParseDescriptorResponseStruct ParseDescriptorResponse::ConvertToStruct() const {
   result.locking_script = locking_script_;
   result.hash_type = hash_type_;
   result.redeem_script = redeem_script_;
+  result.include_multisig = include_multisig_;
   result.scripts = scripts_.ConvertToStruct();
   result.ignore_items = ignore_items;
   return result;

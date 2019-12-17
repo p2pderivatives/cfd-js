@@ -16,12 +16,13 @@
     "type:hint": "",
     "address": "",
     "address:hint": "This field is only available for types other than `raw`.",
-    "type:hint": "",
     "lockingScript": "",
     "hashType": "",
     "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh",
     "redeemScript": "",
     "redeemScript:hint": "This field is only avalable when hashType is p2wsh, p2sh, or p2sh-p2wsh.",
+    "includeMultisig": false,
+    "includeMultisig:hint": "whether multisig descriptor is included in scripts stack",
     "scripts": [{
       ":class": "DescriptorScriptJson",
       "depth": 0,
@@ -39,7 +40,10 @@
         ":class": "DescriptorKeyJson",
         "keyType": "",
         "key": ""
-      }]
+      }],
+      "keys:hint": "keys included in multisig",
+      "reqNum": 0,
+      "reqNum:hint": "number of required signatures to solve multisig script."
     }]
   }
 }
