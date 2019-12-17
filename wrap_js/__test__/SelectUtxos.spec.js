@@ -190,7 +190,7 @@ const errorCase = [
         isElements: false,
         feeInfo: FIXED_BITCOIN_FEE_INFO,
       })],
-      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}'
+      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}',
     );
   })(),
   (() => {
@@ -204,7 +204,7 @@ const errorCase = [
         isElements: false,
         feeInfo: FIXED_BITCOIN_FEE_INFO,
       })],
-      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}'
+      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}',
     );
   })(),
 ];
@@ -471,7 +471,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":2,"type":"illegal_state","message":"Failed to SelectCoins. Target asset is not found in utxo list."}}'
+      '{"error":{"code":2,"type":"illegal_state","message":"Failed to SelectCoins. Target asset is not found in utxo list."}}',
     );
   })(),
   (() => {
@@ -488,7 +488,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}'
+      '{"error":{"code":2,"type":"illegal_state","message":"Failed to select coin. Not enough utxos."}}',
     );
   })(),
   (() => {
@@ -505,7 +505,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":2,"type":"illegal_state","message":"Failed to SelectCoins. Target asset is not found in utxo list."}}'
+      '{"error":{"code":2,"type":"illegal_state","message":"Failed to SelectCoins. Target asset is not found in utxo list."}}',
     );
   })(),
   (() => {
@@ -525,7 +525,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":1,"type":"illegal_argument","message":"Empty AssetId is invalid."}}'
+      '{"error":{"code":1,"type":"illegal_argument","message":"Empty AssetId is invalid."}}',
     );
   })(),
   (() => {
@@ -545,7 +545,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":1,"type":"illegal_argument","message":"AssetId size Invalid."}}'
+      '{"error":{"code":1,"type":"illegal_argument","message":"AssetId size Invalid."}}',
     );
   })(),
   (() => {
@@ -562,7 +562,7 @@ const elementsErrorCase = [
         isElements: true,
         feeInfo: USE_FEE_ELEMENTS_FEE_INFO,
       })],
-      '{"error":{"code":1,"type":"illegal_argument","message":"Failed to SelectUtxos. targets is required."}}'
+      '{"error":{"code":1,"type":"illegal_argument","message":"Failed to SelectUtxos. targets is required."}}',
     );
   })(),
   (() => {
@@ -583,7 +583,7 @@ const elementsErrorCase = [
           longTermFeeRate: 20,
         },
       })],
-      '{"error":{"code":1,"type":"illegal_argument","message":"Failed to SelectUtxos. feeAsset is required."}}'
+      '{"error":{"code":1,"type":"illegal_argument","message":"Failed to SelectUtxos. feeAsset is required."}}',
     );
   })(),
   (() => {
@@ -605,7 +605,7 @@ const elementsErrorCase = [
           feeAsset: '00',
         },
       })],
-      '{"error":{"code":1,"type":"illegal_argument","message":"AssetId size Invalid."}}'
+      '{"error":{"code":1,"type":"illegal_argument","message":"AssetId size Invalid."}}',
     );
   })(),
 ];

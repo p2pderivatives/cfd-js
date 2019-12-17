@@ -19,7 +19,7 @@ testLanguage.forEach((lang) => {
       `ConvertEntropyToMnemonic Test [case ${idx}, lang ${lang}]`,
       ConvertEntropyToMnemonic,
       [JSON.stringify(reqJson)],
-      JSON.stringify(expectJson)
+      JSON.stringify(expectJson),
     ));
   });
 });
@@ -29,13 +29,13 @@ const errorCase = [
     'ConvertEntropyToMnemonic Error(empty entropy)',
     ConvertEntropyToMnemonic,
     ['{"entropy": "", "language":"en"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Failed to ConvertEntropyToMnemonic. Convert entropy to mnemonic error."}}'
+    '{"error":{"code":1,"type":"illegal_argument","message":"Failed to ConvertEntropyToMnemonic. Convert entropy to mnemonic error."}}',
   ),
   TestHelper.createTestCase(
     'ConvertEntropyToMnemonic Error(invalid entropy length)',
     ConvertEntropyToMnemonic,
     ['{"entropy": "0000000000000000000000000000000", "language":"en"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"hex to byte convert error."}}'
+    '{"error":{"code":1,"type":"illegal_argument","message":"hex to byte convert error."}}',
   ),
 ];
 

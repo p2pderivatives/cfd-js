@@ -69,35 +69,35 @@ const testCase = [
     CreateKeyPair,
     ['{"wif":true,"network":"mainnet","isCompressed":true}'],
     true,
-    emptyFunc, emptyFunc, checkFunctionWif
+    emptyFunc, emptyFunc, checkFunctionWif,
   ),
   TestHelper.createTestCase(
     'CreateKeyPair network testnet',
     CreateKeyPair,
     ['{"wif":true,"network":"testnet","isCompressed":true}'],
     true,
-    emptyFunc, emptyFunc, checkFunctionWifTestnet
+    emptyFunc, emptyFunc, checkFunctionWifTestnet,
   ),
   TestHelper.createTestCase(
     'CreateKeyPair network regtest',
     CreateKeyPair,
     ['{"wif":true,"network":"regtest","isCompressed":true}'],
     true,
-    emptyFunc, emptyFunc, checkFunctionWifRegtest
+    emptyFunc, emptyFunc, checkFunctionWifRegtest,
   ),
   TestHelper.createTestCase(
     'CreateKeyPair wif is false',
     CreateKeyPair,
     ['{"wif":false,"network":"mainnet","isCompressed":true}'],
     true,
-    emptyFunc, emptyFunc, checkFunctionNotWif
+    emptyFunc, emptyFunc, checkFunctionNotWif,
   ),
   TestHelper.createTestCase(
     'CreateKeyPair isCompressed is false',
     CreateKeyPair,
     ['{"wif":true,"network":"mainnet","isCompressed":false}'],
     true,
-    emptyFunc, emptyFunc, checkFunctionWifUncompress
+    emptyFunc, emptyFunc, checkFunctionWifUncompress,
   ),
 ];
 
@@ -106,7 +106,7 @@ const errorCase = [
     'CreateKeyPair invalid network string',
     CreateKeyPair,
     ['{"wif":true,"network":"","isCompressed":true}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid network_type passed. network_type must be \\"mainnet\\" or \\"testnet\\" or \\"regtest\\"."}}'
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid network_type passed. network_type must be \\"mainnet\\" or \\"testnet\\" or \\"regtest\\"."}}',
   ),
 ];
 

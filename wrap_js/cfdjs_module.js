@@ -33,7 +33,7 @@ Object.keys(cfdjs).forEach((key) => {
     try {
       // stringify all arguments
       const argStr = args.map((arg) =>
-        JSON.stringify(arg)
+        JSON.stringify(arg),
       );
 
       retObj = JSON.parse(cfdjs[key].apply(wrappedModule, argStr));
