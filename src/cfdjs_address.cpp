@@ -316,6 +316,8 @@ ParseDescriptorResponseStruct AddressStructApi::ConvertDescriptorData(
       }
 
       if (is_force_multisig || data.redeem_script.IsMultisigScript()) {
+        result.include_multisig = true;
+        script_struct.req_num = data.multisig_req_sig_num;
         script_struct.ignore_items.insert("key");
         script_struct.ignore_items.insert("keyType");
         for (const auto& key_data : multisig_key_list) {
@@ -328,10 +330,12 @@ ParseDescriptorResponseStruct AddressStructApi::ConvertDescriptorData(
         script_struct.key = data.key;
         script_struct.key_type = convert_key_type(data.key_type);
         script_struct.ignore_items.insert("keys");
+        script_struct.ignore_items.insert("reqNum");
       } else {
         script_struct.ignore_items.insert("key");
         script_struct.ignore_items.insert("keyType");
         script_struct.ignore_items.insert("keys");
+        script_struct.ignore_items.insert("reqNum");
       }
       result.scripts.push_back(script_struct);
     }

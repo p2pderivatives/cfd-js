@@ -59,7 +59,7 @@ const testCase = [
         tx: '02000000000000000000',
         isElements: false,
       })],
-      '{\"feeAmount\":100,\"txFeeAmount\":10,\"utxoFeeAmount\":90}'
+      '{\"feeAmount\":100,\"txFeeAmount\":10,\"utxoFeeAmount\":90}',
     );
   })(),
   (() => {
@@ -73,7 +73,7 @@ const testCase = [
         tx: '02000000000000000000',
         isElements: false,
       })],
-      '{\"feeAmount\":280,\"txFeeAmount\":10,\"utxoFeeAmount\":270}'
+      '{\"feeAmount\":280,\"txFeeAmount\":10,\"utxoFeeAmount\":270}',
     );
   })(),
   (() => {
@@ -87,7 +87,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":143,\"txFeeAmount\":53,\"utxoFeeAmount\":90}'
+      '{\"feeAmount\":143,\"txFeeAmount\":53,\"utxoFeeAmount\":90}',
     );
   })(),
   (() => {
@@ -101,7 +101,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":319,\"txFeeAmount\":139,\"utxoFeeAmount\":180}'
+      '{\"feeAmount\":319,\"txFeeAmount\":139,\"utxoFeeAmount\":180}',
     );
   })(),
   (() => {
@@ -115,7 +115,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":2860,\"txFeeAmount\":1060,\"utxoFeeAmount\":1800}'
+      '{\"feeAmount\":2860,\"txFeeAmount\":1060,\"utxoFeeAmount\":1800}',
     );
   })(),
   (() => {
@@ -129,7 +129,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":6380,\"txFeeAmount\":2780,\"utxoFeeAmount\":3600}'
+      '{\"feeAmount\":6380,\"txFeeAmount\":2780,\"utxoFeeAmount\":3600}',
     );
   })(),
   (() => {
@@ -143,7 +143,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":121,\"txFeeAmount\":53,\"utxoFeeAmount\":68}'
+      '{\"feeAmount\":121,\"txFeeAmount\":53,\"utxoFeeAmount\":68}',
     );
   })(),
   (() => {
@@ -157,7 +157,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":275,\"txFeeAmount\":139,\"utxoFeeAmount\":136}'
+      '{\"feeAmount\":275,\"txFeeAmount\":139,\"utxoFeeAmount\":136}',
     );
   })(),
   (() => {
@@ -171,7 +171,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":150,\"txFeeAmount\":53,\"utxoFeeAmount\":97}'
+      '{\"feeAmount\":150,\"txFeeAmount\":53,\"utxoFeeAmount\":97}',
     );
   })(),
   (() => {
@@ -185,7 +185,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":332,\"txFeeAmount\":139,\"utxoFeeAmount\":193}'
+      '{\"feeAmount\":332,\"txFeeAmount\":139,\"utxoFeeAmount\":193}',
     );
   })(),
 ];
@@ -202,7 +202,7 @@ const errorCase = [
         tx: '0200000000000000000000',
         isElements: false,
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"transaction data invalid.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"transaction data invalid.\"}}',
     );
   })(),
 ];
@@ -220,7 +220,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":147,\"txFeeAmount\":56,\"utxoFeeAmount\":91}'
+      '{\"feeAmount\":147,\"txFeeAmount\":56,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -235,7 +235,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":329,\"txFeeAmount\":56,\"utxoFeeAmount\":273}'
+      '{\"feeAmount\":329,\"txFeeAmount\":56,\"utxoFeeAmount\":273}',
     );
   })(),
   (() => {
@@ -250,7 +250,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1029,\"txFeeAmount\":938,\"utxoFeeAmount\":91}'
+      '{\"feeAmount\":1029,\"txFeeAmount\":938,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -265,7 +265,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":2002,\"txFeeAmount\":1820,\"utxoFeeAmount\":182}'
+      '{\"feeAmount\":2002,\"txFeeAmount\":1820,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -280,7 +280,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":20580,\"txFeeAmount\":18760,\"utxoFeeAmount\":1820}'
+      '{\"feeAmount\":20580,\"txFeeAmount\":18760,\"utxoFeeAmount\":1820}',
     );
   })(),
   (() => {
@@ -295,7 +295,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":40040,\"txFeeAmount\":36400,\"utxoFeeAmount\":3640}'
+      '{\"feeAmount\":40040,\"txFeeAmount\":36400,\"utxoFeeAmount\":3640}',
     );
   })(),
   (() => {
@@ -310,7 +310,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1007,\"txFeeAmount\":938,\"utxoFeeAmount\":69}'
+      '{\"feeAmount\":1007,\"txFeeAmount\":938,\"utxoFeeAmount\":69}',
     );
   })(),
   (() => {
@@ -325,7 +325,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1958,\"txFeeAmount\":1820,\"utxoFeeAmount\":138}'
+      '{\"feeAmount\":1958,\"txFeeAmount\":1820,\"utxoFeeAmount\":138}',
     );
   })(),
   (() => {
@@ -340,7 +340,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1035,\"txFeeAmount\":938,\"utxoFeeAmount\":97}'
+      '{\"feeAmount\":1035,\"txFeeAmount\":938,\"utxoFeeAmount\":97}',
     );
   })(),
   (() => {
@@ -355,7 +355,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":2014,\"txFeeAmount\":1820,\"utxoFeeAmount\":194}'
+      '{\"feeAmount\":2014,\"txFeeAmount\":1820,\"utxoFeeAmount\":194}',
     );
   })(),
   (() => {
@@ -371,7 +371,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":216,\"txFeeAmount\":125,\"utxoFeeAmount\":91}'
+      '{\"feeAmount\":216,\"txFeeAmount\":125,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -387,7 +387,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1189,\"txFeeAmount\":1007,\"utxoFeeAmount\":182}'
+      '{\"feeAmount\":1189,\"txFeeAmount\":1007,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -410,7 +410,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: '017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c18',
       })],
-      '{\"feeAmount\":4369,\"txFeeAmount\":2700,\"utxoFeeAmount\":1669}'
+      '{\"feeAmount\":4369,\"txFeeAmount\":2700,\"utxoFeeAmount\":1669}',
     );
   })(),
   (() => {
@@ -435,7 +435,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1209,\"txFeeAmount\":1007,\"utxoFeeAmount\":202}'
+      '{\"feeAmount\":1209,\"txFeeAmount\":1007,\"utxoFeeAmount\":202}',
     );
   })(),
 ];
@@ -458,7 +458,7 @@ const elementsErrorCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"AssetId size Invalid.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"AssetId size Invalid.\"}}',
     );
   })(),
   (() => {
@@ -473,7 +473,7 @@ const elementsErrorCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"transaction data invalid.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"transaction data invalid.\"}}',
     );
   })(),
   (() => {
@@ -488,7 +488,7 @@ const elementsErrorCase = [
         isElements: true,
         feeAsset: '',
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"Empty fee asset.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"Empty fee asset.\"}}',
     );
   })(),
   (() => {
@@ -503,7 +503,7 @@ const elementsErrorCase = [
         isElements: true,
         feeAsset: '1234',
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"AssetId size Invalid.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"AssetId size Invalid.\"}}',
     );
   })(),
   (() => {
@@ -518,7 +518,7 @@ const elementsErrorCase = [
         isElements: true,
         feeAsset: '00004b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f3',
       })],
-      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"Unmatch fee asset.\"}}'
+      '{\"error\":{\"code\":1,\"type\":\"illegal_argument\",\"message\":\"Unmatch fee asset.\"}}',
     );
   })(),
 ];

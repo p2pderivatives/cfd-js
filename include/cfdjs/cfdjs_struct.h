@@ -1804,6 +1804,7 @@ struct DescriptorScriptJsonStruct {
   std::string key_type = "";                  //!< key_type  // NOLINT
   std::string key = "";                       //!< key  // NOLINT
   std::vector<DescriptorKeyJsonStruct> keys;  //!< keys  // NOLINT
+  int64_t req_num = 0;                        //!< req_num  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1819,6 +1820,7 @@ struct ParseDescriptorResponseStruct {
   std::string locking_script = "";                  //!< locking_script  // NOLINT
   std::string hash_type = "";                       //!< hash_type  // NOLINT
   std::string redeem_script = "";                   //!< redeem_script  // NOLINT
+  bool include_multisig = false;                    //!< include_multisig  // NOLINT
   std::vector<DescriptorScriptJsonStruct> scripts;  //!< scripts  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.

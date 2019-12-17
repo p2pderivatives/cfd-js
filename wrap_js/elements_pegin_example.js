@@ -208,7 +208,7 @@ if (!supportFunctions.elements) {
                   'privkey': peginKeyPair.privkey,
                   'network': MAINCHAIN_NET_TYPE,
                 },
-              })
+              }),
           )).signature;
 
           const reqJson = {

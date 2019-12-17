@@ -71,7 +71,7 @@ class CFD_JS_EXPORT AddressStructApi {
    * @brief bitcoinネットワーク文字列を、NetType構造体へ変換する.
    * @param[in] network_type ネットワーク文字列
    * @return 引数に対応するNetType構造体
-   * @throws CfdException 指定文字列以外が渡された場合
+   * @throw CfdException 指定文字列以外が渡された場合
    */
   static cfd::core::NetType ConvertNetType(const std::string& network_type);
 
@@ -79,7 +79,7 @@ class CFD_JS_EXPORT AddressStructApi {
    * @brief Convert address type from string to AddressType.
    * @param[in] address_type the address type as a string.
    * @return the converted AddressType.
-   * @throws CfdException if address_type does not match any known AddressType.
+   * @throw CfdException if address_type does not match any known AddressType.
    */
   static AddressType ConvertAddressType(const std::string& address_type);
 
@@ -89,7 +89,7 @@ class CFD_JS_EXPORT AddressStructApi {
    * @param[in] script_list         the script list.
    * @param[in] multisig_key_list   the multisig key list.
    * @return the descriptor struct data.
-   * @throws CfdException if address_type does not match any known AddressType.
+   * @throw CfdException if address_type does not match any known AddressType.
    */
   static ParseDescriptorResponseStruct ConvertDescriptorData(
       const DescriptorScriptData& script_data,
