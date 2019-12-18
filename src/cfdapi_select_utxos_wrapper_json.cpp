@@ -1,6 +1,6 @@
 // Copyright 2019 CryptoGarage
 /**
- * @file cfdapi_select_utxos_json.cpp
+ * @file cfdapi_select_utxos_wrapper_json.cpp
  *
  * @brief JSONマッピングファイル (自動生成)
  */

@@ -1,21 +1,22 @@
 // Copyright 2019 CryptoGarage
 /**
- * @file cfdjs_node_addon.cpp
+ * @file cfdjs_json_mapping_api.cpp
  *
  * @brief cfdのnode.js向けAPI実装ファイル
  */
 #include <string>
 
 #include "cfd/cfd_common.h"
-#include "cfdjs/cfdjs_address.h"
-#include "cfdjs/cfdjs_elements_address.h"
-#include "cfdjs/cfdjs_elements_transaction.h"
-#include "cfdjs/cfdjs_hdwallet.h"
-#include "cfdjs/cfdjs_jsonapi.h"
-#include "cfdjs/cfdjs_key.h"
-#include "cfdjs/cfdjs_script.h"
-#include "cfdjs/cfdjs_transaction.h"
-#include "cfdjs/cfdjs_utility.h"
+#include "cfdjs/cfdjs_api_address.h"
+#include "cfdjs/cfdjs_api_common.h"
+#include "cfdjs/cfdjs_api_elements_address.h"
+#include "cfdjs/cfdjs_api_elements_transaction.h"
+#include "cfdjs/cfdjs_api_hdwallet.h"
+#include "cfdjs/cfdjs_api_json.h"
+#include "cfdjs/cfdjs_api_key.h"
+#include "cfdjs/cfdjs_api_script.h"
+#include "cfdjs/cfdjs_api_transaction.h"
+#include "cfdjs/cfdjs_api_utility.h"
 
 #include "cfdapi_add_multisig_sign_json.h"                  // NOLINT
 #include "cfdapi_add_sign_json.h"                           // NOLINT
@@ -69,7 +70,7 @@
 #include "cfdjs_json_elements_transaction.h"                // NOLINT
 #include "cfdjs_json_transaction.h"                         // NOLINT
 
-#include "cfdjs/cfdjs_common.h"
+#include "cfdjs/cfdjs_api_common.h"
 
 // using
 using cfd::js::api::AddressStructApi;
@@ -206,7 +207,6 @@ std::string ExecuteElementsCheckApi(
 
 /**
  * @brief NodeAddonのJSON APIテンプレート関数(response only).
- * @param[in] request_message     リクエストされたjson文字列
  * @param[in] call_function   cfdの呼び出し関数
  * @return 戻り値(JSON文字列)
  */

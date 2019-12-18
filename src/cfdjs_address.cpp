@@ -9,7 +9,7 @@
 
 #include "cfd/cfdapi_address.h"
 #include "cfdcore/cfdcore_descriptor.h"
-#include "cfdjs/cfdjs_address.h"
+#include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs_internal.h"  // NOLINT
 
 namespace cfd {

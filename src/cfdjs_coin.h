@@ -13,7 +13,7 @@
 #include <vector>
 
 #include "cfdapi_select_utxos_wrapper_json.h"  // NOLINT
-#include "cfdjs/cfdjs_common.h"
+#include "cfdjs/cfdjs_api_common.h"
 
 /**
  * @brief cfdapi名前空間
@@ -26,7 +26,7 @@ namespace json {
 /**
  * @brief Coin関連のJSON-API群クラス
  */
-class CFD_JS_EXPORT CoinJsonApi {
+class CoinJsonApi {
  public:
   /**
    * @brief JSONパラメータの情報を元に、CoinSelectionを実施する

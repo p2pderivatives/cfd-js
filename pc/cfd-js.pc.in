@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: libcfd-js
-Description: bitcoin library
+Name: libcfdjs_api
+Description: Crypto Finance Development Kit for JavaScript
 URL: https://github.com/cryptogarageinc/cfd-js
 Version: @PACKAGE_VERSION@
 Cflags: -I${includedir}
-Libs: -L${libdir} -lcfd-js
+Libs: -L${libdir} -lcfdjs_api

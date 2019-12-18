@@ -10,8 +10,8 @@
 
 #include "cfd/cfdapi_hdwallet.h"
 #include "cfdcore/cfdcore_key.h"
-#include "cfdjs/cfdjs_address.h"
-#include "cfdjs/cfdjs_hdwallet.h"
+#include "cfdjs/cfdjs_api_address.h"
+#include "cfdjs/cfdjs_api_hdwallet.h"
 #include "cfdjs_internal.h"  // NOLINT
 
 //////////////////////////////////
