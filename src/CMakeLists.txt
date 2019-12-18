@@ -124,6 +124,7 @@ endif()
 target_sources(${CFDJS_LIBRARY}
   PRIVATE
     cfdjs_node_addon.cpp
+    cfdjs_json_mapping_api.cpp
     cfdjs_address.cpp
     cfdjs_elements_address.cpp
     cfdjs_elements_transaction.cpp
