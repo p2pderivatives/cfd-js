@@ -90,7 +90,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: /tmp/cfd/cfd.zip
-        asset_name: cfdgo-${{ steps.get_version.outputs.VERSION }}-ubuntu_x86_64.zip
+        asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-ubuntu_x86_64.zip
         asset_content_type: application/zip
     - name: write upload url
       env:
