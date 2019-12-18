@@ -225,3 +225,30 @@ target_link_libraries(${PROJECT_NAME}
     ${UNIVALUE_LIBRARY}
 )
 add_dependencies(${PROJECT_NAME} ${CFD_LIBRARY})
+
+
+####################
+# install & export
+####################
+include(GNUInstallDirs)
+
+install(TARGETS       ${PROJECT_NAME}
+        EXPORT        ${PROJECT_NAME}-export
+        ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+# https://cmake.org/cmake/help/latest/command/install.html
+
+export(TARGETS ${PROJECT_NAME}
+       APPEND FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-export.cmake
+       EXPORT_LINK_INTERFACE_LIBRARIES)
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../include/cfdjs"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        FILES_MATCHING PATTERN "*.h")
+
+# install(EXPORT ${PROJECT_NAME}-export
+#         DESTINATION "."
+#         FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
+#         EXPORT_LINK_INTERFACE_LIBRARIES)

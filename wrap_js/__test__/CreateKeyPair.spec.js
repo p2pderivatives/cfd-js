@@ -1,11 +1,5 @@
 const {CreateKeyPair} = require('../cfdjs_raw_module');
 const TestHelper = require('./TestHelper');
-// const wally = require('../wally');
-const wally = require('../wally.js');
-const {
-  WALLY_WIF_FLAG_COMPRESSED,
-  WALLY_WIF_FLAG_UNCOMPRESSED,
-} = wally;
 
 const emptyFunc = () => { };
 const checkFunction = (jsonString, isWif, isCompress, nettype) => {
@@ -17,22 +11,27 @@ const checkFunction = (jsonString, isWif, isCompress, nettype) => {
     if (!parseResult.pubkey) {
       return false;
     }
-    if (wally.wally_ec_public_key_verify(Buffer.from(parseResult.pubkey, 'hex')) === false) {
-      return false;
-    }
-    if (isWif) {
-      const isUncomp = wally.wally_wif_is_uncompressed(parseResult.privkey);
-      if (isUncomp === isCompress) {
-        return false;
-      }
-      const nettypeValue = (nettype === 'mainnet') ? 0x80 : 0xef;
-      const flag = (isCompress) ? WALLY_WIF_FLAG_COMPRESSED : WALLY_WIF_FLAG_UNCOMPRESSED;
-      const privkeyData = wally.wally_wif_to_bytes(parseResult.privkey, nettypeValue, flag);
-      if (wally.wally_ec_private_key_verify(privkeyData) === false) {
+    if (isCompress) {
+      if (Buffer.from(parseResult.pubkey, 'hex').length !== 33) {
         return false;
       }
     } else {
-      if (wally.wally_ec_private_key_verify(Buffer.from(parseResult.privkey, 'hex')) === false) {
+      if (Buffer.from(parseResult.pubkey, 'hex').length !== 65) {
+        return false;
+      }
+    }
+    if (isWif) {
+      if (isCompress) {
+        if (parseResult.privkey.length !== 52) {
+          return false;
+        }
+      } else {
+        if (parseResult.privkey.length !== 51) {
+          return false;
+        }
+      }
+    } else {
+      if (Buffer.from(parseResult.privkey, 'hex').length !== 32) {
         return false;
       }
     }
@@ -61,6 +60,10 @@ const checkFunctionWifUncompress = (jsonString) => {
 
 const checkFunctionNotWif = (jsonString) => {
   return checkFunction(jsonString, false, true, 'mainnet');
+};
+
+const checkFunctionNotWifUncompress = (jsonString) => {
+  return checkFunction(jsonString, false, false, 'mainnet');
 };
 
 const testCase = [
@@ -98,6 +101,13 @@ const testCase = [
     ['{"wif":true,"network":"mainnet","isCompressed":false}'],
     true,
     emptyFunc, emptyFunc, checkFunctionWifUncompress,
+  ),
+  TestHelper.createTestCase(
+    'CreateKeyPair wif is false, isCompressed is false',
+    CreateKeyPair,
+    ['{"wif":false,"network":"mainnet","isCompressed":false}'],
+    true,
+    emptyFunc, emptyFunc, checkFunctionNotWifUncompress,
   ),
 ];
 
