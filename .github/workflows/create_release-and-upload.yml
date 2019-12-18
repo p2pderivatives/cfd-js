@@ -54,8 +54,7 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        npm run cmake_install_configure
-        npm run cmake_compile
+        npm install
         cd wrap_js/build
         sudo make install DESTDIR=/tmp/cfd
         cd ../..
