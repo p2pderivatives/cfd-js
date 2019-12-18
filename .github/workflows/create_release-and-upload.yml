@@ -58,6 +58,14 @@ jobs:
         cd wrap_js/build
         sudo make install DESTDIR=/tmp/cfd
         cd ../..
+    - name: create archive file
+      run: |
+        cd /tmp/cfd
+        sudo zip -r /tmp/cfd/cfd.zip usr
+        sudo chmod 777 /tmp/cfd/cfd.zip
+        sudo chown runner /tmp/cfd/cfd.zip
+        echo "---- dump zip file ----"
+        sudo ls -l /tmp/cfd
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
