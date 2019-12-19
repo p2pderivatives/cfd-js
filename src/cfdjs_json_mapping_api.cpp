@@ -70,8 +70,6 @@
 #include "cfdjs_json_elements_transaction.h"                // NOLINT
 #include "cfdjs_json_transaction.h"                         // NOLINT
 
-#include "cfdjs/cfdjs_api_common.h"
-
 // using
 using cfd::js::api::AddressStructApi;
 using cfd::js::api::HDWalletStructApi;
