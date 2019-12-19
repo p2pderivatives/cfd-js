@@ -84,9 +84,11 @@ set(PACKAGE_VERSION    ${PACKAGE_VERSION_p2pderivatives})
 endif()
 
 find_package(PkgConfig)
-if(PKG_CONFIG_FOUND)
+if(PKG_CONFIG_FOUND AND (NOT WIN32) AND (NOT APPLE))
 pkg_check_modules(CFDJS_API cfd-js)
 set(CFDJS_API_INSTALLED   ${CFDJS_API_FOUND})
+else()
+set(CFDJS_API_INSTALLED   FALSE)
 endif()
 
 

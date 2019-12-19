@@ -8,28 +8,56 @@ on:
     branches:
     - master
 
+env:
+  CMAKE_VERSION: 3.15.5
+
 jobs:
   cmake-js-build:
     name: cmake-js build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [macos-latest, windows-latest, ubuntu-latest]
         node: [8, 12, 13]
         exclude:
+          - os: windows-latest
+            node: 8
+          - os: macos-latest
+            node: 8
           - os: macos-latest
             node: 13
+
     steps:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
     - uses: actions/checkout@v1
+    - name: cmake-useCache-ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: cache/cmake
+        key: ${{ runner.os }}-cmake-3.15.5-x64
+    - name: cmake-download-ubuntu
+      if: matrix.os == 'ubuntu-latest' && steps.cache.outputs.cache-hit != 'true'
+      run: |
+        mkdir -p cache/cmake
+        cd cache/cmake
+        wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
+        cd ../..
+    - name: cmake-setting-ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        export cmake_file_name="cmake-$CMAKE_VERSION-Linux-x86_64"
+        cd cache/cmake
+        tar zxvf $cmake_file_name.tar.gz
+        chmod +x $cmake_file_name/bin/cmake $cmake_file_name/bin/ctest
+        export CURRENT_DIR=$(pwd)
+        echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
+        cd ../..
     - name: npm_install
-      if: matrix.os == 'macos-latest'
       run: npm install
-    - name: npm_install-D
-      if: matrix.os == 'windows-latest'
-      run: npm install -D
     - name: test_all
       run: npm run test
     - name: example
@@ -37,15 +65,11 @@ jobs:
     - name: elements_example
       run: npm run elements_example
     - name: lint_check
-      if: matrix.os == 'windows-latest'
+      if: matrix.os != 'macos-latest'
       run: npm run lint_all
-    - name: lint_check
-      if: matrix.os == 'windows-latest' && matrix.node != '13'
-      run: npm run lint_all
-    - name: lint_check-latest
-      if: matrix.os == 'windows-latest' && matrix.node == '13'
-      run: npm run lint_all
-      continue-on-error: true
+    - name: ubuntu-after
+      if: matrix.os == 'ubuntu-latest'
+      run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
 
   doxygen-ubuntu:
     name: doxygen-ubuntu
