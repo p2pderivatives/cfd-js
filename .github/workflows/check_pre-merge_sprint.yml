@@ -68,6 +68,7 @@ jobs:
       if: matrix.os != 'macos-latest'
       run: npm run lint_all
     - name: ubuntu-after
+      if: matrix.os == 'ubuntu-latest'
       run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
 
   doxygen-ubuntu:
