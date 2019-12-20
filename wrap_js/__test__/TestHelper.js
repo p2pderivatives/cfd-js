@@ -103,7 +103,7 @@ class TestCase {
 }
 
 const supportTarget = SupportTarget.createBySupportFunction(
-  cfdjsModule.GetSupportedFunction()
+  cfdjsModule.GetSupportedFunction(),
 );
 const supportCommon = new SupportTarget(true, true);
 const supportBitcoin = new SupportTarget(true, false);

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # configure.ac: AC_INIT([cfd-js], [1.0]
-set(PACKAGE_VERSION   1.0.0)
+set(PACKAGE_VERSION_p2pderivatives   0.0.4)
 
 ####################
 # options
@@ -67,18 +67,49 @@ if(ENABLE_TESTS)
 enable_testing()
 endif()		# ENABLE_TESTS
 
+
+####################
+# install check
+####################
+set(EXTERNAL_FILENAME  external_project_local_setting.config)
+set(EXTERNAL_LOCAL_FILENAME  local_resource/${EXTERNAL_FILENAME})
+if(EXISTS ${EXTERNAL_LOCAL_FILENAME})
+transform_makefile_srclist(${EXTERNAL_LOCAL_FILENAME} "${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_FILENAME}.cmake")
+include(${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_FILENAME}.cmake)
+endif()
+if(CFDJS_VERSION)
+set(PACKAGE_VERSION    ${CFDJS_VERSION})
+else()
+set(PACKAGE_VERSION    ${PACKAGE_VERSION_p2pderivatives})
+endif()
+
+find_package(PkgConfig)
+if(PKG_CONFIG_FOUND AND (NOT WIN32) AND (NOT APPLE))
+pkg_check_modules(CFDJS_API cfd-js)
+set(CFDJS_API_INSTALLED   ${CFDJS_API_FOUND})
+else()
+set(CFDJS_API_INSTALLED   FALSE)
+endif()
+
+
 ####################
 # subdirectories
 ####################
+if(CFDJS_API_INSTALLED)
+message(STATUS "[CFDJS_API] use installed library.")
+else()
 if(NOT CFD_SINGLE_BUILD)
 add_subdirectory(external)
-endif()
+endif()  # CFD_SINGLE_BUILD
 add_subdirectory(src)
+endif()  # CFDJS_API_INSTALLED
+add_subdirectory(addon)
 
 
 ####################
 # install & export
 ####################
+if(NOT CFDJS_API_INSTALLED)
 set(prefix            ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix       ${prefix})
 set(libdir            ${exec_prefix}/lib)
@@ -87,3 +118,5 @@ set(includedir        ${prefix}/include)
 configure_file(pc/cfd-js.pc.in  cfd-js.pc  @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cfd-js.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+endif()  # CFDJS_API_INSTALLED

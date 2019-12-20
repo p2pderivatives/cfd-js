@@ -1,17 +1,22 @@
 # ./include/cfdjs/Makefile.srclist
 
-CFDJS_ELEMENTS_PKGINCLUDE_FILES = \
-  cfdjs_elements_address.h \
-  cfdjs_elements_transaction.h
+CFDJS_API_ELEMENTS_PKGINCLUDE_FILES = \
+  cfdjs_api_elements_address.h \
+  cfdjs_api_elements_transaction.h
+
+CFDJS_API_PKGINCLUDE_FILES = \
+  cfdjs_struct.h \
+  cfdjs_api_common.h \
+  cfdjs_api_address.h \
+  cfdjs_api_hdwallet.h \
+  cfdjs_api_json.h \
+  cfdjs_api_key.h \
+  cfdjs_api_script.h \
+  cfdjs_api_transaction.h \
+  cfdjs_api_utility.h \
+  $(CFDJS_API_ELEMENTS_PKGINCLUDE_FILES)
 
 CFDJS_PKGINCLUDE_FILES = \
   cfdjs_common.h \
-  cfdjs_address.h \
-  cfdjs_hdwallet.h \
-  cfdjs_key.h \
-  cfdjs_script.h \
-  cfdjs_struct.h \
-  cfdjs_transaction.h \
-  cfdjs_utility.h \
-  $(CFDJS_ELEMENTS_PKGINCLUDE_FILES)
+  $(CFDJS_API_PKGINCLUDE_FILES)
 
