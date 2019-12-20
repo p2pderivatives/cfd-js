@@ -1,0 +1,107 @@
+name: create-release-upload
+
+on: 
+  push:
+    tags:
+    - 'v*'
+
+env:
+  CMAKE_VERSION: 3.15.5
+
+jobs:
+  upload-object-ubuntu:
+    name: upload-object-ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: list
+      run: ls -a $GITHUB_WORKSPACE
+    - name: cmake-useCache-ubuntu
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: cache/cmake
+        key: ${{ runner.os }}-cmake-3.15.5-x64
+    - name: cmake-download-ubuntu
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: |
+        mkdir -p cache/cmake
+        cd cache/cmake
+        wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
+        cd ../..
+    - name: cmake-setting-ubuntu
+      run: |
+        export cmake_file_name="cmake-$CMAKE_VERSION-Linux-x86_64"
+        cd cache/cmake
+        tar zxvf $cmake_file_name.tar.gz
+        chmod +x $cmake_file_name/bin/cmake $cmake_file_name/bin/ctest
+        export CURRENT_DIR=$(pwd)
+        echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
+        cd ../..
+    - name: create folder
+      run: |
+        echo "---- dump output data ----"
+        mkdir -p /tmp/cfd/usr/local/lib
+        sudo chmod 777 /tmp/cfd
+        sudo chown runner /tmp/cfd
+        sudo chmod 777 /tmp/cfd/usr
+        sudo chown runner /tmp/cfd/usr
+    - name: cmake-build
+      id: cmake_build
+      run: |
+        npm install
+        cd wrap_js/build
+        sudo make install DESTDIR=/tmp/cfd
+        cd ../..
+    - name: create archive file
+      run: |
+        cd /tmp/cfd
+        sudo zip -r /tmp/cfd/cfd.zip usr
+        sudo chmod 777 /tmp/cfd/cfd.zip
+        sudo chown runner /tmp/cfd/cfd.zip
+        echo "---- dump zip file ----"
+        sudo ls -l /tmp/cfd
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: false
+        prerelease: false
+#      continue-on-error: true
+    - name: Upload Release Asset
+      id: upload-release-asset 
+#      if: success()
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: /tmp/cfd/cfd.zip
+        asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-ubuntu_x86_64.zip
+        asset_content_type: application/zip
+    - name: write upload url
+      env:
+        url: ${{ steps.create_release.outputs.upload_url }}
+      run: |
+        cd /tmp/cfd
+        sudo echo $url > upload_url.txt
+    - name: upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifact-upload_url
+        path: /tmp/cfd/upload_url.txt
+    - name: ubuntu-after
+      run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
