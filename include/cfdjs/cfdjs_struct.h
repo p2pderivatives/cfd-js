@@ -2147,6 +2147,51 @@ struct UpdateWitnessStackResponseStruct {
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
+// ------------------------------------------------------------------------
+// VerifySignatureTxInRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureTxInRequestStruct 構造体
+ */
+struct VerifySignatureTxInRequestStruct {
+  std::string txid = "";                           //!< txid  // NOLINT
+  uint32_t vout = 0;                               //!< vout  // NOLINT
+  std::string signature = "";                      //!< signature  // NOLINT
+  std::string pubkey = "";                         //!< pubkey  // NOLINT
+  std::string redeem_script = "";                  //!< redeem_script  // NOLINT
+  std::string hash_type = "p2wpkh";                //!< hash_type  // NOLINT
+  std::string sighash_type = "all";                //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;             //!< sighash_anyone_can_pay  // NOLINT
+  int64_t amount = 0;                              //!< amount  // NOLINT
+  std::string confidential_value_commitment = "";  //!< confidential_value_commitment  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// VerifySignatureRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureRequestStruct 構造体
+ */
+struct VerifySignatureRequestStruct {
+  std::string tx = "";                    //!< tx  // NOLINT
+  bool is_elements = false;               //!< is_elements  // NOLINT
+  VerifySignatureTxInRequestStruct txin;  //!< txin  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// VerifySignatureResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureResponseStruct 構造体
+ */
+struct VerifySignatureResponseStruct {
+  bool success = true;  //!< success  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
 }  // namespace api
 }  // namespace js
 }  // namespace cfd

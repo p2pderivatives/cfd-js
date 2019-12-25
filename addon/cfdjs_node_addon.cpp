@@ -357,6 +357,15 @@ Value AddMultisigSign(const CallbackInfo &information) {
 }
 
 /**
+ * @brief VerifySignatureのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value VerifySignature(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::VerifySignature);
+}
+
+/**
  * @brief EstimateFeeのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -563,6 +572,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "AddMultisigSign"),
       Function::New(env, AddMultisigSign));
+  exports->Set(
+      String::New(env, "VerifySignature"),
+      Function::New(env, VerifySignature));
   exports->Set(
       String::New(env, "GetMnemonicWordlist"),
       Function::New(env, GetMnemonicWordlist));

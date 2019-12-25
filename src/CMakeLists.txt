@@ -187,6 +187,7 @@ target_sources(${PROJECT_NAME}
     autogen/cfdapi_transaction_json.cpp
     autogen/cfdapi_update_witness_json.cpp
     autogen/cfdapi_select_utxos_json.cpp
+    autogen/cfdapi_verify_signature_json.cpp
 )
 
 target_compile_options(${PROJECT_NAME}
@@ -288,6 +289,26 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
     COMMAND ${CMAKE_COMMAND} -E copy ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
 )
+
+if(NOT ENABLE_SHARED)
+set(LIB_PREFIX  ${CMAKE_SHARED_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(LIBWALLY_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}wally${LIB_SUFFIX})
+set(UNIVALUE_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}univalue${LIB_SUFFIX})
+set(CFDCORE_LIB_PATH   ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdcore${LIB_SUFFIX})
+set(CFD_LIB_PATH       ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfd${LIB_SUFFIX})
+
+if(EXISTS ${CFD_LIB_PATH})
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy  ${LIBWALLY_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${UNIVALUE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+)
+endif(EXISTS ${CFD_LIB_PATH})
+endif(NOT ENABLE_SHARED)
 endif()   # USE_INSTALLED_LIBRARY
 
 

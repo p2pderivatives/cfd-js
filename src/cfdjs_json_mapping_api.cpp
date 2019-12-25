@@ -66,6 +66,7 @@
 #include "cfdapi_supported_function_json.h"                 // NOLINT
 #include "cfdapi_transaction_json.h"                        // NOLINT
 #include "cfdapi_update_witness_json.h"                     // NOLINT
+#include "cfdapi_verify_signature_json.h"                   // NOLINT
 #include "cfdjs_coin.h"                                     // NOLINT
 #include "cfdjs_json_elements_transaction.h"                // NOLINT
 #include "cfdjs_json_transaction.h"                         // NOLINT
@@ -636,6 +637,19 @@ std::string JsonMappingApi::AddMultisigSign(
       ElementsTransactionStructApi::AddMultisigSign);
 #else
       TransactionStructApi::AddMultisigSign);
+#endif
+}
+
+std::string JsonMappingApi::VerifySignature(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::VerifySignatureRequest, api::json::VerifySignatureResponse,
+      api::VerifySignatureRequestStruct, api::VerifySignatureResponseStruct>(
+      request_message, TransactionStructApi::VerifySignature,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::VerifySignature);
+#else
+      TransactionStructApi::VerifySignature);
 #endif
 }
 

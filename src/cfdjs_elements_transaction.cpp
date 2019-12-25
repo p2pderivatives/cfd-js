@@ -723,6 +723,65 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
   return result;
 }
 
+VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
+    const VerifySignatureRequestStruct& request) {
+  auto call_func = [](const VerifySignatureRequestStruct& request)
+      -> VerifySignatureResponseStruct {  // NOLINT
+    VerifySignatureResponseStruct response;
+    std::string sig_hash;
+    int64_t amount = request.txin.amount;
+    const std::string& hashtype_str = request.txin.hash_type;
+    const std::string& value_hex = request.txin.confidential_value_commitment;
+    const Txid& txid = Txid(request.txin.txid);
+    uint32_t vout = request.txin.vout;
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+
+    Pubkey pubkey = Pubkey(request.txin.pubkey);
+    ByteData signature = ByteData(request.txin.signature);
+    Script script;
+
+    ConfidentialTransactionController ctx(request.tx);
+    bool is_success = false;
+    WitnessVersion version;
+    ConfidentialValue value =
+        (value_hex.empty())
+            ? ConfidentialValue(Amount::CreateBySatoshiAmount(amount))
+            : ConfidentialValue(value_hex);
+    if ((hashtype_str == "p2pkh") || (hashtype_str == "p2wpkh")) {
+      version = (hashtype_str == "p2wpkh") ? WitnessVersion::kVersion0
+                                           : WitnessVersion::kVersionNone;
+      is_success = ctx.VerifyInputSignature(
+          signature, pubkey, txid, vout, sighashtype, value, version);
+    } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
+      script = Script(request.txin.redeem_script);
+      version = (hashtype_str == "p2wsh") ? WitnessVersion::kVersion0
+                                          : WitnessVersion::kVersionNone;
+      is_success = ctx.VerifyInputSignature(
+          signature, pubkey, txid, vout, script, sighashtype, value, version);
+    } else {
+      warn(
+          CFD_LOG_SOURCE,
+          "Failed to VerifySignature. Invalid hashtype_str:  "
+          "hashtype_str={}",  // NOLINT
+          hashtype_str);
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
+          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
+    }
+
+    response.success = is_success;
+    return response;
+  };
+
+  VerifySignatureResponseStruct result;
+  result = ExecuteStructApi<
+      VerifySignatureRequestStruct, VerifySignatureResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 BlindRawTransactionResponseStruct
 ElementsTransactionStructApi::BlindTransaction(
     const BlindRawTransactionRequestStruct& request) {

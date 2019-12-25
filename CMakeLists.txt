@@ -27,7 +27,7 @@ set(TARGET_RPATH "")
 set(ENABLE_COVERAGE FALSE)
 endif()
 
-if((NOT WIN32) AND (NOT APPLE))
+if(NOT APPLE)
 set(ENABLE_SHARED ON CACHE BOOL "" FORCE)
 endif()
 
@@ -103,14 +103,16 @@ endif()  # PkgConfig
 ####################
 # subdirectories
 ####################
-if(CFDJS_API_INSTALLED)
-message(STATUS "[CFDJS_API] use installed library.")
-else()
 if(NOT CFD_SINGLE_BUILD)
 add_subdirectory(external)
 endif()  # CFD_SINGLE_BUILD
+
+if(CFDJS_API_INSTALLED)
+message(STATUS "[CFDJS_API] use installed library.")
+else()
 add_subdirectory(src)
 endif()  # CFDJS_API_INSTALLED
+
 add_subdirectory(addon)
 
 
