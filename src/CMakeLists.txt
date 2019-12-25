@@ -92,10 +92,23 @@ endif()
 ####################
 # cfd-js-api
 project(cfdjs_api CXX)
+find_package(cfd  QUIET)
+if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 set(CFD_LIBRARY cfd)
 set(CFDCORE_LIBRARY cfdcore)
 set(UNIVALUE_LIBRARY univalue)
 # set(LIBWALLY_LIBRARY wally)
+
+else()
+message(STATUS "[cfd_FOUND]=${cfd_FOUND}")
+message(STATUS "[cfd_DIR]=${cfd_DIR}")
+
+set(CFD_LIBRARY cfd)
+set(CFDCORE_LIBRARY cfdcore)
+set(UNIVALUE_LIBRARY univalue)
+# set(LIBWALLY_LIBRARY wally)
+endif()
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -203,14 +216,40 @@ target_compile_definitions(${PROJECT_NAME}
 )
 endif()
 
+if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    ../include
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
   PRIVATE
     .
     ./autogen
     ${CFD_SRC_ROOT_DIR}/external/cfd-core/src/include
 )
+target_link_directories(${PROJECT_NAME}
+  PRIVATE
+    ./
+)
+set(USE_INSTALLED_LIBRARY  FALSE)
+add_dependencies(${PROJECT_NAME} ${CFD_LIBRARY})
+else()
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    .
+    ./autogen
+    ${cfd_DIR}/../include
+    ${CFD_SRC_ROOT_DIR}/external/cfd-core/src/include
+)
+target_link_directories(${PROJECT_NAME}
+  PRIVATE
+    ./
+    ${cfd_DIR}/../lib
+)
+set(USE_INSTALLED_LIBRARY  TRUE)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:winmm.lib>
@@ -224,7 +263,32 @@ target_link_libraries(${PROJECT_NAME}
     ${CFDCORE_LIBRARY}
     ${UNIVALUE_LIBRARY}
 )
-add_dependencies(${PROJECT_NAME} ${CFD_LIBRARY})
+
+
+if(USE_INSTALLED_LIBRARY)
+set(INSTALLED_LIBRARY_DIR  ${cfd_DIR}/../lib)
+if(ENABLE_SHARED)
+set(LIB_PREFIX  ${CMAKE_SHARED_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_SHARED_LIBRARY_SUFFIX})
+else()
+set(LIB_PREFIX  ${CMAKE_STATIC_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_STATIC_LIBRARY_SUFFIX})
+endif()
+
+set(LIBWALLY_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}wally${LIB_SUFFIX})
+set(UNIVALUE_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}univalue${LIB_SUFFIX})
+set(CFDCORE_LIB_PATH   ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdcore${LIB_SUFFIX})
+set(CFD_LIB_PATH       ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfd${LIB_SUFFIX})
+
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${LIBWALLY_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${UNIVALUE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+)
+endif()   # USE_INSTALLED_LIBRARY
 
 
 ####################
@@ -236,19 +300,22 @@ install(TARGETS       ${PROJECT_NAME}
         EXPORT        ${PROJECT_NAME}-export
         ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        OBJECTS       DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
-# https://cmake.org/cmake/help/latest/command/install.html
 
-export(TARGETS ${PROJECT_NAME}
-       APPEND FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-export.cmake
-       EXPORT_LINK_INTERFACE_LIBRARIES)
+install(EXPORT ${PROJECT_NAME}-export
+        FILE ${PROJECT_NAME}-config.cmake
+        DESTINATION "cmake/"
+        EXPORT_LINK_INTERFACE_LIBRARIES)
 
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../include/cfdjs"
         DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
         FILES_MATCHING PATTERN "*.h")
 
-# install(EXPORT ${PROJECT_NAME}-export
-#         DESTINATION "."
-#         FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
-#         EXPORT_LINK_INTERFACE_LIBRARIES)
+if(MSVC)
+install(DIRECTORY "${CFD_OBJ_BINARY_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        FILES_MATCHING PATTERN "cfdjs_api.exp")
+endif()

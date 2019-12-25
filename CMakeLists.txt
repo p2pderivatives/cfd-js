@@ -87,9 +87,17 @@ find_package(PkgConfig)
 if(PKG_CONFIG_FOUND AND (NOT WIN32) AND (NOT APPLE))
 pkg_check_modules(CFDJS_API cfd-js)
 set(CFDJS_API_INSTALLED   ${CFDJS_API_FOUND})
-else()
+else()  # PkgConfig
+find_package(cfdjs_api  QUIET CONFIG)
+if((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
+
+# check "wrap_js/lib" directory.
+
 set(CFDJS_API_INSTALLED   FALSE)
-endif()
+else()
+set(CFDJS_API_INSTALLED   TRUE)
+endif()  # find_package
+endif()  # PkgConfig
 
 
 ####################
@@ -106,10 +114,10 @@ endif()  # CFDJS_API_INSTALLED
 add_subdirectory(addon)
 
 
+if(NOT CFDJS_API_INSTALLED)
 ####################
 # install & export
 ####################
-if(NOT CFDJS_API_INSTALLED)
 set(prefix            ${CMAKE_INSTALL_PREFIX})
 set(exec_prefix       ${prefix})
 set(libdir            ${exec_prefix}/lib)
@@ -118,5 +126,19 @@ set(includedir        ${prefix}/include)
 configure_file(pc/cfd-js.pc.in  cfd-js.pc  @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cfd-js.pc
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+####################
+# uninstall
+####################
+if(NOT TARGET uninstall)
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/pc/cmake_uninstall.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+  IMMEDIATE @ONLY)
+
+add_custom_target(uninstall
+  COMMAND ${CMAKE_COMMAND} -P
+  ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+endif()
 
 endif()  # CFDJS_API_INSTALLED

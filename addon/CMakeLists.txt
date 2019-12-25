@@ -99,6 +99,9 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(cfdjs_api  QUIET)
+if((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
+
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)
 pkg_check_modules(CFDJS_API cfd-js)
@@ -137,6 +140,21 @@ message(STATUS "[LIBRARY_DIRS]=${WALLY_LIBRARY_DIRS}")
 set(INSTALLED_LIBRARY_DIR ${WALLY_LIBRARY_DIRS})
 
 endif()
+
+else((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
+set(USE_INSTALLED_LIBRARY  TRUE)
+message(STATUS "[cfdjs_api_FOUND]=${cfdjs_api_FOUND}")
+message(STATUS "[cfdjs_api_DIR]=${cfdjs_api_DIR}")
+
+set(CFDJS_API_LIBRARY cfdjs_api)
+set(CFD_LIBRARY cfd)
+set(CFDCORE_LIBRARY cfdcore)
+set(UNIVALUE_LIBRARY univalue)
+set(LIBWALLY_LIBRARY wally)
+set(INSTALLED_LIBRARY_DIR "${cfdjs_api_DIR}/../lib")
+message(STATUS "[find LIBRARY_DIRS]=${INSTALLED_LIBRARY_DIR}")
+
+endif((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
 
 
 if(MSVC)
@@ -202,6 +220,12 @@ target_include_directories(${CFDJS_LIBRARY}
     .
     ${CMAKE_JS_INC}
     ${NODE_ADDON_API_DIR}
+)
+
+target_link_directories(${CFDJS_LIBRARY}
+  PRIVATE
+    ./
+    ${INSTALLED_LIBRARY_DIR}
 )
 
 target_link_libraries(${CFDJS_LIBRARY}
@@ -271,6 +295,12 @@ target_include_directories(${PROJECT_NAME}
     ${NODE_ADDON_API_DIR}
 )
 
+target_link_directories(${PROJECT_NAME}
+  PRIVATE
+    ./
+    ${INSTALLED_LIBRARY_DIR}
+)
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:winmm.lib>
   PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:ws2_32.lib>
@@ -314,6 +344,28 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy  ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
     COMMAND ${CMAKE_COMMAND} -E copy  ${CFDJS_API_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
 )
+
+if(NOT ENABLE_SHARED)
+set(LIB_PREFIX  ${CMAKE_SHARED_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(LIBWALLY_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}wally${LIB_SUFFIX})
+set(UNIVALUE_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}univalue${LIB_SUFFIX})
+set(CFDCORE_LIB_PATH   ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdcore${LIB_SUFFIX})
+set(CFD_LIB_PATH       ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfd${LIB_SUFFIX})
+set(CFDJS_API_LIB_PATH ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdjs_api${LIB_SUFFIX})
+
+if(EXISTS ${CFDJS_API_LIB_PATH})
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy  ${LIBWALLY_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${UNIVALUE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFDJS_API_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+)
+endif(EXISTS ${CFDJS_API_LIB_PATH})
+endif(NOT ENABLE_SHARED)
 endif()   # USE_INSTALLED_LIBRARY
 
 endif()		# CMAKE_JS_INC

@@ -1,5 +1,7 @@
 project(external_download NONE)
 
+find_package(cfd  QUIET CONFIG)
+
 # load file
 set(EXTERNAL_LOCAL_FILENAME  local_resource/external_project_local_setting.config)
 set(LOCAL_VERSION_FILE  ${CMAKE_SOURCE_DIR}/${EXTERNAL_LOCAL_FILENAME})
@@ -62,8 +64,13 @@ if(EXISTS ${PROJECT_EXTERNAL})
                    ${CFD_ROOT_BINARY_DIR}/external/${TEMPLATE_PROJECT_NAME}/external)
 endif()
 
+if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}
                  ${DIR_PATH}/build)
+else()
+message(STATUS "[external project local] use cfd cache")
+endif((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
+
 set_property(GLOBAL PROPERTY ${TEMPLATE_PROJECT_NAME} 1)
 endif()
 
