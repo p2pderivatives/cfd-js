@@ -28,6 +28,7 @@ const {
   EstimateFee,
   GetAddressesFromMultisig,
   ParseDescriptor,
+  VerifySignature,
 } = cfdjsModule;
 
 let supportFunctions;
@@ -517,6 +518,28 @@ if (!supportFunctions.elements) {
     };
     signatureRet = CalculateEcSignature(reqJson);
     console.log('\n*** CalculateEcSignature ***\n', signatureRet);
+  }
+
+  let verifyRet;
+  {
+    console.log('\n===== VerifySignature (blinded utxo) =====');
+    const privkey = 'cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1';
+    const reqJson = {
+      tx: blindRawTransactionResult2.hex,
+      isElements: true,
+      txin: {
+        'txid': '03f8801068f3d2c1bbb2c6eaf295e845f9a265615a229adf9f64215ad63afcb7',
+        'vout': 0,
+        'signature': signatureRet.signature,
+        'pubkey': '03f942716865bb9b62678d99aa34de4632249d066d99de2b5a2e542e54908450d6',
+        // scriptHex: '0014eb3c0d55b7098a4aef4a18ee1eebcb1ed924a82b',
+        // amount: 290000,
+        'confidentialValueCommitment': '08b7057c10af7e696c1927584b006fbc3e7e914d4e7ac29f1876bf8d4a64276736',
+        'hashType': 'p2wpkh',
+      },
+    };
+    verifyRet = VerifySignature(reqJson);
+    console.log('\n*** VerifySignature ***\n', verifyRet);
   }
 
   let addSign1;
