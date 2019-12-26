@@ -99,7 +99,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(cfdjs_api  QUIET)
+find_package(cfdjs_api  QUIET  HINTS "../wrap_js/dl_lib")
 if((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
 
 find_package(PkgConfig)

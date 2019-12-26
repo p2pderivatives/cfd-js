@@ -1,10 +1,11 @@
 {
   "name": "cfd-js",
-  "version": "0.0.7",
+  "version": "0.0.1-201912260009",
   "main": "index.js",
   "description": "cfd node.js api",
   "scripts": {
-    "install": "run-s cmake_clean cmake_install_configure cmake_compile",
+    "install": "run-s cmake_clean download_object cmake_install_configure cmake_compile",
+    "download_object": "node ./pkg_getter.js",
     "cmake_compile": "cmake-js compile -O wrap_js/build",
     "cmake_install_configure": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=off --CDENABLE_CAPI=off --CDENABLE_TESTS=off --CDTARGET_RPATH=\"@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release\" -C",
     "example": "node wrap_js/example.js",
@@ -111,12 +112,14 @@
     "big-integer": "^1.6.26",
     "bindings": "*",
     "cmake-js": "^5.3.2",
+    "got": "^10.2.0",
     "nan": "^2.14.0",
     "node-addon-api": "^1.6.3",
     "node-gyp": "^5.0.2",
     "npm-run-all": "^4.1.5",
     "run-script-os": "^1.0.5",
-    "tape": "^4.11.0"
+    "tape": "^4.11.0",
+    "unzipper": "^0.8.14"
   },
   "devDependencies": {
     "eslint": "^6.5.1",

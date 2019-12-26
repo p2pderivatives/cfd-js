@@ -88,11 +88,9 @@ if(PKG_CONFIG_FOUND AND (NOT WIN32) AND (NOT APPLE))
 pkg_check_modules(CFDJS_API cfd-js)
 set(CFDJS_API_INSTALLED   ${CFDJS_API_FOUND})
 else()  # PkgConfig
-find_package(cfdjs_api  QUIET CONFIG)
+
+find_package(cfdjs_api  QUIET CONFIG  HINTS "./wrap_js/dl_lib")
 if((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
-
-# check "wrap_js/lib" directory.
-
 set(CFDJS_API_INSTALLED   FALSE)
 else()
 set(CFDJS_API_INSTALLED   TRUE)
