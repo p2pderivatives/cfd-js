@@ -523,7 +523,6 @@ if (!supportFunctions.elements) {
   let verifyRet;
   {
     console.log('\n===== VerifySignature (blinded utxo) =====');
-    const privkey = 'cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1';
     const reqJson = {
       tx: blindRawTransactionResult2.hex,
       isElements: true,

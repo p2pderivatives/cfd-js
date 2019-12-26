@@ -770,6 +770,12 @@ VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
           "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
           "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
     }
+    if (!is_success) {
+      warn(CFD_LOG_SOURCE, "Failed to VerifySignature. check fail.");
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Failed to VerifySignature. check fail.");
+    }
 
     response.success = is_success;
     return response;
