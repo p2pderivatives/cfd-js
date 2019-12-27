@@ -38,15 +38,15 @@ const main = async function() {
     const version = pkg.version;
     console.log(`version = ${version}`);
 
-    let targetFile = '';
+    let targetName = '';
     if (isWindows) {
-      targetFile = 'win-vs2019';
+      targetName = 'win-vs2019';
     } else if (isMacos) {
-      targetFile = 'macos-xcode7-static';
+      targetName = 'macos-xcode7-static';
     } else {
-      targetFile = 'ubuntu1804-gcc';
+      targetName = 'ubuntu1804-gcc';
     }
-    const targetUrl = `https://github.com/cryptogarageinc/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetFile}-x86_64.zip`;
+    const targetUrl = `https://github.com/cryptogarageinc/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
     console.log(`download url = ${targetUrl}`);
 
     const separator = (isWindows) ? '\\' : '/';
