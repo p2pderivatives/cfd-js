@@ -10,7 +10,7 @@ matrix:
   include:
     - os: osx
       compiler: clang
-      osx_image: xcode8
+      osx_image: xcode9.4
       env: BUILD_TYPE="Release"
 env:
   global:
@@ -25,7 +25,7 @@ addons:
 before_install:
 
 install:
-  - "cmake version check"
+  - echo "cmake version check"
   - cmake --version
 
 after_install:
@@ -36,7 +36,7 @@ before_script:
   - mkdir dist
   - mkdir build
   - cmake -S . -B build
-  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=off -DENABLE_TESTS=off --build build
+  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib" --build build
 
 script:
   - cmake --build build
@@ -58,6 +58,7 @@ deploy:
   draft: false
   on:
     tags: true
+  skip_cleanup: true
 
 after_deploy:
 
