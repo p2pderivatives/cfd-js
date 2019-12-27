@@ -83,6 +83,10 @@ else()
 set(PACKAGE_VERSION    ${PACKAGE_VERSION_p2pderivatives})
 endif()
 
+set(CFDJSAPI_CONFIG_FILE  "${CMAKE_CURRENT_SOURCE_DIR}/wrap_js/dl_lib/cmake/cfdjs_api-config.cmake")
+if(EXISTS ${CFDJSAPI_CONFIG_FILE})
+set(CFDJS_API_INSTALLED   TRUE)
+else()
 include(FindPackageHandleStandardArgs)
 find_package(cfdjs_api   CONFIG
   HINTS "${CMAKE_CURRENT_SOURCE_DIR}/wrap_js/dl_lib" "${CMAKE_CURRENT_SOURCE_DIR}/wrap_js/dl_lib/cmake")
@@ -92,6 +96,7 @@ set(CFDJS_API_INSTALLED   FALSE)
 else()
 set(CFDJS_API_INSTALLED   TRUE)
 endif()  # find_package
+endif()
 
 
 ####################
