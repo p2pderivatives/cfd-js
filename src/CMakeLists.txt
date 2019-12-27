@@ -30,7 +30,7 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:DEB
 set(OPTION_BIGOBJ  "/bigobj")
 else()
 set(ENABLE_DEBUG  FALSE)
-set(OPTION_BIGOBJ  "")
+set(OPTION_BIGOBJ  "/bigobj")
 endif() # CMAKE_BUILD_TYPE
 
 ####################
