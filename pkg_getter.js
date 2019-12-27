@@ -39,10 +39,10 @@ const main = async function() {
     console.log(`version = ${version}`);
 
     let targetName = '';
-    if (isWindows) {
+    if (isMacos) {
+      targetName = 'osx-xcode7';
+    } else if (isWindows) {
       targetName = 'win-vs2019';
-    } else if (isMacos) {
-      targetName = 'macos-xcode7-static';
     } else {
       targetName = 'ubuntu1804-gcc';
     }
