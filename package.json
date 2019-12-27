@@ -1,6 +1,6 @@
 {
   "name": "cfd-js",
-  "version": "0.0.1-2019122703",
+  "version": "0.0.8",
   "main": "index.js",
   "description": "cfd node.js api",
   "scripts": {
