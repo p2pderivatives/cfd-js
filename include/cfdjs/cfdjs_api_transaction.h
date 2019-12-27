@@ -85,6 +85,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
   static CreateSignatureHashResponseStruct CreateSignatureHash(
       const CreateSignatureHashRequestStruct& request);
 
+  /**
+   * @brief パラメータの情報を元に、署名検証を実施する.
+   * @param[in] request 署名検証情報を格納した構造体
+   * @return 署名検証結果を格納した構造体
+   */
+  static VerifySignatureResponseStruct VerifySignature(
+      const VerifySignatureRequestStruct& request);
+
  private:
   TransactionStructApi();
 

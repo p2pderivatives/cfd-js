@@ -35,6 +35,7 @@ const {
   ParseScript,
   EncodeSignatureByDer,
   CreateMultisigScriptSig,
+  VerifySignature,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -268,7 +269,7 @@ let createP2shP2wpkhAddressResult;
   console.log('\n===== CreateP2shP2wpkhAddress =====');
   const reqJson = {
     'keyData': {
-      'hex': '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+      'hex': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
       'type': 'pubkey',
     },
     'network': NET_TYPE,
@@ -312,7 +313,7 @@ let CreateP2shP2wpkhSignatureHashResult;
       'txid': DUMMY_TXID_1,
       'vout': 0,
       'keyData': {
-        'hex': '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+        'hex': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
         'type': 'pubkey',
       },
       'amount': txInAmtAlice + 2000,
@@ -330,7 +331,7 @@ let addP2shP2wpkhTxWitness;
   let signatureRet;
   {
     console.log('\n===== AddSign : CalculateEcSignature =====');
-    const privkey = 'cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1';
+    const privkey = 'cRar5dsNEddUTgXuuhsq5p2NRJUKiV58PUHEPgGe1k9CW8CGRzbj';
     const reqJson = {
       'sighash': CreateP2shP2wpkhSignatureHashResult.sighash,
       'privkeyData': {
@@ -341,6 +342,25 @@ let addP2shP2wpkhTxWitness;
     signatureRet = CalculateEcSignature(reqJson);
     console.log('\n*** CalculateEcSignature Response ***\n',
         signatureRet, '\n');
+  }
+
+  let verifyRet;
+  {
+    console.log('\n===== AddSign : VerifySignature =====');
+    const reqJson = {
+      tx: createP2shP2wpkhTxResult.hex,
+      txin: {
+        'txid': DUMMY_TXID_1,
+        'vout': 0,
+        'signature': signatureRet.signature,
+        'pubkey': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
+        'amount': 3000002000,
+        'hashType': 'p2wpkh',
+      },
+    };
+    console.log('\n*** VerifySignature request ***\n', reqJson);
+    verifyRet = VerifySignature(reqJson);
+    console.log('\n*** VerifySignature ***\n', verifyRet);
   }
 
   console.log('\n===== AddSign =====');
@@ -356,7 +376,7 @@ let addP2shP2wpkhTxWitness;
           derEncode: true,
         },
         {
-          hex: '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+          hex: '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
           type: 'pubkey',
         },
       ],
@@ -376,7 +396,7 @@ let addP2shP2wpkhTxWitness;
       'sighashAnyoneCanPay': false,
     };
     derSignatureRet = EncodeSignatureByDer(reqJson);
-    console.log('\n*** CalculateEcSignature Response ***\n',
+    console.log('\n*** EncodeSignatureByDer Response ***\n',
         derSignatureRet, '\n');
     decodedTx = DecodeRawTransaction({'hex': addP2shP2wpkhTxWitness.hex});
     console.log('\n*** DecodedSignature ***\n', decodedTx.vin[0].txinwitness[0], '\n');
@@ -667,6 +687,26 @@ let signatureRet;
   signatureRet = CalculateEcSignature(reqJson);
   console.log('\n*** Response ***\n', signatureRet, '\n');
 }
+
+let verifyRetWPKH;
+{
+  console.log('\n===== AddSign2 : VerifySignature =====');
+  const reqJson = {
+    tx: addP2WPKHTxSign1.hex,
+    txin: {
+      'txid': '8ac60eb9575db5b2d987e29f301b5b819ea83a5c6579d282d189cc04b8e151ef',
+      'vout': 1,
+      'signature': signatureRet.signature,
+      'pubkey': '025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357', // eslint-disable-line max-len
+      'amount': 600000000,
+      'hashType': 'p2wpkh',
+    },
+  };
+  console.log('\n*** VerifySignature request ***\n', reqJson);
+  verifyRetWPKH = VerifySignature(reqJson);
+  console.log('\n*** VerifySignature ***\n', verifyRetWPKH);
+}
+
 let addP2WPKHTxSign2;
 {
   console.log('\n===== AddSign2(P2WPKH) =====');

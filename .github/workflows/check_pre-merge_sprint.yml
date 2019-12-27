@@ -56,8 +56,30 @@ jobs:
         export CURRENT_DIR=$(pwd)
         echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
         cd ../..
-    - name: npm_install
+    - name: npm_install_v8
+      if: matrix.node == 8
       run: npm install
+    - name: npm_install
+      if: matrix.node != 8
+      run: npm install
+      continue-on-error: true
+    - name: npm_clean
+      if: matrix.os != 'windows-latest'
+      run: |
+        cd wrap_js
+        rm -rf dl_lib
+        cd ..
+      continue-on-error: true
+    - name: npm_clean_windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd wrap_js
+        rm -Recurse -Force dl_lib
+        cd ..
+      continue-on-error: true
+    - name: npm_build
+      if: matrix.node != 8
+      run: npm run cmake_release_parallel
     - name: test_all
       run: npm run test
     - name: example
