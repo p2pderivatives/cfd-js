@@ -1,10 +1,10 @@
 const stream = require('stream');
 const {promisify} = require('util');
-const fs = require("fs");
+const fs = require('fs');
 const path = require('path');
 
 const got = require('got');
-const unzipper = require('unzipper')
+const unzipper = require('unzipper');
 
 const pkg = require('./package.json');
 
@@ -25,7 +25,7 @@ const findPath = async function(path) {
     } else {
     }
     return true;
-  } catch(e) {
+  } catch (e) {
     console.log(`empty file: ${path}`);
     return false;
   }
@@ -71,66 +71,69 @@ const main = async function() {
       await removeFile(zipfilepath);
     }
     await pipeline(
-      got.stream(targetUrl),
-      fs.createWriteStream(zipfilepath)
+        got.stream(targetUrl),
+        fs.createWriteStream(zipfilepath)
     );
 
-    let outdirpath = dirpath + 'dl_lib';
+    const outdirpath = dirpath + 'dl_lib';
     const existDir = await findPath(outdirpath);
     if (asyncfs) {
       if (existDir) {
-        let targetRemoveFiles = await asyncfs.readdir(outdirpath);
-        for (let file in targetRemoveFiles) {
-          const path = outdirpath + separator + targetRemoveFiles[file];
-          const stat = await asyncfs.stat(path);
-          if (stat && !stat.isDirectory()) {
-            await asyncfs.unlink(path);
+        const targetRemoveFiles = await asyncfs.readdir(outdirpath);
+        for (const file in targetRemoveFiles) {
+          if (targetRemoveFiles.hasOwnProperty(file)) {
+            const path = outdirpath + separator + targetRemoveFiles[file];
+            const stat = await asyncfs.stat(path);
+            if (stat && !stat.isDirectory()) {
+              await asyncfs.unlink(path);
+            }
           }
         }
-        console.log('erase output dir.')
+        console.log('erase output dir.');
       } else {
         await asyncfs.mkdir(outdirpath);
-        console.log('create output dir.')
+        console.log('create output dir.');
       }
     } else {
       if (existDir) {
-        let targetRemoveFiles = fs.readdirSync(outdirpath);
-        for (let file in targetRemoveFiles) {
-          fs.unlinkSync(outdirpath + separator + targetRemoveFiles[file]);
+        const targetRemoveFiles = fs.readdirSync(outdirpath);
+        for (const file in targetRemoveFiles) {
+          if (targetRemoveFiles.hasOwnProperty(file)) {
+            fs.unlinkSync(outdirpath + separator + targetRemoveFiles[file]);
+          }
         }
-        console.log('erase output dir')
+        console.log('erase output dir');
       } else {
         fs.mkdirSync(outdirpath);
-        console.log('create output dir')
+        console.log('create output dir');
       }
     }
 
     // remove other file
     // ignore: filepath
-    let dirlist = [];
-    let entrylist = [];
+    const dirlist = [];
     await fs.createReadStream(zipfilepath)
-      .pipe(unzipper.Parse())
-      .on('entry', function(entry) {
-        if (entry.type !== 'File') {
-          if (dirlist.indexOf(entry.path) === -1) {
-            dirlist.push(entry.path);
-          }
-        } else {
-          let index = entry.path.lastIndexOf('/');
-          let dirPath = '';
-          if (index > 0) {
-            dirPath = entry.path.substr(0, index);
-            if (dirlist.indexOf(dirPath) === -1) {
-              dirlist.push(dirPath);
+        .pipe(unzipper.Parse())
+        .on('entry', function(entry) {
+          if (entry.type !== 'File') {
+            if (dirlist.indexOf(entry.path) === -1) {
+              dirlist.push(entry.path);
             }
           } else {
-            console.log(`drop ${entry.path}`)
+            const index = entry.path.lastIndexOf('/');
+            let dirPath = '';
+            if (index > 0) {
+              dirPath = entry.path.substr(0, index);
+              if (dirlist.indexOf(dirPath) === -1) {
+                dirlist.push(dirPath);
+              }
+            } else {
+              console.log(`drop ${entry.path}`);
+            }
           }
-        }
-        entry.autodrain();
-      }).promise()
-      .then( () => console.log('search zip file done'), e => console.log('error',e));
+          entry.autodrain();
+        }).promise()
+        .then( () => console.log('search zip file done'), (e) => console.log('error', e));
     /*
     if (!isWindows) {
       if (isMacos) {
@@ -140,12 +143,12 @@ const main = async function() {
       }
     }
     */
-    dirlist.forEach(dirpath => {
+    dirlist.forEach((dirpath) => {
       if ((dirpath === 'usr') || (dirpath === 'usr/local')) {
         // do nothing
       } else {
         let dirName = dirpath;
-        let index = dirpath.indexOf('usr/local/');
+        const index = dirpath.indexOf('usr/local/');
         if (index >= 0) {
           dirName = dirpath.substr('usr/local/'.length);
         }
@@ -157,7 +160,7 @@ const main = async function() {
           existSubDir = existSubDir.replace('/', separator);
         }
         try {
-          fs.mkdir(existSubDir, { recursive: true }, (err) => {
+          fs.mkdir(existSubDir, {recursive: true}, (err) => {
             // if (!err) console.log(`createdir ${dirpath}`)
           });
         } catch (error) {
@@ -167,28 +170,28 @@ const main = async function() {
     });
 
     await fs.createReadStream(zipfilepath)
-      .pipe(unzipper.Parse())
-      .on('entry', function(entry) {
-        if (entry.type === 'File') {
+        .pipe(unzipper.Parse())
+        .on('entry', function(entry) {
+          if (entry.type === 'File') {
           // console.log(`createFile ${entry.path}`)
-          let fileName = entry.path;
-          let index = fileName.indexOf('usr/local/');
-          if (index >= 0) {
-            fileName = fileName.substr('usr/local/'.length);
+            let fileName = entry.path;
+            const index = fileName.indexOf('usr/local/');
+            if (index >= 0) {
+              fileName = fileName.substr('usr/local/'.length);
+            }
+            // if (isMacos) {
+            //   fileName = fileName.replace('cmake/', 'CMake/');
+            // }
+            let path = outdirpath + separator + fileName;
+            if (isWindows) {
+              path = path.replace('/', separator);
+            }
+            entry.pipe(fs.createWriteStream(path));
+          } else {
+            entry.autodrain();
           }
-          // if (isMacos) {
-          //   fileName = fileName.replace('cmake/', 'CMake/');
-          // }
-          let path = outdirpath + separator + fileName;
-          if (isWindows) {
-            path = path.replace('/', separator);
-          }
-          entry.pipe(fs.createWriteStream(path));
-        } else {
-          entry.autodrain();
-        }
-      }).promise()
-      .then( () => console.log('unzip done'), e => console.log('error',e));
+        }).promise()
+        .then( () => console.log('unzip done'), (e) => console.log('error', e));
     return;
   } catch (error) {
     console.log(error);
