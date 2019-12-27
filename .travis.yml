@@ -36,7 +36,7 @@ before_script:
   - mkdir dist
   - mkdir build
   - cmake -S . -B build
-  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=off -DENABLE_TESTS=off --build build
+  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib" --build build
 
 script:
   - cmake --build build

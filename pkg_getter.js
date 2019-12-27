@@ -50,7 +50,7 @@ const main = async function() {
 
     let targetName = '';
     if (isMacos) {
-      targetName = 'osx-xcode7';
+      targetName = 'osx-xcode9.4';
     } else if (isWindows) {
       targetName = 'win-vs2019';
     } else {
