@@ -31,6 +31,16 @@ const findPath = async function(path) {
   }
 };
 
+const removeFile = async function(path) {
+  try {
+    if (asyncfs) {
+      await asyncfs.unlink(path);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const main = async function() {
   let removeFileName = '';
   try {
@@ -56,15 +66,16 @@ const main = async function() {
     removeFileName = zipfilepath;
     const exists = await findPath(zipfilepath);
     if (exists) {
-      console.log('already downloaded. path=' + zipfilepath);
-    } else {
-      await pipeline(
-        got.stream(targetUrl),
-        fs.createWriteStream(zipfilepath)
-      );
+      // console.log('already downloaded. path=' + zipfilepath);
+      // for remove broken file
+      await removeFile(zipfilepath);
     }
+    await pipeline(
+      got.stream(targetUrl),
+      fs.createWriteStream(zipfilepath)
+    );
 
-    const outdirpath = dirpath + 'dl_lib';
+    let outdirpath = dirpath + 'dl_lib';
     const existDir = await findPath(outdirpath);
     if (asyncfs) {
       if (existDir) {
@@ -102,24 +113,16 @@ const main = async function() {
       .pipe(unzipper.Parse())
       .on('entry', function(entry) {
         if (entry.type !== 'File') {
-          let existSubDir = outdirpath + separator + entry.path;
-          if (isWindows) {
-            existSubDir = existSubDir.replace('/', separator);
-          }
-          if (dirlist.indexOf(existSubDir) === -1) {
-            dirlist.push(existSubDir);
+          if (dirlist.indexOf(entry.path) === -1) {
+            dirlist.push(entry.path);
           }
         } else {
           let index = entry.path.lastIndexOf('/');
           let dirPath = '';
           if (index > 0) {
             dirPath = entry.path.substr(0, index);
-            let existSubDir = outdirpath + separator + dirPath;
-            if (isWindows) {
-              existSubDir = existSubDir.replace('/', separator);
-            }
-            if (dirlist.indexOf(existSubDir) === -1) {
-              dirlist.push(existSubDir);
+            if (dirlist.indexOf(dirPath) === -1) {
+              dirlist.push(dirPath);
             }
           } else {
             console.log(`drop ${entry.path}`)
@@ -128,14 +131,38 @@ const main = async function() {
         entry.autodrain();
       }).promise()
       .then( () => console.log('search zip file done'), e => console.log('error',e));
-
+    /*
+    if (!isWindows) {
+      if (isMacos) {
+        outdirpath += separator + 'cfdjs_api.framework' + separator + 'Resources';
+      } else {  // linux
+        outdirpath += separator + 'share';
+      }
+    }
+    */
     dirlist.forEach(dirpath => {
-      try {
-        fs.mkdir(dirpath, { recursive: true }, (err) => {
-          // if (!err) console.log(`createdir ${dirpath}`)
-        });
-      } catch (error) {
-        console.log(error);
+      if ((dirpath === 'usr') || (dirpath === 'usr/local')) {
+        // do nothing
+      } else {
+        let dirName = dirpath;
+        let index = dirpath.indexOf('usr/local/');
+        if (index >= 0) {
+          dirName = dirpath.substr('usr/local/'.length);
+        }
+        // if (isMacos && (dirName === 'cmake')) {
+        //   dirName = 'CMake';
+        // }
+        let existSubDir = outdirpath + separator + dirName;
+        if (isWindows) {
+          existSubDir = existSubDir.replace('/', separator);
+        }
+        try {
+          fs.mkdir(existSubDir, { recursive: true }, (err) => {
+            // if (!err) console.log(`createdir ${dirpath}`)
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
 
@@ -144,7 +171,15 @@ const main = async function() {
       .on('entry', function(entry) {
         if (entry.type === 'File') {
           // console.log(`createFile ${entry.path}`)
-          let path = outdirpath + separator + entry.path;
+          let fileName = entry.path;
+          let index = fileName.indexOf('usr/local/');
+          if (index >= 0) {
+            fileName = fileName.substr('usr/local/'.length);
+          }
+          // if (isMacos) {
+          //   fileName = fileName.replace('cmake/', 'CMake/');
+          // }
+          let path = outdirpath + separator + fileName;
           if (isWindows) {
             path = path.replace('/', separator);
           }
@@ -157,13 +192,7 @@ const main = async function() {
     return;
   } catch (error) {
     console.log(error);
-  }
-  try {
-    if (asyncfs) {
-      asyncfs.unlink(removeFileName);
-    }
-  } catch (error) {
-    console.log(error);
+    await removeFile(removeFileName);
   }
 };
 

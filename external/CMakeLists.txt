@@ -1,17 +1,14 @@
 project(external_download NONE)
 
-find_package(PkgConfig)
-if(PKG_CONFIG_FOUND AND (NOT WIN32) AND (NOT APPLE))
-pkg_check_modules(CFDJS_API cfd-js)
-set(CFDJS_API_INSTALLED   ${CFDJS_API_FOUND})
-else()  # PkgConfig
-find_package(cfdjs_api  QUIET CONFIG  HINTS "../wrap_js/dl_lib")
+include(FindPackageHandleStandardArgs)
+find_package(cfdjs_api   CONFIG
+  HINTS "${CMAKE_CURRENT_SOURCE_DIR}/../wrap_js/dl_lib" "${CMAKE_CURRENT_SOURCE_DIR}/../wrap_js/dl_lib/cmake")
+find_package_handle_standard_args(cfdjs_api  CONFIG_MODE)
 if((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
 set(CFDJS_API_INSTALLED   FALSE)
 else()
 set(CFDJS_API_INSTALLED   TRUE)
 endif()  # find_package
-endif()  # PkgConfig
 
 find_package(cfd  QUIET CONFIG)
 find_package(cfdcore  QUIET CONFIG)
