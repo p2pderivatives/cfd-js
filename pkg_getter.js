@@ -1,9 +1,8 @@
 const stream = require('stream');
-const {promisify} = require('util');
+const util = require('util');
 const fs = require('fs');
 const path = require('path');
 
-const got = require('got');
 const unzipper = require('unzipper');
 
 const pkg = require('./package.json');
@@ -11,7 +10,6 @@ const pkg = require('./package.json');
 const isWindows = process.platform === 'win32';
 const isMacos = process.platform === 'darwin';
 
-const pipeline = promisify(stream.pipeline);
 
 let asyncfs;
 if (fs.promises) {
@@ -64,16 +62,6 @@ const main = async function() {
     const dirpath = path.resolve(__dirname, 'wrap_js') + separator;
     const zipfilepath = dirpath + filename;
     removeFileName = zipfilepath;
-    const exists = await findPath(zipfilepath);
-    if (exists) {
-      // console.log('already downloaded. path=' + zipfilepath);
-      // for remove broken file
-      await removeFile(zipfilepath);
-    }
-    await pipeline(
-        got.stream(targetUrl),
-        fs.createWriteStream(zipfilepath)
-    );
 
     const outdirpath = dirpath + 'dl_lib';
     const existDir = await findPath(outdirpath);
@@ -107,6 +95,21 @@ const main = async function() {
         fs.mkdirSync(outdirpath);
         console.log('create output dir');
       }
+    }
+
+    const got = require('got');
+    const exists = await findPath(zipfilepath);
+    if (exists) {
+      // console.log('already downloaded. path=' + zipfilepath);
+      // for remove broken file
+      await removeFile(zipfilepath);
+    }
+    if (util.promisify) {
+      const pipeline = util.promisify(stream.pipeline);
+      await pipeline(
+          got.stream(targetUrl),
+          fs.createWriteStream(zipfilepath)
+      );
     }
 
     // remove other file
