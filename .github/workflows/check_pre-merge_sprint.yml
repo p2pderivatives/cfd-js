@@ -74,7 +74,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         cd wrap_js
-        rmdir /S /Q dl_lib
+        rm -Recurse -Force dl_lib
         cd ..
       continue-on-error: true
     - name: npm_build
