@@ -58,6 +58,7 @@ deploy:
   draft: false
   on:
     tags: true
+  skip_cleanup: true
 
 after_deploy:
 
