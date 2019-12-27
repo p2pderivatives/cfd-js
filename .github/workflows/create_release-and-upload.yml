@@ -34,10 +34,17 @@ jobs:
       shell: bash
     - name: create folder
       run: mkdir dist
-    - name: cmake-build
-      id: cmake_build
+    - name: npm-install
+      run: npm install
+    - name: npm_clean_windows
       run: |
-        npm install
+        cd wrap_js
+        rm -Recurse -Force dl_lib
+        cd ..
+      continue-on-error: true
+    - name: cmake-build
+      run: |
+        run: npm run cmake_release_parallel
         cmake -DCMAKE_INSTALL_PREFIX="./dist" --install wrap_js/build
         cmake --install wrap_js/build
     - name: create archive file
@@ -132,10 +139,17 @@ jobs:
         sudo chown runner /tmp/cfd
         sudo chmod 777 /tmp/cfd/usr
         sudo chown runner /tmp/cfd/usr
-    - name: cmake-build
-      id: cmake_build
+    - name: npm-install
+      run: npm install
+    - name: npm_clean
       run: |
-        npm install
+        cd wrap_js
+        rm -rf dl_lib
+        cd ..
+      continue-on-error: true
+    - name: cmake-build
+      run: |
+        npm run cmake_release_parallel
         cd wrap_js/build
         sudo make install DESTDIR=/tmp/cfd
         cd ../..
