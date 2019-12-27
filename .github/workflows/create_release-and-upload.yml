@@ -44,7 +44,7 @@ jobs:
       continue-on-error: true
     - name: cmake-build
       run: |
-        run: npm run cmake_release_parallel
+        npm run cmake_release_parallel
         cmake -DCMAKE_INSTALL_PREFIX="./dist" --install wrap_js/build
         cmake --install wrap_js/build
     - name: create archive file
