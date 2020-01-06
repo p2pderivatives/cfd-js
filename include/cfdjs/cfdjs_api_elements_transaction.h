@@ -86,6 +86,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const CreateElementsSignatureHashRequestStruct& request);
 
   /**
+   * @brief パラメータの情報を元に、署名検証を実施する.
+   * @param[in] request 署名検証情報を格納した構造体
+   * @return 署名検証結果を格納した構造体
+   */
+  static VerifySignatureResponseStruct VerifySignature(
+      const VerifySignatureRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、RawTransactionをBlindする.
    * @param[in] request Blind対象のTransactionとBlind情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
