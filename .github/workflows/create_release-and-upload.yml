@@ -165,10 +165,10 @@ jobs:
         cd wrap_js/build
         sudo make install DESTDIR=../../dist
         cd ../..
-        rm -rf dist/cmake/wallycore-*
-        rm -rf dist/lib/wallycore.*
-        rm -rf dist/lib/libwallycore.*
-        rm -rf dist/lib/pkgconfig/wallycore.pc
+        rm -rf dist/usr/local/cmake/wallycore-*
+        rm -rf dist/usr/local/lib/wallycore.*
+        rm -rf dist/usr/local/lib/libwallycore.*
+        rm -rf dist/usr/local/lib/pkgconfig/wallycore.pc
     - name: create archive file
       run: |
         cd dist
