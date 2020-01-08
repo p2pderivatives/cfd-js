@@ -50,9 +50,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
     - name: download artifact
       uses: actions/download-artifact@v1
       with:
@@ -79,8 +76,13 @@ jobs:
       shell: bash
     - name: create folder
       run: mkdir dist
-    - name: npm-install
-      run: npm install
+    - name: cmake-build
+      id: cmake_build
+      run: |
+        cmake -S . -B wrap_js/build
+        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off --build wrap_js/build
+        cmake --build wrap_js/build --parallel --config Release
+        cd ../..
     - name: cmake-install
       run: |
         cmake -DCMAKE_INSTALL_PREFIX="./dist" --install wrap_js/build
@@ -112,9 +114,6 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
@@ -146,8 +145,13 @@ jobs:
       run: |
         echo "---- dump output data ----"
         mkdir dist
-    - name: npm-install
-      run: npm install
+    - name: cmake-build
+      id: cmake_build
+      run: |
+        cmake -S . -B wrap_js/build
+        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib" --build wrap_js/build
+        cmake --build wrap_js/build --parallel --config Release
+        cd ../..
     - name: cmake-install
       run: |
         cd wrap_js/build
