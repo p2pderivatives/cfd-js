@@ -45,6 +45,8 @@ after_success:
   - cd build
   - make install DESTDIR=../dist
   - cd ../dist
+  - rm -rf usr/local/lib/libwallycore.a usr/local/lib/pkgconfig/wallycore.pc
+  - rm -rf usr/local/cmake/wallycore-*
   - ls -l usr/local/lib
   - zip -r "${ASSET_FILE_NAME}.zip" usr
 
