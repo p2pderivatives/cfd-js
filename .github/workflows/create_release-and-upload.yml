@@ -9,8 +9,42 @@ env:
   CMAKE_VERSION: 3.15.5
 
 jobs:
+  create-releases:
+    name: create-releases
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v1
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+          - First Change
+          - Second Change
+        draft: false
+        prerelease: false
+#      continue-on-error: true
+    - name: write upload url
+      env:
+        url: ${{ steps.create_release.outputs.upload_url }}
+      run: |
+        echo $url > upload_url.txt
+    - name: upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: artifact-upload_url
+        path: upload_url.txt
+
   upload-object-windows-vs2019:
     name: upload-object-win-vs2019
+    needs: create-releases
     runs-on: windows-latest
 
     steps:
@@ -19,6 +53,17 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12
+    - name: download artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: artifact-upload_url
+    - name: dump upload url
+      id: get_url
+      run: |
+        export up_url="$(cat artifact-upload_url/upload_url.txt)"
+        echo "::set-output name=upload_url::$up_url"
+        echo "url=$up_url"
+      shell: bash
     - name: Get the version
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
@@ -47,21 +92,6 @@ jobs:
         cd ..
         echo "---- dump zip file ----"
         dir .
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Changes in this Release
-          - First Change
-          - Second Change
-        draft: false
-        prerelease: false
-#      continue-on-error: true
     - name: Upload Release Asset
       id: upload-release-asset 
 #      if: success()
@@ -69,26 +99,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        upload_url: ${{ steps.get_url.outputs.upload_url }}
         asset_path: ./cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-win-vs2019-x86_64.zip
         asset_content_type: application/zip
-    - name: write upload url
-      env:
-        url: ${{ steps.create_release.outputs.upload_url }}
-      run: |
-        echo $url > upload_url.txt
-        cat upload_url.txt
-      shell: bash
-    - name: upload artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: artifact-upload_url
-        path: upload_url.txt
 
   upload-object-ubuntu:
     name: upload-object-ubuntu
-    needs: upload-object-windows-vs2019
+    needs: create-releases
     runs-on: ubuntu-latest
 
     steps:
@@ -127,26 +145,20 @@ jobs:
     - name: create folder
       run: |
         echo "---- dump output data ----"
-        mkdir -p /tmp/cfd/usr/local/lib
-        sudo chmod 777 /tmp/cfd
-        sudo chown runner /tmp/cfd
-        sudo chmod 777 /tmp/cfd/usr
-        sudo chown runner /tmp/cfd/usr
+        mkdir dist
     - name: npm-install
       run: npm install
     - name: cmake-install
       run: |
         cd wrap_js/build
-        sudo make install DESTDIR=/tmp/cfd
+        sudo make install DESTDIR=../../dist
         cd ../..
     - name: create archive file
       run: |
-        cd /tmp/cfd
-        sudo zip -r /tmp/cfd/cfd.zip usr
-        sudo chmod 777 /tmp/cfd/cfd.zip
-        sudo chown runner /tmp/cfd/cfd.zip
+        cd dist
+        zip -r cfd.zip usr
         echo "---- dump zip file ----"
-        sudo ls -l /tmp/cfd
+        ls -l
     - name: download artifact
       uses: actions/download-artifact@v1
       with:
@@ -164,7 +176,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.get_url.outputs.upload_url }}
-        asset_path: /tmp/cfd/cfd.zip
+        asset_path: ./dist/cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-ubuntu1804-gcc-x86_64.zip
         asset_content_type: application/zip
     - name: ubuntu-after
