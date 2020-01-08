@@ -81,13 +81,18 @@ jobs:
       run: |
         cmake -S . -B wrap_js/build
         cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off --build wrap_js/build
-        cmake --build wrap_js/build --parallel --config Release
+        cmake --build wrap_js/build --parallel 2 --config Release
         cd ../..
       timeout-minutes: 20
     - name: cmake-install
       run: |
         cmake -DCMAKE_INSTALL_PREFIX="./dist" --install wrap_js/build
         cmake --install wrap_js/build
+        cd dist
+        del /F /Q cmake\wallycore-*
+        del /F /Q lib\wallycore.*
+        del /F /Q lib\libwallycore.*
+        del /F /Q lib\pkgconfig\wallycore.pc
     - name: create archive file
       run: |
         cd dist
@@ -159,6 +164,10 @@ jobs:
         cd wrap_js/build
         sudo make install DESTDIR=../../dist
         cd ../..
+        rm -rf dist/cmake/wallycore-*
+        rm -rf dist/lib/wallycore.*
+        rm -rf dist/lib/libwallycore.*
+        rm -rf dist/lib/pkgconfig/wallycore.pc
     - name: create archive file
       run: |
         cd dist
