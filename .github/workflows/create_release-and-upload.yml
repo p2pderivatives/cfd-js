@@ -93,6 +93,7 @@ jobs:
         del /F /Q lib\wallycore.*
         del /F /Q lib\libwallycore.*
         del /F /Q lib\pkgconfig\wallycore.pc
+      shell: cmd
     - name: create archive file
       run: |
         cd dist
