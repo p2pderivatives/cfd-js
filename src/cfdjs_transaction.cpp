@@ -24,8 +24,8 @@ namespace js {
 namespace api {
 
 using cfd::TransactionController;
+using cfd::UtxoData;
 using cfd::api::TransactionApi;
-using cfd::api::UtxoData;
 using cfd::core::Address;
 using cfd::core::AddressType;
 using cfd::core::Amount;
