@@ -284,7 +284,7 @@ let createP2shP2wpkhTxResult;
   console.log('\n===== CreateP2shP2wpkhTx =====');
   const txInAmtAlice = 3000000000; // dummy txin amount
   const reqJson = {
-    'version': 1,
+    'version': 2,
     'locktime': 0,
     'txins': [
       {
