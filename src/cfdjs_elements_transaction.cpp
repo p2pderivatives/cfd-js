@@ -30,6 +30,7 @@ namespace api {
 
 using cfd::ConfidentialTransactionController;
 using cfd::ElementsAddressFactory;
+using cfd::UtxoData;
 using cfd::api::ElementsTransactionApi;
 using cfd::api::ElementsUtxoAndOption;
 using cfd::api::IssuanceBlindKeys;
@@ -43,7 +44,6 @@ using cfd::api::TxOutPegoutParameters;
 using cfd::api::TxOutUnblindKeys;
 using cfd::api::UnblindIssuanceOutputs;
 using cfd::api::UnblindOutputs;
-using cfd::api::UtxoData;
 using cfd::core::Address;
 using cfd::core::AddressType;
 using cfd::core::Amount;
