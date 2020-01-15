@@ -1143,6 +1143,7 @@ struct GetUnblindedAddressRequestStruct {
  */
 struct GetUnblindedAddressResponseStruct {
   std::string unblinded_address = "";  //!< unblinded_address  // NOLINT
+  std::string confidential_key = "";   //!< confidential_key  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };

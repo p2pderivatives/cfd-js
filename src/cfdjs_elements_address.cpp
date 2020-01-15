@@ -220,6 +220,7 @@ ElementsAddressStructApi::GetUnblindedAddress(
     ElementsConfidentialAddress addr(unblinded_addrss);
 
     response.unblinded_address = addr.GetUnblindedAddress().GetAddress();
+    response.confidential_key = addr.GetConfidentialKey().GetHex();
     return response;
   };
 
