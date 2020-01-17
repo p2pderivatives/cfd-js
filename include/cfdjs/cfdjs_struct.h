@@ -1552,6 +1552,34 @@ struct GetAddressesFromMultisigResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// GetAddressInfoRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetAddressInfoRequestStruct 構造体
+ */
+struct GetAddressInfoRequestStruct {
+  std::string address = "";  //!< address  // NOLINT
+  bool is_elements = false;  //!< is_elements  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// GetAddressInfoResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetAddressInfoResponseStruct 構造体
+ */
+struct GetAddressInfoResponseStruct {
+  std::string locking_script = "";  //!< locking_script  // NOLINT
+  std::string network = "mainnet";  //!< network  // NOLINT
+  std::string hash_type = "p2pkh";  //!< hash_type  // NOLINT
+  int32_t witness_version = -1;     //!< witness_version  // NOLINT
+  std::string hash = "";            //!< hash  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // GetExtkeyInfoRequestStruct
 // ------------------------------------------------------------------------
 /**

@@ -17,7 +17,7 @@
     "test_quiet": "jest --no-cache --silent",
     "test_logging": "jest --no-cache --silent=false --verbose false",
     "format_all": "run-p code_format js_format",
-    "code_format": "clang-format -i --style=file src/*.cpp src/*.h include/cfdjs/*.h",
+    "code_format": "clang-format -i --style=file src/*.cpp src/*.h include/cfdjs/*.h addon/*.cpp",
     "js_format": "eslint wrap_js/ --fix",
     "cmake_all": "run-s cmake_configure cmake_build",
     "cmake_configure": "run-script-os",

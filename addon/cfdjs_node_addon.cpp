@@ -8,8 +8,8 @@
 #include <string>
 
 #include "cfd/cfd_common.h"
-#include "cfdjs/cfdjs_common.h"
 #include "cfdjs/cfdjs_api_json.h"
+#include "cfdjs/cfdjs_common.h"
 
 using cfd::js::api::json::JsonMappingApi;
 using Napi::CallbackInfo;
@@ -163,6 +163,15 @@ Value CreateMultisig(const CallbackInfo &information) {
 Value GetAddressesFromMultisig(const CallbackInfo &information) {
   return NodeAddonJsonApi(
       information, JsonMappingApi::GetAddressesFromMultisig);
+}
+
+/**
+ * @brief GetAddressInfoのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value GetAddressInfo(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetAddressInfo);
 }
 
 /**
@@ -553,6 +562,8 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "GetAddressesFromMultisig"),
       Function::New(env, GetAddressesFromMultisig));
+  exports->Set(
+      String::New(env, "GetAddressInfo"), Function::New(env, GetAddressInfo));
   exports->Set(
       String::New(env, "ParseDescriptor"),
       Function::New(env, ParseDescriptor));

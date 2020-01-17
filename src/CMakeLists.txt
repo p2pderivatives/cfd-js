@@ -169,6 +169,7 @@ target_sources(${PROJECT_NAME}
     autogen/cfdapi_error_base_json.cpp
     autogen/cfdapi_estimate_fee_json.cpp
     autogen/cfdapi_fund_raw_transaction_json.cpp
+    autogen/cfdapi_get_address_info_json.cpp
     autogen/cfdapi_get_addresses_from_multisig_json.cpp
     autogen/cfdapi_get_extkeyinfo_json.cpp
     autogen/cfdapi_get_issuance_blinding_key_json.cpp

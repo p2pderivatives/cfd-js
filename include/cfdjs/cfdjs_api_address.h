@@ -60,6 +60,14 @@ class CFD_JS_API_EXPORT AddressStructApi {
       const GetAddressesFromMultisigRequestStruct& request);
 
   /**
+   * @brief JSONパラメータの情報を元に、Address情報を解析する
+   * @param[in] request Address情報
+   * @return Address解析結果を格納した構造体
+   */
+  static GetAddressInfoResponseStruct GetAddressInfo(
+      const GetAddressInfoRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、Descriptorを解析する
    * @param[in] request Descriptorを構築するパラメータ
    * @return Descriptor解析結果を格納した構造体
@@ -82,6 +90,14 @@ class CFD_JS_API_EXPORT AddressStructApi {
    * @throw CfdException if address_type does not match any known AddressType.
    */
   static AddressType ConvertAddressType(const std::string& address_type);
+
+  /**
+   * @brief Convert address type from string to AddressType text.
+   * @param[in] address_type the address type as a integer.
+   * @return the converted AddressType text.
+   * @throw CfdException if address_type does not match any known AddressType.
+   */
+  static std::string ConvertAddressTypeText(AddressType address_type);
 
   /**
    * @brief Convert descriptor parse data to struct.

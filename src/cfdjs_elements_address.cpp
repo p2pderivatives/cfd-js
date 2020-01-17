@@ -159,6 +159,33 @@ ElementsAddressStructApi::GetAddressesFromMultisig(
   return result;
 }
 
+GetAddressInfoResponseStruct ElementsAddressStructApi::GetAddressInfo(
+    const GetAddressInfoRequestStruct& request) {
+  auto call_func = [](const GetAddressInfoRequestStruct& request)
+      -> GetAddressInfoResponseStruct {  // NOLINT
+    GetAddressInfoResponseStruct response;
+
+    ElementsAddressFactory factory;
+    Address address = factory.GetAddress(request.address);
+
+    response.locking_script = address.GetLockingScript().GetHex();
+    response.network =
+        (address.GetNetType() == NetType::kLiquidV1) ? "liquidv1" : "regtest";
+    response.hash_type =
+        AddressStructApi::ConvertAddressTypeText(address.GetAddressType());
+    response.witness_version =
+        static_cast<int32_t>(address.GetWitnessVersion());
+    response.hash = address.GetHash().GetHex();
+    return response;
+  };
+
+  GetAddressInfoResponseStruct result;
+  result = ExecuteStructApi<
+      GetAddressInfoRequestStruct, GetAddressInfoResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 GetConfidentialAddressResponseStruct
 ElementsAddressStructApi::GetConfidentialAddress(
     const GetConfidentialAddressRequestStruct& request) {
