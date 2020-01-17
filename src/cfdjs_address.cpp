@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_address.h"
 #include "cfd/cfdapi_address.h"
 #include "cfdcore/cfdcore_descriptor.h"
 #include "cfdjs/cfdjs_api_address.h"
@@ -16,6 +17,7 @@ namespace cfd {
 namespace js {
 namespace api {
 
+using cfd::AddressFactory;
 using cfd::api::AddressApi;
 using cfd::api::DescriptorKeyData;
 using cfd::api::DescriptorKeyType;
@@ -172,6 +174,40 @@ AddressStructApi::GetAddressesFromMultisig(
   result = ExecuteStructApi<
       GetAddressesFromMultisigRequestStruct,
       GetAddressesFromMultisigResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+GetAddressInfoResponseStruct AddressStructApi::GetAddressInfo(
+    const GetAddressInfoRequestStruct& request) {
+  auto call_func = [](const GetAddressInfoRequestStruct& request)
+      -> GetAddressInfoResponseStruct {  // NOLINT
+    GetAddressInfoResponseStruct response;
+
+    AddressFactory factory;
+    Address address = factory.GetAddress(request.address);
+
+    response.locking_script = address.GetLockingScript().GetHex();
+    if (address.GetNetType() == NetType::kMainnet) {
+      response.network = "mainnet";
+    } else if (address.GetNetType() == NetType::kTestnet) {
+      response.network = "testnet";
+    } else {
+      response.network = "regtest";
+    }
+    response.hash_type = ConvertAddressTypeText(address.GetAddressType());
+    response.witness_version =
+        static_cast<int32_t>(address.GetWitnessVersion());
+    if (response.witness_version < 0) {
+      response.ignore_items.insert("witnessVersion");
+    }
+    response.hash = address.GetHash().GetHex();
+    return response;
+  };
+
+  GetAddressInfoResponseStruct result;
+  result = ExecuteStructApi<
+      GetAddressInfoRequestStruct, GetAddressInfoResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -397,6 +433,43 @@ AddressType AddressStructApi::ConvertAddressType(
         "\"p2sh-p2wsh\".");
   }
   return addr_type;
+}
+
+std::string AddressStructApi::ConvertAddressTypeText(
+    AddressType address_type) {
+  std::string result;
+  switch (address_type) {
+    case AddressType::kP2pkhAddress:
+      result = "p2pkh";
+      break;
+    case AddressType::kP2shAddress:
+      result = "p2sh";
+      break;
+    case AddressType::kP2wpkhAddress:
+      result = "p2wpkh";
+      break;
+    case AddressType::kP2wshAddress:
+      result = "p2wsh";
+      break;
+    case AddressType::kP2shP2wpkhAddress:
+      result = "p2sh-p2wpkh";
+      break;
+    case AddressType::kP2shP2wshAddress:
+      result = "p2sh-p2wsh";
+      break;
+    default:
+      warn(
+          CFD_LOG_SOURCE,
+          "Failed to ConvertAddress Type Text. "
+          "Invalid address_type passed:  address_type={}",
+          address_type);
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Invalid address_type passed. address_type must be"
+          " \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or "
+          "\"p2sh-p2wsh\".");
+  }
+  return result;
 }
 
 }  // namespace api

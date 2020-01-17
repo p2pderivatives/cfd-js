@@ -49,6 +49,7 @@
 #include "cfdapi_error_json.h"                              // NOLINT
 #include "cfdapi_estimate_fee_json.h"                       // NOLINT
 #include "cfdapi_fund_raw_transaction_json.h"               // NOLINT
+#include "cfdapi_get_address_info_json.h"                   // NOLINT
 #include "cfdapi_get_addresses_from_multisig_json.h"        // NOLINT
 #include "cfdapi_get_extkeyinfo_json.h"                     // NOLINT
 #include "cfdapi_get_issuance_blinding_key_json.h"          // NOLINT
@@ -423,6 +424,19 @@ std::string JsonMappingApi::GetAddressesFromMultisig(
       ElementsAddressStructApi::GetAddressesFromMultisig);
 #else
       AddressStructApi::GetAddressesFromMultisig);
+#endif
+}
+
+std::string JsonMappingApi::GetAddressInfo(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::GetAddressInfoRequest, api::json::GetAddressInfoResponse,
+      api::GetAddressInfoRequestStruct, api::GetAddressInfoResponseStruct>(
+      request_message, AddressStructApi::GetAddressInfo,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsAddressStructApi::GetAddressInfo);
+#else
+      AddressStructApi::GetAddressInfo);
 #endif
 }
 

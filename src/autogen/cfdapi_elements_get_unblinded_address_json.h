@@ -229,6 +229,49 @@ class GetUnblindedAddressResponse
   }
 
   /**
+   * @brief confidentialKey 取得処理
+   * @return confidentialKey
+   */
+  std::string GetConfidentialKey() const {
+    return confidential_key_;
+  }
+  /**
+   * @brief confidentialKey 設定処理
+   * @param[in] confidential_key    設定値
+   */
+  void SetConfidentialKey(  // line separate
+    const std::string& confidential_key) {  // NOLINT
+    this->confidential_key_ = confidential_key;
+  }
+  /**
+   * @brief confidentialKey データ型の取得処理
+   * @return confidentialKeyのデータ型
+   */
+  static std::string GetConfidentialKeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief confidentialKey フィールドのJSON文字列取得処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @return JSON文字列
+   */
+  static std::string GetConfidentialKeyString(  // line separate
+      const GetUnblindedAddressResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.confidential_key_);
+  }
+  /**
+   * @brief confidentialKey フィールドへのJSON情報設定処理
+   * @param[in,out] obj     クラスオブジェクト
+   * @param[in] json_value  JSON情報
+   */
+  static void SetConfidentialKeyString(  // line separate
+      GetUnblindedAddressResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.confidential_key_, json_value);
+  }
+
+  /**
    * @brief 無視対象アイテムを設定する。
    * @param[in] key   無視対象アイテムのキー名称
    */
@@ -301,6 +344,10 @@ class GetUnblindedAddressResponse
    * @brief JsonAPI(unblindedAddress) のvalue
    */
   std::string unblinded_address_ = "";
+  /**
+   * @brief JsonAPI(confidentialKey) のvalue
+   */
+  std::string confidential_key_ = "";
 };
 
 // @formatter:on

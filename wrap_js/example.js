@@ -36,6 +36,7 @@ const {
   EncodeSignatureByDer,
   CreateMultisigScriptSig,
   VerifySignature,
+  GetAddressInfo,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -1070,4 +1071,37 @@ let createMultisigScriptSigResult;
     script: createMultisigScriptSigResult.hex,
   });
   console.log('*** ParseScript ***\n', parseResult);
+}
+
+let getAddressInfoResult;
+{
+  console.log('\n===== GetAddressInfo (P2WPKH) =====');
+  const reqJson = {
+    address: CONTRACT_CONDS.payAddrAlice,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfoResult = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfoResult, '\n');
+}
+
+let getAddressInfo2Result;
+{
+  console.log('\n===== GetAddressInfo (P2SH-P2WPKH) =====');
+  const reqJson = {
+    address: createP2shP2wpkhAddressResult.address,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfo2Result = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfo2Result, '\n');
+}
+
+let getAddressInfo3Result;
+{
+  console.log('\n===== GetAddressInfo (P2WSH multisig) =====');
+  const reqJson = {
+    address: createMultisigResult.address,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfo3Result = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfo3Result, '\n');
 }

@@ -77,17 +77,26 @@ void GetUnblindedAddressResponse::CollectFieldName() {
   };
   json_mapper.emplace("unblindedAddress", func_table);
   item_list.push_back("unblindedAddress");
+  func_table = {
+    GetUnblindedAddressResponse::GetConfidentialKeyString,
+    GetUnblindedAddressResponse::SetConfidentialKeyString,
+    GetUnblindedAddressResponse::GetConfidentialKeyFieldType,
+  };
+  json_mapper.emplace("confidentialKey", func_table);
+  item_list.push_back("confidentialKey");
 }
 
 void GetUnblindedAddressResponse::ConvertFromStruct(
     const GetUnblindedAddressResponseStruct& data) {
   unblinded_address_ = data.unblinded_address;
+  confidential_key_ = data.confidential_key;
   ignore_items = data.ignore_items;
 }
 
 GetUnblindedAddressResponseStruct GetUnblindedAddressResponse::ConvertToStruct() const {  // NOLINT
   GetUnblindedAddressResponseStruct result;
   result.unblinded_address = unblinded_address_;
+  result.confidential_key = confidential_key_;
   result.ignore_items = ignore_items;
   return result;
 }

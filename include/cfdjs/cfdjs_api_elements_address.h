@@ -58,6 +58,14 @@ class CFD_JS_API_EXPORT ElementsAddressStructApi {
       const GetAddressesFromMultisigRequestStruct& request);
 
   /**
+   * @brief JSONパラメータの情報を元に、Address情報を解析する
+   * @param[in] request Address情報
+   * @return Address解析結果を格納した構造体
+   */
+  static GetAddressInfoResponseStruct GetAddressInfo(
+      const GetAddressInfoRequestStruct& request);
+
+  /**
    * @brief
    * 構造体の情報を元に、UnblinedAddressからElements用ConfidentialAddressを取得する
    * @param[in] request ConfidentialAddressを構築するパラメータ
