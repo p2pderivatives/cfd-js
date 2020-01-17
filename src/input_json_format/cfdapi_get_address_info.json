@@ -13,8 +13,8 @@
     "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
     "hashType": "p2pkh",
     "hashType:hint": "p2wpkh, p2pkh, p2wsh, p2sh(contain p2sh-segwit)",
-    "witnessVersion": -1,
-    "witnessVersion:hint": "none:-1, versionX:X(0 - 16)",
+    "witnessVersion": 0,
+    "witnessVersion:hint": "none:field empty, versionX:X(0 - 16)",
     "witnessVersion:type": "int32_t",
     "hash": "",
     "hash:comment": "pubkey-hash or script-hash. p2wsh:32byte, other:20byte"

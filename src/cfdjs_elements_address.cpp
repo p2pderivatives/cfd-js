@@ -175,6 +175,9 @@ GetAddressInfoResponseStruct ElementsAddressStructApi::GetAddressInfo(
         AddressStructApi::ConvertAddressTypeText(address.GetAddressType());
     response.witness_version =
         static_cast<int32_t>(address.GetWitnessVersion());
+    if (response.witness_version < 0) {
+      response.ignore_items.insert("witnessVersion");
+    }
     response.hash = address.GetHash().GetHex();
     return response;
   };
