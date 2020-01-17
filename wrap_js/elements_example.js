@@ -29,6 +29,7 @@ const {
   GetAddressesFromMultisig,
   ParseDescriptor,
   VerifySignature,
+  GetAddressInfo,
 } = cfdjsModule;
 
 let supportFunctions;
@@ -1186,5 +1187,52 @@ if (!supportFunctions.elements) {
     console.log('*** Request ***\n', reqJson);
     parseDescriptorResult = ParseDescriptor(reqJson);
     console.log('*** Response ***\n', parseDescriptorResult);
+  }
+
+  let getAddressInfoResult;
+  {
+    console.log('\n===== GetAddressInfo (P2PKH) =====');
+    const reqJson = {
+      address: createElementsP2pkhAddressResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfoResult = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfoResult, '\n');
+  }
+
+  let getAddressInfo2Result;
+  {
+    console.log('\n===== GetAddressInfo (P2SH-P2WPKH) =====');
+    const reqJson = {
+      address: createElementsP2shP2wpkhAddressResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfo2Result = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfo2Result, '\n');
+  }
+
+  let getAddressInfo3Result;
+  {
+    console.log('\n===== GetAddressInfo (P2SH-P2WSH multisig) =====');
+    const multisigResult = CreateMultisig({
+      'nrequired': 2,
+      'keys': [
+        '0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe',
+        '02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5',
+      ],
+      'network': 'regtest',
+      'hashType': 'p2wsh',
+      'isElements': true,
+    });
+
+    const reqJson = {
+      address: multisigResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfo3Result = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfo3Result, '\n');
   }
 }
