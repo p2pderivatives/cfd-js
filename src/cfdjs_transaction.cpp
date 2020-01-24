@@ -13,8 +13,8 @@
 #include "cfd/cfdapi_coin.h"
 #include "cfd/cfdapi_transaction.h"
 #include "cfdapi_estimate_fee_json.h"  // NOLINT
-#include "cfdjs/cfdjs_address.h"
-#include "cfdjs/cfdjs_transaction.h"
+#include "cfdjs/cfdjs_api_address.h"
+#include "cfdjs/cfdjs_api_transaction.h"
 #include "cfdjs_internal.h"          // NOLINT
 #include "cfdjs_json_transaction.h"  // NOLINT
 #include "cfdjs_transaction_base.h"  // NOLINT
@@ -24,8 +24,8 @@ namespace js {
 namespace api {
 
 using cfd::TransactionController;
+using cfd::UtxoData;
 using cfd::api::TransactionApi;
-using cfd::api::UtxoData;
 using cfd::core::Address;
 using cfd::core::AddressType;
 using cfd::core::Amount;
@@ -453,6 +453,67 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
   CreateSignatureHashResponseStruct result;
   result = ExecuteStructApi<
       CreateSignatureHashRequestStruct, CreateSignatureHashResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+VerifySignatureResponseStruct TransactionStructApi::VerifySignature(
+    const VerifySignatureRequestStruct& request) {
+  auto call_func = [](const VerifySignatureRequestStruct& request)
+      -> VerifySignatureResponseStruct {  // NOLINT
+    VerifySignatureResponseStruct response;
+    std::string sig_hash;
+    int64_t amount = request.txin.amount;
+    const std::string& hashtype_str = request.txin.hash_type;
+    const Txid& txid = Txid(request.txin.txid);
+    uint32_t vout = request.txin.vout;
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+
+    Pubkey pubkey = Pubkey(request.txin.pubkey);
+    ByteData signature = ByteData(request.txin.signature);
+    Script script;
+
+    TransactionController tx(request.tx);
+    bool is_success = false;
+    WitnessVersion version;
+    Amount value = Amount::CreateBySatoshiAmount(amount);
+    if ((hashtype_str == "p2pkh") || (hashtype_str == "p2wpkh")) {
+      version = (hashtype_str == "p2wpkh") ? WitnessVersion::kVersion0
+                                           : WitnessVersion::kVersionNone;
+      is_success = tx.VerifyInputSignature(
+          signature, pubkey, txid, vout, sighashtype, value, version);
+    } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
+      script = Script(request.txin.redeem_script);
+      version = (hashtype_str == "p2wsh") ? WitnessVersion::kVersion0
+                                          : WitnessVersion::kVersionNone;
+      is_success = tx.VerifyInputSignature(
+          signature, pubkey, txid, vout, script, sighashtype, value, version);
+    } else {
+      warn(
+          CFD_LOG_SOURCE,
+          "Failed to VerifySignature. Invalid hashtype_str:  "
+          "hashtype_str={}",  // NOLINT
+          hashtype_str);
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
+          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
+    }
+    if (!is_success) {
+      warn(CFD_LOG_SOURCE, "Failed to VerifySignature. check fail.");
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Failed to VerifySignature. check fail.");
+    }
+
+    response.success = is_success;
+    return response;
+  };
+
+  VerifySignatureResponseStruct result;
+  result = ExecuteStructApi<
+      VerifySignatureRequestStruct, VerifySignatureResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

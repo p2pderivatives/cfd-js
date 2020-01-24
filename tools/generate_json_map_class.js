@@ -1012,7 +1012,8 @@ const fileList = [];
 const cfdPath = `${__dirname}/../external/cfd-js/`;
 const cfdPath2 = `${__dirname}/../../cfd-js/`;
 let folderPath = `src/input_json_format/`;
-const outJsonFolderPath = `${__dirname}/../../cfd-js/src/`;
+const outJsonSourceFolderPath = `${__dirname}/../../cfd-js/src/autogen/`;
+const outJsonHeaderFolderPath = `${__dirname}/../../cfd-js/src/autogen/`;
 let outStructDirPath = `include/cfdjs/`;
 const outStructFileName = `cfdjs_struct.h`;
 const jsonDataList = [];
@@ -1045,10 +1046,11 @@ fs.readdir(folderPath, (err, files) => {
     // console.log(`resData = ${resData}`)
     jsonDataList.push(new JsonData(jsonObject, reqData, resData));
 
-    const header_str = generateHeader(outHeaderFile, outJsonFolderPath, reqData, resData, jsonObject, `cfdjs/${outStructFileName}`);
-    fs.writeFileSync(`${outJsonFolderPath}${outHeaderFile}`, header_str);
+    const header_str = generateHeader(outHeaderFile, outJsonHeaderFolderPath, reqData,
+        resData, jsonObject, `cfdjs/${outStructFileName}`);
+    fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, header_str);
     const src_str = generateSource(outSourceFile, outHeaderFile, reqData, resData, jsonObject);
-    fs.writeFileSync(`${outJsonFolderPath}${outSourceFile}`, src_str);
+    fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, src_str);
   });
 
   if (jsonDataList.length > 0) {

@@ -35,6 +35,8 @@ const {
   ParseScript,
   EncodeSignatureByDer,
   CreateMultisigScriptSig,
+  VerifySignature,
+  GetAddressInfo,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -268,7 +270,7 @@ let createP2shP2wpkhAddressResult;
   console.log('\n===== CreateP2shP2wpkhAddress =====');
   const reqJson = {
     'keyData': {
-      'hex': '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+      'hex': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
       'type': 'pubkey',
     },
     'network': NET_TYPE,
@@ -283,7 +285,7 @@ let createP2shP2wpkhTxResult;
   console.log('\n===== CreateP2shP2wpkhTx =====');
   const txInAmtAlice = 3000000000; // dummy txin amount
   const reqJson = {
-    'version': 1,
+    'version': 2,
     'locktime': 0,
     'txins': [
       {
@@ -312,7 +314,7 @@ let CreateP2shP2wpkhSignatureHashResult;
       'txid': DUMMY_TXID_1,
       'vout': 0,
       'keyData': {
-        'hex': '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+        'hex': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
         'type': 'pubkey',
       },
       'amount': txInAmtAlice + 2000,
@@ -330,7 +332,7 @@ let addP2shP2wpkhTxWitness;
   let signatureRet;
   {
     console.log('\n===== AddSign : CalculateEcSignature =====');
-    const privkey = 'cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1';
+    const privkey = 'cRar5dsNEddUTgXuuhsq5p2NRJUKiV58PUHEPgGe1k9CW8CGRzbj';
     const reqJson = {
       'sighash': CreateP2shP2wpkhSignatureHashResult.sighash,
       'privkeyData': {
@@ -341,6 +343,25 @@ let addP2shP2wpkhTxWitness;
     signatureRet = CalculateEcSignature(reqJson);
     console.log('\n*** CalculateEcSignature Response ***\n',
         signatureRet, '\n');
+  }
+
+  let verifyRet;
+  {
+    console.log('\n===== AddSign : VerifySignature =====');
+    const reqJson = {
+      tx: createP2shP2wpkhTxResult.hex,
+      txin: {
+        'txid': DUMMY_TXID_1,
+        'vout': 0,
+        'signature': signatureRet.signature,
+        'pubkey': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
+        'amount': 3000002000,
+        'hashType': 'p2wpkh',
+      },
+    };
+    console.log('\n*** VerifySignature request ***\n', reqJson);
+    verifyRet = VerifySignature(reqJson);
+    console.log('\n*** VerifySignature ***\n', verifyRet);
   }
 
   console.log('\n===== AddSign =====');
@@ -356,7 +377,7 @@ let addP2shP2wpkhTxWitness;
           derEncode: true,
         },
         {
-          hex: '0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798', // eslint-disable-line max-len
+          hex: '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
           type: 'pubkey',
         },
       ],
@@ -376,7 +397,7 @@ let addP2shP2wpkhTxWitness;
       'sighashAnyoneCanPay': false,
     };
     derSignatureRet = EncodeSignatureByDer(reqJson);
-    console.log('\n*** CalculateEcSignature Response ***\n',
+    console.log('\n*** EncodeSignatureByDer Response ***\n',
         derSignatureRet, '\n');
     decodedTx = DecodeRawTransaction({'hex': addP2shP2wpkhTxWitness.hex});
     console.log('\n*** DecodedSignature ***\n', decodedTx.vin[0].txinwitness[0], '\n');
@@ -667,6 +688,26 @@ let signatureRet;
   signatureRet = CalculateEcSignature(reqJson);
   console.log('\n*** Response ***\n', signatureRet, '\n');
 }
+
+let verifyRetWPKH;
+{
+  console.log('\n===== AddSign2 : VerifySignature =====');
+  const reqJson = {
+    tx: addP2WPKHTxSign1.hex,
+    txin: {
+      'txid': '8ac60eb9575db5b2d987e29f301b5b819ea83a5c6579d282d189cc04b8e151ef',
+      'vout': 1,
+      'signature': signatureRet.signature,
+      'pubkey': '025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357', // eslint-disable-line max-len
+      'amount': 600000000,
+      'hashType': 'p2wpkh',
+    },
+  };
+  console.log('\n*** VerifySignature request ***\n', reqJson);
+  verifyRetWPKH = VerifySignature(reqJson);
+  console.log('\n*** VerifySignature ***\n', verifyRetWPKH);
+}
+
 let addP2WPKHTxSign2;
 {
   console.log('\n===== AddSign2(P2WPKH) =====');
@@ -872,12 +913,12 @@ let estimateFeeResult;
       txid: 'ab05c759d35eca58d2f1fe973b0282654a610c4ddc0566356dff96fb06e3c5ff',
       vout: 0,
       amount: 78125000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/5\']03948c01f159b4204b682668d6e850440564b6610c0e5bf30da684b2131f77c449))#2u75feqc',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/14\']02c7822c824258258d8d16b6fd25317b60b4374ca4f5ce1a69b810615e0c5497a8))#t9gw8u0f',
     }, {
       txid: '0f59594cfecf8fe1733521e29736352935711f34cd958f34df4a031858f6ecfd',
       vout: 0,
       amount: 156250000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/4\']0231c043ae680664a2c5df38cf0d8eab29f1b61ce93855040c613b2f41f7c036af))#pezpv0hm',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/16\']03a88dac06bf7249e21774acc8797cae7a725f7eab33c523aa0183161f724741e0))#cjurgn3y',
     }],
     feeRate: 20,
     tx: '02000000000100e1f5050000000017a914e37a3603a4d392f9ecb68b32eac6ba19adc4968f8700000000',
@@ -896,17 +937,17 @@ let coinSelectionResult;
       txid: 'ab05c759d35eca58d2f1fe973b0282654a610c4ddc0566356dff96fb06e3c5ff',
       vout: 0,
       amount: 78125000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/5\']03948c01f159b4204b682668d6e850440564b6610c0e5bf30da684b2131f77c449))#2u75feqc',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/14\']02c7822c824258258d8d16b6fd25317b60b4374ca4f5ce1a69b810615e0c5497a8))#t9gw8u0f',
     }, {
       txid: 'ead524525ec8f94348f3d65661501b293b936e8fff4f2ff9ee70818f17367efe',
       vout: 0,
       amount: 39062500,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/7\']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))#4z2vy08x',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/16\']03a88dac06bf7249e21774acc8797cae7a725f7eab33c523aa0183161f724741e0))#cjurgn3y',
     }, {
       txid: '0f59594cfecf8fe1733521e29736352935711f34cd958f34df4a031858f6ecfd',
       vout: 0,
       amount: 156250000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/4\']0231c043ae680664a2c5df38cf0d8eab29f1b61ce93855040c613b2f41f7c036af))#pezpv0hm',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/17\']028cf1ebce4f566a979cca0246901a58ca431341baad4351271a968b9644bf524e))#krhk0z5h',
     }],
     targetAmount: 117179000,
     isElements: false,
@@ -929,23 +970,23 @@ let fundRawTransactionResult;
       txid: 'ab05c759d35eca58d2f1fe973b0282654a610c4ddc0566356dff96fb06e3c5ff',
       vout: 1,
       amount: 78125000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/5\']03948c01f159b4204b682668d6e850440564b6610c0e5bf30da684b2131f77c449))#2u75feqc',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/14\']02c7822c824258258d8d16b6fd25317b60b4374ca4f5ce1a69b810615e0c5497a8))#t9gw8u0f',
     }, {
       txid: 'ead524525ec8f94348f3d65661501b293b936e8fff4f2ff9ee70818f17367efe',
       vout: 2,
       amount: 39062500,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/7\']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))#4z2vy08x',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/16\']03a88dac06bf7249e21774acc8797cae7a725f7eab33c523aa0183161f724741e0))#cjurgn3y',
     }, {
       txid: '0f59594cfecf8fe1733521e29736352935711f34cd958f34df4a031858f6ecfd',
       vout: 3,
       amount: 156250000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/4\']0231c043ae680664a2c5df38cf0d8eab29f1b61ce93855040c613b2f41f7c036af))#pezpv0hm',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/17\']028cf1ebce4f566a979cca0246901a58ca431341baad4351271a968b9644bf524e))#krhk0z5h',
     }],
     selectUtxos: [{
       txid: 'ea9d5a9e974af1d167305aa6ee598706d63274e8a40f4f33af97db37a7adde4c',
       vout: 0,
       amount: 30000,
-      descriptor: 'sh(wpkh([ef735203/0\'/0\'/5\']03948c02f159b4204b682668d6e850440564b6610c0e5bf30da684b2131f77c449))#2u75feqc',
+      descriptor: 'sh(wpkh([e3c39d64/0\'/1\'/18\']0245e35a32c0535c001650498725bfb0b50bce3fc3d4594f91b27a3439be6f2a54))#uye7f30k',
     }],
     tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101111100000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
     isElements: false,
@@ -975,7 +1016,7 @@ let parseDescriptorResult;
 {
   console.log('-- ParseDescriptor start --');
   const reqJson = {
-    descriptor: 'sh(wpkh([ef735203/0\'/0\'/4\']0231c043ae680664a2c5df38cf0d8eab29f1b61ce93855040c613b2f41f7c036af))#pezpv0hm',
+    descriptor: 'sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))',
     network: 'mainnet',
     bip32DerivationPath: '',
     isElements: false,
@@ -1030,4 +1071,37 @@ let createMultisigScriptSigResult;
     script: createMultisigScriptSigResult.hex,
   });
   console.log('*** ParseScript ***\n', parseResult);
+}
+
+let getAddressInfoResult;
+{
+  console.log('\n===== GetAddressInfo (P2WPKH) =====');
+  const reqJson = {
+    address: CONTRACT_CONDS.payAddrAlice,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfoResult = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfoResult, '\n');
+}
+
+let getAddressInfo2Result;
+{
+  console.log('\n===== GetAddressInfo (P2SH-P2WPKH) =====');
+  const reqJson = {
+    address: createP2shP2wpkhAddressResult.address,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfo2Result = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfo2Result, '\n');
+}
+
+let getAddressInfo3Result;
+{
+  console.log('\n===== GetAddressInfo (P2WSH multisig) =====');
+  const reqJson = {
+    address: createMultisigResult.address,
+  };
+  console.log('*** Request ***\n', reqJson);
+  getAddressInfo3Result = GetAddressInfo(reqJson);
+  console.log('\n*** Response ***\n', getAddressInfo3Result, '\n');
 }
