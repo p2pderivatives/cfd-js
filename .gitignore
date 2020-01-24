@@ -162,3 +162,6 @@ external/*
 
 /doc/*.bat
 /tools/*localdebug.bat
+
+/wrap_js/cfdjs*.zip
+/wrap_js/dl_lib

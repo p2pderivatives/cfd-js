@@ -1143,6 +1143,7 @@ struct GetUnblindedAddressRequestStruct {
  */
 struct GetUnblindedAddressResponseStruct {
   std::string unblinded_address = "";  //!< unblinded_address  // NOLINT
+  std::string confidential_key = "";   //!< confidential_key  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
@@ -1551,6 +1552,34 @@ struct GetAddressesFromMultisigResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// GetAddressInfoRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetAddressInfoRequestStruct 構造体
+ */
+struct GetAddressInfoRequestStruct {
+  std::string address = "";  //!< address  // NOLINT
+  bool is_elements = false;  //!< is_elements  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// GetAddressInfoResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetAddressInfoResponseStruct 構造体
+ */
+struct GetAddressInfoResponseStruct {
+  std::string locking_script = "";  //!< locking_script  // NOLINT
+  std::string network = "mainnet";  //!< network  // NOLINT
+  std::string hash_type = "p2pkh";  //!< hash_type  // NOLINT
+  int32_t witness_version = -1;     //!< witness_version  // NOLINT
+  std::string hash = "";            //!< hash  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // GetExtkeyInfoRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -1804,6 +1833,7 @@ struct DescriptorScriptJsonStruct {
   std::string key_type = "";                  //!< key_type  // NOLINT
   std::string key = "";                       //!< key  // NOLINT
   std::vector<DescriptorKeyJsonStruct> keys;  //!< keys  // NOLINT
+  int64_t req_num = 0;                        //!< req_num  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1819,6 +1849,7 @@ struct ParseDescriptorResponseStruct {
   std::string locking_script = "";                  //!< locking_script  // NOLINT
   std::string hash_type = "";                       //!< hash_type  // NOLINT
   std::string redeem_script = "";                   //!< redeem_script  // NOLINT
+  bool include_multisig = false;                    //!< include_multisig  // NOLINT
   std::vector<DescriptorScriptJsonStruct> scripts;  //!< scripts  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
@@ -2141,6 +2172,51 @@ struct UpdateWitnessStackRequestStruct {
  */
 struct UpdateWitnessStackResponseStruct {
   std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// VerifySignatureTxInRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureTxInRequestStruct 構造体
+ */
+struct VerifySignatureTxInRequestStruct {
+  std::string txid = "";                           //!< txid  // NOLINT
+  uint32_t vout = 0;                               //!< vout  // NOLINT
+  std::string signature = "";                      //!< signature  // NOLINT
+  std::string pubkey = "";                         //!< pubkey  // NOLINT
+  std::string redeem_script = "";                  //!< redeem_script  // NOLINT
+  std::string hash_type = "p2wpkh";                //!< hash_type  // NOLINT
+  std::string sighash_type = "all";                //!< sighash_type  // NOLINT
+  bool sighash_anyone_can_pay = false;             //!< sighash_anyone_can_pay  // NOLINT
+  int64_t amount = 0;                              //!< amount  // NOLINT
+  std::string confidential_value_commitment = "";  //!< confidential_value_commitment  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// VerifySignatureRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureRequestStruct 構造体
+ */
+struct VerifySignatureRequestStruct {
+  std::string tx = "";                    //!< tx  // NOLINT
+  bool is_elements = false;               //!< is_elements  // NOLINT
+  VerifySignatureTxInRequestStruct txin;  //!< txin  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// VerifySignatureResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief VerifySignatureResponseStruct 構造体
+ */
+struct VerifySignatureResponseStruct {
+  bool success = true;  //!< success  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };

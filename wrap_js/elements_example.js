@@ -28,6 +28,8 @@ const {
   EstimateFee,
   GetAddressesFromMultisig,
   ParseDescriptor,
+  VerifySignature,
+  GetAddressInfo,
 } = cfdjsModule;
 
 let supportFunctions;
@@ -517,6 +519,27 @@ if (!supportFunctions.elements) {
     };
     signatureRet = CalculateEcSignature(reqJson);
     console.log('\n*** CalculateEcSignature ***\n', signatureRet);
+  }
+
+  let verifyRet;
+  {
+    console.log('\n===== VerifySignature (blinded utxo) =====');
+    const reqJson = {
+      tx: blindRawTransactionResult2.hex,
+      isElements: true,
+      txin: {
+        'txid': '03f8801068f3d2c1bbb2c6eaf295e845f9a265615a229adf9f64215ad63afcb7',
+        'vout': 0,
+        'signature': signatureRet.signature,
+        'pubkey': '03f942716865bb9b62678d99aa34de4632249d066d99de2b5a2e542e54908450d6',
+        // scriptHex: '0014eb3c0d55b7098a4aef4a18ee1eebcb1ed924a82b',
+        // amount: 290000,
+        'confidentialValueCommitment': '08b7057c10af7e696c1927584b006fbc3e7e914d4e7ac29f1876bf8d4a64276736',
+        'hashType': 'p2wpkh',
+      },
+    };
+    verifyRet = VerifySignature(reqJson);
+    console.log('\n*** VerifySignature ***\n', verifyRet);
   }
 
   let addSign1;
@@ -1164,5 +1187,52 @@ if (!supportFunctions.elements) {
     console.log('*** Request ***\n', reqJson);
     parseDescriptorResult = ParseDescriptor(reqJson);
     console.log('*** Response ***\n', parseDescriptorResult);
+  }
+
+  let getAddressInfoResult;
+  {
+    console.log('\n===== GetAddressInfo (P2PKH) =====');
+    const reqJson = {
+      address: createElementsP2pkhAddressResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfoResult = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfoResult, '\n');
+  }
+
+  let getAddressInfo2Result;
+  {
+    console.log('\n===== GetAddressInfo (P2SH-P2WPKH) =====');
+    const reqJson = {
+      address: createElementsP2shP2wpkhAddressResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfo2Result = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfo2Result, '\n');
+  }
+
+  let getAddressInfo3Result;
+  {
+    console.log('\n===== GetAddressInfo (P2SH-P2WSH multisig) =====');
+    const multisigResult = CreateMultisig({
+      'nrequired': 2,
+      'keys': [
+        '0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe',
+        '02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5',
+      ],
+      'network': 'regtest',
+      'hashType': 'p2wsh',
+      'isElements': true,
+    });
+
+    const reqJson = {
+      address: multisigResult.address,
+      isElements: true,
+    };
+    console.log('*** Request ***\n', reqJson);
+    getAddressInfo3Result = GetAddressInfo(reqJson);
+    console.log('\n*** Response ***\n', getAddressInfo3Result, '\n');
   }
 }

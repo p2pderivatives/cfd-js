@@ -1,0 +1,67 @@
+branches:
+  only:
+    - /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
+language: cpp
+sudo: required
+dist: bionic
+compiler:
+  - clang
+matrix:
+  include:
+    - os: osx
+      compiler: clang
+      osx_image: xcode9.4
+      env: BUILD_TYPE="Release"
+env:
+  global:
+    - ASSET_FILE_NAME="cfdjs-api-${TRAVIS_TAG}-${TRAVIS_OS_NAME}-${TRAVIS_OSX_IMAGE}-x86_64"
+
+addons:
+  homebrew:
+    packages:
+      - cmake
+    update: true
+
+before_install:
+
+install:
+  - echo "cmake version check"
+  - cmake --version
+
+after_install:
+
+before_script:
+  - cd "${TRAVIS_BUILD_DIR}"
+  - echo "${TRAVIS_BUILD_DIR}"
+  - mkdir dist
+  - mkdir build
+  - cmake -S . -B build
+  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off --build build
+
+script:
+  - cmake --build build
+
+after_success:
+  - cd build
+  - make install DESTDIR=../dist
+  - cd ../dist
+  - rm -rf usr/local/lib/libwallycore.a usr/local/lib/pkgconfig/wallycore.pc
+  - rm -rf usr/local/cmake/wallycore-*
+  - ls -l usr/local/lib
+  - zip -r "${ASSET_FILE_NAME}.zip" usr
+
+before_deploy:
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_API_KEY}
+  file:
+    - "${ASSET_FILE_NAME}.zip"
+  draft: false
+  on:
+    tags: true
+  skip_cleanup: true
+
+after_deploy:
+
+after_script:

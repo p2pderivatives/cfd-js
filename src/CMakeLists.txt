@@ -30,7 +30,7 @@ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:DEB
 set(OPTION_BIGOBJ  "/bigobj")
 else()
 set(ENABLE_DEBUG  FALSE)
-set(OPTION_BIGOBJ  "")
+set(OPTION_BIGOBJ  "/bigobj")
 endif() # CMAKE_BUILD_TYPE
 
 ####################
@@ -88,17 +88,27 @@ set(GCOV_LIBRARY  "")
 endif()
 
 ####################
-# node build
+# cfdjs build
 ####################
-if(CMAKE_JS_INC)
-message(STATUS "[CMAKE_JS_INC]=${CMAKE_JS_INC}")
-
-# cfd-js
-project(cfd_js CXX)
+# cfd-js-api
+project(cfdjs_api CXX)
+find_package(cfd  QUIET)
+if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 set(CFD_LIBRARY cfd)
 set(CFDCORE_LIBRARY cfdcore)
 set(UNIVALUE_LIBRARY univalue)
-set(LIBWALLY_LIBRARY wally)
+# set(LIBWALLY_LIBRARY wally)
+
+else()
+message(STATUS "[cfd_FOUND]=${cfd_FOUND}")
+message(STATUS "[cfd_DIR]=${cfd_DIR}")
+
+set(CFD_LIBRARY cfd)
+set(CFDCORE_LIBRARY cfdcore)
+set(UNIVALUE_LIBRARY univalue)
+# set(LIBWALLY_LIBRARY wally)
+endif()
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -109,21 +119,15 @@ else()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
 endif()
 
-execute_process(COMMAND node -p "require('node-addon-api').include"
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-  OUTPUT_VARIABLE NODE_ADDON_API_DIR
-)
-
-# node-api library
-set(CFDJS_LIBRARY cfdjs)
+# js-api library
 if(ENABLE_SHARED)
-add_library(${CFDJS_LIBRARY} SHARED)
+add_library(${PROJECT_NAME} SHARED)
 else()
-add_library(${CFDJS_LIBRARY} STATIC)
+add_library(${PROJECT_NAME} STATIC)
 endif()
-target_sources(${CFDJS_LIBRARY}
+target_sources(${PROJECT_NAME}
   PRIVATE
-    cfdjs_node_addon.cpp
+    cfdjs_json_mapping_api.cpp
     cfdjs_address.cpp
     cfdjs_elements_address.cpp
     cfdjs_elements_transaction.cpp
@@ -134,121 +138,57 @@ target_sources(${CFDJS_LIBRARY}
     cfdjs_transaction_base.cpp
     cfdjs_utility.cpp
     cfdjs_coin.cpp
-    cfdapi_add_multisig_sign_json.cpp
-    cfdapi_add_sign_json.cpp
-    cfdapi_get_mnemonic_wordlist_json.cpp
-    cfdapi_blind_raw_transaction_json.cpp
-    cfdapi_calculate_ec_signature_json.cpp
-    cfdapi_convert_entropy_to_mnemonic_json.cpp
-    cfdapi_convert_mnemonic_to_seed_json.cpp
-    cfdapi_create_address_json.cpp
-    cfdapi_create_extkey_from_parent_json.cpp
-    cfdapi_create_extkey_from_path_json.cpp
-    cfdapi_create_extkey_from_seed_json.cpp
-    cfdapi_create_extpubkey_json.cpp
-    cfdapi_create_key_pair_json.cpp
-    cfdapi_create_multisig_scriptsig_json.cpp
-    cfdapi_create_script_json.cpp
-    cfdapi_decode_transaction_json.cpp
-    cfdapi_elements_create_raw_transaction_json.cpp
-    cfdapi_elements_create_raw_pegin_json.cpp
-    cfdapi_elements_create_raw_pegout_json.cpp
-    cfdapi_elements_create_destroy_amount_json.cpp
-    cfdapi_elements_create_pegin_address_json.cpp
-    cfdapi_elements_decode_raw_transaction_json.cpp
-    cfdapi_elements_unblind_raw_transaction_json.cpp
-    cfdapi_elements_set_rawissueasset_json.cpp
-    cfdapi_elements_set_rawreissueasset_json.cpp
-    cfdapi_encode_signature_by_der_json.cpp
-    cfdapi_error_base_json.cpp
     cfdapi_error_json.cpp
-    cfdapi_estimate_fee_json.cpp
-    cfdapi_fund_raw_transaction_json.cpp
-    cfdapi_get_addresses_from_multisig_json.cpp
-    cfdapi_get_extkeyinfo_json.cpp
-    cfdapi_get_issuance_blinding_key_json.cpp
-    cfdapi_get_witness_num_json.cpp
-    cfdapi_get_privkey_from_extkey_json.cpp
-    cfdapi_get_pubkey_from_extkey_json.cpp
-    cfdapi_get_pubkey_from_privkey_json.cpp
-    cfdapi_elements_get_confidential_address_json.cpp
-    cfdapi_elements_get_unblinded_address_json.cpp
-    cfdapi_multisig_address_json.cpp
-    cfdapi_parse_descriptor_json.cpp
-    cfdapi_parse_script_json.cpp
-    cfdapi_sighash_elements_json.cpp
-    cfdapi_sighash_json.cpp
-    cfdapi_supported_function_json.cpp
-    cfdapi_transaction_json.cpp
-    cfdapi_update_witness_json.cpp
-    cfdapi_select_utxos_json.cpp
     cfdapi_select_utxos_wrapper_json.cpp
-    ${CMAKE_JS_SRC}
-)
-
-target_compile_options(${CFDJS_LIBRARY}
-  PRIVATE
-    $<IF:$<CXX_COMPILER_ID:MSVC>,
-      /LD /source-charset:utf-8 /Wall ${OPTION_BIGOBJ}
-      /wd4061 /wd4244 /wd4251 /wd4365 /wd4464 /wd4514 /wd4571 /wd4574 /wd4623 /wd4625 /wd4626 /wd4710 /wd4711 /wd4774 /wd4820 /wd4946 /wd5026 /wd5027 /wd5039 /wd5045 /wd5052,
-      -Wall
-    >
-)
-#     -fstack-protector
-if(ENABLE_SHARED)
-target_compile_definitions(${CFDJS_LIBRARY}
-  PRIVATE
-    CFD_JS_BUILD=1
-    CFD_SHARED=1
-    CFD_CORE_SHARED=1
-    ${CFD_BITCOIN_USE}
-    ${CFD_ELEMENTS_USE}
-)
-else()
-target_compile_definitions(${CFDJS_LIBRARY}
-  PRIVATE
-    CFD_JS_BUILD=1
-    ${CFD_BITCOIN_USE}
-    ${CFD_ELEMENTS_USE}
-)
-endif()
-
-# Include N-API wrappers
-string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-
-target_include_directories(${CFDJS_LIBRARY}
-  PUBLIC
-    ../include
-  PRIVATE
-    .
-    ${CFD_SRC_ROOT_DIR}/external/cfd-core/src/include
-    ${CMAKE_JS_INC}
-    ${NODE_ADDON_API_DIR}
-)
-
-target_link_libraries(${CFDJS_LIBRARY}
-  PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:winmm.lib>
-  PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:ws2_32.lib>
-  PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:GNU>>:-static-libgcc>
-  PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:GNU>>:-static-libstdc++>
-  PRIVATE $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
-  PRIVATE $<IF:$<OR:$<PLATFORM_ID:Darwin>,$<CXX_COMPILER_ID:MSVC>>,,rt>
-  PRIVATE
-    ${CFD_LIBRARY}
-    ${CFDCORE_LIBRARY}
-    ${UNIVALUE_LIBRARY}
-    ${CMAKE_JS_LIB}
-)
-add_dependencies(${CFDJS_LIBRARY} ${CFD_LIBRARY})
-
-
-# node library
-add_library(${PROJECT_NAME} SHARED)
-target_sources(${PROJECT_NAME}
-  PRIVATE
-    cfdjs_node_addon_init.cpp
-    ${CMAKE_JS_SRC}
+    autogen/cfdapi_add_multisig_sign_json.cpp
+    autogen/cfdapi_add_sign_json.cpp
+    autogen/cfdapi_get_mnemonic_wordlist_json.cpp
+    autogen/cfdapi_blind_raw_transaction_json.cpp
+    autogen/cfdapi_calculate_ec_signature_json.cpp
+    autogen/cfdapi_convert_entropy_to_mnemonic_json.cpp
+    autogen/cfdapi_convert_mnemonic_to_seed_json.cpp
+    autogen/cfdapi_create_address_json.cpp
+    autogen/cfdapi_create_extkey_from_parent_json.cpp
+    autogen/cfdapi_create_extkey_from_path_json.cpp
+    autogen/cfdapi_create_extkey_from_seed_json.cpp
+    autogen/cfdapi_create_extpubkey_json.cpp
+    autogen/cfdapi_create_key_pair_json.cpp
+    autogen/cfdapi_create_multisig_scriptsig_json.cpp
+    autogen/cfdapi_create_script_json.cpp
+    autogen/cfdapi_decode_transaction_json.cpp
+    autogen/cfdapi_elements_create_raw_transaction_json.cpp
+    autogen/cfdapi_elements_create_raw_pegin_json.cpp
+    autogen/cfdapi_elements_create_raw_pegout_json.cpp
+    autogen/cfdapi_elements_create_destroy_amount_json.cpp
+    autogen/cfdapi_elements_create_pegin_address_json.cpp
+    autogen/cfdapi_elements_decode_raw_transaction_json.cpp
+    autogen/cfdapi_elements_unblind_raw_transaction_json.cpp
+    autogen/cfdapi_elements_set_rawissueasset_json.cpp
+    autogen/cfdapi_elements_set_rawreissueasset_json.cpp
+    autogen/cfdapi_encode_signature_by_der_json.cpp
+    autogen/cfdapi_error_base_json.cpp
+    autogen/cfdapi_estimate_fee_json.cpp
+    autogen/cfdapi_fund_raw_transaction_json.cpp
+    autogen/cfdapi_get_address_info_json.cpp
+    autogen/cfdapi_get_addresses_from_multisig_json.cpp
+    autogen/cfdapi_get_extkeyinfo_json.cpp
+    autogen/cfdapi_get_issuance_blinding_key_json.cpp
+    autogen/cfdapi_get_witness_num_json.cpp
+    autogen/cfdapi_get_privkey_from_extkey_json.cpp
+    autogen/cfdapi_get_pubkey_from_extkey_json.cpp
+    autogen/cfdapi_get_pubkey_from_privkey_json.cpp
+    autogen/cfdapi_elements_get_confidential_address_json.cpp
+    autogen/cfdapi_elements_get_unblinded_address_json.cpp
+    autogen/cfdapi_multisig_address_json.cpp
+    autogen/cfdapi_parse_descriptor_json.cpp
+    autogen/cfdapi_parse_script_json.cpp
+    autogen/cfdapi_sighash_elements_json.cpp
+    autogen/cfdapi_sighash_json.cpp
+    autogen/cfdapi_supported_function_json.cpp
+    autogen/cfdapi_transaction_json.cpp
+    autogen/cfdapi_update_witness_json.cpp
+    autogen/cfdapi_select_utxos_json.cpp
+    autogen/cfdapi_verify_signature_json.cpp
 )
 
 target_compile_options(${PROJECT_NAME}
@@ -263,7 +203,7 @@ target_compile_options(${PROJECT_NAME}
 if(ENABLE_SHARED)
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
-    CFD_JS_SHARED=1
+    CFD_JS_API_BUILD=1
     CFD_SHARED=1
     CFD_CORE_SHARED=1
     ${CFD_BITCOIN_USE}
@@ -272,23 +212,46 @@ target_compile_definitions(${PROJECT_NAME}
 else()
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
+    CFD_JS_API_BUILD=1
     ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
 endif()
 
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-# Include N-API wrappers
-string(REPLACE "\n" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
-
+if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
   PRIVATE
     .
-    ../include
-    ${CMAKE_JS_INC}
-    ${NODE_ADDON_API_DIR}
+    ./autogen
+    ${CFD_SRC_ROOT_DIR}/external/cfd-core/src/include
 )
+target_link_directories(${PROJECT_NAME}
+  PRIVATE
+    ./
+)
+set(USE_INSTALLED_LIBRARY  FALSE)
+add_dependencies(${PROJECT_NAME} ${CFD_LIBRARY})
+else()
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+    $<INSTALL_INTERFACE:include>
+  PRIVATE
+    .
+    ./autogen
+    ${cfd_DIR}/../include
+    ${CFD_SRC_ROOT_DIR}/external/cfd-core/src/include
+)
+target_link_directories(${PROJECT_NAME}
+  PRIVATE
+    ./
+    ${cfd_DIR}/../lib
+)
+set(USE_INSTALLED_LIBRARY  TRUE)
+endif()
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE $<$<BOOL:$<CXX_COMPILER_ID:MSVC>>:winmm.lib>
@@ -298,13 +261,83 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:pthread>
   PRIVATE $<IF:$<OR:$<PLATFORM_ID:Darwin>,$<CXX_COMPILER_ID:MSVC>>,,rt>
   PRIVATE
-    ${CFDJS_LIBRARY}
-    ${CMAKE_JS_LIB}
     ${CFD_LIBRARY}
     ${CFDCORE_LIBRARY}
     ${UNIVALUE_LIBRARY}
-    ${LIBWALLY_LIBRARY}
 )
 
-add_dependencies(${PROJECT_NAME} ${CFDJS_LIBRARY})
-endif()		# CMAKE_JS_INC
+
+if(USE_INSTALLED_LIBRARY)
+set(INSTALLED_LIBRARY_DIR  ${cfd_DIR}/../lib)
+if(ENABLE_SHARED)
+set(LIB_PREFIX  ${CMAKE_SHARED_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_SHARED_LIBRARY_SUFFIX})
+else()
+set(LIB_PREFIX  ${CMAKE_STATIC_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_STATIC_LIBRARY_SUFFIX})
+endif()
+
+set(LIBWALLY_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}wally${LIB_SUFFIX})
+set(UNIVALUE_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}univalue${LIB_SUFFIX})
+set(CFDCORE_LIB_PATH   ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdcore${LIB_SUFFIX})
+set(CFD_LIB_PATH       ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfd${LIB_SUFFIX})
+
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy ${LIBWALLY_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${UNIVALUE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+)
+
+if(NOT ENABLE_SHARED)
+set(LIB_PREFIX  ${CMAKE_SHARED_LIBRARY_PREFIX})
+set(LIB_SUFFIX  ${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(LIBWALLY_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}wally${LIB_SUFFIX})
+set(UNIVALUE_LIB_PATH  ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}univalue${LIB_SUFFIX})
+set(CFDCORE_LIB_PATH   ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfdcore${LIB_SUFFIX})
+set(CFD_LIB_PATH       ${INSTALLED_LIBRARY_DIR}/${LIB_PREFIX}cfd${LIB_SUFFIX})
+
+if(EXISTS ${CFD_LIB_PATH})
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy  ${LIBWALLY_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${UNIVALUE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFDCORE_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy  ${CFD_LIB_PATH} ${CFD_OBJ_BINARY_DIR}
+)
+endif(EXISTS ${CFD_LIB_PATH})
+endif(NOT ENABLE_SHARED)
+endif()   # USE_INSTALLED_LIBRARY
+
+
+####################
+# install & export
+####################
+include(GNUInstallDirs)
+
+install(TARGETS       ${PROJECT_NAME}
+        EXPORT        ${PROJECT_NAME}-export
+        ARCHIVE       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        LIBRARY       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        OBJECTS       DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+install(EXPORT ${PROJECT_NAME}-export
+        FILE ${PROJECT_NAME}-config.cmake
+        DESTINATION "cmake/"
+        EXPORT_LINK_INTERFACE_LIBRARIES)
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../include/cfdjs"
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        FILES_MATCHING PATTERN "*.h")
+
+if(MSVC)
+install(DIRECTORY "${CFD_OBJ_BINARY_DIR}/"
+        DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        FILES_MATCHING PATTERN "cfdjs_api.exp")
+endif()

@@ -13,7 +13,7 @@
 #include "cfdcore/cfdcore_util.h"
 
 #include "cfd/cfd_common.h"
-#include "cfdjs/cfdjs_utility.h"
+#include "cfdjs/cfdjs_api_utility.h"
 #include "cfdjs_internal.h"          // NOLINT
 #include "cfdjs_transaction_base.h"  // NOLINT
 

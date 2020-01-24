@@ -11,8 +11,8 @@
 #include "cfd/cfd_elements_address.h"
 
 #include "cfd/cfdapi_elements_address.h"
-#include "cfdjs/cfdjs_address.h"
-#include "cfdjs/cfdjs_elements_address.h"
+#include "cfdjs/cfdjs_api_address.h"
+#include "cfdjs/cfdjs_api_elements_address.h"
 #include "cfdjs_internal.h"  // NOLINT
 
 namespace cfd {
@@ -159,6 +159,36 @@ ElementsAddressStructApi::GetAddressesFromMultisig(
   return result;
 }
 
+GetAddressInfoResponseStruct ElementsAddressStructApi::GetAddressInfo(
+    const GetAddressInfoRequestStruct& request) {
+  auto call_func = [](const GetAddressInfoRequestStruct& request)
+      -> GetAddressInfoResponseStruct {  // NOLINT
+    GetAddressInfoResponseStruct response;
+
+    ElementsAddressFactory factory;
+    Address address = factory.GetAddress(request.address);
+
+    response.locking_script = address.GetLockingScript().GetHex();
+    response.network =
+        (address.GetNetType() == NetType::kLiquidV1) ? "liquidv1" : "regtest";
+    response.hash_type =
+        AddressStructApi::ConvertAddressTypeText(address.GetAddressType());
+    response.witness_version =
+        static_cast<int32_t>(address.GetWitnessVersion());
+    if (response.witness_version < 0) {
+      response.ignore_items.insert("witnessVersion");
+    }
+    response.hash = address.GetHash().GetHex();
+    return response;
+  };
+
+  GetAddressInfoResponseStruct result;
+  result = ExecuteStructApi<
+      GetAddressInfoRequestStruct, GetAddressInfoResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 GetConfidentialAddressResponseStruct
 ElementsAddressStructApi::GetConfidentialAddress(
     const GetConfidentialAddressRequestStruct& request) {
@@ -220,6 +250,7 @@ ElementsAddressStructApi::GetUnblindedAddress(
     ElementsConfidentialAddress addr(unblinded_addrss);
 
     response.unblinded_address = addr.GetUnblindedAddress().GetAddress();
+    response.confidential_key = addr.GetConfidentialKey().GetHex();
     return response;
   };
 

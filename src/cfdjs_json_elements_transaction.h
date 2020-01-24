@@ -12,7 +12,7 @@
 
 #include "cfdapi_estimate_fee_json.h"          // NOLINT
 #include "cfdapi_fund_raw_transaction_json.h"  // NOLINT
-#include "cfdjs/cfdjs_common.h"
+#include "cfdjs/cfdjs_api_common.h"
 #include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
@@ -23,7 +23,7 @@ namespace json {
 /**
  * @brief Elements用Transaction関連の関数群クラス
  */
-class CFD_JS_EXPORT ElementsTransactionJsonApi {
+class ElementsTransactionJsonApi {
  public:
   /**
    * @brief JSONパラメータの情報を元に、Fee計算を行う

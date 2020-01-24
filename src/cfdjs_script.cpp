@@ -14,7 +14,7 @@
 #include "cfdcore/cfdcore_logger.h"
 #include "cfdcore/cfdcore_script.h"
 
-#include "cfdjs/cfdjs_script.h"
+#include "cfdjs/cfdjs_api_script.h"
 #include "cfdjs_internal.h"          // NOLINT
 #include "cfdjs_json_transaction.h"  // NOLINT
 #include "cfdjs_transaction_base.h"  // NOLINT
