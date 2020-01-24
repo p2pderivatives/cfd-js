@@ -54,7 +54,7 @@ const main = async function() {
     } else {
       targetName = 'ubuntu1804-gcc';
     }
-    const targetUrl = `https://github.com/cryptogarageinc/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
+    const targetUrl = `https://github.com/p2pderivatives/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
     console.log(`download url = ${targetUrl}`);
 
     const separator = (isWindows) ? '\\' : '/';
