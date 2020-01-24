@@ -7,3 +7,4 @@ rm -f  wrap_js/wally.js
 rm -rf external/cfd
 rm -rf external/cfd-core
 rm -rf external/libwally-core
+rm -rf external/googletest
