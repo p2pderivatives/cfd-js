@@ -1,0 +1,38 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "AddRawTransactionRequest",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txins:require": "optional",
+    "txins": [
+      {
+        ":class": "AddTxIn",
+        "txid": "",
+        "txid:require": "require",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "vout:require": "require",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional"
+      }
+    ],
+    "txouts:require": "optional",
+    "txouts": [
+      {
+        ":class": "AddTxOut",
+        "address": "",
+        "address:require": "require",
+        "amount": 0,
+        "amount:require": "require"
+      }
+    ]
+  },
+  "response": {
+    ":class": "AddRawTransactionResponse",
+    "hex": "",
+    "hex:require": "require"
+  }
+}

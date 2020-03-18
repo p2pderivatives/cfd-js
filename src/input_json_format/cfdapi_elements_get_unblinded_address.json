@@ -2,11 +2,14 @@
   "namespace": ["cfd","js","api","json"],
   "request": {
     ":class": "GetUnblindedAddressRequest",
-    "confidentialAddress": ""
+    "confidentialAddress": "",
+    "confidentialAddress:require": "require"
   },
   "response": {
     ":class": "GetUnblindedAddressResponse",
     "unblindedAddress": "",
-    "confidentialKey": ""
+    "unblindedAddress:require": "require",
+    "confidentialKey": "",
+    "confidentialKey:require": "require"
   }
 }

@@ -81,7 +81,7 @@ const errorCase = [
     'ElementsDecodeRawTransaction invalid hex format',
     ElementsDecodeRawTransaction,
     ['{"hex":0,"network":"regtest"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid hex string. empty data."}}',
+    '{"error":{"code":3,"type":"out_of_range","message":"Json value convert error. Invalid json format."}}',
   ),
   TestHelper.createElementsTestCase(
     'ElementsDecodeRawTransaction invalid elements network type',

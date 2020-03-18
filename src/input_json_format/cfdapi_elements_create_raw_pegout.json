@@ -4,52 +4,80 @@
     ":class": "ElementsCreateRawPegoutRequest",
     "version": 2,
     "version:type": "uint32_t",
+    "version:require": "optional",
     "locktime": 0,
     "locktime:type": "uint32_t",
+    "locktime:require": "optional",
+    "txins:require": "optional",
     "txins": [
       {
         ":class": "ElementsPegoutTxIn",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "sequence": 4294967295,
-        "sequence:type": "uint32_t"
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional"
       }
     ],
+    "txouts:require": "optional",
     "txouts": [
       {
         ":class": "ElementsPegoutTxOut",
         "address": "",
+        "address:require": "require",
         "amount": 0,
+        "amount:require": "require",
         "asset": "",
-        "isRemoveNonce": false
+        "asset:require": "require",
+        "isRemoveNonce": false,
+        "isRemoveNonce:require": "optional"
       }
     ],
+    "pegout:require": "require",
     "pegout": {
       ":class": "ElementsPegout",
       "amount": 0,
+      "amount:require": "require",
       "asset": "",
+      "asset:require": "require",
       "network": "mainnet",
+      "network:require": "require",
       "network:hint": "mainnet, testnet or regtest",
       "elementsNetwork": "",
+      "elementsNetwork:require": "require",
       "elementsNetwork:hint": "liquidv1, regtest",
       "mainchainGenesisBlockHash":"",
+      "mainchainGenesisBlockHash:require": "require",
       "btcAddress": "",
+      "btcAddress:require": "optional",
       "onlinePubkey":"",
+      "onlinePubkey:require": "require",
       "masterOnlineKey":"",
+      "masterOnlineKey:require": "require",
       "bitcoinDescriptor":"",
+      "bitcoinDescriptor:require": "require",
       "bip32Counter":0,
-      "whitelist":""
+      "bip32Counter:require": "require",
+      "whitelist":"",
+      "whitelist:require": "require"
     },
+    "fee:require": "optional",
     "fee": {
       ":class": "ElementsPegoutTxOutFee",
       "amount": 0,
-      "asset": ""
+      "amount:require": "require",
+      "asset": "",
+      "asset:require": "require"
     }
   },
   "response": {
     ":class": "ElementsCreateRawPegoutResponse",
     "hex": "",
-    "btcAddress": ""
+    "hex:require": "require",
+    "btcAddress": "",
+    "btcAddress:require": "optional"
   }
 }

@@ -76,12 +76,36 @@ class CFD_JS_API_EXPORT AddressStructApi {
       const ParseDescriptorRequestStruct& request);
 
   /**
-   * @brief bitcoinネットワーク文字列を、NetType構造体へ変換する.
+   * @brief JSONパラメータの情報を元に、Key情報からDescriptorを生成する
+   * @param[in] request Descriptorを構築するパラメータ
+   * @return Descriptorを格納した構造体
+   */
+  static CreateDescriptorResponseStruct CreateDescriptor(
+      const CreateDescriptorRequestStruct& request);
+
+  /**
+   * @brief JSONパラメータの情報を元に、DescriptorへChecksumを追記する
+   * @param[in] request Descriptorを構築するパラメータ
+   * @return Descriptor解析結果を格納した構造体
+   */
+  static AppendDescriptorChecksumResponseStruct AppendDescriptorChecksum(
+      const AppendDescriptorChecksumRequestStruct& request);
+
+  /**
+   * @brief bitcoinネットワーク文字列を、NetType情報へ変換する.
    * @param[in] network_type ネットワーク文字列
-   * @return 引数に対応するNetType構造体
+   * @return 引数に対応するNetType情報
    * @throw CfdException 指定文字列以外が渡された場合
    */
   static cfd::core::NetType ConvertNetType(const std::string& network_type);
+
+  /**
+   * @brief NetType情報を、bitcoinネットワーク文字列へ変換する.
+   * @param[in] network_type NetType情報
+   * @return ネットワーク文字列
+   * @throw CfdException 範囲外の値が渡された場合
+   */
+  static std::string ConvertNetTypeString(cfd::core::NetType network_type);
 
   /**
    * @brief Convert address type from string to AddressType.
@@ -96,8 +120,16 @@ class CFD_JS_API_EXPORT AddressStructApi {
    * @param[in] address_type the address type as a integer.
    * @return the converted AddressType text.
    * @throw CfdException if address_type does not match any known AddressType.
+   * @deprecated rename.
    */
   static std::string ConvertAddressTypeText(AddressType address_type);
+  /**
+   * @brief Convert address type from string to AddressType text.
+   * @param[in] address_type the address type as a integer.
+   * @return the converted AddressType text.
+   * @throw CfdException if address_type does not match any known AddressType.
+   */
+  static std::string ConvertAddressTypeString(AddressType address_type);
 
   /**
    * @brief Convert descriptor parse data to struct.

@@ -10,8 +10,7 @@
 #define CFD_JS_SRC_CFDJS_JSON_ELEMENTS_TRANSACTION_H_
 #ifndef CFD_DISABLE_ELEMENTS
 
-#include "cfdapi_estimate_fee_json.h"          // NOLINT
-#include "cfdapi_fund_raw_transaction_json.h"  // NOLINT
+#include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdjs/cfdjs_api_common.h"
 #include "cfdjs/cfdjs_struct.h"
 

@@ -3,33 +3,47 @@
   "request": {
     ":class": "VerifySignatureRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
     "isElements": false,
+    "isElements:require": "optional",
     "isElements:comment": "elements transaction flag.",
+    "txin:require": "require",
     "txin": {
       ":class": "VerifySignatureTxInRequest",
       "txid": "",
+      "txid:require": "require",
       "vout": 0,
       "vout:type": "uint32_t",
+      "vout:require": "require",
       "signature": "",
+      "signature:require": "require",
       "pubkey": "",
+      "pubkey:require": "require",
       "pubkey:hint": "The pubkey associated with the signature.",
       "redeemScript": "",
+      "redeemScript:require": "optional",
       "redeemScript:hint": "hashType is p2sh or p2wsh",
       "hashType": "p2wpkh",
+      "hashType:require": "require",
       "hashType:hint": "p2pkh, p2sh, p2wpkh, p2wsh",
       "sighashType": "all",
+      "sighashType:require": "optional",
       "sighashType:hint": "all, none, single",
       "sighashAnyoneCanPay": false,
+      "sighashAnyoneCanPay:require": "optional",
       "amount": 0,
       "amount:type": "int64_t",
+      "amount:require": "optional",
       "amount:hint": "Only when using witness. Need either amount or confidentialValueCommitment",
       "confidentialValueCommitment": "",
+      "confidentialValueCommitment:require": "optional",
       "confidentialValueCommitment:hint": "Only when using witness. Need either amount or confidentialValueCommitment"
     }
   },
   "response": {
     ":class": "VerifySignatureResponse",
-    "success": true
+    "success": true,
+    "success:require": "require"
   }
 }

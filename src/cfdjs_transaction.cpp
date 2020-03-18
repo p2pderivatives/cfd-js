@@ -12,7 +12,7 @@
 
 #include "cfd/cfdapi_coin.h"
 #include "cfd/cfdapi_transaction.h"
-#include "cfdapi_estimate_fee_json.h"  // NOLINT
+#include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_transaction.h"
 #include "cfdjs_internal.h"          // NOLINT
@@ -92,6 +92,41 @@ CreateRawTransactionResponseStruct TransactionStructApi::CreateRawTransaction(
   CreateRawTransactionResponseStruct result;
   result = ExecuteStructApi<
       CreateRawTransactionRequestStruct, CreateRawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+AddRawTransactionResponseStruct TransactionStructApi::AddRawTransaction(
+    const AddRawTransactionRequestStruct& request) {
+  auto call_func = [](const AddRawTransactionRequestStruct& request)
+      -> AddRawTransactionResponseStruct {  // NOLINT
+    AddRawTransactionResponseStruct response;
+
+    std::vector<TxIn> txins;
+    for (AddTxInStruct txin_req : request.txins) {
+      TxIn txin(Txid(txin_req.txid), txin_req.vout, txin_req.sequence);
+      txins.push_back(txin);
+    }
+
+    std::vector<TxOut> txouts;
+    for (AddTxOutStruct txout_req : request.txouts) {
+      Amount amount = Amount::CreateBySatoshiAmount(txout_req.amount);
+      Address address(txout_req.address);
+      TxOut txout(amount, address);
+      txouts.push_back(txout);
+    }
+
+    TransactionApi api;
+    TransactionController txc =
+        api.AddRawTransaction(request.tx, txins, txouts);
+
+    response.hex = txc.GetHex();
+    return response;
+  };
+
+  AddRawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      AddRawTransactionRequestStruct, AddRawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -628,6 +663,9 @@ void TransactionJsonApi::FundRawTransaction(
     UtxoData data = {};
     data.txid = Txid(utxo.GetTxid());
     data.vout = utxo.GetVout();
+    if (!utxo.GetAddress().empty()) {
+      data.address = Address(utxo.GetAddress());
+    }
     data.amount = Amount::CreateBySatoshiAmount(utxo.GetAmount());
     data.descriptor = utxo.GetDescriptor();
     data.binary_data = nullptr;
@@ -637,6 +675,9 @@ void TransactionJsonApi::FundRawTransaction(
     UtxoData data = {};
     data.txid = Txid(utxo.GetTxid());
     data.vout = utxo.GetVout();
+    if (!utxo.GetAddress().empty()) {
+      data.address = Address(utxo.GetAddress());
+    }
     data.amount = Amount::CreateBySatoshiAmount(utxo.GetAmount());
     if (!utxo.GetRedeemScript().empty()) {
       data.redeem_script = Script(utxo.GetRedeemScript());

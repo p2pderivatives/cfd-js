@@ -4,35 +4,49 @@
     ":class": "ElementsCreateRawTransactionRequest",
     "version": 2,
     "version:type": "uint32_t",
+    "version:require": "optional",
     "locktime": 0,
     "locktime:type": "uint32_t",
+    "locktime:require": "optional",
+    "txins:require": "require",
     "txins": [
       {
         ":class": "ElementsTxInRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "sequence": 4294967295,
-        "sequence:type": "uint32_t"
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional"
       }
     ],
     "txouts": [
       {
         ":class": "ElementsTxOutRequest",
         "address": "",
+        "address:require": "require",
         "amount": 0,
+        "amount:require": "require",
         "asset": "",
-        "isRemoveNonce": false
+        "asset:require": "require",
+        "isRemoveNonce": false,
+        "isRemoveNonce:require": "optional"
       }
     ],
+    "fee:require": "optional",
     "fee": {
       ":class": "ElementsTxOutFeeRequest",
       "amount": 0,
-      "asset": ""
+      "amount:require": "require",
+      "asset": "",
+      "asset:require": "require"
     }
   },
   "response": {
     ":class": "ElementsCreateRawTransactionResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "require"
   }
 }

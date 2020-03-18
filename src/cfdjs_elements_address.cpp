@@ -11,6 +11,9 @@
 #include "cfd/cfd_elements_address.h"
 
 #include "cfd/cfdapi_elements_address.h"
+#include "cfdcore/cfdcore_descriptor.h"
+#include "cfdcore/cfdcore_elements_script.h"
+#include "cfdcore/cfdcore_script.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_elements_address.h"
 #include "cfdjs_internal.h"  // NOLINT
@@ -27,11 +30,14 @@ using cfd::core::Address;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::ConfidentialKey;
+using cfd::core::ContractHashUtil;
+using cfd::core::Descriptor;
 using cfd::core::ElementsConfidentialAddress;
 using cfd::core::ElementsNetType;
 using cfd::core::NetType;
 using cfd::core::Pubkey;
 using cfd::core::Script;
+using cfd::core::ScriptUtil;
 using cfd::core::logger::warn;
 
 CreateAddressResponseStruct ElementsAddressStructApi::CreateAddress(
@@ -148,6 +154,7 @@ ElementsAddressStructApi::GetAddressesFromMultisig(
     for (const auto& pubkey : pubkeys) {
       response.pubkeys.push_back(pubkey.GetHex());
     }
+    response.require_num = redeem_script.GetElementList()[0].GetNumber();
     return response;
   };
 
@@ -270,21 +277,26 @@ ElementsAddressStructApi::CreatePegInAddress(
 
     // convert request arguments from struct
     Script fedpegscript = Script(request.fedpegscript);
-    Pubkey pubkey = Pubkey(request.pubkey);
+    // Pubkey pubkey = Pubkey(request.pubkey);
     NetType net_type = AddressStructApi::ConvertNetType(request.network);
-    // FIXME(fujita-cg): Extend JSON I/F and modify innner logic
-    // AddressType address_type =
-    //   AddressStructApi::ConvertAddressType(request.address_type);
-    AddressType address_type = AddressType::kP2shP2wpkhAddress;
+    AddressType address_type =
+        AddressStructApi::ConvertAddressType(request.hash_type);
 
     // prepare output parameters
     Script claim_script;
     Script tweak_fedpegscript;
+    Pubkey pubkey;
+    Script redeem_script;
+    if (!request.redeem_script.empty()) {
+      redeem_script = Script(request.redeem_script);
+    } else {
+      pubkey = Pubkey(request.pubkey);
+    }
 
     ElementsAddressApi api;
     Address pegin_address = api.CreatePegInAddress(
-        net_type, address_type, fedpegscript, pubkey, &claim_script,
-        &tweak_fedpegscript);
+        net_type, address_type, fedpegscript, pubkey, redeem_script,
+        &claim_script, &tweak_fedpegscript);
 
     // convert parameters to response struct
     response.mainchain_address = pegin_address.GetAddress();
@@ -333,6 +345,28 @@ ParseDescriptorResponseStruct ElementsAddressStructApi::ParseDescriptor(
   ParseDescriptorResponseStruct result;
   result = ExecuteStructApi<
       ParseDescriptorRequestStruct, ParseDescriptorResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+AppendDescriptorChecksumResponseStruct
+ElementsAddressStructApi::AppendDescriptorChecksum(
+    const AppendDescriptorChecksumRequestStruct& request) {
+  auto call_func = [](const AppendDescriptorChecksumRequestStruct& request)
+      -> AppendDescriptorChecksumResponseStruct {  // NOLINT
+    AppendDescriptorChecksumResponseStruct response;
+
+    Descriptor descriptor = Descriptor::ParseElements(request.descriptor);
+
+    // レスポンスとなるモデルへ変換
+    response.descriptor = descriptor.ToString();
+    return response;
+  };
+
+  AppendDescriptorChecksumResponseStruct result;
+  result = ExecuteStructApi<
+      AppendDescriptorChecksumRequestStruct,
+      AppendDescriptorChecksumResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

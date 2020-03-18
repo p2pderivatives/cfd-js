@@ -4,11 +4,15 @@
   "response": {
     ":class": "ErrorResponseBase",
     ":isOutputStruct": false,
+    "error:require": "require",
     "error": {
       ":class": "InnerErrorResponse",
       "code": 0,
+      "code:require": "require",
       "type": "",
-      "message": ""
+      "type:require": "require",
+      "message": "",
+      "message:require": "require"
     }
   }
 }

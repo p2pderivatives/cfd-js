@@ -4,28 +4,38 @@
     ":class": "CreateRawTransactionRequest",
     "version": 2,
     "version:type": "uint32_t",
+    "version:require": "optional",
     "locktime": 0,
     "locktime:type": "uint32_t",
+    "locktime:require": "optional",
+    "txins:require": "optional",
     "txins": [
       {
         ":class": "TxInRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "sequence": 4294967295,
-        "sequence:type": "uint32_t"
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional"
       }
     ],
+    "txouts:require": "optional",
     "txouts": [
       {
         ":class": "TxOutRequest",
         "address": "",
-        "amount": 0
+        "address:require": "require",
+        "amount": 0,
+        "amount:require": "require"
       }
     ]
   },
   "response": {
     ":class": "CreateRawTransactionResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "require"
   }
 }

@@ -16,7 +16,7 @@
 #include "cfd/cfd_elements_address.h"
 #include "cfd/cfdapi_coin.h"
 #include "cfd/cfdapi_elements_transaction.h"
-#include "cfdapi_estimate_fee_json.h"  // NOLINT
+#include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_elements_address.h"
 #include "cfdjs/cfdjs_api_elements_transaction.h"
@@ -178,6 +178,156 @@ ElementsTransactionStructApi::CreateRawTransaction(  // NOLINT
   result = ExecuteStructApi<
       ElementsCreateRawTransactionRequestStruct,
       ElementsCreateRawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+ElementsAddRawTransactionResponseStruct
+ElementsTransactionStructApi::AddRawTransaction(  // NOLINT
+    const ElementsAddRawTransactionRequestStruct& request) {
+  auto call_func = [](const ElementsAddRawTransactionRequestStruct& request)
+      -> ElementsAddRawTransactionResponseStruct {  // NOLINT
+    ElementsAddRawTransactionResponseStruct response;
+    ElementsAddressFactory address_factory;
+    // Transaction作成
+    std::vector<ConfidentialTxIn> txins;
+    std::vector<ConfidentialTxOut> txouts;
+    std::vector<TxInPeginParameters> pegins;
+    std::vector<TxOutPegoutParameters> pegouts;
+
+    // TxInの追加
+    for (const auto& txin_req : request.txins) {
+      txins.emplace_back(
+          Txid(txin_req.txid), txin_req.vout, txin_req.sequence);
+    }
+
+    // add PeginWitness
+    for (const auto& txin_req : request.pegin_txins) {
+      Txid txid(txin_req.txid);
+      txins.emplace_back(txid, txin_req.vout, txin_req.sequence);
+
+      info(
+          CFD_LOG_SOURCE, "rm btcWitness[{}]",
+          txin_req.is_remove_mainchain_tx_witness);
+      TxInPeginParameters pegin_data;
+      pegin_data.txid = txid;
+      pegin_data.vout = txin_req.vout;
+      pegin_data.amount =
+          Amount::CreateBySatoshiAmount(txin_req.peginwitness.amount);
+      pegin_data.asset = ConfidentialAssetId(txin_req.peginwitness.asset);
+      pegin_data.mainchain_blockhash =
+          BlockHash(txin_req.peginwitness.mainchain_genesis_block_hash);
+      pegin_data.claim_script = Script(txin_req.peginwitness.claim_script);
+      pegin_data.mainchain_raw_tx =
+          ConfidentialTransaction::GetBitcoinTransaction(
+              ByteData(txin_req.peginwitness.mainchain_raw_transaction),
+              txin_req.is_remove_mainchain_tx_witness);
+      pegin_data.mainchain_txoutproof =
+          ByteData(txin_req.peginwitness.mainchain_txoutproof);
+      pegins.push_back(pegin_data);
+    }
+
+    // TxOutの追加
+    Script script;
+    for (const auto& txout_req : request.txouts) {
+      const std::string addr = txout_req.address;
+      Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
+      ConfidentialAssetId asset(txout_req.asset);
+      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+        ElementsConfidentialAddress confidential_addr(addr);
+        if (txout_req.is_remove_nonce) {
+          txouts.emplace_back(
+              confidential_addr.GetUnblindedAddress(), asset, amount);
+        } else {
+          txouts.emplace_back(confidential_addr, asset, amount);
+        }
+      } else {
+        txouts.emplace_back(address_factory.GetAddress(addr), asset, amount);
+      }
+    }
+
+    for (const auto& destroy_req : request.destroy_amount_txouts) {
+      // DestroyのTxOut追加
+      txouts.push_back(ConfidentialTxOut::CreateDestroyAmountTxOut(
+          ConfidentialAssetId(destroy_req.asset),
+          Amount::CreateBySatoshiAmount(destroy_req.amount)));
+    }
+
+    for (const auto& pegout_req : request.pegout_txouts) {
+      // PegoutのTxOut追加
+      TxOutPegoutParameters pegout_data;
+      pegout_data.amount = Amount::CreateBySatoshiAmount(pegout_req.amount);
+      pegout_data.asset = ConfidentialAssetId(pegout_req.asset);
+      pegout_data.genesisblock_hash =
+          BlockHash(pegout_req.mainchain_genesis_block_hash);
+      if (!pegout_req.btc_address.empty()) {
+        pegout_data.btc_address = Address(pegout_req.btc_address);
+      }
+      pegout_data.net_type =
+          AddressStructApi::ConvertNetType(pegout_req.network);
+      std::string elements_nettype = pegout_req.elements_network;
+      if (elements_nettype.empty()) {
+        if (pegout_data.net_type == NetType::kMainnet) {
+          elements_nettype = "liquidv1";
+        } else {
+          elements_nettype = "regtest";
+        }
+      }
+      pegout_data.elements_net_type =
+          ElementsAddressStructApi::ConvertElementsNetType(elements_nettype);
+      if (!pegout_req.online_pubkey.empty() &&
+          !pegout_req.master_online_key.empty()) {
+        if (pegout_req.master_online_key.size() == Privkey::kPrivkeySize * 2) {
+          // hex
+          pegout_data.master_online_key =
+              Privkey(pegout_req.master_online_key);
+        } else {
+          // Wif
+          pegout_data.master_online_key = Privkey::FromWif(
+              pegout_req.master_online_key, pegout_data.net_type);
+        }
+        pegout_data.online_pubkey = Pubkey(pegout_req.online_pubkey);
+        pegout_data.bitcoin_descriptor = pegout_req.bitcoin_descriptor;
+        pegout_data.bip32_counter = pegout_req.bip32_counter;
+        pegout_data.whitelist = ByteData(pegout_req.whitelist);
+      }
+      pegouts.push_back(pegout_data);
+    }
+
+    // feeの追加
+    ConfidentialTxOut txout_fee;
+    ElementsAddTxOutFeeStruct fee_req = request.fee;
+    // amountが0のfeeは無効と判定
+    if (fee_req.amount != 0) {
+      txout_fee = ConfidentialTxOut(
+          ConfidentialAssetId(fee_req.asset),
+          Amount::CreateBySatoshiAmount(fee_req.amount));
+    }
+
+    std::map<std::string, Amount> pegout_addresses;
+    ElementsTransactionApi api;
+    ConfidentialTransactionController ctxc = api.AddRawTransaction(
+        request.tx, txins, pegins, txouts, pegouts, txout_fee,
+        &pegout_addresses);
+
+    // すべて設定後にTxoutのRandomSort
+    if (request.is_random_sort_tx_out) {
+      ctxc.RandomSortTxOut();
+    }
+
+    for (const auto& item : pegout_addresses) {
+      if (!item.first.empty()) {
+        response.btc_addresses.push_back(item.first);
+      }
+    }
+    response.hex = ctxc.GetHex();
+    return response;
+  };
+
+  ElementsAddRawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      ElementsAddRawTransactionRequestStruct,
+      ElementsAddRawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -837,7 +987,12 @@ ElementsTransactionStructApi::BlindTransaction(
     for (BlindTxOutRequestStruct txout : request.txouts) {
       TxOutBlindKeys txout_key;
       txout_key.index = txout.index;
-      txout_key.blinding_key = Pubkey(txout.blind_pubkey);
+      if (!txout.confidential_key.empty()) {
+        txout_key.blinding_key = Pubkey(txout.confidential_key);
+      } else {
+        // Deprecated
+        txout_key.blinding_key = Pubkey(txout.blind_pubkey);
+      }
       txout_blind_keys.push_back(txout_key);
     }
 

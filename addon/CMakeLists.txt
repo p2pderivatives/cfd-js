@@ -5,24 +5,10 @@ cmake_policy(SET CMP0076 NEW)
 ####################
 # options
 ####################
-if(CMAKE_JS_INC)
-option(ENABLE_SHARED "enable shared library (ON or OFF. default:ON)" ON)
-else()
-option(ENABLE_SHARED "enable shared library (ON or OFF. default:OFF)" OFF)
-endif()
-# use "cmake -DCMAKE_BUILD_TYPE=Debug" or "cmake-js -D"
-# option(ENABLE_DEBUG "enable debugging (ON or OFF. default:OFF)" OFF)
-option(ENABLE_ELEMENTS "enable elements code (ON or OFF. default:ON)" ON)
-option(ENABLE_BITCOIN  "enable bitcoin code (ON or OFF. default:ON)" ON)
-
-if(NOT WIN32)
-#option(TARGET_RPATH "target rpath list (separator is ';') (default:)" "")
-set(TARGET_RPATH "" CACHE STRING "target rpath list (separator is ';') (default:)")
-option(ENABLE_COVERAGE "enable code coverage (ON or OFF. default:OFF)" OFF)
-else()
-set(TARGET_RPATH "")
-set(ENABLE_COVERAGE FALSE)
-endif()
+include(../cmake/EnableCcache.cmake)
+include(../cmake/ConvertSrclistFunction.cmake)
+include(../cmake/CfdCommonOption.cmake)
+include(../cmake/CfdCommonSetting.cmake)
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 set(ENABLE_DEBUG  TRUE)
@@ -34,64 +20,16 @@ set(OPTION_BIGOBJ  "")
 endif() # CMAKE_BUILD_TYPE
 
 ####################
-# common setting
-####################
-set(WORK_WINDOWS_BINARY_DIR_NAME  $<IF:$<CONFIG:Debug>,Debug,Release>)
-if(NOT CFD_OBJ_BINARY_DIR)
-set(CFD_OBJ_BINARY_DIR   ${CMAKE_BINARY_DIR}/${WORK_WINDOWS_BINARY_DIR_NAME})
-set(CFD_ROOT_BINARY_DIR  ${CMAKE_BINARY_DIR})
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY  ${CFD_OBJ_BINARY_DIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  ${CFD_OBJ_BINARY_DIR}) # for linux
-endif()
-
-if(NOT CFD_SRC_ROOT_DIR)
-set(CFD_SRC_ROOT_DIR   ${CMAKE_SOURCE_DIR})
-endif()
-
-if(NOT ENABLE_BITCOIN)
-set(CFD_BITCOIN_USE   CFD_DISABLE_BITCOIN)
-else()
-set(CFD_BITCOIN_USE   "")
-endif()
-
-if(NOT ENABLE_ELEMENTS)
-set(CFD_ELEMENTS_USE   CFD_DISABLE_ELEMENTS)
-else()
-set(CFD_ELEMENTS_USE   "")
-endif()
-
-if(NOT WIN32)
-if(APPLE)
-set(CMAKE_MACOSX_RPATH 1)
-endif()
-set(CMAKE_SKIP_BUILD_RPATH  FALSE)
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-if(TARGET_RPATH)
-set(CMAKE_INSTALL_RPATH "${TARGET_RPATH};./;@rpath")
-else()
-set(CMAKE_INSTALL_RPATH "./;@rpath")
-endif()
-endif()
-
-if(ENABLE_DEBUG AND ENABLE_COVERAGE)
-set(COLLECT_COVERAGE ON)
-set(PROFILE_ARCS_OPT -fprofile-arcs)
-set(TEST_COVERAGE_OPT -ftest-coverage)
-set(GCOV_LIBRARY gcov)
-set(COVERAGE 1)
-else()
-set(PROFILE_ARCS_OPT  "")
-set(TEST_COVERAGE_OPT "")
-set(GCOV_LIBRARY  "")
-endif()
-
-####################
 # node build
 ####################
 if(CMAKE_JS_INC)
 message(STATUS "[CMAKE_JS_INC]=${CMAKE_JS_INC}")
+
+include(../cmake/Cpp11Setting.cmake)
+
+if(NOT CFD_SRC_ROOT_DIR)
+set(CFD_SRC_ROOT_DIR   ${CMAKE_SOURCE_DIR})
+endif()
 
 # cfd-js
 project(cfd_js CXX)
@@ -190,13 +128,6 @@ message(STATUS "[find INCLUDE_FOLDER]=${INSTALLED_INCLUDE_FOLDER}")
 
 endif((NOT cfdjs_api_FOUND) OR (NOT ${cfdjs_api_FOUND}))
 
-
-if(MSVC)
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /Zi")
-else()
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -ggdb")
-endif()
-
 execute_process(COMMAND node -p "require('node-addon-api').include"
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
   OUTPUT_VARIABLE NODE_ADDON_API_DIR
@@ -231,14 +162,12 @@ target_compile_definitions(${CFDJS_LIBRARY}
     CFD_JS_API_SHARED=1
     CFD_SHARED=1
     CFD_CORE_SHARED=1
-    ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
 else()
 target_compile_definitions(${CFDJS_LIBRARY}
   PRIVATE
     CFD_JS_BUILD=1
-    ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
 endif()
@@ -306,13 +235,11 @@ target_compile_definitions(${PROJECT_NAME}
     CFD_JS_API_SHARED=1
     CFD_SHARED=1
     CFD_CORE_SHARED=1
-    ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
 else()
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE
-    ${CFD_BITCOIN_USE}
     ${CFD_ELEMENTS_USE}
 )
 endif()

@@ -1,0 +1,20 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetPrivkeyWifRequest",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "privkey hex.",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:hint": "mainnet, testnet or regtest",
+    "isCompressed": true,
+    "isCompressed:require": "require"
+  },
+  "response": {
+    ":class": "GetPrivkeyWifResponse",
+    "wif": "",
+    "wif:require": "require",
+    "wif:comment": "Wallet Import Format"
+  }
+}

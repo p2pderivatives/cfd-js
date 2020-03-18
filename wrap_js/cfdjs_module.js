@@ -33,12 +33,14 @@ Object.keys(cfdjs).forEach((key) => {
     try {
       // stringify all arguments
       const argStr = args.map((arg) =>
-        JSON.stringify(arg),
+        JSON.stringify(arg, (key, value) =>
+            typeof value === 'bigint' ? value.toString() : value),
       );
 
       retObj = JSON.parse(cfdjs[key].apply(wrappedModule, argStr));
     } catch (err) {
       // JSON convert error
+      // console.log(err);
       throw new Error('ERROR: Invalid function call:' +
         ` func=[${key}], args=[${args}]`);
     }

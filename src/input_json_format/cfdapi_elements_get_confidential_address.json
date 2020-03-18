@@ -3,10 +3,13 @@
   "request": {
     ":class": "GetConfidentialAddressRequest",
     "unblindedAddress": "",
-    "key": ""
+    "unblindedAddress:require": "require",
+    "key": "",
+    "key:require": "require"
   },
   "response": {
     ":class": "GetConfidentialAddressResponse",
-    "confidentialAddress": ""
+    "confidentialAddress": "",
+    "confidentialAddress:require": "require"
   }
 }

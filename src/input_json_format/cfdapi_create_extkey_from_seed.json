@@ -3,14 +3,18 @@
   "request": {
     ":class": "CreateExtkeyFromSeedRequest",
     "seed": "",
+    "seed:require": "require",
     "seed:hint": "seed hex data",
     "network": "mainnet",
+    "network:require": "require",
     "network:hint": "mainnet, testnet or regtest",
     "extkeyType": "extPrivkey",
+    "extkeyType:require": "optional",
     "extkeyType:hint": "extPrivkey or extPubkey"
   },
   "response": {
     ":class": "CreateExtkeyFromSeedResponse",
-    "extkey": ""
+    "extkey": "",
+    "extkey:require": "require"
   }
 }

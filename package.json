@@ -1,8 +1,20 @@
 {
   "name": "cfd-js",
-  "version": "0.0.4",
+  "version": "0.0.6",
+  "description": "Crypto Finance Development Kit for JavaScript.",
+  "author": "Crypto Garage",
+  "bugs": {
+    "url": "https://github.com/p2pderivatives/cfd-js/issues"
+  },
+  "homepage": "https://github.com/p2pderivatives/cfd-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/p2pderivatives/cfd-js.git"
+  },
+  "license": "MIT",
   "main": "index.js",
-  "description": "cfd node.js api",
+  "types": "index.d.ts",
+  "gypfile": false,
   "scripts": {
     "install": "run-s cmake_clean download_object cmake_install_configure cmake_compile",
     "download_object": "node ./pkg_getter.js",
@@ -12,14 +24,15 @@
     "example": "node wrap_js/example.js",
     "elements_example": "node wrap_js/elements_example.js",
     "elements_pegin_example": "node wrap_js/elements_pegin_example.js",
+    "ts_example": "ts-node wrap_js/ts_example.ts",
     "test": "jest --no-cache",
     "test_watch": "jest --no-cache --watch",
     "test_quiet": "jest --no-cache --silent",
     "test_logging": "jest --no-cache --silent=false --verbose false",
     "format_all": "run-p code_format js_format",
     "code_format": "clang-format -i --style=file src/*.cpp src/*.h include/cfdjs/*.h addon/*.cpp",
-    "js_format": "eslint wrap_js/ --fix",
-    "cmake_all": "run-s cmake_configure cmake_build",
+    "js_format": "eslint --ext .js,.ts *.ts *.js wrap_js/ --fix",
+    "cmake_all": "run-s cmake_configure cmake_build_parallel",
     "cmake_configure": "run-script-os",
     "cmake_configure:win32": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=on --CDENABLE_CAPI=off",
     "cmake_configure:linux": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=on --CDENABLE_CAPI=off --CDTARGET_RPATH=./wrap_js/build/Release -g",
@@ -74,7 +87,9 @@
     "cmake_quiet_build": "cmake-js build -O wrap_js/build -i",
     "cmake_build_parallel": "cmake --build wrap_js/build --parallel 2 --config Release",
     "cmake_build_parallel_quick": "cmake --build wrap_js/build --parallel --config Release",
-    "cmake_clean": "cmake-js clean -O wrap_js/build",
+    "cmake_clean": "run-s cmake_clean_build cmake_clean_wally_file",
+    "cmake_clean_build": "cmake-js clean -O wrap_js/build",
+    "cmake_clean_wally_file": "cd wrap_js && del wally.js",
     "cmake_install_pkg": "run-script-os",
     "cmake_install_pkg:win32": "cmake --install build",
     "cmake_install_pkg:linux": "sudo cmake --install build",
@@ -103,18 +118,19 @@
     "lint_check:win32": "cd tools && lint_all_quiet.bat",
     "lint_check:linux": "cd tools && ./lint_quiet.sh",
     "lint_check:darwin": "cd tools && ./lint_quiet.sh",
-    "eslint_check": "eslint wrap_js/ --quiet",
+    "eslint_check": "eslint --ext .js,.ts *.ts *.js wrap_js/",
     "git_subm_update": "git submodule -q foreach git fetch -q && git submodule -q update -i",
-    "check": "run-s doxygen_check ctest_quiet test_quiet example elements_example lint_all",
-    "check_all": "run-s cmake_clean git_subm_update cmake_quiet doxygen_check ctest_quiet test_quiet example elements_example lint_all"
+    "check": "run-s doxygen_check lint_all ctest_quiet test_quiet example elements_example ts_example",
+    "check_all": "run-s cmake_clean git_subm_update cmake_quiet doxygen_check ctest_quiet test_quiet example elements_example ts_example lint_all",
+    "convert_json": "babel-node ./tools/generate_json_map_class.js --presets env",
+    "convert_json_debug": "babel-node ./tools/generate_json_map_class.js mode=debug --presets env"
   },
-  "author": "",
-  "license": "MIT",
-  "gypfile": false,
   "dependencies": {
+    "@types/node": "^13.7.0",
     "big-integer": "^1.6.26",
     "bindings": "*",
     "cmake-js": "^5.3.2",
+    "del-cli": "^3.0.0",
     "got": "^10.2.0",
     "nan": "^2.14.0",
     "node-addon-api": "^1.6.3",
@@ -125,8 +141,15 @@
     "unzipper": "^0.8.14"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "babel-cli": "*",
+    "babel-preset-env": "*",
+    "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
-    "jest": "^24.8.0"
+    "jest": "^25.1.0",
+    "minimist": "^1.2.5",
+    "ts-morph": "^7.0.0",
+    "ts-node": "^8.6.2"
   }
 }

@@ -23,7 +23,7 @@ const testCase = [
   TestHelper.createElementsTestCase(
     'GetPubkeyFromPrivkey isCompressed false',
     GetPubkeyFromPrivkey,
-    ['{"privkey":"5J2tPcf1N4pjsH7nbHbft2C67eGhZPLkGDnCaQrquhwAtGFz91H","isCompressed":false'],
+    ['{"privkey":"5J2tPcf1N4pjsH7nbHbft2C67eGhZPLkGDnCaQrquhwAtGFz91H","isCompressed":false}'],
     '{"pubkey":"04fd54c734e48c544c3c3ad1aab0607f896eb95e23e7058b174a580826a7940ad8f8d85f9c561b8b778aaaebfe295a83e58794c9ccc03042c72a1314f442b66920"}',
   ),
 ];

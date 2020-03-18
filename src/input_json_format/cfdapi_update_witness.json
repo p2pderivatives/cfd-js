@@ -3,29 +3,41 @@
   "request": {
     ":class": "UpdateWitnessStackRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
     "isElements": false,
+    "isElements:require": "optional",
     "txin": {
       ":class": "UpdateWitnessStackTxInRequest",
       "txid": "",
+      "txid:require": "require",
       "vout": 0,
       "vout:type": "uint32_t",
+      "vout:require": "require",
+      "witnessStack:require": "require",
       "witnessStack": {
         ":class": "WitnessStackData",
         "index": 0,
-        "index:type": "uint64_t",
+        "index:type": "uint32_t",
+        "index:require": "require",
         "hex": "",
+        "hex:require": "require",
         "type": "binary",
+        "type:require": "optional",
         "type:hint": "binary, sign, pubkey, redeem_script",
         "derEncode": false,
+        "derEncode:require": "optional",
         "sighashType": "all",
+        "sighashType:require": "optional",
         "sighashType:hint": "all, none, single",
-        "sighashAnyoneCanPay": false
+        "sighashAnyoneCanPay": false,
+        "sighashAnyoneCanPay:require": "optional"
       }
     }
   },
   "response": {
     ":class": "UpdateWitnessStackResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "optional"
   }
 }

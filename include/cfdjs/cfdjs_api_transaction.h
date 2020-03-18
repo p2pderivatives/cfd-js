@@ -34,6 +34,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const CreateRawTransactionRequestStruct& request);
 
   /**
+   * @brief JSONパラメータの情報を元に、Transactionに情報を追加する.
+   * @param[in] request Transactionを構築するパラメータの構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static AddRawTransactionResponseStruct AddRawTransaction(
+      const AddRawTransactionRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、Transactionをデコードして出力する.
    * @param[in] request Transactionとデコード用の情報を格納した構造体
    * @return Transactionの表示用JSONデータを格納した構造体

@@ -135,7 +135,7 @@ const errorCase = [
     'DecodeRawTransaction invalid hex format',
     DecodeRawTransaction,
     ['{"hex":0}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid hex string. empty data."}}',
+    '{"error":{"code":3,"type":"out_of_range","message":"Json value convert error. Invalid json format."}}',
   ),
   TestHelper.createBitcoinTestCase(
     'DecodeRawTransaction invalid network type',

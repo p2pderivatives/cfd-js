@@ -3,38 +3,57 @@
   "request": {
     ":class": "BlindRawTransactionRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
     "txins": [
       {
         ":class": "BlindTxInRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
+        "vout:require": "require",
         "asset": "",
+        "asset:require": "require",
         "blindFactor": "",
+        "blindFactor:require": "optional",
         "assetBlindFactor": "",
-        "amount": 0
+        "assetBlindFactor:require": "optional",
+        "amount": 0,
+        "amount:require": "require"
       }
     ],
+    "txouts:require": "require",
     "txouts": [
       {
         ":class": "BlindTxOutRequest",
         "index": 0,
         "index:type": "uint32_t",
-        "blindPubkey": ""
+        "index:require": "require",
+        "confidentialKey": "",
+        "confidentialKey:require": "require",
+        "blindPubkey": "",
+        "blindPubkey:require": "optional",
+        "blindPubkey:comment": "deprecated field"
       }
     ],
+    "issuances:require": "optional",
     "issuances":[
       {
         ":class": "BlindIssuanceRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
+        "vout:require": "require",
         "assetBlindingKey":"",
-        "tokenBlindingKey":""
+        "assetBlindingKey:require": "require",
+        "tokenBlindingKey":"",
+        "tokenBlindingKey:require": "optional"
       }
     ]
   },
   "response": {
     ":class": "BlindRawTransactionResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "require"
   }
 }

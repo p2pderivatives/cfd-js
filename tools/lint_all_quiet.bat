@@ -5,6 +5,7 @@ set lint_ecode=""
 cd ..
 call :search_lint include\cfdjs ..\..
 call :search_lint src ..
+call :search_lint src\autogen ..\..
 
 if %lint_ecode% == "1" (
     exit 1

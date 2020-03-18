@@ -67,13 +67,31 @@ testCase.push(
     'CreateExtkeyFromParentPath lower limit ',
     CreateExtkeyFromParentPath,
     ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "childNumberArray":[0]}'],
-    '{"extkey":"xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R\"}',
+    '{"extkey":"xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R"}',
   ),
   TestHelper.createTestCase(
     'CreateExtkeyFromParentPath upper limit',
     CreateExtkeyFromParentPath,
     ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "childNumberArray":[4294967295]}'],
-    '{"extkey":"xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg\"}',
+    '{"extkey":"xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg"}',
+  ),
+  TestHelper.createTestCase(
+    'CreateExtkeyFromParentPath lower limit string',
+    CreateExtkeyFromParentPath,
+    ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "path":"0"}'],
+    '{"extkey":"xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R"}',
+  ),
+  TestHelper.createTestCase(
+    'CreateExtkeyFromParentPath upper limit string',
+    CreateExtkeyFromParentPath,
+    ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "path":"4294967295"}'],
+    '{"extkey":"xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg"}',
+  ),
+  TestHelper.createTestCase(
+    'CreateExtkeyFromParentPath hardend string',
+    CreateExtkeyFromParentPath,
+    ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "path":"44h/0h/0"}'],
+    '{"extkey":"xprv9yDtBMDPdgrF3NAXShMSiP3GJHhXbmTLHT5G2m2DPpxNLiby4CVATryRo1jWa2jkAd37h4HuH4DNhP8ZViCWVAEsGXJEoZ6YomvjpYuCayC"}',
   ),
 );
 

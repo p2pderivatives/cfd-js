@@ -3,18 +3,25 @@
   "request": {
     ":class": "CalculateEcSignatureRequest",
     "sighash": "",
+    "sighash:require": "require",
     "privkeyData": {
       ":class": "PrivkeyData",
       "privkey": "",
+      "privkey:require": "require",
       "wif": true,
+      "wif:require": "require",
       "network": "mainnet",
+      "network:require": "optional",
       "network:hint": "mainnet, testnet or regtest",
-      "isCompressed": true
+      "isCompressed": true,
+      "isCompressed:require": "optional"
     },
-    "isGrindR": true
+    "isGrindR": true,
+    "isGrindR:require": "optional"
   },
   "response": {
     ":class": "CalculateEcSignatureResponse",
-    "signature": ""
+    "signature": "",
+    "signature:require": "require"
   }
 }
