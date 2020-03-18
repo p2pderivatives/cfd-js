@@ -3,28 +3,40 @@
   "request": {
     ":class": "CreateSignatureHashRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
+    "txin:require": "require",
     "txin": {
       ":class": "CreateSignatureHashTxInRequest",
       "txid": "",
+      "txid:require": "require",
       "vout": 0,
       "vout:type": "uint32_t",
+      "vout:require": "require",
+      "keyData:require": "require",
       "keyData": {
         ":class": "SignatureHashKeyData",
         "hex": "",
+        "hex:require": "require",
         "type": "pubkey",
+        "type:require": "require",
         "type:hint": "pubkey, redeem_script"
       },
       "amount": 0,
       "amount:type": "int64_t",
+      "amount:require": "require",
       "hashType": "p2wsh",
+      "hashType:require": "require",
       "sighashType": "all",
+      "sighashAnyoneCanPay:require": "optional",
       "sighashType:hint": "all, none, single",
-      "sighashAnyoneCanPay": false
+      "sighashAnyoneCanPay": false,
+      "sighashAnyoneCanPay:require": "optional"
     }
   },
   "response": {
     ":class": "CreateSignatureHashResponse",
-    "sighash": ""
+    "sighash": "",
+    "sighash:require": "require"
   }
 }

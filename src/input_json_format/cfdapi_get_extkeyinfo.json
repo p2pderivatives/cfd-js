@@ -2,15 +2,22 @@
   "namespace": ["cfd","js","api","json"],
   "request": {
     ":class": "GetExtkeyInfoRequest",
-    "extkey": ""
+    "extkey": "",
+    "extkey:require": "require"
   },
   "response": {
     ":class": "GetExtkeyInfoResponse",
-    "version": 0,
-    "version:type": "uint32_t",
+    "version": "",
+    "version:require": "require",
     "depth": 0,
     "depth:type": "uint8_t",
+    "depth:require": "require",
+    "fingerprint": "",
+    "fingerprint:require": "require",
     "childNumber": 0,
-    "childNumber:type": "uint32_t"
+    "childNumber:type": "uint32_t",
+    "childNumber:require": "require",
+    "chainCode": "",
+    "chainCode:require": "require"
   }
 }

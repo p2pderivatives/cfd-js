@@ -2,17 +2,31 @@
   "namespace": ["cfd","js","api","json"],
   "request": {
     ":class": "ElementsCreatePegInAddressRequest",
+    ":comment": "If unlock pegin tx, sign to p2wpkh or p2wsh format.",
     "fedpegscript": "",
+    "fedpegscript:require": "require",
     "fedpegscript:hint": "fedpegscript comes from 'getsidechaininfo' rpc command.",
     "pubkey": "",
-    "pubkey:hint": "pubkey related to mainchainAddress",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey related to unlocking peg-in utxo.",
+    "pubkey:hint": "This field is only avalable when lockingScript is empty.",
+    "redeemScript": "",
+    "redeemScript:require": "optional",
+    "redeemScript:comment": "default is empty. set claim script to direct.",
     "network": "mainnet",
-    "network:hint": "mainnet, testnet or regtest"
+    "network:require": "optional",
+    "network:hint": "mainnet, testnet or regtest",
+    "hashType": "p2sh-p2wsh",
+    "hashType:require": "optional",
+    "hashType:hint": "p2wsh, p2sh-p2wsh, p2sh"
   },
   "response": {
     ":class": "ElementsCreatePegInAddressResponse",
     "mainchainAddress": "",
+    "mainchainAddress:require": "require",
     "claimScript": "",
-    "tweakFedpegscript": ""
+    "claimScript:require": "require",
+    "tweakFedpegscript": "",
+    "tweakFedpegscript:require": "require"
   }
 }

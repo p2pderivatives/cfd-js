@@ -3,10 +3,13 @@
   "request": {
     ":class": "GetPubkeyFromPrivkeyRequest",
     "privkey": "",
-    "isCompressed": true
+    "privkey:require": "require",
+    "isCompressed": true,
+    "isCompressed:require": "optional"
   },
   "response": {
     ":class": "GetPubkeyFromPrivkeyResponse",
-    "pubkey": ""
+    "pubkey": "",
+    "pubkey:require": "require"
   }
 }

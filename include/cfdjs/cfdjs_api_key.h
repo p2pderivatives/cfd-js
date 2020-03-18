@@ -43,6 +43,22 @@ class CFD_JS_API_EXPORT KeyStructApi {
       const CalculateEcSignatureRequestStruct& request);
 
   /**
+   * @brief Get privkey's hex from WIF.
+   * @param[in] request  parameter into WIF.
+   * @return hex, networkType, isCompressed.
+   */
+  static GetPrivkeyFromWifResponseStruct GetPrivkeyFromWif(
+      const GetPrivkeyFromWifRequestStruct& request);
+
+  /**
+   * @brief Get WIF from privkey's hex.
+   * @param[in] request  pribkey hex, networkType, isCompressed.
+   * @return WIF
+   */
+  static GetPrivkeyWifResponseStruct GetPrivkeyWif(
+      const GetPrivkeyWifRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、秘密鍵から公開鍵を取得する.
    * @param[in] request リクエスト構造体
    * @return pubkeyを含むレスポンス構造体

@@ -3,33 +3,49 @@
   "request": {
     ":class": "SetRawReissueAssetRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
     "isRandomSortTxOut": false,
+    "isRandomSortTxOut:require": "optional",
+    "issuances:require": "require",
     "issuances": [
       {
         ":class": "ReissuanceDataRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "amount": 0,
+        "amount:require": "require",
         "address": "",
+        "address:require": "require",
         "assetBlindingNonce": "",
+        "assetBlindingNonce:require": "require",
         "assetEntropy": "",
-        "isRemoveNonce": false
+        "assetEntropy:require": "require",
+        "isRemoveNonce": false,
+        "isRemoveNonce:require": "optional"
       }
     ]
   },
   "response": {
     ":class": "SetRawReissueAssetResponse",
     "hex": "",
+    "hex:require": "require",
+    "issuances:require": "require",
     "issuances": [
       {
         ":class": "ReissuanceDataResponse",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "asset": "",
-        "entropy": ""
+        "asset:require": "require",
+        "entropy": "",
+        "entropy:require": "require"
       }
     ]
   }

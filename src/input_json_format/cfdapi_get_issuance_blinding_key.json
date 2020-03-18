@@ -3,12 +3,16 @@
   "request": {
     ":class": "GetIssuanceBlindingKeyRequest",
     "masterBlindingKey": "",
+    "masterBlindingKey:require": "require",
     "txid": "",
+    "txid:require": "require",
     "vout": 0,
-    "vout:type": "uint32_t"
+    "vout:type": "uint32_t",
+    "vout:require": "require"
   },
   "response": {
     ":class": "GetIssuanceBlindingKeyResponse",
-    "blindingKey": ""
+    "blindingKey": "",
+    "blindingKey:require": "require"
   }
 }

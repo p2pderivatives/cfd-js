@@ -3,10 +3,12 @@
   "request": {
     ":class": "CreateScriptRequest",
     "items": [""],
+    "items:require": "require",
     "items:comment": "item array accepts string of op_code, binary hex or number"
   },
   "response": {
     ":class": "CreateScriptResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "require"
   }
 }

@@ -94,6 +94,47 @@ CalculateEcSignatureResponseStruct KeyStructApi::CalculateEcSignature(
   return result;
 }
 
+GetPrivkeyFromWifResponseStruct KeyStructApi::GetPrivkeyFromWif(
+    const GetPrivkeyFromWifRequestStruct& request) {
+  auto call_func = [](const GetPrivkeyFromWifRequestStruct& request)
+      -> GetPrivkeyFromWifResponseStruct {
+    GetPrivkeyFromWifResponseStruct response;
+
+    NetType net_type = NetType::kMainnet;
+    KeyApi api;
+    Privkey privkey =
+        api.GetPrivkeyFromWif(request.wif, &net_type, &response.is_compressed);
+    response.hex = privkey.GetHex();
+    response.network = AddressStructApi::ConvertNetTypeString(net_type);
+    return response;
+  };
+
+  GetPrivkeyFromWifResponseStruct result;
+  result = ExecuteStructApi<
+      GetPrivkeyFromWifRequestStruct, GetPrivkeyFromWifResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+GetPrivkeyWifResponseStruct KeyStructApi::GetPrivkeyWif(
+    const GetPrivkeyWifRequestStruct& request) {
+  auto call_func = [](const GetPrivkeyWifRequestStruct& request)
+      -> GetPrivkeyWifResponseStruct {
+    GetPrivkeyWifResponseStruct response;
+
+    const NetType net_type = AddressStructApi::ConvertNetType(request.network);
+    Privkey privkey(request.hex);
+    response.wif = privkey.ConvertWif(net_type, request.is_compressed);
+    return response;
+  };
+
+  GetPrivkeyWifResponseStruct result;
+  result = ExecuteStructApi<
+      GetPrivkeyWifRequestStruct, GetPrivkeyWifResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 GetPubkeyFromPrivkeyResponseStruct KeyStructApi::GetPubkeyFromPrivkey(
     const GetPubkeyFromPrivkeyRequestStruct& request) {
   auto call_func = [](const GetPubkeyFromPrivkeyRequestStruct& request)

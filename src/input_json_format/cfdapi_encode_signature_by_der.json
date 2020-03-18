@@ -3,13 +3,17 @@
   "request": {
     ":class": "EncodeSignatureByDerRequest",
     "signature": "",
+    "signature:require": "require",
     "signature:comment": "signature",
     "sighashType": "all",
+    "sighashType:require": "require",
     "sighashType:hint": "all, none, single",
-    "sighashAnyoneCanPay": false
+    "sighashAnyoneCanPay": false,
+    "sighashAnyoneCanPay:require": "optional"
   },
   "response": {
     ":class": "EncodeSignatureByDerResponse",
-    "signature": ""
+    "signature": "",
+    "signature:require": "require"
   }
 }

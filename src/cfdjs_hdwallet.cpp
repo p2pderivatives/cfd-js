@@ -145,6 +145,7 @@ CreateExtkeyFromParentResponseStruct HDWalletStructApi::CreateExtkeyFromParent(
     CreateExtkeyFromParentResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
+    HDWalletApi api;
     int64_t max = static_cast<int64_t>(std::numeric_limits<uint32_t>::max());
     if ((request.child_number < 0) || (request.child_number > max)) {
       throw CfdException(
@@ -153,11 +154,9 @@ CreateExtkeyFromParentResponseStruct HDWalletStructApi::CreateExtkeyFromParent(
     }
     uint32_t child_num = static_cast<uint32_t>(request.child_number);
 
-    HDWalletApi api;
-    std::string extkey = api.CreateExtkeyFromParent(
+    response.extkey = api.CreateExtkeyFromParent(
         request.extkey, net_type, key_type, child_num, request.hardened);
 
-    response.extkey = extkey;
     return response;
   };
 
@@ -177,22 +176,25 @@ HDWalletStructApi::CreateExtkeyFromParentPath(
     CreateExtkeyFromParentPathResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
-    std::vector<uint32_t> path;
-    int64_t max = static_cast<int64_t>(std::numeric_limits<uint32_t>::max());
-    for (const int64_t& value : request.child_number_array) {
-      if ((value < 0) || (value > max)) {
-        throw CfdException(
-            CfdError::kCfdIllegalArgumentError,
-            "childNumber out of range. (0 - 0xffffffff)");
+    HDWalletApi api;
+    if (request.path.empty()) {
+      std::vector<uint32_t> path;
+      int64_t max = static_cast<int64_t>(std::numeric_limits<uint32_t>::max());
+      for (const int64_t& value : request.child_number_array) {
+        if ((value < 0) || (value > max)) {
+          throw CfdException(
+              CfdError::kCfdIllegalArgumentError,
+              "childNumber out of range. (0 - 0xffffffff)");
+        }
+        path.push_back(static_cast<uint32_t>(value));
       }
-      path.push_back(static_cast<uint32_t>(value));
+      response.extkey = api.CreateExtkeyFromParentPath(
+          request.extkey, net_type, key_type, path);
+    } else {
+      response.extkey = api.CreateExtkeyFromPathString(
+          request.extkey, net_type, key_type, request.path);
     }
 
-    HDWalletApi api;
-    std::string extkey = api.CreateExtkeyFromParentPath(
-        request.extkey, net_type, key_type, path);
-
-    response.extkey = extkey;
     return response;
   };
 
@@ -233,8 +235,10 @@ GetExtkeyInfoResponseStruct HDWalletStructApi::GetExtkeyInfo(
 
     try {
       ExtPrivkey privkey(request.extkey);
-      response.version = privkey.GetVersion();
+      response.version = privkey.GetVersionData().GetHex();
       response.depth = privkey.GetDepth();
+      response.fingerprint = privkey.GetFingerprintData().GetHex();
+      response.chain_code = privkey.GetChainCode().GetHex();
       response.child_number = privkey.GetChildNum();
       return response;
     } catch (...) {
@@ -242,8 +246,10 @@ GetExtkeyInfoResponseStruct HDWalletStructApi::GetExtkeyInfo(
     }
 
     ExtPubkey pubkey(request.extkey);
-    response.version = pubkey.GetVersion();
+    response.version = pubkey.GetVersionData().GetHex();
     response.depth = pubkey.GetDepth();
+    response.fingerprint = pubkey.GetFingerprintData().GetHex();
+    response.chain_code = pubkey.GetChainCode().GetHex();
     response.child_number = pubkey.GetChildNum();
     return response;
   };

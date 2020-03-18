@@ -3,23 +3,31 @@
   "request": {
     ":class": "CreateAddressRequest",
     "isElements": false,
+    "isElements:require": "optional",
     "keyData": {
       ":class": "CreateAddressKeyData",
       "hex": "",
+      "hex:require": "require",
       "type": "pubkey",
+      "type:require": "require",
       "type:hint": "pubkey, redeem_script"
     },
     "network": "mainnet",
+    "network:require": "require",
     "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
     "hashType": "p2wpkh",
+    "hashType:require": "require",
     "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh"
   },
   "response": {
     ":class": "CreateAddressResponse",
     "address": "",
+    "address:require": "require",
     "lockingScript": "",
+    "lockingScript:require": "require",
     "lockingScript:comment": "(redeem script or pubkey) locking script",
     "redeemScript": "",
+    "redeemScript:require": "optional",
     "redeemScript:comment": "(required for P2SH-P2WPKH or P2SH-P2WSH) redeem script for unlocking script"
   }
 }

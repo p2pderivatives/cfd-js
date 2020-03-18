@@ -10,6 +10,7 @@ const pkg = require('./package.json');
 const isWindows = process.platform === 'win32';
 const isMacos = process.platform === 'darwin';
 
+const repositoryDomain = 'cryptogarageinc';
 
 let asyncfs;
 if (fs.promises) {
@@ -42,6 +43,10 @@ const removeFile = async function(path) {
 const main = async function() {
   let removeFileName = '';
   try {
+    if (process.arch !== 'x64') {
+      return;
+    }
+
     // get object
     const version = pkg.version;
     console.log(`version = ${version}`);
@@ -54,7 +59,7 @@ const main = async function() {
     } else {
       targetName = 'ubuntu1804-gcc';
     }
-    const targetUrl = `https://github.com/p2pderivatives/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
+    const targetUrl = `https://github.com/${repositoryDomain}/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
     console.log(`download url = ${targetUrl}`);
 
     const separator = (isWindows) ? '\\' : '/';
@@ -108,7 +113,7 @@ const main = async function() {
       const pipeline = util.promisify(stream.pipeline);
       await pipeline(
           got.stream(targetUrl),
-          fs.createWriteStream(zipfilepath)
+          fs.createWriteStream(zipfilepath),
       );
     }
 
@@ -163,7 +168,7 @@ const main = async function() {
           existSubDir = existSubDir.replace('/', separator);
         }
         try {
-          fs.mkdir(existSubDir, {recursive: true}, (err) => {
+          fs.mkdir(existSubDir, {recursive: true}, () => {
             // if (!err) console.log(`createdir ${dirpath}`)
           });
         } catch (error) {

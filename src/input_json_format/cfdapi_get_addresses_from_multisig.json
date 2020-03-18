@@ -3,16 +3,24 @@
   "request": {
     ":class": "GetAddressesFromMultisigRequest",
     "isElements": false,
+    "isElements:require": "optional",
     "redeemScript": "",
+    "redeemScript:require": "require",
     "redeemScript:comment": "redeem script on multisig",
     "network": "mainnet",
+    "network:require": "optional",
     "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
     "hashType": "p2wpkh",
+    "hashType:require": "optional",
     "hashType:hint": "p2wpkh, p2pkh, p2sh-p2wpkh"
   },
   "response": {
     ":class": "GetAddressesFromMultisigResponse",
     "addresses": [""],
-    "pubkeys": [""]
+    "addresses:require": "require",
+    "pubkeys": [""],
+    "pubkeys:require": "require",
+    "requireNum": 0,
+    "requireNum:require": "require"
   }
 }

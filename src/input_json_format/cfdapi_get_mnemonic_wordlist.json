@@ -3,10 +3,12 @@
   "request": {
     ":class": "GetMnemonicWordlistRequest",
     "language": "en",
+    "language:require": "require",
     "language:hint": "support [en es fr it jp zhs zht]"
   },
   "response": {
     ":class": "GetMnemonicWordlistResponse",
-    "wordlist": [""]
+    "wordlist": [""],
+    "wordlist:require": "require"
   }
 }

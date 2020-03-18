@@ -5,6 +5,10 @@ const emptyFunc = () => { };
 const checkFunction = (jsonString, isWif, isCompress, nettype) => {
   const parseResult = JSON.parse(jsonString);
   try {
+    if ((nettype !== 'mainnet') && (nettype !== 'testnet') &&
+        (nettype !== 'regtest')) {
+      return false;
+    }
     if (!parseResult.privkey) {
       return false;
     }

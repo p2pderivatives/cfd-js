@@ -10,7 +10,7 @@
 #include <map>
 #include <vector>
 #include "cfd/cfd_utxo.h"
-#include "cfdapi_select_utxos_json.h"  // NOLINT
+#include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {

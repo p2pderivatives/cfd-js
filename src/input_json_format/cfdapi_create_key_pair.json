@@ -3,13 +3,18 @@
   "request": {
     ":class": "CreateKeyPairRequest",
     "wif": true,
+    "wif:require": "require",
     "network": "mainnet",
+    "network:require": "optional",
     "network:hint": "mainnet, testnet or regtest",
-    "isCompressed": true
+    "isCompressed": true,
+    "isCompressed:require": "optional"
   },
   "response": {
     ":class": "CreateKeyPairResponse",
     "privkey": "",
-    "pubkey": ""
+    "privkey:require": "require",
+    "pubkey": "",
+    "pubkey:require": "require"
   }
 }

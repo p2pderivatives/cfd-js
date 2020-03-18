@@ -1,0 +1,129 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ElementsAddRawTransactionRequest",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txins:require": "optional",
+    "txins": [
+      {
+        ":class": "ElementsAddTxInRequest",
+        "txid": "",
+        "txid:require": "require",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "vout:require": "require",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional"
+      }
+    ],
+    "peginTxins:require": "optional",
+    "peginTxins": [
+      {
+        ":class": "ElementsAddPeginTxIn",
+        "txid": "",
+        "txid:require": "require",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "vout:require": "require",
+        "sequence": 4294967295,
+        "sequence:type": "uint32_t",
+        "sequence:require": "optional",
+        "peginwitness:require": "require",
+        "peginwitness": {
+          ":class": "ElementsAddPeginWitness",
+          "amount": 0,
+          "amount:require": "require",
+          "asset": "",
+          "asset:require": "require",
+          "mainchainGenesisBlockHash": "",
+          "mainchainGenesisBlockHash:require": "require",
+          "claimScript": "",
+          "claimScript:require": "require",
+          "mainchainRawTransaction": "",
+          "mainchainRawTransaction:require": "require",
+          "mainchainTxoutproof": "",
+          "mainchainTxoutproof:require": "require"
+        },
+        "isRemoveMainchainTxWitness": false,
+        "isRemoveMainchainTxWitness:require": "optional",
+        "isRemoveMainchainTxWitness:hint": "It is necessary to set true for Elements v0.18 or higher."
+      }
+    ],
+    "txouts:require": "optional",
+    "txouts": [
+      {
+        ":class": "ElementsAddTxOut",
+        "address": "",
+        "address:require": "require",
+        "amount": 0,
+        "amount:require": "require",
+        "asset": "",
+        "asset:require": "require",
+        "isRemoveNonce": false,
+        "isRemoveNonce:require": "optional"
+      }
+    ],
+    "destroyAmountTxouts:require": "optional",
+    "destroyAmountTxouts": [
+      {
+        ":class": "ElementsAddDestroyAmount",
+        "amount": 0,
+        "amount:require": "require",
+        "asset": "",
+        "asset:require": "require"
+      }
+    ],
+    "pegoutTxouts:require": "optional",
+    "pegoutTxouts": [
+      {
+        ":class": "ElementsAddPegout",
+        "amount": 0,
+        "amount:require": "require",
+        "asset": "",
+        "asset:require": "require",
+        "network": "mainnet",
+        "network:require": "require",
+        "network:hint": "mainnet, testnet or regtest",
+        "elementsNetwork": "",
+        "elementsNetwork:require": "require",
+        "elementsNetwork:hint": "liquidv1, regtest",
+        "mainchainGenesisBlockHash":"",
+        "mainchainGenesisBlockHash:require": "require",
+        "btcAddress": "",
+        "btcAddress:require": "optional",
+        "onlinePubkey":"",
+        "onlinePubkey:require": "require",
+        "masterOnlineKey":"",
+        "masterOnlineKey:require": "require",
+        "bitcoinDescriptor":"",
+        "bitcoinDescriptor:require": "require",
+        "bip32Counter":0,
+        "bip32Counter:require": "require",
+        "whitelist":"",
+        "whitelist:require": "require"
+      }
+    ],
+    "fee:require": "optional",
+    "fee": {
+      ":class": "ElementsAddTxOutFee",
+      "amount": 0,
+      "amount:require": "require",
+      "asset": "",
+      "asset:require": "require"
+    },
+    "isRandomSortTxOut": false,
+    "isRandomSortTxOut:require": "optional"
+  },
+  "response": {
+    ":class": "ElementsAddRawTransactionResponse",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex",
+    "btcAddresses": [""],
+    "btcAddresses:require": "optional",
+    "btcAddresses:comment": "pegout address list."
+  }
+}

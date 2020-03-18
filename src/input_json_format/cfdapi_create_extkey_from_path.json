@@ -3,15 +3,23 @@
   "request": {
     ":class": "CreateExtkeyFromParentPathRequest",
     "extkey": "",
+    "extkey:require": "require",
     "network": "mainnet",
+    "network:require": "require",
     "network:hint": "mainnet, testnet or regtest",
     "extkeyType": "",
+    "extkeyType:require": "require",
     "extkeyType:hint": "extPrivkey or extPubkey",
     "childNumberArray": [0],
-    "childNumberArray:hint": "hardened is logical sum 0x80000000"
+    "childNumberArray:require": "optional",
+    "childNumberArray:hint": "hardened is logical sum 0x80000000",
+    "path": "",
+    "path:require": "optional",
+    "path:hint": "child number string. if exist path, disable childNumberArray. ex) 44'/0h/2."
   },
   "response": {
     ":class": "CreateExtkeyFromParentPathResponse",
-    "extkey": ""
+    "extkey": "",
+    "extkey:require": "require"
   }
 }

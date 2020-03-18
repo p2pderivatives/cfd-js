@@ -3,6 +3,8 @@
   "response": {
     ":class": "GetSupportedFunctionResponse",
     "bitcoin": false,
-    "elements": false
+    "bitcoin:require": "require",
+    "elements": false,
+    "elements:require": "require"
   }
 }

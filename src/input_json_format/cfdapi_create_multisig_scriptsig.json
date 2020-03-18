@@ -6,20 +6,28 @@
       {
         ":class": "MultisigScriptSigData",
         "hex": "",
+        "hex:require": "require",
         "type": "sign",
+        "type:require": "optional",
         "type:hint": "sign only",
         "derEncode": true,
+        "derEncode:require": "optional",
         "sighashType": "all",
+        "sighashType:require": "optional",
         "sighashType:hint": "all, none or single",
         "sighashAnyoneCanPay": false,
-        "relatedPubkey": ""
+        "sighashAnyoneCanPay:require": "optional",
+        "relatedPubkey": "",
+        "relatedPubkey:require": "optional"
       }
     ],
     "redeemScript": "",
+    "redeemScript:require": "require",
     "redeemScript:comment": "multisig script"
   },
   "response": {
     ":class": "CreateMultisigScriptSigResponse",
-    "hex": ""
+    "hex": "",
+    "hex:require": "require"
   }
 }

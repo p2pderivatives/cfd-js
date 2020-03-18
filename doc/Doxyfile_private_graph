@@ -815,6 +815,7 @@ WARN_LOGFILE           =
 
 INPUT                  = ../include/cfdjs \
                          ../src \
+                         ../src/autogen \
                          ../external/cfd/include/cfd \
                          ../external/cfd/src \
                          ../external/cfd-core/include/cfdcore \

@@ -3,36 +3,55 @@
   "request": {
     ":class": "SetRawIssueAssetRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
     "isRandomSortTxOut": false,
+    "isRandomSortTxOut:require": "optional",
+    "issuances:require": "require",
     "issuances": [
       {
         ":class": "IssuanceDataRequest",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "assetAmount": 0,
+        "assetAmount:require": "require",
         "assetAddress": "",
+        "assetAddress:require": "require",
         "tokenAmount": 0,
+        "tokenAmount:require": "require",
         "tokenAddress": "",
+        "tokenAddress:require": "require",
         "isBlind": true,
+        "isBlind:require": "optional",
         "contractHash": "",
-        "isRemoveNonce": false
+        "contractHash:require": "optional",
+        "isRemoveNonce": false,
+        "isRemoveNonce:require": "optional"
       }
     ]
   },
   "response": {
     ":class": "SetRawIssueAssetResponse",
     "hex": "",
+    "hex:require": "require",
+    "issuances:require": "require",
     "issuances": [
       {
         ":class": "IssuanceDataResponse",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
         "vout:type": "uint32_t",
+        "vout:require": "require",
         "asset": "",
+        "asset:require": "require",
         "entropy": "",
-        "token": ""
+        "entropy:require": "require",
+        "token": "",
+        "token:require": "optional"
       }
     ]
   }

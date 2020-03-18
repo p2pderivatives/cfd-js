@@ -3,11 +3,14 @@
   "request": {
     ":class": "ConvertEntropyToMnemonicRequest",
     "entropy": "",
+    "entropy:require": "require",
     "language": "en",
+    "language:require": "optional",
     "language:hint": "support [en es fr it jp zhs zht]"
   },
   "response": {
     ":class": "ConvertEntropyToMnemonicResponse",
-    "mnemonic": [""]
+    "mnemonic": [""],
+    "mnemonic:require": "require"
   }
 }

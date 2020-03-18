@@ -3,50 +3,78 @@
   "request": {
     ":class": "DecodeRawTransactionRequest",
     "hex": "",
+    "hex:require": "require",
     "network": "mainnet",
-    "iswitness": true
+    "network:require": "optional",
+    "iswitness": true,
+    "iswitness:require": "optional"
   },
   "response": {
     ":class": "DecodeRawTransactionResponse",
     "txid": "",
+    "txid:require": "require",
     "hash": "",
+    "hash:require": "require",
     "version": 0,
     "version:type": "uint32_t",
+    "version:require": "require",
     "size": 0,
+    "size:require": "require",
     "vsize": 0,
+    "vsize:require": "require",
     "weight": 0,
+    "weight:require": "require",
     "locktime": 0,
     "locktime:type": "uint32_t",
+    "locktime:require": "require",
+    "vin:require": "optional",
     "vin": [
       {
         ":class": "DecodeRawTransactionTxIn",
         "coinbase": "",
+        "coinbase:require": "optional",
         "coinbase:hint": "coinbase is only ", 
         "txid": "",
+        "txid:require": "optional",
         "vout": 0,
+        "vout:require": "optional",
+        "scriptSig:require": "optional",
         "scriptSig": {
           ":class": "DecodeUnlockingScript",
           "asm": "",
-          "hex": ""
+          "asm:require": "optional",
+          "hex": "",
+          "hex:require": "optional"
         },
+        "txinwitness:require": "optional",
         "txinwitness": [
           ""
         ],
-        "sequence": 0
+        "sequence": 0,
+        "sequence:require": "optional"
       }
     ],
+    "vout:require": "optional",
     "vout": [
       {
         ":class": "DecodeRawTransactionTxOut",
         "value": 0,
-        "value:type": "double",
+        "value:type": "int64_t",
+        "value:require": "require",
         "n": 0,
+        "n:require": "require",
+        "scriptPubKey:require": "optional",
         "scriptPubKey": {
           ":class": "DecodeLockingScript",
           "asm": "",
+          "asm:require": "optional",
           "hex": "",
+          "hex:require": "optional",
           "reqSigs": 0,
+          "reqSigs:require": "optional",
           "type": "",
+          "type:require": "optional",
+          "addresses:require": "optional",
           "addresses": [
             ""
           ]

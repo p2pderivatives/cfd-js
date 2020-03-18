@@ -1,5 +1,8 @@
 project(external_download NONE)
 
+include(../cmake/EnableCcache.cmake)
+include(../cmake/ConvertSrclistFunction.cmake)
+
 # env check
 if($ENV{CFD_CMAKE_GIT_SSH})
 if($ENV{CFD_CMAKE_GIT_SSH} STREQUAL "1")

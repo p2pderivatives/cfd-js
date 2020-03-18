@@ -3,8 +3,10 @@
 // サンプルコード
 //
 const cfdjsModule = require('./cfdjs_module');
+const cfdjsUtil = require('../cfdjs_util');
 const {
   CreateRawTransaction,
+  AddRawTransaction,
   DecodeRawTransaction,
   GetWitnessStackNum,
   AddSign,
@@ -37,6 +39,10 @@ const {
   CreateMultisigScriptSig,
   VerifySignature,
   GetAddressInfo,
+  CreateDescriptor,
+  AppendDescriptorChecksum,
+  GetPrivkeyWif,
+  GetPrivkeyFromWif,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -156,6 +162,44 @@ let decodeRawTxResult;
   console.log('*** Response ***\n',
       JSON.stringify(decodeRawTxResult, null, '  '));
   console.log('-- decoderawtransaction end   --\n');
+}
+// AddRawTransaction
+let addRawTxResult;
+{
+  console.log('\n===== AddRawTransaction =====');
+  const fundTxAmt = CONTRACT_CONDS.fundAmt + (CONTRACT_CONDS.feeAmt * 2);
+  const txInAmtAlice = 3000000000; // dummy txin amount
+  const txInAmtBob = 2800000000; // dummy txin amount
+  const reqJson = {
+    'tx': '02000000000000000000',
+    'txins': [
+      {
+        'txid': DUMMY_TXID_1,
+        'vout': 0,
+      },
+      {
+        'txid': DUMMY_TXID_2,
+        'vout': 1,
+      },
+    ],
+    'txouts': [
+      {
+        'address': createMultisigResult.address,
+        'amount': fundTxAmt,
+      },
+      {
+        'address': CONTRACT_CONDS.chgAddrAlice,
+        'amount': txInAmtAlice - fundTxAmt / 2,
+      },
+      {
+        'address': CONTRACT_CONDS.chgAddrBob,
+        'amount': txInAmtBob - fundTxAmt / 2,
+      },
+    ],
+  };
+  console.log('*** Request ***\n', reqJson);
+  addRawTxResult = AddRawTransaction(reqJson);
+  console.log('\n*** Response ***\n', addRawTxResult, '\n');
 }
 // CreateSignatureHash
 let createSignatureHash;
@@ -1023,7 +1067,8 @@ let parseDescriptorResult;
   };
   console.log('*** Request ***\n', reqJson);
   parseDescriptorResult = ParseDescriptor(reqJson);
-  console.log('*** Response ***\n', parseDescriptorResult);
+  console.log('*** Response ***\n',
+      JSON.stringify(parseDescriptorResult, null, '  '));
 }
 
 let parseScriptResult;
@@ -1071,6 +1116,10 @@ let createMultisigScriptSigResult;
     script: createMultisigScriptSigResult.hex,
   });
   console.log('*** ParseScript ***\n', parseResult);
+
+  const vout = 0;
+  const signedResult = cfdjsUtil.SetMultisigScriptSig(createP2shP2wshTxResult.hex, DUMMY_TXID_1, vout, createMultisigScriptSigResult.hex, 'p2sh-p2wsh', false);
+  console.log('*** SetMultisigScriptSig ***\n', signedResult);
 }
 
 let getAddressInfoResult;
@@ -1104,4 +1153,69 @@ let getAddressInfo3Result;
   console.log('*** Request ***\n', reqJson);
   getAddressInfo3Result = GetAddressInfo(reqJson);
   console.log('\n*** Response ***\n', getAddressInfo3Result, '\n');
+}
+
+let createDescriptorResult;
+{
+  console.log('\n===== CreateDescriptor =====');
+  const reqJson = {
+    scriptType: 'p2sh-p2wsh-sortedmulti',
+    keyInfoList: [
+      {
+        key: 'xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*',
+      },
+      {
+        key: 'xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*',
+      },
+      {
+        key: '0214e236da9840dfae684cd67b9b9bd6ad9b18f8aa3551f9597097e1f9d4e1314c',
+        parentExtkey: 'xprvA5P4YtgFjzqM4QpXJZ8Zr7Wkhng7ugTybA3KWMAqDfAamqu5nqJ3zKRhB29cxuqCc8hPagZcN5BsuoXx4Xn7iYHnQvEdyMwZRFgoJXs8CDN',
+        keyPathFromParent: '0\'/1',
+      },
+    ],
+    requireNum: 2,
+  };
+  /** comment */
+  console.log('*** Request ***\n', reqJson);
+  createDescriptorResult = CreateDescriptor(reqJson);
+  console.log('\n*** Response ***\n', createDescriptorResult, '\n');
+}
+
+let appendChecksumResult;
+{
+  console.log('\n===== AppendDescriptorChecksum =====');
+  const reqJson = {
+    descriptor: 'sh(wpkh([ef57314e/0\'/0\'/4\']03d3f817091de0bbe51e19b53303b12e463f664894d49cb5bf5bb19c88fbc54d8d))',
+  };
+  console.log('*** Request ***\n', reqJson);
+  appendChecksumResult = AppendDescriptorChecksum(reqJson);
+  console.log('\n*** Response ***\n', appendChecksumResult, '\n');
+}
+
+let getPrivkeyWifResult;
+{
+  console.log('\n===== GetPrivkeyWif & GetPrivkeyFromWif =====');
+  const createKeyPairJson = {
+    wif: false,
+    network: NET_TYPE,
+    isCompressed: true,
+  };
+  console.log('*** CreateKeyPair:Request ***\n', createKeyPairJson);
+  const keyPair = CreateKeyPair(createKeyPairJson);
+  console.log('*** CreateKeyPair:Response ***\n', keyPair);
+
+  const getPrivkeyWifJson = {
+    hex: keyPair.privkey,
+    network: NET_TYPE,
+    isCompressed: true,
+  };
+  console.log('*** GetPrivkeyWif:Request ***\n', getPrivkeyWifJson);
+  getPrivkeyWifResult = GetPrivkeyWif(getPrivkeyWifJson);
+  console.log('*** GetPrivkeyWif:Response ***\n', getPrivkeyWifResult);
+
+  const getPrivkeyFromWifJson = {
+    wif: getPrivkeyWifResult.wif,
+  };
+  const result = GetPrivkeyFromWif(getPrivkeyFromWifJson);
+  console.log('*** GetPrivkeyFromWif:Response ***\n', result, '\n');
 }

@@ -101,6 +101,14 @@ class CFD_JS_API_EXPORT ElementsAddressStructApi {
       const ParseDescriptorRequestStruct& request);
 
   /**
+   * @brief JSONパラメータの情報を元に、DescriptorへChecksumを追記する
+   * @param[in] request Descriptorを構築するパラメータ
+   * @return Descriptor解析結果を格納した構造体
+   */
+  static AppendDescriptorChecksumResponseStruct AppendDescriptorChecksum(
+      const AppendDescriptorChecksumRequestStruct& request);
+
+  /**
    * @brief elementsネットワーク文字列を、ElementsNetType構造体へ変換する.
    * @param[in] elements_net_type ネットワーク文字列
    * @return 引数に対応するElementsNetType構造体

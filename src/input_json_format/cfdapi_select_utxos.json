@@ -2,71 +2,99 @@
   "namespace": ["cfd","js","api","json"],
   "request": {
     ":class": "SelectUtxosRequest",
+    "utxos:require": "require",
     "utxos": [{
       ":class": "UtxoJsonData",
       "txid": "",
+      "txid:require": "require",
       "vout": 0,
+      "vout:require": "require",
       "vout:type": "uint32_t",
       "amount": 0,
+      "amount:require": "require",
       "amount:type": "int64_t",
       "asset": "",
+      "asset:require": "optional",
       "asset:hint": "This field is available only elements utxo.",
       "descriptor": "",
+      "descriptor:require": "optional",
       "descriptor:hint": "descriptor is required, you needs to consider fee amount"
     }],
     "targetAmount": 0,
     "targetAmount:type": "int64_t",
+    "targetAmount:require": "optional",
     "targetAmount:hint": "This field is available only bitcoin.",
     "isElements": false,
+    "isElements:require": "optional",
+    "targets:require": "optional",
     "targets": [{
       ":class": "TargetAmountMapData",
       "asset": "",
       "amount": 0,
-      "amount:type": "int64_t"
+      "amount:type": "int64_t",
+      "amount:require": "optional"
     }],
     "targets:hint": "This field is available only elements.",
+    "feeInfo:require": "optional",
     "feeInfo": {
       ":class": "CoinSelectionFeeInfomationField",
       "txFeeAmount": 0,
+      "txFeeAmount:require": "optional",
       "txFeeAmount:type": "int64_t",
       "feeRate": 20,
       "feeRate:type": "double",
+      "feeRate:require": "optional",
       "feeRate:hint": "network fee rate",
       "longTermFeeRate": 20,
       "longTermFeeRate:type": "double",
+      "longTermFeeRate:require": "optional",
       "longTermFeeRate:hint": "network long-term fee rate",
       "knapsackMinChange": -1,
+      "knapsackMinChange:require": "optional",
       "knapsackMinChange:hint": "knapsack minimum change amount.",
       "feeAsset": "",
+      "feeAsset:require": "optional",
       "feeAsset:hint": "This field is available only elements."
     }
   },
   "response": {
     ":class": "SelectUtxosResponse",
+    "utxos:require": "require",
     "utxos": [{
       ":class": "UtxoJsonData",
       "txid": "",
+      "txid:require": "require",
       "vout": 0,
       "vout:type": "uint32_t",
+      "vout:require": "require",
       "amount": 0,
       "amount:type": "int64_t",
+      "amount:require": "require",
       "asset": "",
+      "asset:require": "optional",
       "asset:hint": "This field is avalable only elements utxo.",
       "descriptor": "",
+      "descriptor:require": "optional",
       "descriptor:hint": "descriptor is required, you needs to consider fee amount"
     }],
     "selectedAmount": 0,
     "selectedAmount:type": "int64_t",
+    "selectedAmount:require": "optional",
+    "selectedAmounts:require": "optional",
     "selectedAmounts": [{
       ":class": "TargetAmountMapData",
       "asset": "",
+      "asset:require": "require",
       "amount": 0,
-      "amount:type": "int64_t"
+      "amount:type": "int64_t",
+      "amount:require": "require"
     }],
     "feeAmount": 0,
     "feeAmount:type": "int64_t",
+    "feeAmount:require": "optional",
     "feeAmount:hint": "This field is avalable only searched by BnB algorithm.",
     "utxoFeeAmount": 0,
-    "utxoFeeAmount:type": "int64_t"
+    "utxoFeeAmount:type": "int64_t",
+    "utxoFeeAmount:require": "require"
   }
 }

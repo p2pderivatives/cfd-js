@@ -3,48 +3,71 @@
   "request": {
     ":class": "UnblindRawTransactionRequest",
     "tx": "",
+    "tx:require": "require",
     "tx:comment": "transaction hex",
+    "txouts:require": "optional",
     "txouts": [
       {
         ":class": "UnblindTxOut",
         "index": 0,
         "index:type": "uint32_t",
-        "blindingKey": ""
+        "index:require": "require",
+        "blindingKey": "",
+        "blindingKey:require": "require"
       }
     ],
+    "issuances:require": "optional",
     "issuances": [
       {
         ":class": "UnblindIssuance",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
+        "vout:require": "require",
         "assetBlindingKey":"",
-        "tokenBlindingKey":""
+        "assetBlindingKey:require": "optional",
+        "tokenBlindingKey":"",
+        "tokenBlindingKey:require": "optional"
       }
     ]
   },
   "response": {
     ":class": "UnblindRawTransactionResponse",
     "hex": "",
+    "hex:require": "require",
+    "outputs:require": "optional",
     "outputs": [
       {
         ":class": "UnblindOutput",
         "index": 0,
         "index:type": "uint32_t",
+        "index:require": "require",
         "asset": "",
+        "asset:require": "require",
         "blindFactor": "",
+        "blindFactor:require": "require",
         "assetBlindFactor": "",
-        "amount": 0
+        "assetBlindFactor:require": "require",
+        "amount": 0,
+        "amount:require": "require"
       }
     ],
+    "issuanceOutputs:require": "optional",
     "issuanceOutputs": [
       {
         ":class": "UnblindIssuanceOutput",
         "txid": "",
+        "txid:require": "require",
         "vout": 0,
+        "vout:require": "require",
         "asset": "",
+        "asset:require": "optional",
         "assetamount": 0,
+        "assetamount:require": "optional",
         "token": "",
-        "tokenamount": 0
+        "token:require": "optional",
+        "tokenamount": 0,
+        "tokenamount:require": "optional"
       }
     ]
   }

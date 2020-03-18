@@ -1,0 +1,15 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "AppendDescriptorChecksumRequest",
+    "descriptor": "",
+    "descriptor:require": "require",
+    "isElements": false,
+    "isElements:require": "optional"
+  },
+  "response": {
+    ":class": "AppendDescriptorChecksumResponse",
+    "descriptor": "",
+    "descriptor:require": "require"
+  }
+}

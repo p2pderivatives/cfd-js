@@ -3,11 +3,14 @@
   "request": {
     ":class": "CreateExtPubkeyRequest",
     "extkey": "",
+    "extkey:require": "require",
     "network": "mainnet",
+    "network:require": "require",
     "network:hint": "mainnet, testnet or regtest"
   },
   "response": {
     ":class": "CreateExtPubkeyResponse",
-    "extkey": ""
+    "extkey": "",
+    "extkey:require": "require"
   }
 }
