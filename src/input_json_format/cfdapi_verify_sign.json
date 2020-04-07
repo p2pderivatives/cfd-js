@@ -1,0 +1,46 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "VerifySignRequest",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "txins:require": "require",
+    "txins": [{
+      ":class": "VerifyignTxInUtxoData",
+      "txid": "",
+      "txid:require": "require",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "address": "",
+      "address:require": "require",
+      "amount": 0,
+      "amount:type": "int64_t",
+      "amount:require": "require",
+      "descriptor": "",
+      "descriptor:require": "optional",
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount",
+      "confidentialValueCommitment": "",
+      "confidentialValueCommitment:require": "optional",
+      "confidentialValueCommitment:hint": "elements value commitment."
+    }]
+  },
+  "response": {
+    ":class": "VerifySignResponse",
+    "success": true,
+    "success:require": "require",
+    "failTxins": [{
+      ":class": "FailSignTxIn",
+      "txid": "",
+      "txid:require": "require",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require"
+    }],
+    "failTxins:require": "optional"
+  }
+}

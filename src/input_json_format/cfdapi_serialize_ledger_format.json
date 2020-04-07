@@ -1,0 +1,33 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "SerializeLedgerFormatRequest",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txouts:require": "optional",
+    "txouts": [
+      {
+        ":class": "SerializeLedgerFormatTxOut",
+        "index": 0,
+        "index:type": "uint32_t",
+        "index:require": "require",
+        "asset": "",
+        "asset:require": "require",
+        "amount": 0,
+        "amount:require": "require"
+      }
+    ],
+    "skipWitness": false,
+    "skipWitness:require": "optional",
+    "isAuthorization": true,
+    "isAuthorization:require": "require"
+  },
+  "response": {
+    ":class": "SerializeLedgerFormatResponse",
+    "serialize": "",
+    "serialize:require": "require",
+    "sha256": "",
+    "sha256:require": "require"
+  }
+}

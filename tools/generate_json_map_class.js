@@ -184,7 +184,7 @@ function isArray(obj) {
 // ----------------------------------------------------------------------------
 // analyze function
 // ----------------------------------------------------------------------------
-const analyzeJson = (jsonObj, objName = '') => {
+const analyzeJson = (jsonObj, objName = '', arraytype = '') => {
   debugLog(`analyzeJson obj=${objName}`)
   let result;
   if (typeof jsonObj == 'string') {
@@ -218,7 +218,12 @@ const analyzeJson = (jsonObj, objName = '') => {
         if ((typeof obj_values[0] == 'string') || (typeof obj_values[0] == 'number') ||
           (typeof obj_values[0] == 'boolean')) {
           // array of string or number.
-          result = new JsonMappingData(objName, `JsonValueVector<${past_type}>`, '', '');
+          if ((typeof obj_values[0] == 'number') && (arraytype)) {
+            result = new JsonMappingData(objName, `JsonValueVector<${arraytype}>`, '', '');
+            first_map.setType(arraytype);
+          } else {
+            result = new JsonMappingData(objName, `JsonValueVector<${past_type}>`, '', '');
+          }
         } else {
           // array of object
           result = new JsonMappingData(objName, `JsonObjectVector<${past_type}, ${past_type}Struct>`, '', '');
@@ -246,6 +251,7 @@ const analyzeJson = (jsonObj, objName = '') => {
       // Stored in temporary map to maintain sort order.
       const tmp_map = {};
       const require_map = {};
+      const arraytype_map = {};
       for (const key in jsonObj) {
         if (key != ':class') {
           if (key.lastIndexOf(':type') >= 0) {
@@ -261,6 +267,10 @@ const analyzeJson = (jsonObj, objName = '') => {
           if (key.lastIndexOf(':require') >= 0) {
             const key_name = key.split(':')[0];
             require_map[key_name] = jsonObj[key];
+          }
+          if (key.lastIndexOf(':arraytype') >= 0) {
+            const key_name = key.split(':')[0];
+            arraytype_map[key_name] = jsonObj[key];
           }
         }
       }
@@ -295,7 +305,7 @@ const analyzeJson = (jsonObj, objName = '') => {
           if (require_map[key]) {
             result.child_list[key].setRequired(require_map[key]);
           }
-          const temp_child = analyzeJson(value, key);
+          const temp_child = analyzeJson(value, key, arraytype_map[key]);
           if (result.child_list[key].type == '') {
             result.child_list[key].setTypeStruct(temp_child.type, temp_child.struct_type);
             if ((result.child_list[key].type.indexOf('JsonObjectVector') >= 0) ||
@@ -464,7 +474,13 @@ void ${map_data.type}::CollectFieldName() {
           for (const child_key in map_data.child_list) {
             const child_data = map_data.child_list[child_key];
             if (child_data.is_object || child_data.is_array) {
-              result.push(`  ${child_data.variable_name}_.ConvertFromStruct(data.${child_data.variable_name});`);
+              const str = `  ${child_data.variable_name}_.ConvertFromStruct(data.${child_data.variable_name});`;
+              if (str.length > 80) {
+                result.push(`  ${child_data.variable_name}_.ConvertFromStruct(`);
+                result.push(`      data.${child_data.variable_name});`);
+              } else {
+                result.push(`  ${child_data.variable_name}_.ConvertFromStruct(data.${child_data.variable_name});`);
+              }
             } else {
               result.push(`  ${child_data.variable_name}_ = data.${child_data.variable_name};`);
             }
@@ -478,7 +494,12 @@ void ${map_data.type}::CollectFieldName() {
           for (const child_key in map_data.child_list) {
             const child_data = map_data.child_list[child_key];
             if (child_data.is_object || child_data.is_array) {
-              result.push(`  result.${child_data.variable_name} = ${child_data.variable_name}_.ConvertToStruct();`);
+              const str = `  result.${child_data.variable_name} = ${child_data.variable_name}_.ConvertToStruct();`;
+              if (str.length > 80) {
+                result.push(`  result.${child_data.variable_name} = ${child_data.variable_name}_.ConvertToStruct();  // NOLINT`);
+              } else {
+                result.push(`  result.${child_data.variable_name} = ${child_data.variable_name}_.ConvertToStruct();`);
+              }
             } else {
               result.push(`  result.${child_data.variable_name} = ${child_data.variable_name}_;`);
             }

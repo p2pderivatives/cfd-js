@@ -9,6 +9,8 @@
 #include <vector>
 
 #include "cfd/cfdapi_hdwallet.h"
+#include "cfdcore/cfdcore_bytedata.h"
+#include "cfdcore/cfdcore_hdwallet.h"
 #include "cfdcore/cfdcore_key.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_hdwallet.h"
@@ -24,11 +26,14 @@ namespace api {
 using cfd::api::ExtKeyType;
 using cfd::api::HDWalletApi;
 using cfd::core::ByteData;
+using cfd::core::ByteData256;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::ExtPrivkey;
 using cfd::core::ExtPubkey;
 using cfd::core::NetType;
+using cfd::core::Privkey;
+using cfd::core::Pubkey;
 
 GetMnemonicWordlistResponseStruct HDWalletStructApi::GetMnemonicWordlist(
     const GetMnemonicWordlistRequestStruct& request) {
@@ -202,6 +207,47 @@ HDWalletStructApi::CreateExtkeyFromParentPath(
   result = ExecuteStructApi<
       CreateExtkeyFromParentPathRequestStruct,
       CreateExtkeyFromParentPathResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+CreateExtkeyFromParentKeyResponseStruct
+HDWalletStructApi::CreateExtkeyFromParentKey(
+    const CreateExtkeyFromParentKeyRequestStruct& request) {
+  auto call_func = [](const CreateExtkeyFromParentKeyRequestStruct& request)
+      -> CreateExtkeyFromParentKeyResponseStruct {
+    CreateExtkeyFromParentKeyResponseStruct response;
+    const NetType net_type = AddressStructApi::ConvertNetType(request.network);
+    ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
+    uint32_t child_num = request.child_number;
+    if (request.hardened) child_num |= 0x80000000U;
+
+    if (key_type == ExtKeyType::kExtPrivkey) {
+      Privkey privkey;
+      if (request.parent_key.size() == (Privkey::kPrivkeySize * 2)) {
+        privkey = Privkey(request.parent_key);
+      } else {
+        privkey = Privkey::FromWif(request.parent_key, net_type);
+      }
+      ExtPrivkey extprivkey(
+          net_type, privkey, ByteData256(request.parent_chain_code),
+          request.parent_depth, child_num);
+      response.extkey = extprivkey.ToString();
+    } else {
+      ExtPubkey extpubkey(
+          net_type, Pubkey(request.parent_key),
+          ByteData256(request.parent_chain_code), request.parent_depth,
+          child_num);
+      response.extkey = extpubkey.ToString();
+    }
+
+    return response;
+  };
+
+  CreateExtkeyFromParentKeyResponseStruct result;
+  result = ExecuteStructApi<
+      CreateExtkeyFromParentKeyRequestStruct,
+      CreateExtkeyFromParentKeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

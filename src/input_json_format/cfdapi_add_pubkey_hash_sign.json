@@ -1,0 +1,47 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "AddPubkeyHashSignRequest",
+    ":class:comment": "Add signatures to pubkey hash input",
+    "isElements": false,
+    "isElements:require": "optional",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txin": {
+      ":class": "AddPubkeyHashSignTxInRequest",
+      "txid": "",
+      "txid:require": "require",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "signParam": {
+        ":class": "PubkeyHashSignData",
+        "hex": "",
+        "hex:require": "require",
+        "hex:comment": "signature hex.",
+        "type": "sign",
+        "type:require": "optional",
+        "type:hint": "sign only",
+        "derEncode": true,
+        "derEncode:require": "optional",
+        "sighashType": "all",
+        "sighashType:require": "optional",
+        "sighashType:hint": "all, none or single",
+        "sighashAnyoneCanPay": false,
+        "sighashAnyoneCanPay:require": "optional"
+      },
+      "pubkey": "",
+      "pubkey:require": "require",
+      "pubkey:comment": "public key.",
+      "hashType": "",
+      "hashType:require": "require",
+      "hashType:hint": "p2pkh, p2wpkh or p2sh-p2wpkh"
+    }
+  },
+  "response": {
+    ":class": "AddPubkeyHashSignResponse",
+    "hex": "",
+    "hex:require": "require"
+  }
+}

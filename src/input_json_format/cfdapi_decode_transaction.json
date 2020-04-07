@@ -20,10 +20,13 @@
     "version:require": "require",
     "size": 0,
     "size:require": "require",
+    "size:type": "uint32_t",
     "vsize": 0,
     "vsize:require": "require",
+    "vsize:type": "uint32_t",
     "weight": 0,
     "weight:require": "require",
+    "weight:type": "uint32_t",
     "locktime": 0,
     "locktime:type": "uint32_t",
     "locktime:require": "require",
@@ -38,6 +41,7 @@
         "txid:require": "optional",
         "vout": 0,
         "vout:require": "optional",
+        "vout:type": "uint32_t",
         "scriptSig:require": "optional",
         "scriptSig": {
           ":class": "DecodeUnlockingScript",
@@ -51,6 +55,7 @@
           ""
         ],
         "sequence": 0,
+        "sequence:type": "uint32_t",
         "sequence:require": "optional"
       }
     ],
@@ -63,6 +68,7 @@
         "value:require": "require",
         "n": 0,
         "n:require": "require",
+        "n:type": "uint32_t",
         "scriptPubKey:require": "optional",
         "scriptPubKey": {
           ":class": "DecodeLockingScript",
@@ -72,6 +78,7 @@
           "hex:require": "optional",
           "reqSigs": 0,
           "reqSigs:require": "optional",
+          "reqSigs:type": "int",
           "type": "",
           "type:require": "optional",
           "addresses:require": "optional",

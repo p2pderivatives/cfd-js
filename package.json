@@ -1,6 +1,6 @@
 {
   "name": "cfd-js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Crypto Finance Development Kit for JavaScript.",
   "author": "Crypto Garage",
   "bugs": {
@@ -19,7 +19,7 @@
     "install": "run-s cmake_clean download_object cmake_install_configure cmake_compile",
     "download_object": "node ./pkg_getter.js",
     "cmake_compile": "cmake-js compile -O wrap_js/build",
-    "cmake_install_configure": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=off --CDENABLE_CAPI=off --CDENABLE_TESTS=off --CDTARGET_RPATH=\"@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib\" -C",
+    "cmake_install_configure": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=off --CDENABLE_CAPI=off --CDENABLE_TESTS=off --CDTARGET_RPATH=\"@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;../node_modules/cfd-js/wrap_js/build/Release;../../node_modules/cfd-js/wrap_js/build/Release;../../../node_modules/cfd-js/wrap_js/build/Release;../../../../node_modules/cfd-js/wrap_js/build/Release;../../../../../node_modules/cfd-js/wrap_js/build/Release;../../../../../../node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib\" -C",
     "cmake_release_parallel": "run-s cmake_clean cmake_install_configure cmake_build_parallel",
     "example": "node wrap_js/example.js",
     "elements_example": "node wrap_js/elements_example.js",
@@ -126,30 +126,30 @@
     "convert_json_debug": "babel-node ./tools/generate_json_map_class.js mode=debug --presets env"
   },
   "dependencies": {
-    "@types/node": "^13.7.0",
-    "big-integer": "^1.6.26",
+    "@types/node": "^13.11.0",
+    "big-integer": "^1.6.48",
     "bindings": "*",
     "cmake-js": "^5.3.2",
     "del-cli": "^3.0.0",
-    "got": "^10.2.0",
+    "got": "^10.7.0",
     "nan": "^2.14.0",
     "node-addon-api": "^1.6.3",
-    "node-gyp": "^5.0.2",
+    "node-gyp": "^5.1.0",
     "npm-run-all": "^4.1.5",
-    "run-script-os": "^1.0.5",
-    "tape": "^4.11.0",
+    "run-script-os": "^1.1.1",
+    "tape": "^4.13.2",
     "unzipper": "^0.8.14"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
     "babel-cli": "*",
     "babel-preset-env": "*",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
-    "jest": "^25.1.0",
+    "jest": "^25.2.7",
     "minimist": "^1.2.5",
-    "ts-morph": "^7.0.0",
-    "ts-node": "^8.6.2"
+    "ts-morph": "^7.0.1",
+    "ts-node": "^8.8.2"
   }
 }

@@ -66,6 +66,14 @@ class CFD_JS_API_EXPORT KeyStructApi {
   static GetPubkeyFromPrivkeyResponseStruct GetPubkeyFromPrivkey(
       const GetPubkeyFromPrivkeyRequestStruct& request);
 
+  /**
+   * @brief JSONパラメータの情報を元に、圧縮公開鍵を取得する.
+   * @param[in] request リクエスト構造体
+   * @return pubkeyを含むレスポンス構造体
+   */
+  static GetCompressedPubkeyResponseStruct GetCompressedPubkey(
+      const GetCompressedPubkeyRequestStruct& request);
+
  private:
   KeyStructApi();
 };

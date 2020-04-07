@@ -134,6 +134,14 @@ class CFD_JS_API_EXPORT JsonMappingApi {
   static std::string EncodeSignatureByDer(const std::string &request_message);
 
   /**
+   * @brief DecodeDerSignatureToRaw の JSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string DecodeDerSignatureToRaw(
+      const std::string &request_message);
+
+  /**
    * @brief GetMnemonicWordlistのJSON API関数(request, response).
    * @param[in] request_message     リクエストされたjson文字列
    * @return 戻り値(JSON文字列)
@@ -183,6 +191,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
   static std::string GetPubkeyFromPrivkey(const std::string &request_message);
 
   /**
+   * @brief GetCompressedPubkeyのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string GetCompressedPubkey(const std::string &request_message);
+
+  /**
    * @brief CreateExtkeyFromSeedのJSON API関数(request, response).
    * @param[in] request_message     リクエストされたjson文字列
    * @return 戻り値(JSON文字列)
@@ -203,6 +218,14 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return 戻り値(JSON文字列)
    */
   static std::string CreateExtkeyFromParentPath(
+      const std::string &request_message);
+
+  /**
+   * @brief CreateExtkeyFromParentKeyのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string CreateExtkeyFromParentKey(
       const std::string &request_message);
 
   /**
@@ -256,6 +279,20 @@ class CFD_JS_API_EXPORT JsonMappingApi {
   static std::string AddSign(const std::string &request_message);
 
   /**
+   * @brief AddPubkeyHashSignのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string AddPubkeyHashSign(const std::string &request_message);
+
+  /**
+   * @brief SignWithPrivkeyのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string SignWithPrivkey(const std::string &request_message);
+
+  /**
    * @brief UpdateWitnessStackのJSON API関数(request, response).
    * @param[in] request_message     リクエストされたjson文字列
    * @return 戻り値(JSON文字列)
@@ -282,6 +319,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return 戻り値(JSON文字列)
    */
   static std::string VerifySignature(const std::string &request_message);
+
+  /**
+   * @brief VerifySignのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string VerifySign(const std::string &request_message);
 
   /**
    * @brief EstimateFeeのJSON API関数(request, response).
@@ -416,6 +460,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return 戻り値(JSON文字列)
    */
   static std::string CreateDestroyAmount(const std::string &request_message);
+
+  /**
+   * @brief SerializeLedgerFormatのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string SerializeLedgerFormat(const std::string &request_message);
 #endif  // CFD_DISABLE_ELEMENTS
 
  private:

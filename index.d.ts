@@ -27,6 +27,32 @@ export interface AddMultisigSignResponse {
     hex: string;
 }
 
+export interface PubkeyHashSignData {
+    hex: string;
+    type?: string;
+    derEncode?: boolean;
+    sighashType?: string;
+    sighashAnyoneCanPay?: boolean;
+}
+
+export interface AddPubkeyHashSignTxInRequest {
+    txid: string;
+    vout: number;
+    signParam?: PubkeyHashSignData;
+    pubkey: string;
+    hashType: string;
+}
+
+export interface AddPubkeyHashSignRequest {
+    isElements?: boolean;
+    tx: string;
+    txin?: AddPubkeyHashSignTxInRequest;
+}
+
+export interface AddPubkeyHashSignResponse {
+    hex: string;
+}
+
 export interface AddTxIn {
     txid: string;
     vout: number;
@@ -85,7 +111,7 @@ export interface AppendDescriptorChecksumResponse {
 
 export interface BlindTxInRequest {
     txid: string;
-    vout: bigint;
+    vout: number;
     asset: string;
     blindFactor?: string;
     assetBlindFactor?: string;
@@ -100,7 +126,7 @@ export interface BlindTxOutRequest {
 
 export interface BlindIssuanceRequest {
     txid: string;
-    vout: bigint;
+    vout: number;
     assetBlindingKey: string;
     tokenBlindingKey?: string;
 }
@@ -108,8 +134,12 @@ export interface BlindIssuanceRequest {
 export interface BlindRawTransactionRequest {
     tx: string;
     txins?: BlindTxInRequest[];
-    txouts: BlindTxOutRequest[];
+    txouts?: BlindTxOutRequest[];
+    txoutConfidentialAddresses?: string[];
     issuances?: BlindIssuanceRequest[];
+    minimumRangeValue?: bigint;
+    exponent?: number;
+    minimumBits?: number;
 }
 
 export interface BlindRawTransactionResponse {
@@ -193,7 +223,7 @@ export interface CreateExtkeyFromParentRequest {
     extkey: string;
     network: string;
     extkeyType: string;
-    childNumber: bigint;
+    childNumber: number;
     hardened?: boolean;
 }
 
@@ -201,11 +231,25 @@ export interface CreateExtkeyFromParentResponse {
     extkey: string;
 }
 
+export interface CreateExtkeyFromParentKeyRequest {
+    network: string;
+    extkeyType?: string;
+    parentKey: string;
+    parentDepth: number;
+    parentChainCode: string;
+    childNumber: number;
+    hardened?: boolean;
+}
+
+export interface CreateExtkeyFromParentKeyResponse {
+    extkey: string;
+}
+
 export interface CreateExtkeyFromParentPathRequest {
     extkey: string;
     network: string;
     extkeyType: string;
-    childNumberArray?: bigint[];
+    childNumberArray?: number[];
     path?: string;
 }
 
@@ -269,6 +313,14 @@ export interface CreateScriptResponse {
     hex: string;
 }
 
+export interface DecodeDerSignatureToRawRequest {
+    signature: string;
+}
+
+export interface DecodeDerSignatureToRawResponse {
+    signature: string;
+}
+
 export interface DecodeRawTransactionRequest {
     hex: string;
     network?: string;
@@ -283,23 +335,23 @@ export interface DecodeUnlockingScript {
 export interface DecodeRawTransactionTxIn {
     coinbase?: string;
     txid?: string;
-    vout?: bigint;
+    vout?: number;
     scriptSig?: DecodeUnlockingScript;
     txinwitness?: string[];
-    sequence?: bigint;
+    sequence?: number;
 }
 
 export interface DecodeLockingScript {
     asm?: string;
     hex?: string;
-    reqSigs?: bigint;
+    reqSigs?: number;
     type?: string;
     addresses?: string[];
 }
 
 export interface DecodeRawTransactionTxOut {
     value: bigint;
-    n: bigint;
+    n: number;
     scriptPubKey?: DecodeLockingScript;
 }
 
@@ -307,9 +359,9 @@ export interface DecodeRawTransactionResponse {
     txid: string;
     hash: string;
     version: number;
-    size: bigint;
-    vsize: bigint;
-    weight: bigint;
+    size: number;
+    vsize: number;
+    weight: number;
     locktime: number;
     vin?: DecodeRawTransactionTxIn[];
     vout?: DecodeRawTransactionTxOut[];
@@ -360,7 +412,7 @@ export interface ElementsAddPegout {
     onlinePubkey: string;
     masterOnlineKey: string;
     bitcoinDescriptor: string;
-    bip32Counter: bigint;
+    bip32Counter: number;
     whitelist: string;
 }
 
@@ -501,7 +553,7 @@ export interface ElementsPegout {
     onlinePubkey: string;
     masterOnlineKey: string;
     bitcoinDescriptor: string;
-    bip32Counter: bigint;
+    bip32Counter: number;
     whitelist: string;
 }
 
@@ -606,8 +658,8 @@ export interface ElementsDecodeLockingScript {
 
 export interface ElementsDecodeRawTransactionTxOut {
     value?: bigint;
-    'value-minimum?': number;
-    'value-maximum?': number;
+    'value-minimum?': bigint;
+    'value-maximum?': bigint;
     'ct-exponent?': number;
     'ct-bits?': number;
     surjectionproof?: string;
@@ -626,9 +678,9 @@ export interface ElementsDecodeRawTransactionResponse {
     wtxid: string;
     withash: string;
     version: number;
-    size: bigint;
-    vsize: bigint;
-    weight: bigint;
+    size: number;
+    vsize: number;
+    weight: number;
     locktime: number;
     vin?: ElementsDecodeRawTransactionTxIn[];
     vout?: ElementsDecodeRawTransactionTxOut[];
@@ -718,7 +770,7 @@ export interface UnblindTxOut {
 
 export interface UnblindIssuance {
     txid: string;
-    vout: bigint;
+    vout: number;
     assetBlindingKey?: string;
     tokenBlindingKey?: string;
 }
@@ -739,7 +791,7 @@ export interface UnblindOutput {
 
 export interface UnblindIssuanceOutput {
     txid: string;
-    vout: bigint;
+    vout: number;
     asset?: string;
     assetamount?: bigint;
     token?: string;
@@ -763,7 +815,7 @@ export interface EncodeSignatureByDerResponse {
 }
 
 export interface InnerErrorResponse {
-    code: bigint;
+    code: number;
     type: string;
     message: string;
 }
@@ -820,7 +872,7 @@ export interface FundSelectUtxoData {
     isIssuance?: boolean;
     isBlindIssuance?: boolean;
     isPegin?: boolean;
-    peginBtcTxSize?: bigint;
+    peginBtcTxSize?: number;
     fedpegScript?: string;
 }
 
@@ -867,7 +919,7 @@ export interface GetAddressesFromMultisigRequest {
 export interface GetAddressesFromMultisigResponse {
     addresses: string[];
     pubkeys: string[];
-    requireNum: bigint;
+    requireNum: number;
 }
 
 export interface GetAddressInfoRequest {
@@ -881,6 +933,14 @@ export interface GetAddressInfoResponse {
     hashType: string;
     witnessVersion?: number;
     hash?: string;
+}
+
+export interface GetCompressedPubkeyRequest {
+    pubkey: string;
+}
+
+export interface GetCompressedPubkeyResponse {
+    pubkey: string;
 }
 
 export interface GetExtkeyInfoRequest {
@@ -974,7 +1034,7 @@ export interface GetWitnessStackNumRequest {
 }
 
 export interface GetWitnessStackNumResponse {
-    count: bigint;
+    count: number;
 }
 
 export interface CreateMultisigRequest {
@@ -1012,7 +1072,7 @@ export interface DescriptorScriptJson {
     keyType?: string;
     key?: string;
     keys?: DescriptorKeyJson[];
-    reqNum?: bigint;
+    reqNum?: number;
 }
 
 export interface ParseDescriptorResponse {
@@ -1050,7 +1110,7 @@ export interface CoinSelectionFeeInfomationField {
     txFeeAmount?: bigint;
     feeRate?: number;
     longTermFeeRate?: number;
-    knapsackMinChange?: bigint;
+    knapsackMinChange?: number;
     feeAsset?: string;
 }
 
@@ -1081,6 +1141,24 @@ export interface SelectUtxosResponse {
     selectedAmounts?: TargetAmountMapData[];
     feeAmount?: bigint;
     utxoFeeAmount: bigint;
+}
+
+export interface SerializeLedgerFormatTxOut {
+    index: number;
+    asset: string;
+    amount: bigint;
+}
+
+export interface SerializeLedgerFormatRequest {
+    tx: string;
+    txouts?: SerializeLedgerFormatTxOut[];
+    skipWitness?: boolean;
+    isAuthorization: boolean;
+}
+
+export interface SerializeLedgerFormatResponse {
+    serialize: string;
+    sha256: string;
 }
 
 export interface SignatureHashKeyData {
@@ -1130,6 +1208,29 @@ export interface CreateElementsSignatureHashRequest {
 
 export interface CreateElementsSignatureHashResponse {
     sighash: string;
+}
+
+export interface SignWithPrivkeyTxInRequest {
+    txid: string;
+    vout: number;
+    privkey: string;
+    pubkey?: string;
+    hashType: string;
+    sighashType?: string;
+    sighashAnyoneCanPay?: boolean;
+    amount?: bigint;
+    confidentialValueCommitment?: string;
+    isGrindR?: boolean;
+}
+
+export interface SignWithPrivkeyRequest {
+    isElements?: boolean;
+    tx: string;
+    txin?: SignWithPrivkeyTxInRequest;
+}
+
+export interface SignWithPrivkeyResponse {
+    hex: string;
 }
 
 export interface GetSupportedFunctionResponse {
@@ -1184,6 +1285,31 @@ export interface UpdateWitnessStackResponse {
     hex?: string;
 }
 
+export interface VerifyignTxInUtxoData {
+    txid: string;
+    vout: number;
+    address: string;
+    amount: bigint;
+    descriptor?: string;
+    confidentialValueCommitment?: string;
+}
+
+export interface VerifySignRequest {
+    tx: string;
+    isElements?: boolean;
+    txins: VerifyignTxInUtxoData[];
+}
+
+export interface FailSignTxIn {
+    txid: string;
+    vout: number;
+}
+
+export interface VerifySignResponse {
+    success: boolean;
+    failTxins?: FailSignTxIn[];
+}
+
 export interface VerifySignatureTxInRequest {
     txid: string;
     vout: number;
@@ -1209,6 +1335,8 @@ export interface VerifySignatureResponse {
 
 export function AddMultisigSign(jsonObject: AddMultisigSignRequest): AddMultisigSignResponse;
 
+export function AddPubkeyHashSign(jsonObject: AddPubkeyHashSignRequest): AddPubkeyHashSignResponse;
+
 export function AddRawTransaction(jsonObject: AddRawTransactionRequest): AddRawTransactionResponse;
 
 export function AddSign(jsonObject: AddSignRequest): AddSignResponse;
@@ -1229,6 +1357,8 @@ export function CreateDescriptor(jsonObject: CreateDescriptorRequest): CreateDes
 
 export function CreateExtkeyFromParent(jsonObject: CreateExtkeyFromParentRequest): CreateExtkeyFromParentResponse;
 
+export function CreateExtkeyFromParentKey(jsonObject: CreateExtkeyFromParentKeyRequest): CreateExtkeyFromParentKeyResponse;
+
 export function CreateExtkeyFromParentPath(jsonObject: CreateExtkeyFromParentPathRequest): CreateExtkeyFromParentPathResponse;
 
 export function CreateExtkeyFromSeed(jsonObject: CreateExtkeyFromSeedRequest): CreateExtkeyFromSeedResponse;
@@ -1240,6 +1370,8 @@ export function CreateKeyPair(jsonObject: CreateKeyPairRequest): CreateKeyPairRe
 export function CreateMultisigScriptSig(jsonObject: CreateMultisigScriptSigRequest): CreateMultisigScriptSigResponse;
 
 export function CreateScript(jsonObject: CreateScriptRequest): CreateScriptResponse;
+
+export function DecodeDerSignatureToRaw(jsonObject: DecodeDerSignatureToRawRequest): DecodeDerSignatureToRawResponse;
 
 export function DecodeRawTransaction(jsonObject: DecodeRawTransactionRequest): DecodeRawTransactionResponse;
 
@@ -1277,6 +1409,8 @@ export function GetAddressesFromMultisig(jsonObject: GetAddressesFromMultisigReq
 
 export function GetAddressInfo(jsonObject: GetAddressInfoRequest): GetAddressInfoResponse;
 
+export function GetCompressedPubkey(jsonObject: GetCompressedPubkeyRequest): GetCompressedPubkeyResponse;
+
 export function GetExtkeyInfo(jsonObject: GetExtkeyInfoRequest): GetExtkeyInfoResponse;
 
 export function GetIssuanceBlindingKey(jsonObject: GetIssuanceBlindingKeyRequest): GetIssuanceBlindingKeyResponse;
@@ -1303,14 +1437,20 @@ export function ParseScript(jsonObject: ParseScriptRequest): ParseScriptResponse
 
 export function SelectUtxos(jsonObject: SelectUtxosRequest): SelectUtxosResponse;
 
+export function SerializeLedgerFormat(jsonObject: SerializeLedgerFormatRequest): SerializeLedgerFormatResponse;
+
 export function CreateSignatureHash(jsonObject: CreateSignatureHashRequest): CreateSignatureHashResponse;
 
 export function CreateElementsSignatureHash(jsonObject: CreateElementsSignatureHashRequest): CreateElementsSignatureHashResponse;
+
+export function SignWithPrivkey(jsonObject: SignWithPrivkeyRequest): SignWithPrivkeyResponse;
 
 export function GetSupportedFunction(): GetSupportedFunctionResponse;
 
 export function CreateRawTransaction(jsonObject: CreateRawTransactionRequest): CreateRawTransactionResponse;
 
 export function UpdateWitnessStack(jsonObject: UpdateWitnessStackRequest): UpdateWitnessStackResponse;
+
+export function VerifySign(jsonObject: VerifySignRequest): VerifySignResponse;
 
 export function VerifySignature(jsonObject: VerifySignatureRequest): VerifySignatureResponse;

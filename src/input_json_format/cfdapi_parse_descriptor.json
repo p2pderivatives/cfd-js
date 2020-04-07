@@ -65,6 +65,7 @@
       "keys:hint": "keys included in multisig",
       "reqNum": 0,
       "reqNum:require": "optional",
+      "reqNum:type": "uint32_t",
       "reqNum:hint": "number of required signatures to solve multisig script."
     }]
   }

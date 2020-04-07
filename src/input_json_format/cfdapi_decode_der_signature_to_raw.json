@@ -1,0 +1,19 @@
+{
+  "namespace": [
+    "cfd",
+    "js",
+    "api",
+    "json"
+  ],
+  "request": {
+    ":class": "DecodeDerSignatureToRawRequest",
+    "signature": "",
+    "signature:require": "require",
+    "signature:comment": "der signature"
+  },
+  "response": {
+    ":class": "DecodeDerSignatureToRawResponse",
+    "signature": "",
+    "signature:require": "require"
+  }
+}

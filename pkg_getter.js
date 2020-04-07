@@ -46,6 +46,13 @@ const main = async function() {
     if (process.arch !== 'x64') {
       return;
     }
+    if (process.env.CFDJS_UNUSE_ASSET !== undefined) {
+      const unuseAsset = process.env.CFDJS_UNUSE_ASSET.toLowerCase();
+      if ((unuseAsset === 'true') || (unuseAsset === 'on') || (unuseAsset === '1')) {
+        console.log(`CFDJS_UNUSE_ASSET exist.`);
+        return;
+      }
+    }
 
     // get object
     const version = pkg.version;

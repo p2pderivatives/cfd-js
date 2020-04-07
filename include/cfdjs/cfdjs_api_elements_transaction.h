@@ -78,6 +78,22 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const AddMultisigSignRequestStruct& request);
 
   /**
+   * @brief パラメータの情報を元に、秘密鍵で署名する.
+   * @param[in] request Transactionと署名情報を格納した構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static SignWithPrivkeyResponseStruct SignWithPrivkey(
+      const SignWithPrivkeyRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、公開鍵署名情報を追加する.
+   * @param[in] request Transactionと署名情報を格納した構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static AddPubkeyHashSignResponseStruct AddPubkeyHashSign(
+      const AddPubkeyHashSignRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、WitnessStackの情報を更新する.
    * @param[in] request TransactionとWitnessStack追加情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
@@ -100,6 +116,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    */
   static VerifySignatureResponseStruct VerifySignature(
       const VerifySignatureRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、署名検証を実施する.
+   * @param[in] request 署名検証情報を格納した構造体
+   * @return 署名検証結果を格納した構造体
+   */
+  static VerifySignResponseStruct VerifySign(
+      const VerifySignRequestStruct& request);
 
   /**
    * @brief パラメータの情報を元に、RawTransactionをBlindする.
@@ -167,6 +191,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
   static ElementsCreateDestroyAmountResponseStruct
   CreateDestroyAmountTransaction(
       const ElementsCreateDestroyAmountRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、Ledger format serialize dataを作成する.
+   * @param[in] request Transactionを構築するパラメータの構造体
+   * @return Ledger format serialize dataを格納した構造体
+   */
+  static SerializeLedgerFormatResponseStruct SerializeLedgerFormat(
+      const SerializeLedgerFormatRequestStruct& request);
 };
 
 }  // namespace api

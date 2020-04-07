@@ -117,13 +117,13 @@ const errorCase = [
     'CreateExtkeyFromParent Error(invalid childNumber over lower limit)',
     CreateExtkeyFromParent,
     ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "childNumber":-1, "hardened":false}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"childNumber out of range. (0 - 0xffffffff)"}}',
+    '{"error":{"code":3,"type":"out_of_range","message":"Json value convert error. Value out of range."}}',
   ),
   TestHelper.createTestCase(
     'CreateExtkeyFromParent Error(invalid childNumber over upper limit)',
     CreateExtkeyFromParent,
     ['{"extkey":"xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi", "network":"mainnet", "extkeyType":"extPrivkey", "childNumber":4294967296, "hardened":false}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"childNumber out of range. (0 - 0xffffffff)"}}',
+    '{"error":{"code":3,"type":"out_of_range","message":"Json value convert error. Value out of range."}}',
   ),
 ];
 

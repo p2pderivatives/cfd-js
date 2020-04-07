@@ -40,6 +40,14 @@ class CFD_JS_API_EXPORT UtilStructApi {
   static EncodeSignatureByDerResponseStruct EncodeSignatureByDer(
       EncodeSignatureByDerRequestStruct request);
 
+  /**
+   * @brief Decode a DER signature to raw format.
+   * @param[in] request   request struct from json
+   * @return response struct including decoded signature
+   */
+  static DecodeDerSignatureToRawResponseStruct DecodeDerSignatureToRaw(
+      DecodeDerSignatureToRawRequestStruct request);
+
  private:
   UtilStructApi();
 };

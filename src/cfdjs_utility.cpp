@@ -73,6 +73,27 @@ EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
   return result;
 }
 
+DecodeDerSignatureToRawResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
+    DecodeDerSignatureToRawRequestStruct request) {
+  auto call_func = [](const DecodeDerSignatureToRawRequestStruct& request)
+      -> DecodeDerSignatureToRawResponseStruct {
+    DecodeDerSignatureToRawResponseStruct result;
+    auto signature_bytes = ByteData(request.signature);
+    const ByteData raw_signature =
+        CryptoUtil::ConvertSignatureFromDer(signature_bytes, nullptr);
+
+    result.signature = raw_signature.GetHex();
+    return result;
+  };
+
+  DecodeDerSignatureToRawResponseStruct result;
+  result = ExecuteStructApi<
+      DecodeDerSignatureToRawRequestStruct,
+      DecodeDerSignatureToRawResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 // 実体定義用(多重定義防止のためCPP側に定義)
 InnerErrorResponseStruct ConvertCfdExceptionToStruct(
     const CfdException& cfde) {
