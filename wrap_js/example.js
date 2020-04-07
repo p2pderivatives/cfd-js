@@ -24,6 +24,7 @@ const {
   CreateExtkeyFromSeed,
   CreateExtkeyFromParent,
   CreateExtkeyFromParentPath,
+  CreateExtkeyFromParentKey,
   CreateExtPubkey,
   GetExtkeyInfo,
   GetPrivkeyFromExtkey,
@@ -36,6 +37,7 @@ const {
   ParseDescriptor,
   ParseScript,
   EncodeSignatureByDer,
+  DecodeDerSignatureToRaw,
   CreateMultisigScriptSig,
   VerifySignature,
   GetAddressInfo,
@@ -43,6 +45,9 @@ const {
   AppendDescriptorChecksum,
   GetPrivkeyWif,
   GetPrivkeyFromWif,
+  GetCompressedPubkey,
+  AddPubkeyHashSign,
+  SignWithPrivkey,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -371,24 +376,24 @@ let CreateP2shP2wpkhSignatureHashResult;
       CreateP2shP2wpkhSignatureHashResult, '\n');
 }
 
+let addP2shP2wpkhTxWitnessSignature;
+{
+  console.log('\n===== AddSign : CalculateEcSignature =====');
+  const privkey = 'cRar5dsNEddUTgXuuhsq5p2NRJUKiV58PUHEPgGe1k9CW8CGRzbj';
+  const reqJson = {
+    'sighash': CreateP2shP2wpkhSignatureHashResult.sighash,
+    'privkeyData': {
+      'privkey': privkey,
+      'network': NET_TYPE,
+    },
+  };
+  addP2shP2wpkhTxWitnessSignature = CalculateEcSignature(reqJson);
+  console.log('\n*** CalculateEcSignature Response ***\n',
+      addP2shP2wpkhTxWitnessSignature, '\n');
+}
+
 let addP2shP2wpkhTxWitness;
 {
-  let signatureRet;
-  {
-    console.log('\n===== AddSign : CalculateEcSignature =====');
-    const privkey = 'cRar5dsNEddUTgXuuhsq5p2NRJUKiV58PUHEPgGe1k9CW8CGRzbj';
-    const reqJson = {
-      'sighash': CreateP2shP2wpkhSignatureHashResult.sighash,
-      'privkeyData': {
-        'privkey': privkey,
-        'network': NET_TYPE,
-      },
-    };
-    signatureRet = CalculateEcSignature(reqJson);
-    console.log('\n*** CalculateEcSignature Response ***\n',
-        signatureRet, '\n');
-  }
-
   let verifyRet;
   {
     console.log('\n===== AddSign : VerifySignature =====');
@@ -397,7 +402,7 @@ let addP2shP2wpkhTxWitness;
       txin: {
         'txid': DUMMY_TXID_1,
         'vout': 0,
-        'signature': signatureRet.signature,
+        'signature': addP2shP2wpkhTxWitnessSignature.signature,
         'pubkey': '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
         'amount': 3000002000,
         'hashType': 'p2wpkh',
@@ -416,7 +421,7 @@ let addP2shP2wpkhTxWitness;
       vout: 0,
       signParam: [
         {
-          hex: signatureRet.signature,
+          hex: addP2shP2wpkhTxWitnessSignature.signature,
           type: 'sign',
           derEncode: true,
         },
@@ -436,7 +441,7 @@ let addP2shP2wpkhTxWitness;
   {
     console.log('\n===== AddSign : EncodeSignatureByDer =====');
     const reqJson = {
-      'signature': signatureRet.signature,
+      'signature': addP2shP2wpkhTxWitnessSignature.signature,
       'sighashType': 'all',
       'sighashAnyoneCanPay': false,
     };
@@ -446,16 +451,31 @@ let addP2shP2wpkhTxWitness;
     decodedTx = DecodeRawTransaction({'hex': addP2shP2wpkhTxWitness.hex});
     console.log('\n*** DecodedSignature ***\n', decodedTx.vin[0].txinwitness[0], '\n');
   }
+  // der decode signature
+  let rawSignatureRet;
+  {
+    console.log('\n===== DecodeDerSignatureToRaw =====');
+    const reqJson = {
+      'signature': derSignatureRet.signature,
+      'sighashType': 'all',
+      'sighashAnyoneCanPay': false,
+    };
+    console.log(reqJson);
+    rawSignatureRet = DecodeDerSignatureToRaw(reqJson);
+    console.log('\n*** DecodeDerSignatureToRaw Response ***\n',
+        rawSignatureRet, '\n');
+  }
 }
 let addP2shP2wpkhTxStack;
 {
+  // see: addP2shP2wpkhTx2
   console.log('\n===== AddSign =====');
   const reqJson = {
     tx: addP2shP2wpkhTxWitness.hex,
     txin: {
       txid: DUMMY_TXID_1,
       vout: 0,
-      isWitness: false, // P2SH用のscriptSig追加のため
+      isWitness: false, // for ad p2sh scriptsig.
       signParam: [
         {
           hex: createP2shP2wpkhAddressResult.redeemScript,
@@ -479,6 +499,49 @@ let decodeP2shP2wpkhTxResult;
   console.log('*** Response ***\n',
       JSON.stringify(decodeP2shP2wpkhTxResult, null, '  '));
   console.log('-- decoderawtransaction end   --\n');
+}
+
+// Add P2SH-P2WPKH transaction pattern2
+let addP2shP2wpkhTx2Stack;
+{
+  console.log('\n===== addP2shP2wpkhTx2 =====');
+  const reqJson = {
+    tx: createP2shP2wpkhTxResult.hex,
+    txin: {
+      txid: DUMMY_TXID_1,
+      vout: 0,
+      signParam: {
+        hex: addP2shP2wpkhTxWitnessSignature.signature,
+        derEncode: true,
+      },
+      pubkey: '02f56451fc1fd9040652ff9a700cf914ad1df1c8f9e82f3fe96ca01b6cd47293ef', // eslint-disable-line max-len
+      hashType: 'p2sh-p2wpkh',
+    },
+  };
+  console.log('*** Request ***\n', reqJson);
+  addP2shP2wpkhTx2Stack = AddPubkeyHashSign(reqJson);
+  console.log('\n*** Response ***\n', addP2shP2wpkhTx2Stack, '\n');
+}
+
+// P2SH-P2WPKH sign with privkey
+let signP2shP2wpkhTx;
+{
+  console.log('\n===== SignWithPrivkey =====');
+  const txInAmtAlice = 3000000000; // dummy txin amount
+  const privkey = 'cRar5dsNEddUTgXuuhsq5p2NRJUKiV58PUHEPgGe1k9CW8CGRzbj';
+  const reqJson = {
+    tx: createP2shP2wpkhTxResult.hex,
+    txin: {
+      txid: DUMMY_TXID_1,
+      vout: 0,
+      privkey: privkey,
+      hashType: 'p2sh-p2wpkh',
+      amount: txInAmtAlice + 2000,
+    },
+  };
+  console.log('*** Request ***\n', reqJson);
+  signP2shP2wpkhTx = SignWithPrivkey(reqJson);
+  console.log('\n*** Response ***\n', signP2shP2wpkhTx, '\n');
 }
 
 // Create P2SH-P2WSH(multisig) transaction
@@ -872,6 +935,46 @@ let extPubkeyFromParentPathResult;
   console.log('*** Response ***\n', extPubkeyFromParentPathResult);
 }
 
+let extPubkeyFromParentKeyResult;
+{
+  console.log('-- CreateExtkeyFromParentKey start (m/44\'/0\'/0\'/2) --');
+  const network = 'mainnet';
+  const parentExtKey = CreateExtkeyFromParentPath({
+    extkey: extPrivkeyHardenedFromParentResult.extkey,
+    network: network,
+    extkeyType: 'extPubkey',
+    childNumberArray: [
+      2147483648, 2147483648,
+    ],
+  });
+  const parentExtKeyInfo = GetExtkeyInfo({
+    extkey: parentExtKey.extkey,
+  });
+  const pubkeyInfo = GetPubkeyFromExtkey({
+    extkey: parentExtKey.extkey,
+    network: network,
+  });
+  const reqJson = {
+    network: network,
+    parentKey: pubkeyInfo.pubkey,
+    parentDepth: parentExtKeyInfo.depth,
+    parentChainCode: parentExtKeyInfo.chainCode,
+    childNumber: 2,
+  };
+  console.log('*** Request ***\n', reqJson);
+  extPubkeyFromParentKeyResult = CreateExtkeyFromParentKey(reqJson);
+  console.log('*** Response ***\n', extPubkeyFromParentKeyResult);
+
+  const ret2 = CreateExtkeyFromParentKey({
+    network: network,
+    parentKey: '045bdbaf62dc45e3cd6e207d625f65913d3355d5ce998d412bffb22ac72098c3f303eeb65fea50e85a6cf537ffc82f1801d43b655f273da3e984668663563cb58a',
+    parentDepth: 4,
+    parentChainCode: '56c9d7fe10a5d063aa4c93460da026f77dde382a8b86d9304eac738fe5febe90',
+    childNumber: 0,
+  });
+  console.log('*** Response ***\n', ret2);
+}
+
 let createExtPubkeyResult;
 {
   console.log('-- CreateExtPubkey start (m/44\') --');
@@ -1218,4 +1321,15 @@ let getPrivkeyWifResult;
   };
   const result = GetPrivkeyFromWif(getPrivkeyFromWifJson);
   console.log('*** GetPrivkeyFromWif:Response ***\n', result, '\n');
+}
+
+let getCompressedPubkeyResult;
+{
+  console.log('\n===== GetCompressedPubkey =====');
+  const reqJson = {
+    pubkey: '04b1232a20a6597ad727367f7b4fc3363d90db1ad66de4ce05f7be1be0bb6da03f412b107259d1db1e9de574a0e3fe5b338b3b7766eb4d887a1304c619f975cbdb',
+  };
+  console.log('*** GetCompressedPubkey:Request ***\n', reqJson);
+  getCompressedPubkeyResult = GetCompressedPubkey(reqJson);
+  console.log('*** GetCompressedPubkey:Response ***\n', getCompressedPubkeyResult);
 }

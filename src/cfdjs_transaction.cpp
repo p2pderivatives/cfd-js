@@ -10,9 +10,14 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_address.h"
+#include "cfd/cfd_transaction.h"
+#include "cfd/cfdapi_address.h"
 #include "cfd/cfdapi_coin.h"
+#include "cfd/cfdapi_key.h"
 #include "cfd/cfdapi_transaction.h"
 #include "cfd_js_api_json_autogen.h"  // NOLINT
+#include "cfdcore/cfdcore_descriptor.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_transaction.h"
 #include "cfdjs_internal.h"          // NOLINT
@@ -23,8 +28,12 @@ namespace cfd {
 namespace js {
 namespace api {
 
+using cfd::AddressFactory;
+using cfd::TransactionContext;
 using cfd::TransactionController;
 using cfd::UtxoData;
+using cfd::api::AddressApi;
+using cfd::api::KeyApi;
 using cfd::api::TransactionApi;
 using cfd::core::Address;
 using cfd::core::AddressType;
@@ -34,6 +43,7 @@ using cfd::core::ByteData160;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::CryptoUtil;
+using cfd::core::DescriptorScriptType;
 using cfd::core::HashType;
 using cfd::core::kByteData160Length;
 using cfd::core::kByteData256Length;
@@ -431,6 +441,78 @@ AddMultisigSignResponseStruct TransactionStructApi::AddMultisigSign(
   return result;
 }
 
+SignWithPrivkeyResponseStruct TransactionStructApi::SignWithPrivkey(
+    const SignWithPrivkeyRequestStruct& request) {
+  auto call_func = [](const SignWithPrivkeyRequestStruct& request)
+      -> SignWithPrivkeyResponseStruct {  // NOLINT
+    SignWithPrivkeyResponseStruct response;
+
+    TransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    Pubkey pubkey;
+    Privkey privkey;
+    AddressType addr_type =
+        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+
+    if (request.txin.privkey.size() == (Privkey::kPrivkeySize * 2)) {
+      privkey = Privkey(request.txin.privkey);
+    } else {
+      KeyApi key_api;
+      privkey = key_api.GetPrivkeyFromWif(request.txin.privkey);
+    }
+    if (request.txin.pubkey.empty()) {
+      pubkey = privkey.GeneratePubkey();
+    } else {
+      pubkey = Pubkey(request.txin.pubkey);
+    }
+    Amount value(request.txin.amount);
+
+    ctx.SignWithPrivkeySimple(
+        outpoint, pubkey, privkey, sighashtype, value, addr_type,
+        request.txin.is_grind_r);
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  SignWithPrivkeyResponseStruct result;
+  result = ExecuteStructApi<
+      SignWithPrivkeyRequestStruct, SignWithPrivkeyResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+AddPubkeyHashSignResponseStruct TransactionStructApi::AddPubkeyHashSign(
+    const AddPubkeyHashSignRequestStruct& request) {
+  auto call_func = [](const AddPubkeyHashSignRequestStruct& request)
+      -> AddPubkeyHashSignResponseStruct {  // NOLINT
+    AddPubkeyHashSignResponseStruct response;
+
+    TransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    Pubkey pubkey(request.txin.pubkey);
+    AddressType addr_type =
+        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sign_param.sighash_type,
+        request.txin.sign_param.sighash_anyone_can_pay);
+    SignParameter signature(
+        ByteData(request.txin.sign_param.hex),
+        request.txin.sign_param.der_encode, sighashtype);
+
+    ctx.AddPubkeyHashSign(outpoint, signature, pubkey, addr_type);
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  AddPubkeyHashSignResponseStruct result;
+  result = ExecuteStructApi<
+      AddPubkeyHashSignRequestStruct, AddPubkeyHashSignResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
     const CreateSignatureHashRequestStruct& request) {
   auto call_func = [](const CreateSignatureHashRequestStruct& request)
@@ -549,6 +631,71 @@ VerifySignatureResponseStruct TransactionStructApi::VerifySignature(
   VerifySignatureResponseStruct result;
   result = ExecuteStructApi<
       VerifySignatureRequestStruct, VerifySignatureResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+VerifySignResponseStruct TransactionStructApi::VerifySign(
+    const VerifySignRequestStruct& request) {
+  auto call_func = [](const VerifySignRequestStruct& request)
+      -> VerifySignResponseStruct {  // NOLINT
+    VerifySignResponseStruct response;
+
+    TransactionContext ctx(request.tx);
+    AddressFactory address_factory;
+    std::vector<UtxoData> utxos;
+    AddressApi addr_api;
+    for (auto& utxo : request.txins) {
+      UtxoData data = {};
+      data.txid = Txid(utxo.txid);
+      data.vout = utxo.vout;
+      data.amount = Amount::CreateBySatoshiAmount(utxo.amount);
+
+      data.descriptor = utxo.descriptor;
+      if (!data.descriptor.empty()) {
+        DescriptorScriptData script_data = addr_api.ParseOutputDescriptor(
+            data.descriptor, NetType::kMainnet, "", nullptr, nullptr, nullptr);
+        data.address_type = script_data.address_type;
+        if (script_data.type == DescriptorScriptType::kDescriptorScriptRaw) {
+          data.locking_script = script_data.locking_script;
+        } else {
+          // TODO(k-matsuzawa): mainnet only?
+          data.address = script_data.address;
+          data.locking_script = script_data.locking_script;
+        }
+      } else if (!utxo.address.empty()) {
+        data.address = address_factory.GetAddress(utxo.address);
+        data.locking_script = data.address.GetLockingScript();
+        data.address_type = data.address.GetAddressType();
+      }
+      data.binary_data = nullptr;
+      utxos.push_back(data);
+    }
+    ctx.CollectInputUtxo(utxos);
+
+    bool is_success = true;
+    for (auto& utxo : utxos) {
+      OutPoint outpoint(utxo.txid, utxo.vout);
+      try {
+        ctx.Verify(outpoint);
+      } catch (const CfdException& except) {
+        warn(
+            CFD_LOG_SOURCE, "Failed to VerifySign. {}",
+            std::string(except.what()));
+        is_success = false;
+        FailSignTxInStruct fail_data;
+        fail_data.txid = outpoint.GetTxid().GetHex();
+        fail_data.vout = outpoint.GetVout();
+        response.fail_txins.push_back(fail_data);
+      }
+    }
+
+    response.success = is_success;
+    return response;
+  };
+
+  VerifySignResponseStruct result;
+  result = ExecuteStructApi<VerifySignRequestStruct, VerifySignResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

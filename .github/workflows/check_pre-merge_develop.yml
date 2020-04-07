@@ -12,6 +12,7 @@ on:
 
 env:
   CMAKE_VERSION: 3.15.5
+  CMAKE_BUILD_PARALLEL_LEVEL: 4
 
 jobs:
   cmake-js-build:
@@ -51,6 +52,7 @@ jobs:
       with:
         path: cache/cmake
         key: ${{ runner.os }}-cmake-3.15.5-x64
+        restore-keys: ${{ runner.os }}-cmake-3.15.5-x64
     - name: cmake-download-ubuntu
       if: matrix.os == 'ubuntu-latest' && steps.cache.outputs.cache-hit != 'true'
       run: |
@@ -68,29 +70,27 @@ jobs:
         export CURRENT_DIR=$(pwd)
         echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
         cd ../..
-    - name: npm_install_v8
-      if: matrix.node == 8
-      run: npm install
+    - name: dump node version
+      id: node_ver
+      run: |
+        export node_ver="$(node --version)"
+        echo "::set-output name=node_version::$node_ver"
+        echo "node_version=$node_ver"
+      shell: bash
+    - name: node_modules-useCache
+      uses: actions/cache@v1
+      id: node_cache
+      with:
+        path: node_modules
+        key: node-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: node-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
     - name: npm_install
-      if: matrix.node != 8
+      if: steps.node_cache.outputs.cache-hit != 'true'
+      env:
+        CFDJS_UNUSE_ASSET: true
       run: npm install
-      continue-on-error: true
-    - name: npm_clean
-      if: matrix.os != 'windows-latest'
-      run: |
-        cd wrap_js
-        rm -rf dl_lib
-        cd ..
-      continue-on-error: true
-    - name: npm_clean_windows
-      if: matrix.os == 'windows-latest'
-      run: |
-        cd wrap_js
-        rm -Recurse -Force dl_lib
-        cd ..
-      continue-on-error: true
-    - name: npm_build
-      if: matrix.node != 8
+    - name: build
+      if: steps.node_cache.outputs.cache-hit == 'true'
       run: npm run cmake_release_parallel
     - name: test_all
       run: npm run test
@@ -101,6 +101,10 @@ jobs:
     - name: lint_check
       if: matrix.os != 'macos-latest'
       run: npm run lint_all
+    - name: after_job
+      run: rm -rf node_modules/cfd-js
+      shell: bash
+      continue-on-error: true
     - name: ubuntu-after
       if: matrix.os == 'ubuntu-latest'
       run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64

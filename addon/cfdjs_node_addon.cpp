@@ -230,6 +230,16 @@ Value EncodeSignatureByDer(const CallbackInfo &information) {
 }
 
 /**
+ * @brief DecodeDerSignatureToRaw の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value DecodeDerSignatureToRaw(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::DecodeDerSignatureToRaw);
+}
+
+/**
  * @brief GetMnemonicWordlistのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -293,6 +303,15 @@ Value GetPubkeyFromPrivkey(const CallbackInfo &information) {
 }
 
 /**
+ * @brief GetCompressedPubkeyのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value GetCompressedPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetCompressedPubkey);
+}
+
+/**
  * @brief CreateExtkeyFromSeedのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -318,6 +337,16 @@ Value CreateExtkeyFromParent(const CallbackInfo &information) {
 Value CreateExtkeyFromParentPath(const CallbackInfo &information) {
   return NodeAddonJsonApi(
       information, JsonMappingApi::CreateExtkeyFromParentPath);
+}
+
+/**
+ * @brief CreateExtkeyFromParentKeyのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value CreateExtkeyFromParentKey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::CreateExtkeyFromParentKey);
 }
 
 /**
@@ -385,6 +414,24 @@ Value AddSign(const CallbackInfo &information) {
 }
 
 /**
+ * @brief AddPubkeyHashSignのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value AddPubkeyHashSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AddPubkeyHashSign);
+}
+
+/**
+ * @brief SignWithPrivkeyのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value SignWithPrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SignWithPrivkey);
+}
+
+/**
  * @brief UpdateWitnessStackのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -418,6 +465,15 @@ Value AddMultisigSign(const CallbackInfo &information) {
  */
 Value VerifySignature(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::VerifySignature);
+}
+
+/**
+ * @brief VerifySignのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value VerifySign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::VerifySign);
 }
 
 /**
@@ -587,6 +643,15 @@ Value GetIssuanceBlindingKey(const CallbackInfo &information) {
 Value CreateDestroyAmount(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::CreateDestroyAmount);
 }
+
+/**
+ * @brief SerializeLedgerFormatのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value SerializeLedgerFormat(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SerializeLedgerFormat);
+}
 #endif  // CFD_DISABLE_ELEMENTS
 
 /**
@@ -639,9 +704,18 @@ void InitializeJsonApi(Env env, Object *exports) {
       String::New(env, "EncodeSignatureByDer"),
       Function::New(env, EncodeSignatureByDer));
   exports->Set(
+      String::New(env, "DecodeDerSignatureToRaw"),
+      Function::New(env, DecodeDerSignatureToRaw));
+  exports->Set(
       String::New(env, "GetWitnessStackNum"),
       Function::New(env, GetWitnessStackNum));
   exports->Set(String::New(env, "AddSign"), Function::New(env, AddSign));
+  exports->Set(
+      String::New(env, "AddPubkeyHashSign"),
+      Function::New(env, AddPubkeyHashSign));
+  exports->Set(
+      String::New(env, "SignWithPrivkey"),
+      Function::New(env, SignWithPrivkey));
   exports->Set(
       String::New(env, "UpdateWitnessStack"),
       Function::New(env, UpdateWitnessStack));
@@ -651,6 +725,7 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "VerifySignature"),
       Function::New(env, VerifySignature));
+  exports->Set(String::New(env, "VerifySign"), Function::New(env, VerifySign));
   exports->Set(
       String::New(env, "GetMnemonicWordlist"),
       Function::New(env, GetMnemonicWordlist));
@@ -671,6 +746,9 @@ void InitializeJsonApi(Env env, Object *exports) {
       String::New(env, "GetPubkeyFromPrivkey"),
       Function::New(env, GetPubkeyFromPrivkey));
   exports->Set(
+      String::New(env, "GetCompressedPubkey"),
+      Function::New(env, GetCompressedPubkey));
+  exports->Set(
       String::New(env, "CreateExtkeyFromSeed"),
       Function::New(env, CreateExtkeyFromSeed));
   exports->Set(
@@ -679,6 +757,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreateExtkeyFromParentPath"),
       Function::New(env, CreateExtkeyFromParentPath));
+  exports->Set(
+      String::New(env, "CreateExtkeyFromParentKey"),
+      Function::New(env, CreateExtkeyFromParentKey));
   exports->Set(
       String::New(env, "CreateExtPubkey"),
       Function::New(env, CreateExtPubkey));
@@ -746,6 +827,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreateDestroyAmount"),
       Function::New(env, CreateDestroyAmount));
+  exports->Set(
+      String::New(env, "SerializeLedgerFormat"),
+      Function::New(env, SerializeLedgerFormat));
 #endif  // CFD_DISABLE_ELEMENTS
 }
 

@@ -21,6 +21,7 @@
     "pubkeys": [""],
     "pubkeys:require": "require",
     "requireNum": 0,
-    "requireNum:require": "require"
+    "requireNum:require": "require",
+    "requireNum:type": "uint32_t"
   }
 }

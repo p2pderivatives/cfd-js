@@ -72,12 +72,6 @@ const testCase = [
 
 const errorCase = [
   TestHelper.createElementsTestCase(
-    'CreatePegInAddress with empty fedpegscript',
-    CreatePegInAddress,
-    ['{"fedpegscript":"","pubkey":"02fe947a8b2496be977f6f37e28fbccc4c582cb771314252898820f3cd3ab65324","network":"regtest"}'],
-    '{\"error\":{\"code\":2,\"type\":\"illegal_state\",\"message\":\"sha256 calc error.\"}}',
-  ),
-  TestHelper.createElementsTestCase(
     'CreatePegInAddress with invalid fedpegscript(not hex)',
     CreatePegInAddress,
     ['{"fedpegscript":"zz","pubkey":"02fe947a8b2496be977f6f37e28fbccc4c582cb771314252898820f3cd3ab65324","network":"regtest"}'],

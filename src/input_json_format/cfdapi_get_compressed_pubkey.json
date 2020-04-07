@@ -1,0 +1,13 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetCompressedPubkeyRequest",
+    "pubkey": "",
+    "pubkey:require": "require"
+  },
+  "response": {
+    ":class": "GetCompressedPubkeyResponse",
+    "pubkey": "",
+    "pubkey:require": "require"
+  }
+}

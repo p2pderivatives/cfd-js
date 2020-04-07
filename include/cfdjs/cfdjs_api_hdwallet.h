@@ -79,6 +79,14 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
       const CreateExtkeyFromParentPathRequestStruct& request);
 
   /**
+   * @brief JSONパラメータの情報を元に、親の鍵情報から派生拡張鍵を生成する.
+   * @param[in] request リクエスト構造体
+   * @return extkeyを含むレスポンス構造体
+   */
+  static CreateExtkeyFromParentKeyResponseStruct CreateExtkeyFromParentKey(
+      const CreateExtkeyFromParentKeyRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、拡張秘密鍵から同階層の拡張公開鍵を生成する.
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体

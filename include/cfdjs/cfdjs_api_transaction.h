@@ -86,6 +86,22 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const AddMultisigSignRequestStruct& request);
 
   /**
+   * @brief パラメータの情報を元に、秘密鍵で署名する.
+   * @param[in] request Transactionと署名情報を格納した構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static SignWithPrivkeyResponseStruct SignWithPrivkey(
+      const SignWithPrivkeyRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、公開鍵署名情報を追加する.
+   * @param[in] request Transactionと署名情報を格納した構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static AddPubkeyHashSignResponseStruct AddPubkeyHashSign(
+      const AddPubkeyHashSignRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、SigHashを作成する
    * @param[in] request sighashを生成するパラメータ
    * @return sighashのhexデータを格納した構造体
@@ -100,6 +116,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    */
   static VerifySignatureResponseStruct VerifySignature(
       const VerifySignatureRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、署名検証を実施する.
+   * @param[in] request 署名検証情報を格納した構造体
+   * @return 署名検証結果を格納した構造体
+   */
+  static VerifySignResponseStruct VerifySign(
+      const VerifySignRequestStruct& request);
 
  private:
   TransactionStructApi();

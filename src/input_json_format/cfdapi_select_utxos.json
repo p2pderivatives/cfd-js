@@ -51,6 +51,7 @@
       "longTermFeeRate:hint": "network long-term fee rate",
       "knapsackMinChange": -1,
       "knapsackMinChange:require": "optional",
+      "knapsackMinChange:type": "int32_t",
       "knapsackMinChange:hint": "knapsack minimum change amount.",
       "feeAsset": "",
       "feeAsset:require": "optional",

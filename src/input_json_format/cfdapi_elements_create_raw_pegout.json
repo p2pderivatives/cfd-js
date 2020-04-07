@@ -61,6 +61,7 @@
       "bitcoinDescriptor:require": "require",
       "bip32Counter":0,
       "bip32Counter:require": "require",
+      "bip32Counter:type": "uint32_t",
       "whitelist":"",
       "whitelist:require": "require"
     },

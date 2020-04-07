@@ -12,6 +12,7 @@
     "extkeyType:hint": "extPrivkey or extPubkey",
     "childNumberArray": [0],
     "childNumberArray:require": "optional",
+    "childNumberArray:arraytype": "uint32_t",
     "childNumberArray:hint": "hardened is logical sum 0x80000000",
     "path": "",
     "path:require": "optional",

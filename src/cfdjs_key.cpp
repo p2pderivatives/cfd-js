@@ -154,6 +154,24 @@ GetPubkeyFromPrivkeyResponseStruct KeyStructApi::GetPubkeyFromPrivkey(
   return result;
 }
 
+GetCompressedPubkeyResponseStruct KeyStructApi::GetCompressedPubkey(
+    const GetCompressedPubkeyRequestStruct& request) {
+  auto call_func = [](const GetCompressedPubkeyRequestStruct& request)
+      -> GetCompressedPubkeyResponseStruct {
+    GetCompressedPubkeyResponseStruct response;
+
+    Pubkey uncompressed_pubkey(request.pubkey);
+    response.pubkey = uncompressed_pubkey.Compress().GetHex();
+    return response;
+  };
+
+  GetCompressedPubkeyResponseStruct result;
+  result = ExecuteStructApi<
+      GetCompressedPubkeyRequestStruct, GetCompressedPubkeyResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 }  // namespace api
 }  // namespace js
 }  // namespace cfd
