@@ -229,6 +229,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
       const std::string &request_message);
 
   /**
+   * @brief CreateExtkeyのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string CreateExtkey(const std::string &request_message);
+
+  /**
    * @brief CreateExtPubkeyのJSON API関数(request, response).
    * @param[in] request_message     リクエストされたjson文字列
    * @return 戻り値(JSON文字列)
@@ -453,6 +460,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    */
   static std::string GetIssuanceBlindingKey(
       const std::string &request_message);
+
+  /**
+   * @brief GetDefaultBlindingKeyのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string GetDefaultBlindingKey(const std::string &request_message);
 
   /**
    * @brief CreateDestroyAmountのJSON API関数(request, response).

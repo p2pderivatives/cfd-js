@@ -583,6 +583,13 @@ std::string JsonMappingApi::CreateExtkeyFromParentKey(
       request_message, HDWalletStructApi::CreateExtkeyFromParentKey);
 }
 
+std::string JsonMappingApi::CreateExtkey(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::CreateExtkeyRequest, api::json::CreateExtkeyResponse,
+      api::CreateExtkeyRequestStruct, api::CreateExtkeyResponseStruct>(
+      request_message, HDWalletStructApi::CreateExtkey);
+}
+
 std::string JsonMappingApi::CreateExtPubkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
@@ -911,6 +918,16 @@ std::string JsonMappingApi::GetIssuanceBlindingKey(
       api::GetIssuanceBlindingKeyRequestStruct,
       api::GetIssuanceBlindingKeyResponseStruct>(
       request_message, ElementsTransactionStructApi::GetIssuanceBlindingKey);
+}
+
+std::string JsonMappingApi::GetDefaultBlindingKey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::GetDefaultBlindingKeyRequest,
+      api::json::GetDefaultBlindingKeyResponse,
+      api::GetDefaultBlindingKeyRequestStruct,
+      api::GetDefaultBlindingKeyResponseStruct>(
+      request_message, ElementsTransactionStructApi::GetDefaultBlindingKey);
 }
 
 std::string JsonMappingApi::CreateDestroyAmount(

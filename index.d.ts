@@ -61,7 +61,7 @@ export interface AddTxIn {
 
 export interface AddTxOut {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
 }
 
 export interface AddRawTransactionRequest {
@@ -115,7 +115,7 @@ export interface BlindTxInRequest {
     asset: string;
     blindFactor?: string;
     assetBlindFactor?: string;
-    amount: bigint;
+    amount: bigint | number;
 }
 
 export interface BlindTxOutRequest {
@@ -137,7 +137,7 @@ export interface BlindRawTransactionRequest {
     txouts?: BlindTxOutRequest[];
     txoutConfidentialAddresses?: string[];
     issuances?: BlindIssuanceRequest[];
-    minimumRangeValue?: bigint;
+    minimumRangeValue?: bigint | number;
     exponent?: number;
     minimumBits?: number;
 }
@@ -217,6 +217,22 @@ export interface CreateDescriptorRequest {
 
 export interface CreateDescriptorResponse {
     descriptor: string;
+}
+
+export interface CreateExtkeyRequest {
+    network: string;
+    extkeyType?: string;
+    parentKey?: string;
+    parentFingerprint?: string;
+    key: string;
+    depth: number;
+    chainCode: string;
+    childNumber: number;
+    hardened?: boolean;
+}
+
+export interface CreateExtkeyResponse {
+    extkey: string;
 }
 
 export interface CreateExtkeyFromParentRequest {
@@ -374,7 +390,7 @@ export interface ElementsAddTxInRequest {
 }
 
 export interface ElementsAddPeginWitness {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     mainchainGenesisBlockHash: string;
     claimScript: string;
@@ -392,18 +408,18 @@ export interface ElementsAddPeginTxIn {
 
 export interface ElementsAddTxOut {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsAddDestroyAmount {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
 export interface ElementsAddPegout {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     network: string;
     elementsNetwork: string;
@@ -417,7 +433,7 @@ export interface ElementsAddPegout {
 }
 
 export interface ElementsAddTxOutFee {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
@@ -445,18 +461,18 @@ export interface ElementsDestroyAmountTxIn {
 
 export interface ElementsDestroyAmountTxOut {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsDestroyAmount {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
 export interface ElementsDestroyAmountFee {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
@@ -488,7 +504,7 @@ export interface ElementsCreatePegInAddressResponse {
 }
 
 export interface ElementsPeginWitness {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     mainchainGenesisBlockHash: string;
     claimScript: string;
@@ -507,13 +523,13 @@ export interface ElementsPeginTxIn {
 
 export interface ElementsPeginTxOut {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsPeginTxOutFee {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
@@ -538,13 +554,13 @@ export interface ElementsPegoutTxIn {
 
 export interface ElementsPegoutTxOut {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsPegout {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     network: string;
     elementsNetwork: string;
@@ -558,7 +574,7 @@ export interface ElementsPegout {
 }
 
 export interface ElementsPegoutTxOutFee {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
@@ -584,13 +600,13 @@ export interface ElementsTxInRequest {
 
 export interface ElementsTxOutRequest {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsTxOutFeeRequest {
-    amount: bigint;
+    amount: bigint | number;
     asset: string;
 }
 
@@ -611,6 +627,7 @@ export interface ElementsDecodeRawTransactionRequest {
     network?: string;
     mainchainNetwork?: string;
     iswitness?: boolean;
+    fullDump?: boolean;
 }
 
 export interface ElementsDecodeUnlockingScript {
@@ -621,6 +638,7 @@ export interface ElementsDecodeUnlockingScript {
 export interface ElementsDecodeIssuance {
     assetBlindingNonce: string;
     assetEntropy: string;
+    contractHash?: string;
     isreissuance: boolean;
     token?: string;
     asset?: string;
@@ -628,6 +646,8 @@ export interface ElementsDecodeIssuance {
     assetamountcommitment?: string;
     tokenamount?: bigint;
     tokenamountcommitment?: string;
+    assetRangeproof?: string;
+    tokenRangeproof?: string;
 }
 
 export interface ElementsDecodeRawTransactionTxIn {
@@ -670,6 +690,7 @@ export interface ElementsDecodeRawTransactionTxOut {
     commitmentnonce_fully_valid?: boolean;
     n: number;
     scriptPubKey?: ElementsDecodeLockingScript;
+    rangeproof?: string;
 }
 
 export interface ElementsDecodeRawTransactionResponse {
@@ -707,9 +728,9 @@ export interface GetUnblindedAddressResponse {
 export interface IssuanceDataRequest {
     txid: string;
     vout: number;
-    assetAmount: bigint;
+    assetAmount: bigint | number;
     assetAddress: string;
-    tokenAmount: bigint;
+    tokenAmount: bigint | number;
     tokenAddress: string;
     isBlind?: boolean;
     contractHash?: string;
@@ -738,7 +759,7 @@ export interface SetRawIssueAssetResponse {
 export interface ReissuanceDataRequest {
     txid: string;
     vout: number;
-    amount: bigint;
+    amount: bigint | number;
     address: string;
     assetBlindingNonce: string;
     assetEntropy: string;
@@ -833,8 +854,9 @@ export interface SelectUtxoData {
     isIssuance?: boolean;
     isBlindIssuance?: boolean;
     isPegin?: boolean;
-    peginBtcTxSize?: bigint;
+    peginBtcTxSize?: bigint | number;
     fedpegScript?: string;
+    scriptSigTemplate?: string;
 }
 
 export interface EstimateFeeRequest {
@@ -844,6 +866,8 @@ export interface EstimateFeeRequest {
     isElements?: boolean;
     isBlind?: boolean;
     feeAsset?: string;
+    exponent?: number;
+    minimumBits?: number;
 }
 
 export interface EstimateFeeResponse {
@@ -856,16 +880,17 @@ export interface FundUtxoJsonData {
     txid: string;
     vout: number;
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset?: string;
     descriptor?: string;
+    scriptSigTemplate?: string;
 }
 
 export interface FundSelectUtxoData {
     txid: string;
     vout: number;
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     asset?: string;
     redeemScript?: string;
     descriptor?: string;
@@ -874,21 +899,24 @@ export interface FundSelectUtxoData {
     isPegin?: boolean;
     peginBtcTxSize?: number;
     fedpegScript?: string;
+    scriptSigTemplate?: string;
 }
 
 export interface FundAmountMapData {
     asset: string;
-    amount: bigint;
+    amount: bigint | number;
     reserveAddress: string;
 }
 
 export interface FundFeeInfomation {
     feeRate: number;
     longTermFeeRate?: number;
-    knapsackMinChange?: bigint;
+    knapsackMinChange?: bigint | number;
     dustFeeRate?: number;
     feeAsset?: string;
     isBlindEstimateFee?: boolean;
+    exponent?: number;
+    minimumBits?: number;
 }
 
 export interface FundRawTransactionRequest {
@@ -897,7 +925,7 @@ export interface FundRawTransactionRequest {
     tx: string;
     isElements?: boolean;
     network?: string;
-    targetAmount?: bigint;
+    targetAmount?: bigint | number;
     reserveAddress?: string;
     targets?: FundAmountMapData[];
     feeInfo?: FundFeeInfomation;
@@ -941,6 +969,16 @@ export interface GetCompressedPubkeyRequest {
 
 export interface GetCompressedPubkeyResponse {
     pubkey: string;
+}
+
+export interface GetDefaultBlindingKeyRequest {
+    masterBlindingKey: string;
+    lockingScript?: string;
+    address?: string;
+}
+
+export interface GetDefaultBlindingKeyResponse {
+    blindingKey: string;
 }
 
 export interface GetExtkeyInfoRequest {
@@ -1107,16 +1145,18 @@ export interface TargetAmountMapData {
 }
 
 export interface CoinSelectionFeeInfomationField {
-    txFeeAmount?: bigint;
+    txFeeAmount?: bigint | number;
     feeRate?: number;
     longTermFeeRate?: number;
     knapsackMinChange?: number;
     feeAsset?: string;
+    exponent?: number;
+    minimumBits?: number;
 }
 
 export interface SelectUtxosRequest {
     utxos: UtxoJsonData[];
-    targetAmount?: bigint;
+    targetAmount?: bigint | number;
     isElements?: boolean;
     targets?: TargetAmountMapData[];
     feeInfo?: CoinSelectionFeeInfomationField;
@@ -1146,7 +1186,7 @@ export interface SelectUtxosResponse {
 export interface SerializeLedgerFormatTxOut {
     index: number;
     asset: string;
-    amount: bigint;
+    amount: bigint | number;
 }
 
 export interface SerializeLedgerFormatRequest {
@@ -1170,7 +1210,7 @@ export interface CreateSignatureHashTxInRequest {
     txid: string;
     vout: number;
     keyData: SignatureHashKeyData;
-    amount: bigint;
+    amount: bigint | number;
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
@@ -1194,7 +1234,7 @@ export interface CreateElementsSignatureHashTxIn {
     txid: string;
     vout: number;
     keyData: ElementsSignatureHashKeyData;
-    amount?: bigint;
+    amount?: bigint | number;
     confidentialValueCommitment?: string;
     hashType: string;
     sighashType?: string;
@@ -1218,7 +1258,7 @@ export interface SignWithPrivkeyTxInRequest {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
-    amount?: bigint;
+    amount?: bigint | number;
     confidentialValueCommitment?: string;
     isGrindR?: boolean;
 }
@@ -1246,7 +1286,7 @@ export interface TxInRequest {
 
 export interface TxOutRequest {
     address: string;
-    amount: bigint;
+    amount: bigint | number;
 }
 
 export interface CreateRawTransactionRequest {
@@ -1289,7 +1329,7 @@ export interface VerifyignTxInUtxoData {
     txid: string;
     vout: number;
     address: string;
-    amount: bigint;
+    amount: bigint | number;
     descriptor?: string;
     confidentialValueCommitment?: string;
 }
@@ -1319,7 +1359,7 @@ export interface VerifySignatureTxInRequest {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
-    amount?: bigint;
+    amount?: bigint | number;
     confidentialValueCommitment?: string;
 }
 
@@ -1354,6 +1394,8 @@ export function ConvertMnemonicToSeed(jsonObject: ConvertMnemonicToSeedRequest):
 export function CreateAddress(jsonObject: CreateAddressRequest): CreateAddressResponse;
 
 export function CreateDescriptor(jsonObject: CreateDescriptorRequest): CreateDescriptorResponse;
+
+export function CreateExtkey(jsonObject: CreateExtkeyRequest): CreateExtkeyResponse;
 
 export function CreateExtkeyFromParent(jsonObject: CreateExtkeyFromParentRequest): CreateExtkeyFromParentResponse;
 
@@ -1410,6 +1452,8 @@ export function GetAddressesFromMultisig(jsonObject: GetAddressesFromMultisigReq
 export function GetAddressInfo(jsonObject: GetAddressInfoRequest): GetAddressInfoResponse;
 
 export function GetCompressedPubkey(jsonObject: GetCompressedPubkeyRequest): GetCompressedPubkeyResponse;
+
+export function GetDefaultBlindingKey(jsonObject: GetDefaultBlindingKeyRequest): GetDefaultBlindingKeyResponse;
 
 export function GetExtkeyInfo(jsonObject: GetExtkeyInfoRequest): GetExtkeyInfoResponse;
 

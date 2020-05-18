@@ -184,6 +184,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const GetIssuanceBlindingKeyRequestStruct& request);
 
   /**
+   * @brief パラメータの情報を元に、defaultのBlindingKeyを作成する.
+   * @param[in] request BlindingKeyを構築するパラメータの構造体
+   * @return BlindingKeyを格納した構造体
+   */
+  static GetDefaultBlindingKeyResponseStruct GetDefaultBlindingKey(
+      const GetDefaultBlindingKeyRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、Elements DestroyAmount用のRaw Transactionを作成する.
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体

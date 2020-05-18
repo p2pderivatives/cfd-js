@@ -22,6 +22,7 @@ const {
   SetRawIssueAsset,
   SetRawReissueAsset,
   GetIssuanceBlindingKey,
+  GetDefaultBlindingKey,
   CreatePegInAddress,
   CreateRawPegin,
   CreateRawPegout,
@@ -870,6 +871,18 @@ if (!supportFunctions.elements) {
     reissuanceSetRawReissueAssetResult = SetRawReissueAsset(reqJson);
     console.log('\n*** Response ***\n',
         reissuanceSetRawReissueAssetResult, '\n');
+  }
+
+  let getDefaultBlindingKeyResult;
+  {
+    console.log('\n===== getDefaultBlindingKey =====');
+    const reqJson = {
+      masterBlindingKey: masterBlindingKey,
+      address: 'XSGB2gQmM8U1LWtXDTG2FdQ6LYJ5e9BxU6',
+    };
+    console.log('\n*** Request ***\n', reqJson);
+    getDefaultBlindingKeyResult = GetDefaultBlindingKey(reqJson);
+    console.log('\n*** Response ***\n', getDefaultBlindingKeyResult, '\n');
   }
 
   let getIssuanceBlindingKeyResult;

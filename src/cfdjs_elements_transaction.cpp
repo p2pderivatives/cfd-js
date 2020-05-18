@@ -443,6 +443,8 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
               issuance.asset_entropy_);
           tx_in_res.issuance.asset_entropy = asset_entropy.GetHex();
           tx_in_res.issuance.isreissuance = false;
+          tx_in_res.issuance.contract_hash =
+              BlindFactor(tx_in_ref.GetAssetEntropy()).GetHex();
           // token
           ConfidentialAssetId token =
               ConfidentialTransaction::CalculateReissuanceToken(
@@ -453,6 +455,7 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
           tx_in_res.issuance.asset_entropy = asset_entropy.GetHex();
           tx_in_res.issuance.isreissuance = true;
           tx_in_res.issuance.ignore_items.insert("token");
+          tx_in_res.issuance.ignore_items.insert("contractHash");
         }
         // asset
         ConfidentialAssetId asset =
@@ -464,14 +467,22 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
           if (asset_amount.HasBlinding()) {
             tx_in_res.issuance.assetamountcommitment = asset_amount.GetHex();
             tx_in_res.issuance.ignore_items.insert("assetamount");
+            if (request.full_dump) {
+              tx_in_res.issuance.asset_rangeproof =
+                  tx_in_ref.GetIssuanceAmountRangeproof().GetHex();
+            } else {
+              tx_in_res.issuance.ignore_items.insert("assetRangeproof");
+            }
           } else {
             tx_in_res.issuance.assetamount =
                 asset_amount.GetAmount().GetSatoshiValue();
             tx_in_res.issuance.ignore_items.insert("assetamountcommitment");
+            tx_in_res.issuance.ignore_items.insert("assetRangeproof");
           }
         } else {
           tx_in_res.issuance.ignore_items.insert("assetamount");
           tx_in_res.issuance.ignore_items.insert("assetamountcommitment");
+          tx_in_res.issuance.ignore_items.insert("assetRangeproof");
         }
 
         const ConfidentialValue inflation_keys = issuance.inflation_keys_;
@@ -479,14 +490,22 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
           if (inflation_keys.HasBlinding()) {
             tx_in_res.issuance.tokenamountcommitment = inflation_keys.GetHex();
             tx_in_res.issuance.ignore_items.insert("tokenamount");
+            if (request.full_dump) {
+              tx_in_res.issuance.token_rangeproof =
+                  tx_in_ref.GetInflationKeysRangeproof().GetHex();
+            } else {
+              tx_in_res.issuance.ignore_items.insert("tokenRangeproof");
+            }
           } else {
             tx_in_res.issuance.tokenamount =
                 inflation_keys.GetAmount().GetSatoshiValue();
             tx_in_res.issuance.ignore_items.insert("tokenamountcommitment");
+            tx_in_res.issuance.ignore_items.insert("tokenRangeproof");
           }
         } else {
           tx_in_res.issuance.ignore_items.insert("tokenamount");
           tx_in_res.issuance.ignore_items.insert("tokenamountcommitment");
+          tx_in_res.issuance.ignore_items.insert("tokenRangeproof");
         }
       } else {
         // issuanceを除外
@@ -509,6 +528,7 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
         tx_out_res.ignore_items.insert("ct-exponent");
         tx_out_res.ignore_items.insert("ct-bits");
         tx_out_res.ignore_items.insert("surjectionproof");
+        tx_out_res.ignore_items.insert("rangeproof");
         tx_out_res.ignore_items.insert("valuecommitment");
       } else {
         const ByteData& range_proof = tx_out_ref.GetRangeProof();
@@ -535,6 +555,11 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
           tx_out_res.surjectionproof = surjection_proof.GetHex();
         } else {
           tx_out_res.ignore_items.insert("surjectionproof");
+        }
+        if (request.full_dump) {
+          tx_out_res.rangeproof = range_proof.GetHex();
+        } else {
+          tx_out_res.ignore_items.insert("rangeproof");
         }
 
         tx_out_res.valuecommitment = tx_out_value.GetHex();
@@ -1665,6 +1690,35 @@ ElementsTransactionStructApi::GetIssuanceBlindingKey(
   return result;
 }
 
+GetDefaultBlindingKeyResponseStruct
+ElementsTransactionStructApi::GetDefaultBlindingKey(
+    const GetDefaultBlindingKeyRequestStruct& request) {
+  auto call_func = [](const GetDefaultBlindingKeyRequestStruct& request)
+      -> GetDefaultBlindingKeyResponseStruct {
+    GetDefaultBlindingKeyResponseStruct response;
+    Script locking_script;
+
+    if (!request.address.empty() && request.locking_script.empty()) {
+      ElementsAddressFactory factory;
+      Address address = factory.GetAddress(request.address);
+      locking_script = address.GetLockingScript();
+    } else {
+      locking_script = Script(request.locking_script);
+    }
+    Privkey blinding_key = ElementsConfidentialAddress::GetBlindingKey(
+        Privkey(request.master_blinding_key), locking_script);
+
+    response.blinding_key = blinding_key.GetHex();
+    return response;
+  };
+
+  GetDefaultBlindingKeyResponseStruct result;
+  result = ExecuteStructApi<
+      GetDefaultBlindingKeyRequestStruct, GetDefaultBlindingKeyResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 ElementsCreateDestroyAmountResponseStruct
 ElementsTransactionStructApi::CreateDestroyAmountTransaction(
     const ElementsCreateDestroyAmountRequestStruct& request) {
@@ -1795,6 +1849,9 @@ void ElementsTransactionJsonApi::EstimateFee(
     }
     data.utxo.descriptor = utxo.GetDescriptor();
     data.utxo.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.utxo.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
 
     data.is_issuance = utxo.GetIsIssuance();
     data.is_blind_issuance = utxo.GetIsBlindIssuance();
@@ -1811,7 +1868,8 @@ void ElementsTransactionJsonApi::EstimateFee(
   ElementsTransactionApi api;
   Amount fee = api.EstimateFee(
       request->GetTx(), utxos, fee_asset, &tx_fee, &utxo_fee,
-      request->GetIsBlind(), request->GetFeeRate());
+      request->GetIsBlind(), request->GetFeeRate(), request->GetExponent(),
+      request->GetMinimumBits());
 
   response->SetFeeAmount(fee.GetSatoshiValue());
   response->SetTxFeeAmount(tx_fee.GetSatoshiValue());
@@ -1833,6 +1891,9 @@ void ElementsTransactionJsonApi::FundRawTransaction(
     }
     data.descriptor = utxo.GetDescriptor();
     data.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
     utxos.push_back(data);
   }
   for (auto& utxo : request->GetSelectUtxos()) {
@@ -1848,6 +1909,9 @@ void ElementsTransactionJsonApi::FundRawTransaction(
     }
     data.utxo.descriptor = utxo.GetDescriptor();
     data.utxo.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.utxo.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
 
     data.is_issuance = utxo.GetIsIssuance();
     data.is_blind_issuance = utxo.GetIsBlindIssuance();
@@ -1863,6 +1927,7 @@ void ElementsTransactionJsonApi::FundRawTransaction(
   const FundFeeInfomation& fee_info = request->GetFeeInfo();
   CoinSelectionOption option;
   ConfidentialAssetId fee_asset;
+  option.SetBlindInfo(fee_info.GetExponent(), fee_info.GetMinimumBits());
   option.InitializeConfidentialTxSizeInfo();
   option.SetEffectiveFeeBaserate(fee_info.GetFeeRate());
   option.SetLongTermFeeBaserate(fee_info.GetLongTermFeeRate());

@@ -1,6 +1,138 @@
 const cfdjs = require('./wrap_js/cfdjs_module.js');
 
+/**
+ * Parse bip32 path.
+ * @param {number} path The bip32 path.
+ * @return {array} The array of the bip32 number.
+ */
+function parseBip32Path(path) {
+  let targetPath = path;
+  if (targetPath.startsWith('m/')) {
+    targetPath = targetPath.substring(2);
+  }
+  if (targetPath === '') {
+    throw new Error('empty BIP 32 path.');
+  }
 
+  const items = targetPath.split('/');
+  if (items.length > 10) {
+    throw new Error('Out of Range. Number of BIP 32 derivations to perform is up to 10.');
+  }
+  const hardendedTargets = ['\'', 'h', 'H'];
+
+  const length = items.length;
+  if (length === 0) {
+    throw new Error('Out of Range. Number of BIP 32 derivations to perform is empty.');
+  }
+  const array = [];
+  for (let idx = 0; idx < length; ++idx) {
+    let isFind = false;
+    for (let hIdx = 0; hIdx < hardendedTargets.length; ++hIdx) {
+      const hKey = hardendedTargets[hIdx];
+      const item = items[idx].split(hKey);
+      if (item.length > 1) {
+        const num = Number(item[0]);
+        if ((num === Number.NaN) || (item[1] !== '') || (item.length.length > 2)) {
+          throw new Error(`Illegal path format. [${item[0]},${item[1]}]`);
+        }
+        // const value = 0x80000000 | num;
+        const value = 2147483648 + num;
+        array.push(value);
+        isFind = true;
+        break;
+      }
+    }
+    if (!isFind) {
+      const num = Number(items[idx]);
+      if (num === Number.NaN) throw new Error(`Illegal path format. [${items[idx]}]`);
+      array.push(num);
+    }
+  }
+  return array;
+}
+
+/**
+ * Check child extkey.
+ * @param {string} rootExtkey The root extkey.
+ * @param {string} rootBip32Path The root bip32 path.
+ * @param {string} childExtkey The child extkey.
+ * @param {string} childBip32Path The child bip32 path.
+ * @return {boolean} The match child extkey.
+ */
+exports.HasChildExtkey = function(
+    rootExtkey, rootBip32Path, childExtkey, childBip32Path) {
+  const rootExtKeyInfo = cfdjs.GetExtkeyInfo({
+    extkey: rootExtkey,
+  });
+  const childExtKeyInfo = cfdjs.GetExtkeyInfo({
+    extkey: childExtkey,
+  });
+  if (rootExtKeyInfo.version !== childExtKeyInfo.version) {
+    throw new Error('extkey unmatch version type');
+  }
+  const rootPathArray = (!rootBip32Path) ? [] : parseBip32Path(rootBip32Path);
+  const childPathArray = parseBip32Path(childBip32Path);
+  const rootEndNum = rootPathArray.length;
+  const childEndNum = childPathArray.length;
+  if (rootEndNum >= childEndNum) {
+    throw new Error('bip32Path unmatch length');
+  }
+  for (const idx in rootPathArray) {
+    if (rootPathArray[idx] !== childPathArray[idx]) {
+      throw new Error('bip32Path unmatch childPath');
+    }
+  }
+  const childPath = [];
+  for (let subIndex = rootEndNum; subIndex < childEndNum; ++subIndex) {
+    childPath.push(childPathArray[subIndex]);
+  }
+  if (rootExtKeyInfo.depth + childPath.length !== childExtKeyInfo.depth) {
+    throw new Error('extkey unmatch depth');
+  }
+  if (rootEndNum > 0) {
+    if (rootExtKeyInfo.childNumber !== rootPathArray[rootEndNum - 1]) {
+      throw new Error('rootExtkey unmatch childNumber');
+    }
+  }
+  if (childExtKeyInfo.childNumber !== childPathArray[childEndNum - 1]) {
+    throw new Error('childExtkey unmatch childNumber');
+  }
+
+  let netType = 'mainnet';
+  let keyType = 'extPubkey';
+  if (rootExtKeyInfo.version === '0488ade4') {
+    // privkey, mainnet
+    keyType = 'extPrivkey';
+  } else if (rootExtKeyInfo.version === '04358394') {
+    // privkey, testnet
+    netType = 'testnet';
+    keyType = 'extPrivkey';
+  } else if (rootExtKeyInfo.version === '0488b21e') {
+    // pubkey, mainnet
+  } else if (rootExtKeyInfo.version === '043587cf') {
+    // pubkey, testnet
+    netType = 'testnet';
+  }
+  const deriveResult = cfdjs.CreateExtkeyFromParentPath({
+    extkey: rootExtkey,
+    network: netType,
+    extkeyType: keyType,
+    childNumberArray: childPath,
+  });
+  const deriveExtkey = deriveResult.extkey;
+  return deriveExtkey === childExtkey;
+};
+
+/**
+ * Set multisig scriptsig.
+ * @param {string} txHex The transaction hex.
+ * @param {string} txid The utxo txid.
+ * @param {number} vout The utxo vout.
+ * @param {string} scriptsig The Scriptsig.
+ * @param {string} hashType The hash type.
+ * @param {boolean} isElements The elements flag.
+ * @return {cfdjs.AddMultisigSignResponse} The multisig sign response.
+ */
 exports.SetMultisigScriptSig = function(
     txHex, txid, vout, scriptsig, hashType, isElements = true) {
   const scriptResult = cfdjs.ParseScript({

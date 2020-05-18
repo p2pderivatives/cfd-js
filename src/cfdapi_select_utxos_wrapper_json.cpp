@@ -2,7 +2,7 @@
 /**
  * @file cfdapi_select_utxos_wrapper_json.cpp
  *
- * @brief JSONマッピングファイル (自動生成)
+ * @brief json mapping override file.
  */
 #include <map>
 #include <set>
@@ -23,10 +23,6 @@ using cfd::core::JsonClassBase;
 using cfd::core::JsonObjectVector;
 using cfd::core::JsonValueVector;
 using cfd::core::JsonVector;
-
-// ------------------------------------------------------------------------
-// CoinSelectionFeeInfomationWrapField(不要?)
-// ------------------------------------------------------------------------
 
 // ------------------------------------------------------------------------
 // SelectUtxosWrapRequest
@@ -67,10 +63,17 @@ const AmountMap& SelectUtxosWrapRequest::GetTargetAmountMap() const {
 
 void SelectUtxosWrapRequest::ConvertToUtxo(
     const UtxoJsonData& data, Utxo* utxo) {
+  const Script* scriptsig_template = nullptr;
+  Script scriptsig_template_obj;
+  if (!data.GetScriptSigTemplate().empty()) {
+    scriptsig_template_obj = Script(data.GetScriptSigTemplate());
+    scriptsig_template = &scriptsig_template_obj;
+  }
+  memset(utxo, 0, sizeof(Utxo));
   CoinSelection::ConvertToUtxo(
       Txid(data.GetTxid()), data.GetVout(), data.GetDescriptor(),
       Amount::CreateBySatoshiAmount(data.GetAmount()), data.GetAsset(),
-      reinterpret_cast<const void*>(&data), utxo);
+      reinterpret_cast<const void*>(&data), utxo, scriptsig_template);
 }
 
 // ------------------------------------------------------------------------
@@ -78,6 +81,7 @@ void SelectUtxosWrapRequest::ConvertToUtxo(
 // ------------------------------------------------------------------------
 void SelectUtxosWrapResponse::SetTargetUtxoList(
     const std::vector<Utxo>& utxo_list) {
+  static constexpr size_t kCheckSize = 36;
   JsonObjectVector<UtxoJsonData, UtxoJsonDataStruct>& json_list = GetUtxos();
   json_list.clear();
   Utxo temp;
@@ -85,9 +89,9 @@ void SelectUtxosWrapResponse::SetTargetUtxoList(
     if (utxo.binary_data != nullptr) {
       const UtxoJsonData* json_data =
           static_cast<const UtxoJsonData*>(utxo.binary_data);
-      // 整合性チェック(末尾の作業領域は除外)
+      // Consistency check (txid/vout)
       SelectUtxosWrapRequest::ConvertToUtxo(*json_data, &temp);
-      if (memcmp(&utxo, &temp, sizeof(Utxo) - 24) == 0) {
+      if (memcmp(utxo.txid, temp.txid, kCheckSize) == 0) {
         json_list.push_back(*json_data);
       }
     }
