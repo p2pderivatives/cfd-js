@@ -11,7 +11,10 @@
     "mainchainNetwork:hint": "mainnet, testnet, regtest or blank. Must be set for pegout transactions.",
     "mainchainNetwork:require": "optional",
     "iswitness": true,
-    "iswitness:require": "optional"
+    "iswitness:require": "optional",
+    "fullDump": false,
+    "fullDump:require": "optional",
+    "fullDump:comment": "tx data all dump option."
   },
   "response": {
     ":class": "ElementsDecodeRawTransactionResponse",
@@ -77,6 +80,9 @@
           "assetBlindingNonce:require": "require",
           "assetEntropy": "",
           "assetEntropy:require": "require",
+          "contractHash": "",
+          "contractHash:require": "optional",
+          "contractHash:comment": "issue original entropy data.",
           "isreissuance": false,
           "isreissuance:require": "require",
           "token": "",
@@ -92,7 +98,13 @@
           "tokenamount:type": "int64_t",
           "tokenamount:require": "optional",
           "tokenamountcommitment": "",
-          "tokenamountcommitment:require": "optional"
+          "tokenamountcommitment:require": "optional",
+          "assetRangeproof": "",
+          "assetRangeproof:require": "optional",
+          "assetRangeproof:hint": "Displayed only when the full dump option is used.",
+          "tokenRangeproof": "",
+          "tokenRangeproof:require": "optional",
+          "tokenRangeproof:hint": "Displayed only when the full dump option is used."
         }
       }
     ],
@@ -161,7 +173,10 @@
           "pegout_addresses": [
             ""
           ]
-        }
+        },
+        "rangeproof": "",
+        "rangeproof:hint": "Displayed only when the full dump option is used.",
+        "rangeproof:require": "optional"
       }
     ]
   }

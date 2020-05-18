@@ -1,0 +1,34 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "CreateExtkeyRequest",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "extPubkey",
+    "extkeyType:require": "optional",
+    "extkeyType:hint": "extPrivkey or extPubkey",
+    "parentKey": "",
+    "parentKey:require": "optional",
+    "parentFingerprint": "",
+    "parentFingerprint:require": "optional",
+    "key": "",
+    "key:require": "require",
+    "key:hint": "pubkey or privkey",
+    "depth": 0,
+    "depth:require": "require",
+    "depth:type": "uint8_t",
+    "chainCode": "",
+    "chainCode:require": "require",
+    "childNumber": 0,
+    "childNumber:require": "require",
+    "childNumber:type": "uint32_t",
+    "hardened": false,
+    "hardened:require": "optional"
+  },
+  "response": {
+    ":class": "CreateExtkeyResponse",
+    "extkey": "",
+    "extkey:require": "require"
+  }
+}

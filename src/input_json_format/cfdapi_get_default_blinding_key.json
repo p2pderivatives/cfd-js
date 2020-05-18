@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetDefaultBlindingKeyRequest",
+    "masterBlindingKey": "",
+    "masterBlindingKey:require": "require",
+    "lockingScript": "",
+    "lockingScript:require": "optional",
+    "address": "",
+    "address:require": "optional",
+    "address:comment": "use if empty locking script."
+  },
+  "response": {
+    ":class": "GetDefaultBlindingKeyResponse",
+    "blindingKey": "",
+    "blindingKey:require": "require"
+  }
+}

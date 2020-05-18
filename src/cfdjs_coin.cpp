@@ -41,6 +41,7 @@ void CoinJsonApi::SelectUtxos(
   } else {
     // Elements
 #ifndef CFD_DISABLE_ELEMENTS
+    option.SetBlindInfo(fee_info.GetExponent(), fee_info.GetMinimumBits());
     option.InitializeConfidentialTxSizeInfo();
     if (!req->GetTargetAmountMap().empty()) {
       // asset idの厳密チェックは、CoinSelectionのロジックで実施

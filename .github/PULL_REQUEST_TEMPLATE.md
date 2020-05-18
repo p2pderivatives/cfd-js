@@ -1,69 +1,44 @@
-## 関連Issue
+## Linked Issue
 
 <!--
-このPRが、ZenHubのどのIssueに紐づいているかを記載する
-  - ZenHubのURL
+for linked ZenHub Issue or other repository issue.
+  - ZenHub's issue URL
+  - other repository's issue URL
 -->
 
-## 概要
+## Overview
 
-<!--
-- 追加機能の概要を記載
-- 前提が共有されていない場合は、  
-  なぜこの変更をして、  
-  どう解決されるのかも併せて記載する
 
-- 必要であれば、以下のような詳細についても記載する
-  - 以下の観点で、レビューアーにわかるように技術的な変更点の概要を記載
-    - 何をどう変更したか
-    - どういった手法を採用したか  
-      （e.g. パス探索については、幅優先探索を採用した）
-    - 外部システムとのI/F変更
-    - など
--->
 
-- 
-
-## 使い方
+## How to use
 
 <!-- 
-- PRの動作確認方法
-  - 動作確認が必要なタスクについては、必要なコマンドなどを記載
-  - 必要なければ、無記載で良い
+- How to check the operation
+  - For tasks that require operation confirmation, enter the required commands, etc.
+  - If not needed, leave blank
 -->
 
 ```bash
 ```
 
-## 今回保留した項目とTODO
+## Items reserved this time, or TODO
 
 <!--
-- 箇条書きで保留した項目があれば、記載
-  - 保留項目が直近の対応が必要な場合、対応チケットを作成して記載
-
-記載例
-- 〇〇の計算ロジックの本実装 #0000
+- If not needed, leave blank
 -->
 
-- 
+## Check list
 
-## 確認項目
+** Person who issued **
+- [ ] checked script <!-- npm run check -->
+- [ ] build successed
+- [ ] Linked PullRequest and Issue
 
-**PRを出した人**
-<!-- PRを出す前後で確認する項目 -->
+** Reviewer **
+- [ ] (if necessary) Record the review results of related tickets.
 
-- [ ] チェックスクリプトでチェックを実施した <!-- npm run check -->
-- [ ] 正常にビルドできた
-- [ ] 関連チケットに実績をつけた
-- [ ] ZenHubでPRとIssueを関連付けた
-- [ ] ZenHubのIssueを `Review/QA` Pipelineに移した
-
-**レビューする人**
-<!-- レビューをする前後で確認する項目 -->
-- [ ] 関連チケットにレビュー実績をつけた
-
-## 備考
+## Memo
 
 <!--
-- 実装に関する悩み（AにするかBにするか迷ったがAにしたや、こうしたかったけどできなかったなど）があれば記載
+- Explain any considerations or considerations.
 -->

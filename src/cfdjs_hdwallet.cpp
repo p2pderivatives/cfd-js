@@ -252,6 +252,65 @@ HDWalletStructApi::CreateExtkeyFromParentKey(
   return result;
 }
 
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkey(
+    const CreateExtkeyRequestStruct& request) {
+  auto call_func = [](const CreateExtkeyRequestStruct& request)
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
+    const NetType net_type = AddressStructApi::ConvertNetType(request.network);
+    ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
+    uint32_t child_num = request.child_number;
+    if (request.hardened) child_num |= 0x80000000U;
+
+    if (key_type == ExtKeyType::kExtPrivkey) {
+      Privkey privkey;
+      if (request.key.size() == (Privkey::kPrivkeySize * 2)) {
+        privkey = Privkey(request.key);
+      } else {
+        privkey = Privkey::FromWif(request.key, net_type);
+      }
+      if (request.parent_key.empty()) {
+        ExtPrivkey extprivkey(
+            net_type, ByteData(request.parent_fingerprint), privkey,
+            ByteData256(request.chain_code), request.depth, child_num);
+        response.extkey = extprivkey.ToString();
+      } else {
+        Privkey parent_privkey;
+        if (request.parent_key.size() == (Privkey::kPrivkeySize * 2)) {
+          parent_privkey = Privkey(request.parent_key);
+        } else {
+          parent_privkey = Privkey::FromWif(request.parent_key, net_type);
+        }
+        ExtPrivkey extprivkey(
+            net_type, parent_privkey, privkey, ByteData256(request.chain_code),
+            request.depth, child_num);
+        response.extkey = extprivkey.ToString();
+      }
+    } else {
+      if (request.parent_key.empty()) {
+        ExtPubkey extpubkey(
+            net_type, ByteData(request.parent_fingerprint),
+            Pubkey(request.key), ByteData256(request.chain_code),
+            request.depth, child_num);
+        response.extkey = extpubkey.ToString();
+      } else {
+        ExtPubkey extpubkey(
+            net_type, Pubkey(request.parent_key), Pubkey(request.key),
+            ByteData256(request.chain_code), request.depth, child_num);
+        response.extkey = extpubkey.ToString();
+      }
+    }
+
+    return response;
+  };
+
+  CreateExtkeyResponseStruct result;
+  result =
+      ExecuteStructApi<CreateExtkeyRequestStruct, CreateExtkeyResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 CreateExtPubkeyResponseStruct HDWalletStructApi::CreateExtPubkey(
     const CreateExtPubkeyRequestStruct& request) {
   auto call_func = [](const CreateExtPubkeyRequestStruct& request)

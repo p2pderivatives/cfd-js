@@ -1,6 +1,6 @@
 {
   "name": "cfd-js",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Crypto Finance Development Kit for JavaScript.",
   "author": "Crypto Garage",
   "bugs": {
@@ -31,7 +31,7 @@
     "test_logging": "jest --no-cache --silent=false --verbose false",
     "format_all": "run-p code_format js_format",
     "code_format": "clang-format -i --style=file src/*.cpp src/*.h include/cfdjs/*.h addon/*.cpp",
-    "js_format": "eslint --ext .js,.ts *.ts *.js wrap_js/ --fix",
+    "js_format": "eslint --ext .js,.ts *.ts *.js tools/generate_json_map_class.ts wrap_js/ --fix",
     "cmake_all": "run-s cmake_configure cmake_build_parallel",
     "cmake_configure": "run-script-os",
     "cmake_configure:win32": "cmake-js configure -O wrap_js/build --CDENABLE_SHARED=on --CDENABLE_CAPI=off",
@@ -122,8 +122,8 @@
     "git_subm_update": "git submodule -q foreach git fetch -q && git submodule -q update -i",
     "check": "run-s doxygen_check lint_all ctest_quiet test_quiet example elements_example ts_example",
     "check_all": "run-s cmake_clean git_subm_update cmake_quiet doxygen_check ctest_quiet test_quiet example elements_example ts_example lint_all",
-    "convert_json": "babel-node ./tools/generate_json_map_class.js --presets env",
-    "convert_json_debug": "babel-node ./tools/generate_json_map_class.js mode=debug --presets env"
+    "convert_json": "ts-node ./tools/generate_json_map_class.ts",
+    "convert_json_debug": "ts-node ./tools/generate_json_map_class.ts mode=debug"
   },
   "dependencies": {
     "@types/node": "^13.11.0",
@@ -143,8 +143,6 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
-    "babel-cli": "*",
-    "babel-preset-env": "*",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^25.2.7",

@@ -8632,6 +8632,658 @@ class CreateDescriptorResponse
 };
 
 // ------------------------------------------------------------------------
+// CreateExtkeyRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (CreateExtkeyRequest) class
+ */
+class CreateExtkeyRequest
+  : public cfd::core::JsonClassBase<CreateExtkeyRequest> {
+ public:
+  CreateExtkeyRequest() {
+    CollectFieldName();
+  }
+  virtual ~CreateExtkeyRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of network
+   * @return network
+   */
+  std::string GetNetwork() const {
+    return network_;
+  }
+  /**
+   * @brief Set to network
+   * @param[in] network    setting value.
+   */
+  void SetNetwork(  // line separate
+    const std::string& network) {  // NOLINT
+    this->network_ = network;
+  }
+  /**
+   * @brief Get data type of network
+   * @return Data type of network
+   */
+  static std::string GetNetworkFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of network field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetNetworkString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.network_);
+  }
+  /**
+   * @brief Set json object to network field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetNetworkString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.network_, json_value);
+  }
+
+  /**
+   * @brief Get of extkeyType
+   * @return extkeyType
+   */
+  std::string GetExtkeyType() const {
+    return extkey_type_;
+  }
+  /**
+   * @brief Set to extkeyType
+   * @param[in] extkey_type    setting value.
+   */
+  void SetExtkeyType(  // line separate
+    const std::string& extkey_type) {  // NOLINT
+    this->extkey_type_ = extkey_type;
+  }
+  /**
+   * @brief Get data type of extkeyType
+   * @return Data type of extkeyType
+   */
+  static std::string GetExtkeyTypeFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of extkeyType field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetExtkeyTypeString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.extkey_type_);
+  }
+  /**
+   * @brief Set json object to extkeyType field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetExtkeyTypeString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.extkey_type_, json_value);
+  }
+
+  /**
+   * @brief Get of parentKey
+   * @return parentKey
+   */
+  std::string GetParentKey() const {
+    return parent_key_;
+  }
+  /**
+   * @brief Set to parentKey
+   * @param[in] parent_key    setting value.
+   */
+  void SetParentKey(  // line separate
+    const std::string& parent_key) {  // NOLINT
+    this->parent_key_ = parent_key;
+  }
+  /**
+   * @brief Get data type of parentKey
+   * @return Data type of parentKey
+   */
+  static std::string GetParentKeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of parentKey field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetParentKeyString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.parent_key_);
+  }
+  /**
+   * @brief Set json object to parentKey field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetParentKeyString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.parent_key_, json_value);
+  }
+
+  /**
+   * @brief Get of parentFingerprint
+   * @return parentFingerprint
+   */
+  std::string GetParentFingerprint() const {
+    return parent_fingerprint_;
+  }
+  /**
+   * @brief Set to parentFingerprint
+   * @param[in] parent_fingerprint    setting value.
+   */
+  void SetParentFingerprint(  // line separate
+    const std::string& parent_fingerprint) {  // NOLINT
+    this->parent_fingerprint_ = parent_fingerprint;
+  }
+  /**
+   * @brief Get data type of parentFingerprint
+   * @return Data type of parentFingerprint
+   */
+  static std::string GetParentFingerprintFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of parentFingerprint field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetParentFingerprintString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.parent_fingerprint_);
+  }
+  /**
+   * @brief Set json object to parentFingerprint field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetParentFingerprintString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.parent_fingerprint_, json_value);
+  }
+
+  /**
+   * @brief Get of key
+   * @return key
+   */
+  std::string GetKey() const {
+    return key_;
+  }
+  /**
+   * @brief Set to key
+   * @param[in] key    setting value.
+   */
+  void SetKey(  // line separate
+    const std::string& key) {  // NOLINT
+    this->key_ = key;
+  }
+  /**
+   * @brief Get data type of key
+   * @return Data type of key
+   */
+  static std::string GetKeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of key field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetKeyString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.key_);
+  }
+  /**
+   * @brief Set json object to key field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetKeyString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.key_, json_value);
+  }
+
+  /**
+   * @brief Get of depth
+   * @return depth
+   */
+  uint8_t GetDepth() const {
+    return depth_;
+  }
+  /**
+   * @brief Set to depth
+   * @param[in] depth    setting value.
+   */
+  void SetDepth(  // line separate
+    const uint8_t& depth) {  // NOLINT
+    this->depth_ = depth;
+  }
+  /**
+   * @brief Get data type of depth
+   * @return Data type of depth
+   */
+  static std::string GetDepthFieldType() {
+    return "uint8_t";
+  }
+  /**
+   * @brief Get json string of depth field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDepthString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.depth_);
+  }
+  /**
+   * @brief Set json object to depth field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDepthString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.depth_, json_value);
+  }
+
+  /**
+   * @brief Get of chainCode
+   * @return chainCode
+   */
+  std::string GetChainCode() const {
+    return chain_code_;
+  }
+  /**
+   * @brief Set to chainCode
+   * @param[in] chain_code    setting value.
+   */
+  void SetChainCode(  // line separate
+    const std::string& chain_code) {  // NOLINT
+    this->chain_code_ = chain_code;
+  }
+  /**
+   * @brief Get data type of chainCode
+   * @return Data type of chainCode
+   */
+  static std::string GetChainCodeFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of chainCode field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetChainCodeString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.chain_code_);
+  }
+  /**
+   * @brief Set json object to chainCode field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetChainCodeString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.chain_code_, json_value);
+  }
+
+  /**
+   * @brief Get of childNumber
+   * @return childNumber
+   */
+  uint32_t GetChildNumber() const {
+    return child_number_;
+  }
+  /**
+   * @brief Set to childNumber
+   * @param[in] child_number    setting value.
+   */
+  void SetChildNumber(  // line separate
+    const uint32_t& child_number) {  // NOLINT
+    this->child_number_ = child_number;
+  }
+  /**
+   * @brief Get data type of childNumber
+   * @return Data type of childNumber
+   */
+  static std::string GetChildNumberFieldType() {
+    return "uint32_t";
+  }
+  /**
+   * @brief Get json string of childNumber field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetChildNumberString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.child_number_);
+  }
+  /**
+   * @brief Set json object to childNumber field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetChildNumberString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.child_number_, json_value);
+  }
+
+  /**
+   * @brief Get of hardened
+   * @return hardened
+   */
+  bool GetHardened() const {
+    return hardened_;
+  }
+  /**
+   * @brief Set to hardened
+   * @param[in] hardened    setting value.
+   */
+  void SetHardened(  // line separate
+    const bool& hardened) {  // NOLINT
+    this->hardened_ = hardened;
+  }
+  /**
+   * @brief Get data type of hardened
+   * @return Data type of hardened
+   */
+  static std::string GetHardenedFieldType() {
+    return "bool";
+  }
+  /**
+   * @brief Get json string of hardened field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetHardenedString(  // line separate
+      const CreateExtkeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.hardened_);
+  }
+  /**
+   * @brief Set json object to hardened field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetHardenedString(  // line separate
+      CreateExtkeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.hardened_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const CreateExtkeyRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  CreateExtkeyRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using CreateExtkeyRequestMapTable =
+    cfd::core::JsonTableMap<CreateExtkeyRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const CreateExtkeyRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static CreateExtkeyRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(network) value
+   */
+  std::string network_ = "mainnet";
+  /**
+   * @brief JsonAPI(extkeyType) value
+   */
+  std::string extkey_type_ = "extPubkey";
+  /**
+   * @brief JsonAPI(parentKey) value
+   */
+  std::string parent_key_ = "";
+  /**
+   * @brief JsonAPI(parentFingerprint) value
+   */
+  std::string parent_fingerprint_ = "";
+  /**
+   * @brief JsonAPI(key) value
+   */
+  std::string key_ = "";
+  /**
+   * @brief JsonAPI(depth) value
+   */
+  uint8_t depth_ = 0;
+  /**
+   * @brief JsonAPI(chainCode) value
+   */
+  std::string chain_code_ = "";
+  /**
+   * @brief JsonAPI(childNumber) value
+   */
+  uint32_t child_number_ = 0;
+  /**
+   * @brief JsonAPI(hardened) value
+   */
+  bool hardened_ = false;
+};
+
+// ------------------------------------------------------------------------
+// CreateExtkeyResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (CreateExtkeyResponse) class
+ */
+class CreateExtkeyResponse
+  : public cfd::core::JsonClassBase<CreateExtkeyResponse> {
+ public:
+  CreateExtkeyResponse() {
+    CollectFieldName();
+  }
+  virtual ~CreateExtkeyResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of extkey
+   * @return extkey
+   */
+  std::string GetExtkey() const {
+    return extkey_;
+  }
+  /**
+   * @brief Set to extkey
+   * @param[in] extkey    setting value.
+   */
+  void SetExtkey(  // line separate
+    const std::string& extkey) {  // NOLINT
+    this->extkey_ = extkey;
+  }
+  /**
+   * @brief Get data type of extkey
+   * @return Data type of extkey
+   */
+  static std::string GetExtkeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of extkey field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetExtkeyString(  // line separate
+      const CreateExtkeyResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.extkey_);
+  }
+  /**
+   * @brief Set json object to extkey field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetExtkeyString(  // line separate
+      CreateExtkeyResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.extkey_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const CreateExtkeyResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  CreateExtkeyResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using CreateExtkeyResponseMapTable =
+    cfd::core::JsonTableMap<CreateExtkeyResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const CreateExtkeyResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static CreateExtkeyResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(extkey) value
+   */
+  std::string extkey_ = "";
+};
+
+// ------------------------------------------------------------------------
 // CreateExtkeyFromParentRequest
 // ------------------------------------------------------------------------
 /**
@@ -24095,6 +24747,49 @@ class ElementsDecodeRawTransactionRequest
   }
 
   /**
+   * @brief Get of fullDump
+   * @return fullDump
+   */
+  bool GetFullDump() const {
+    return full_dump_;
+  }
+  /**
+   * @brief Set to fullDump
+   * @param[in] full_dump    setting value.
+   */
+  void SetFullDump(  // line separate
+    const bool& full_dump) {  // NOLINT
+    this->full_dump_ = full_dump;
+  }
+  /**
+   * @brief Get data type of fullDump
+   * @return Data type of fullDump
+   */
+  static std::string GetFullDumpFieldType() {
+    return "bool";
+  }
+  /**
+   * @brief Get json string of fullDump field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetFullDumpString(  // line separate
+      const ElementsDecodeRawTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.full_dump_);
+  }
+  /**
+   * @brief Set json object to fullDump field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetFullDumpString(  // line separate
+      ElementsDecodeRawTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.full_dump_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -24179,6 +24874,10 @@ class ElementsDecodeRawTransactionRequest
    * @brief JsonAPI(iswitness) value
    */
   bool iswitness_ = true;
+  /**
+   * @brief JsonAPI(fullDump) value
+   */
+  bool full_dump_ = false;
 };
 
 // ------------------------------------------------------------------------
@@ -24470,6 +25169,49 @@ class ElementsDecodeIssuance
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.asset_entropy_, json_value);
+  }
+
+  /**
+   * @brief Get of contractHash
+   * @return contractHash
+   */
+  std::string GetContractHash() const {
+    return contract_hash_;
+  }
+  /**
+   * @brief Set to contractHash
+   * @param[in] contract_hash    setting value.
+   */
+  void SetContractHash(  // line separate
+    const std::string& contract_hash) {  // NOLINT
+    this->contract_hash_ = contract_hash;
+  }
+  /**
+   * @brief Get data type of contractHash
+   * @return Data type of contractHash
+   */
+  static std::string GetContractHashFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of contractHash field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetContractHashString(  // line separate
+      const ElementsDecodeIssuance& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.contract_hash_);
+  }
+  /**
+   * @brief Set json object to contractHash field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetContractHashString(  // line separate
+      ElementsDecodeIssuance& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.contract_hash_, json_value);
   }
 
   /**
@@ -24774,6 +25516,92 @@ class ElementsDecodeIssuance
   }
 
   /**
+   * @brief Get of assetRangeproof
+   * @return assetRangeproof
+   */
+  std::string GetAssetRangeproof() const {
+    return asset_rangeproof_;
+  }
+  /**
+   * @brief Set to assetRangeproof
+   * @param[in] asset_rangeproof    setting value.
+   */
+  void SetAssetRangeproof(  // line separate
+    const std::string& asset_rangeproof) {  // NOLINT
+    this->asset_rangeproof_ = asset_rangeproof;
+  }
+  /**
+   * @brief Get data type of assetRangeproof
+   * @return Data type of assetRangeproof
+   */
+  static std::string GetAssetRangeproofFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of assetRangeproof field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetRangeproofString(  // line separate
+      const ElementsDecodeIssuance& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_rangeproof_);
+  }
+  /**
+   * @brief Set json object to assetRangeproof field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetRangeproofString(  // line separate
+      ElementsDecodeIssuance& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_rangeproof_, json_value);
+  }
+
+  /**
+   * @brief Get of tokenRangeproof
+   * @return tokenRangeproof
+   */
+  std::string GetTokenRangeproof() const {
+    return token_rangeproof_;
+  }
+  /**
+   * @brief Set to tokenRangeproof
+   * @param[in] token_rangeproof    setting value.
+   */
+  void SetTokenRangeproof(  // line separate
+    const std::string& token_rangeproof) {  // NOLINT
+    this->token_rangeproof_ = token_rangeproof;
+  }
+  /**
+   * @brief Get data type of tokenRangeproof
+   * @return Data type of tokenRangeproof
+   */
+  static std::string GetTokenRangeproofFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of tokenRangeproof field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTokenRangeproofString(  // line separate
+      const ElementsDecodeIssuance& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.token_rangeproof_);
+  }
+  /**
+   * @brief Set json object to tokenRangeproof field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTokenRangeproofString(  // line separate
+      ElementsDecodeIssuance& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.token_rangeproof_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -24851,6 +25679,10 @@ class ElementsDecodeIssuance
    */
   std::string asset_entropy_ = "";
   /**
+   * @brief JsonAPI(contractHash) value
+   */
+  std::string contract_hash_ = "";
+  /**
    * @brief JsonAPI(isreissuance) value
    */
   bool isreissuance_ = false;
@@ -24878,6 +25710,14 @@ class ElementsDecodeIssuance
    * @brief JsonAPI(tokenamountcommitment) value
    */
   std::string tokenamountcommitment_ = "";
+  /**
+   * @brief JsonAPI(assetRangeproof) value
+   */
+  std::string asset_rangeproof_ = "";
+  /**
+   * @brief JsonAPI(tokenRangeproof) value
+   */
+  std::string token_rangeproof_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -26589,6 +27429,49 @@ class ElementsDecodeRawTransactionTxOut
   }
 
   /**
+   * @brief Get of rangeproof
+   * @return rangeproof
+   */
+  std::string GetRangeproof() const {
+    return rangeproof_;
+  }
+  /**
+   * @brief Set to rangeproof
+   * @param[in] rangeproof    setting value.
+   */
+  void SetRangeproof(  // line separate
+    const std::string& rangeproof) {  // NOLINT
+    this->rangeproof_ = rangeproof;
+  }
+  /**
+   * @brief Get data type of rangeproof
+   * @return Data type of rangeproof
+   */
+  static std::string GetRangeproofFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of rangeproof field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetRangeproofString(  // line separate
+      const ElementsDecodeRawTransactionTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.rangeproof_);
+  }
+  /**
+   * @brief Set json object to rangeproof field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetRangeproofString(  // line separate
+      ElementsDecodeRawTransactionTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.rangeproof_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -26709,6 +27592,10 @@ class ElementsDecodeRawTransactionTxOut
    * @brief JsonAPI(scriptPubKey) value
    */
   ElementsDecodeLockingScript script_pub_key_;  // NOLINT
+  /**
+   * @brief JsonAPI(rangeproof) value
+   */
+  std::string rangeproof_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -33156,6 +34043,49 @@ class SelectUtxoData
   }
 
   /**
+   * @brief Get of scriptSigTemplate
+   * @return scriptSigTemplate
+   */
+  std::string GetScriptSigTemplate() const {
+    return script_sig_template_;
+  }
+  /**
+   * @brief Set to scriptSigTemplate
+   * @param[in] script_sig_template    setting value.
+   */
+  void SetScriptSigTemplate(  // line separate
+    const std::string& script_sig_template) {  // NOLINT
+    this->script_sig_template_ = script_sig_template;
+  }
+  /**
+   * @brief Get data type of scriptSigTemplate
+   * @return Data type of scriptSigTemplate
+   */
+  static std::string GetScriptSigTemplateFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetScriptSigTemplateString(  // line separate
+      const SelectUtxoData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.script_sig_template_);
+  }
+  /**
+   * @brief Set json object to scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetScriptSigTemplateString(  // line separate
+      SelectUtxoData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.script_sig_template_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -33264,6 +34194,10 @@ class SelectUtxoData
    * @brief JsonAPI(fedpegScript) value
    */
   std::string fedpeg_script_ = "";
+  /**
+   * @brief JsonAPI(scriptSigTemplate) value
+   */
+  std::string script_sig_template_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -33546,6 +34480,92 @@ class EstimateFeeRequest
   }
 
   /**
+   * @brief Get of exponent
+   * @return exponent
+   */
+  int GetExponent() const {
+    return exponent_;
+  }
+  /**
+   * @brief Set to exponent
+   * @param[in] exponent    setting value.
+   */
+  void SetExponent(  // line separate
+    const int& exponent) {  // NOLINT
+    this->exponent_ = exponent;
+  }
+  /**
+   * @brief Get data type of exponent
+   * @return Data type of exponent
+   */
+  static std::string GetExponentFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of exponent field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetExponentString(  // line separate
+      const EstimateFeeRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.exponent_);
+  }
+  /**
+   * @brief Set json object to exponent field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetExponentString(  // line separate
+      EstimateFeeRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.exponent_, json_value);
+  }
+
+  /**
+   * @brief Get of minimumBits
+   * @return minimumBits
+   */
+  int GetMinimumBits() const {
+    return minimum_bits_;
+  }
+  /**
+   * @brief Set to minimumBits
+   * @param[in] minimum_bits    setting value.
+   */
+  void SetMinimumBits(  // line separate
+    const int& minimum_bits) {  // NOLINT
+    this->minimum_bits_ = minimum_bits;
+  }
+  /**
+   * @brief Get data type of minimumBits
+   * @return Data type of minimumBits
+   */
+  static std::string GetMinimumBitsFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of minimumBits field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetMinimumBitsString(  // line separate
+      const EstimateFeeRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.minimum_bits_);
+  }
+  /**
+   * @brief Set json object to minimumBits field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetMinimumBitsString(  // line separate
+      EstimateFeeRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.minimum_bits_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -33638,6 +34658,14 @@ class EstimateFeeRequest
    * @brief JsonAPI(feeAsset) value
    */
   std::string fee_asset_ = "";
+  /**
+   * @brief JsonAPI(exponent) value
+   */
+  int exponent_ = 0;
+  /**
+   * @brief JsonAPI(minimumBits) value
+   */
+  int minimum_bits_ = 52;
 };
 
 // ------------------------------------------------------------------------
@@ -34151,6 +35179,49 @@ class FundUtxoJsonData
   }
 
   /**
+   * @brief Get of scriptSigTemplate
+   * @return scriptSigTemplate
+   */
+  std::string GetScriptSigTemplate() const {
+    return script_sig_template_;
+  }
+  /**
+   * @brief Set to scriptSigTemplate
+   * @param[in] script_sig_template    setting value.
+   */
+  void SetScriptSigTemplate(  // line separate
+    const std::string& script_sig_template) {  // NOLINT
+    this->script_sig_template_ = script_sig_template;
+  }
+  /**
+   * @brief Get data type of scriptSigTemplate
+   * @return Data type of scriptSigTemplate
+   */
+  static std::string GetScriptSigTemplateFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetScriptSigTemplateString(  // line separate
+      const FundUtxoJsonData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.script_sig_template_);
+  }
+  /**
+   * @brief Set json object to scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetScriptSigTemplateString(  // line separate
+      FundUtxoJsonData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.script_sig_template_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -34243,6 +35314,10 @@ class FundUtxoJsonData
    * @brief JsonAPI(descriptor) value
    */
   std::string descriptor_ = "";
+  /**
+   * @brief JsonAPI(scriptSigTemplate) value
+   */
+  std::string script_sig_template_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -34782,6 +35857,49 @@ class FundSelectUtxoData
   }
 
   /**
+   * @brief Get of scriptSigTemplate
+   * @return scriptSigTemplate
+   */
+  std::string GetScriptSigTemplate() const {
+    return script_sig_template_;
+  }
+  /**
+   * @brief Set to scriptSigTemplate
+   * @param[in] script_sig_template    setting value.
+   */
+  void SetScriptSigTemplate(  // line separate
+    const std::string& script_sig_template) {  // NOLINT
+    this->script_sig_template_ = script_sig_template;
+  }
+  /**
+   * @brief Get data type of scriptSigTemplate
+   * @return Data type of scriptSigTemplate
+   */
+  static std::string GetScriptSigTemplateFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetScriptSigTemplateString(  // line separate
+      const FundSelectUtxoData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.script_sig_template_);
+  }
+  /**
+   * @brief Set json object to scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetScriptSigTemplateString(  // line separate
+      FundSelectUtxoData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.script_sig_template_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -34898,6 +36016,10 @@ class FundSelectUtxoData
    * @brief JsonAPI(fedpegScript) value
    */
   std::string fedpeg_script_ = "";
+  /**
+   * @brief JsonAPI(scriptSigTemplate) value
+   */
+  std::string script_sig_template_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -35411,6 +36533,92 @@ class FundFeeInfomation
   }
 
   /**
+   * @brief Get of exponent
+   * @return exponent
+   */
+  int GetExponent() const {
+    return exponent_;
+  }
+  /**
+   * @brief Set to exponent
+   * @param[in] exponent    setting value.
+   */
+  void SetExponent(  // line separate
+    const int& exponent) {  // NOLINT
+    this->exponent_ = exponent;
+  }
+  /**
+   * @brief Get data type of exponent
+   * @return Data type of exponent
+   */
+  static std::string GetExponentFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of exponent field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetExponentString(  // line separate
+      const FundFeeInfomation& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.exponent_);
+  }
+  /**
+   * @brief Set json object to exponent field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetExponentString(  // line separate
+      FundFeeInfomation& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.exponent_, json_value);
+  }
+
+  /**
+   * @brief Get of minimumBits
+   * @return minimumBits
+   */
+  int GetMinimumBits() const {
+    return minimum_bits_;
+  }
+  /**
+   * @brief Set to minimumBits
+   * @param[in] minimum_bits    setting value.
+   */
+  void SetMinimumBits(  // line separate
+    const int& minimum_bits) {  // NOLINT
+    this->minimum_bits_ = minimum_bits;
+  }
+  /**
+   * @brief Get data type of minimumBits
+   * @return Data type of minimumBits
+   */
+  static std::string GetMinimumBitsFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of minimumBits field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetMinimumBitsString(  // line separate
+      const FundFeeInfomation& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.minimum_bits_);
+  }
+  /**
+   * @brief Set json object to minimumBits field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetMinimumBitsString(  // line separate
+      FundFeeInfomation& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.minimum_bits_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -35503,6 +36711,14 @@ class FundFeeInfomation
    * @brief JsonAPI(isBlindEstimateFee) value
    */
   bool is_blind_estimate_fee_ = true;
+  /**
+   * @brief JsonAPI(exponent) value
+   */
+  int exponent_ = 0;
+  /**
+   * @brief JsonAPI(minimumBits) value
+   */
+  int minimum_bits_ = 52;
 };
 
 // ------------------------------------------------------------------------
@@ -37554,6 +38770,376 @@ class GetCompressedPubkeyResponse
    * @brief JsonAPI(pubkey) value
    */
   std::string pubkey_ = "";
+};
+
+// ------------------------------------------------------------------------
+// GetDefaultBlindingKeyRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (GetDefaultBlindingKeyRequest) class
+ */
+class GetDefaultBlindingKeyRequest
+  : public cfd::core::JsonClassBase<GetDefaultBlindingKeyRequest> {
+ public:
+  GetDefaultBlindingKeyRequest() {
+    CollectFieldName();
+  }
+  virtual ~GetDefaultBlindingKeyRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of masterBlindingKey
+   * @return masterBlindingKey
+   */
+  std::string GetMasterBlindingKey() const {
+    return master_blinding_key_;
+  }
+  /**
+   * @brief Set to masterBlindingKey
+   * @param[in] master_blinding_key    setting value.
+   */
+  void SetMasterBlindingKey(  // line separate
+    const std::string& master_blinding_key) {  // NOLINT
+    this->master_blinding_key_ = master_blinding_key;
+  }
+  /**
+   * @brief Get data type of masterBlindingKey
+   * @return Data type of masterBlindingKey
+   */
+  static std::string GetMasterBlindingKeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of masterBlindingKey field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetMasterBlindingKeyString(  // line separate
+      const GetDefaultBlindingKeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.master_blinding_key_);
+  }
+  /**
+   * @brief Set json object to masterBlindingKey field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetMasterBlindingKeyString(  // line separate
+      GetDefaultBlindingKeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.master_blinding_key_, json_value);
+  }
+
+  /**
+   * @brief Get of lockingScript
+   * @return lockingScript
+   */
+  std::string GetLockingScript() const {
+    return locking_script_;
+  }
+  /**
+   * @brief Set to lockingScript
+   * @param[in] locking_script    setting value.
+   */
+  void SetLockingScript(  // line separate
+    const std::string& locking_script) {  // NOLINT
+    this->locking_script_ = locking_script;
+  }
+  /**
+   * @brief Get data type of lockingScript
+   * @return Data type of lockingScript
+   */
+  static std::string GetLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of lockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetLockingScriptString(  // line separate
+      const GetDefaultBlindingKeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.locking_script_);
+  }
+  /**
+   * @brief Set json object to lockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetLockingScriptString(  // line separate
+      GetDefaultBlindingKeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of address
+   * @return address
+   */
+  std::string GetAddress() const {
+    return address_;
+  }
+  /**
+   * @brief Set to address
+   * @param[in] address    setting value.
+   */
+  void SetAddress(  // line separate
+    const std::string& address) {  // NOLINT
+    this->address_ = address;
+  }
+  /**
+   * @brief Get data type of address
+   * @return Data type of address
+   */
+  static std::string GetAddressFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of address field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAddressString(  // line separate
+      const GetDefaultBlindingKeyRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.address_);
+  }
+  /**
+   * @brief Set json object to address field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAddressString(  // line separate
+      GetDefaultBlindingKeyRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.address_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const GetDefaultBlindingKeyRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  GetDefaultBlindingKeyRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using GetDefaultBlindingKeyRequestMapTable =
+    cfd::core::JsonTableMap<GetDefaultBlindingKeyRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const GetDefaultBlindingKeyRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static GetDefaultBlindingKeyRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(masterBlindingKey) value
+   */
+  std::string master_blinding_key_ = "";
+  /**
+   * @brief JsonAPI(lockingScript) value
+   */
+  std::string locking_script_ = "";
+  /**
+   * @brief JsonAPI(address) value
+   */
+  std::string address_ = "";
+};
+
+// ------------------------------------------------------------------------
+// GetDefaultBlindingKeyResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (GetDefaultBlindingKeyResponse) class
+ */
+class GetDefaultBlindingKeyResponse
+  : public cfd::core::JsonClassBase<GetDefaultBlindingKeyResponse> {
+ public:
+  GetDefaultBlindingKeyResponse() {
+    CollectFieldName();
+  }
+  virtual ~GetDefaultBlindingKeyResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of blindingKey
+   * @return blindingKey
+   */
+  std::string GetBlindingKey() const {
+    return blinding_key_;
+  }
+  /**
+   * @brief Set to blindingKey
+   * @param[in] blinding_key    setting value.
+   */
+  void SetBlindingKey(  // line separate
+    const std::string& blinding_key) {  // NOLINT
+    this->blinding_key_ = blinding_key;
+  }
+  /**
+   * @brief Get data type of blindingKey
+   * @return Data type of blindingKey
+   */
+  static std::string GetBlindingKeyFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of blindingKey field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetBlindingKeyString(  // line separate
+      const GetDefaultBlindingKeyResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.blinding_key_);
+  }
+  /**
+   * @brief Set json object to blindingKey field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetBlindingKeyString(  // line separate
+      GetDefaultBlindingKeyResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.blinding_key_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const GetDefaultBlindingKeyResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  GetDefaultBlindingKeyResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using GetDefaultBlindingKeyResponseMapTable =
+    cfd::core::JsonTableMap<GetDefaultBlindingKeyResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const GetDefaultBlindingKeyResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static GetDefaultBlindingKeyResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(blindingKey) value
+   */
+  std::string blinding_key_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -43498,6 +45084,49 @@ class UtxoJsonData
   }
 
   /**
+   * @brief Get of scriptSigTemplate
+   * @return scriptSigTemplate
+   */
+  std::string GetScriptSigTemplate() const {
+    return script_sig_template_;
+  }
+  /**
+   * @brief Set to scriptSigTemplate
+   * @param[in] script_sig_template    setting value.
+   */
+  void SetScriptSigTemplate(  // line separate
+    const std::string& script_sig_template) {  // NOLINT
+    this->script_sig_template_ = script_sig_template;
+  }
+  /**
+   * @brief Get data type of scriptSigTemplate
+   * @return Data type of scriptSigTemplate
+   */
+  static std::string GetScriptSigTemplateFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetScriptSigTemplateString(  // line separate
+      const UtxoJsonData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.script_sig_template_);
+  }
+  /**
+   * @brief Set json object to scriptSigTemplate field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetScriptSigTemplateString(  // line separate
+      UtxoJsonData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.script_sig_template_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -43586,6 +45215,10 @@ class UtxoJsonData
    * @brief JsonAPI(descriptor) value
    */
   std::string descriptor_ = "";
+  /**
+   * @brief JsonAPI(scriptSigTemplate) value
+   */
+  std::string script_sig_template_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -44009,6 +45642,92 @@ class CoinSelectionFeeInfomationField
   }
 
   /**
+   * @brief Get of exponent
+   * @return exponent
+   */
+  int GetExponent() const {
+    return exponent_;
+  }
+  /**
+   * @brief Set to exponent
+   * @param[in] exponent    setting value.
+   */
+  void SetExponent(  // line separate
+    const int& exponent) {  // NOLINT
+    this->exponent_ = exponent;
+  }
+  /**
+   * @brief Get data type of exponent
+   * @return Data type of exponent
+   */
+  static std::string GetExponentFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of exponent field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetExponentString(  // line separate
+      const CoinSelectionFeeInfomationField& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.exponent_);
+  }
+  /**
+   * @brief Set json object to exponent field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetExponentString(  // line separate
+      CoinSelectionFeeInfomationField& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.exponent_, json_value);
+  }
+
+  /**
+   * @brief Get of minimumBits
+   * @return minimumBits
+   */
+  int GetMinimumBits() const {
+    return minimum_bits_;
+  }
+  /**
+   * @brief Set to minimumBits
+   * @param[in] minimum_bits    setting value.
+   */
+  void SetMinimumBits(  // line separate
+    const int& minimum_bits) {  // NOLINT
+    this->minimum_bits_ = minimum_bits;
+  }
+  /**
+   * @brief Get data type of minimumBits
+   * @return Data type of minimumBits
+   */
+  static std::string GetMinimumBitsFieldType() {
+    return "int";
+  }
+  /**
+   * @brief Get json string of minimumBits field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetMinimumBitsString(  // line separate
+      const CoinSelectionFeeInfomationField& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.minimum_bits_);
+  }
+  /**
+   * @brief Set json object to minimumBits field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetMinimumBitsString(  // line separate
+      CoinSelectionFeeInfomationField& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.minimum_bits_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -44097,6 +45816,14 @@ class CoinSelectionFeeInfomationField
    * @brief JsonAPI(feeAsset) value
    */
   std::string fee_asset_ = "";
+  /**
+   * @brief JsonAPI(exponent) value
+   */
+  int exponent_ = 0;
+  /**
+   * @brief JsonAPI(minimumBits) value
+   */
+  int minimum_bits_ = 52;
 };
 
 // ------------------------------------------------------------------------

@@ -18,7 +18,10 @@
       "asset:hint": "This field is available only elements utxo.",
       "descriptor": "",
       "descriptor:require": "optional",
-      "descriptor:hint": "descriptor is required, you needs to consider fee amount"
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount",
+      "scriptSigTemplate": "",
+      "scriptSigTemplate:require": "optional",
+      "scriptSigTemplate:comment": "ScriptSig template is for scriptHash calculation fee."
     }],
     "targetAmount": 0,
     "targetAmount:type": "int64_t",
@@ -55,7 +58,15 @@
       "knapsackMinChange:hint": "knapsack minimum change amount.",
       "feeAsset": "",
       "feeAsset:require": "optional",
-      "feeAsset:hint": "This field is available only elements."
+      "feeAsset:hint": "This field is available only elements.",
+      "exponent": 0,
+      "exponent:type": "int",
+      "exponent:require": "optional",
+      "exponent:hint": "This field is available only elements.",
+      "minimumBits": 52,
+      "minimumBits:type": "int",
+      "minimumBits:require": "optional",
+      "minimumBits:hint": "This field is available only elements."
     }
   },
   "response": {

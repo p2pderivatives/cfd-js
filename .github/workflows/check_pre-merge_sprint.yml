@@ -15,32 +15,36 @@ env:
 jobs:
   cmake-js-build:
     name: cmake-js build
+    timeout-minutes: 30
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        node: [8, 12, 13]
+        node: [8, 12, 14]
         exclude:
           - os: windows-latest
             node: 8
           - os: macos-latest
             node: 8
           - os: macos-latest
-            node: 13
+            node: 14
 
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       continue-on-error: true
+      timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
     - name: setup-node retry
       uses: actions/setup-node@v1
       continue-on-error: true
+      timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
     - name: setup-node third-try
       uses: actions/setup-node@v1
+      timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
     - name: cmake-useCache-ubuntu
@@ -49,8 +53,9 @@ jobs:
       id: cache
       with:
         path: cache/cmake
-        key: ${{ runner.os }}-cmake-3.15.5-x64
-        restore-keys: ${{ runner.os }}-cmake-3.15.5-x64
+        key: ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-0
+        restore-keys: |
+          ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-
     - name: cmake-download-ubuntu
       if: matrix.os == 'ubuntu-latest' && steps.cache.outputs.cache-hit != 'true'
       run: |
@@ -82,11 +87,28 @@ jobs:
         path: node_modules
         key: node-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: node-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-${{ hashFiles('**/package-lock.json') }}
+    - name: npm info
+      if: steps.node_cache.outputs.cache-hit != 'true'
+      id: npm_info
+      run: |
+        npm --version
+        echo "::set-output name=npm_cachedir::$(npm config get cache)"
+    - name: use npm cache
+      if: steps.node_cache.outputs.cache-hit != 'true'
+      uses: actions/cache@v1
+      id: npm_cache
+      with:
+        path: ${{ steps.npm_info.outputs.npm_cachedir }}
+        key: npm-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-0
+        restore-keys: |
+          npm-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-
     - name: npm_install
       if: steps.node_cache.outputs.cache-hit != 'true'
       env:
         CFDJS_UNUSE_ASSET: true
-      run: npm install
+      run: |
+        npm set progress=false
+        npm ci
     - name: build
       if: steps.node_cache.outputs.cache-hit == 'true'
       run: npm run cmake_release_parallel

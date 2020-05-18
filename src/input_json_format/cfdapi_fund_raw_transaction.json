@@ -20,7 +20,10 @@
       "asset:hint": "This field is available only elements utxo.",
       "descriptor": "",
       "descriptor:require": "optional",
-      "descriptor:hint": "descriptor is required, you needs to consider fee amount"
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount",
+      "scriptSigTemplate": "",
+      "scriptSigTemplate:require": "optional",
+      "scriptSigTemplate:comment": "ScriptSig template is for scriptHash calculation fee."
     }],
     "selectUtxos:require": "optional",
     "selectUtxos": [{
@@ -60,7 +63,10 @@
       "peginBtcTxSize:hint": "This field is available only elements.",
       "fedpegScript": "",
       "fedpegScript:require": "optional",
-      "fedpegScript:hint": "This field is available only elements."
+      "fedpegScript:hint": "This field is available only elements.",
+      "scriptSigTemplate": "",
+      "scriptSigTemplate:require": "optional",
+      "scriptSigTemplate:comment": "ScriptSig template is for scriptHash calculation fee."
     }],
     "tx": "",
     "tx:require": "require",
@@ -116,7 +122,15 @@
       "feeAsset:hint": "This field is available only elements.",
       "isBlindEstimateFee": true,
       "isBlindEstimateFee:require": "optional",
-      "isBlindEstimateFee:hint": "This field is available only elements."
+      "isBlindEstimateFee:hint": "This field is available only elements.",
+      "exponent": 0,
+      "exponent:type": "int",
+      "exponent:require": "optional",
+      "exponent:hint": "This field is available only elements.",
+      "minimumBits": 52,
+      "minimumBits:type": "int",
+      "minimumBits:require": "optional",
+      "minimumBits:hint": "This field is available only elements."
     }
   },
   "response": {

@@ -787,6 +787,9 @@ void TransactionJsonApi::EstimateFee(
     }
     data.descriptor = utxo.GetDescriptor();
     data.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
     utxos.push_back(data);
   }
 
@@ -816,6 +819,9 @@ void TransactionJsonApi::FundRawTransaction(
     data.amount = Amount::CreateBySatoshiAmount(utxo.GetAmount());
     data.descriptor = utxo.GetDescriptor();
     data.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
     utxos.push_back(data);
   }
   for (auto& utxo : request->GetSelectUtxos()) {
@@ -831,6 +837,9 @@ void TransactionJsonApi::FundRawTransaction(
     }
     data.descriptor = utxo.GetDescriptor();
     data.binary_data = nullptr;
+    if (!utxo.GetScriptSigTemplate().empty()) {
+      data.scriptsig_template = Script(utxo.GetScriptSigTemplate());
+    }
     select_utxos.push_back(data);
   }
 
