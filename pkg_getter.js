@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 const isWindows = process.platform === 'win32';
 const isMacos = process.platform === 'darwin';
 
-const repositoryDomain = 'cryptogarageinc';
+const repositoryDomain = 'p2pderivatives';
 
 let asyncfs;
 if (fs.promises) {
