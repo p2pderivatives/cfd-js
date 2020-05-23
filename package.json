@@ -1,10 +1,10 @@
 {
   "name": "cfd-js",
-  "version": "0.1.3",
-  "domain": "cryptogarageinc",
+  "version": "0.1.1",
+  "domain": "p2pderivatives",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cryptogarageinc/cfd-js.git"
+    "url": "https://github.com/p2pderivatives/cfd-js.git"
   },
   "description": "Crypto Finance Development Kit for JavaScript.",
   "author": "Crypto Garage",
