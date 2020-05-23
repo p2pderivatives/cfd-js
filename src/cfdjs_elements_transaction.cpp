@@ -1822,6 +1822,31 @@ ElementsTransactionStructApi::SerializeLedgerFormat(
   return result;
 }
 
+GetCommitmentResponseStruct ElementsTransactionStructApi::GetCommitment(
+    const GetCommitmentRequestStruct& request) {
+  auto call_func = [](const GetCommitmentRequestStruct& request)
+      -> GetCommitmentResponseStruct {  // NOLINT
+    GetCommitmentResponseStruct response;
+
+    ConfidentialAssetId asset_commitment = ConfidentialAssetId::GetCommitment(
+        ConfidentialAssetId(request.asset),
+        BlindFactor(request.asset_blind_factor));
+    ConfidentialValue amount_commitment = ConfidentialValue::GetCommitment(
+        Amount(request.amount), asset_commitment,
+        BlindFactor(request.blind_factor));
+
+    response.asset_commitment = asset_commitment.GetHex();
+    response.amount_commitment = amount_commitment.GetHex();
+    return response;
+  };
+
+  GetCommitmentResponseStruct result;
+  result = ExecuteStructApi<
+      GetCommitmentRequestStruct, GetCommitmentResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 namespace json {
 
 // -----------------------------------------------------------------------------

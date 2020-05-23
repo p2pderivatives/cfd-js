@@ -1,6 +1,6 @@
 # auto generated files
-wrap_js/build/**
-wrap_js/wally.js
+build/**
+wally.js
 
 # external project
 external/

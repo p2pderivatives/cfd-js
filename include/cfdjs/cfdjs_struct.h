@@ -1987,6 +1987,33 @@ struct GetAddressInfoResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// GetCommitmentRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetCommitmentRequestStruct struct
+ */
+struct GetCommitmentRequestStruct {
+  int64_t amount = 0;                   //!< amount  // NOLINT
+  std::string asset = "";               //!< asset  // NOLINT
+  std::string asset_blind_factor = "";  //!< asset_blind_factor  // NOLINT
+  std::string blind_factor = "";        //!< blind_factor  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// GetCommitmentResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetCommitmentResponseStruct struct
+ */
+struct GetCommitmentResponseStruct {
+  std::string asset_commitment = "";   //!< asset_commitment  // NOLINT
+  std::string amount_commitment = "";  //!< amount_commitment  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // GetCompressedPubkeyRequestStruct
 // ------------------------------------------------------------------------
 /**

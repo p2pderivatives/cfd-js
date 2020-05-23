@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 const isWindows = process.platform === 'win32';
 const isMacos = process.platform === 'darwin';
 
-const repositoryDomain = 'p2pderivatives';
+const repositoryDomain = (!pkg.domain) ? 'p2pderivatives' : pkg.domain;
 
 let asyncfs;
 if (fs.promises) {
@@ -54,6 +54,20 @@ const main = async function() {
       }
     }
 
+    let localFile = '';
+    if (process.argv.length > 2) {
+      const cmd = process.argv[2].trim();
+      if (cmd === 'deployment') {
+        if (process.argv.length > 3) {
+          localFile = process.argv[3].trim();
+        }
+      }
+    }
+
+    for (let i = 0; i < process.argv.length; i++) {
+      console.log('argv[' + i + '] = ' + process.argv[i]);
+    }
+
     // get object
     const version = pkg.version;
     console.log(`version = ${version}`);
@@ -67,7 +81,11 @@ const main = async function() {
       targetName = 'ubuntu1804-gcc';
     }
     const targetUrl = `https://github.com/${repositoryDomain}/cfd-js/releases/download/v${version}/cfdjs-api-v${version}-${targetName}-x86_64.zip`;
-    console.log(`download url = ${targetUrl}`);
+    if (!localFile) {
+      console.log(`download url = ${targetUrl}`);
+    } else {
+      console.log(`deploy file = ${localFile}`);
+    }
 
     const separator = (isWindows) ? '\\' : '/';
     const filename = `cfdjs-v${version}.zip`;
@@ -116,12 +134,16 @@ const main = async function() {
       // for remove broken file
       await removeFile(zipfilepath);
     }
-    if (util.promisify) {
-      const pipeline = util.promisify(stream.pipeline);
-      await pipeline(
-          got.stream(targetUrl),
-          fs.createWriteStream(zipfilepath),
-      );
+    if (!localFile) {
+      if (util.promisify) {
+        const pipeline = util.promisify(stream.pipeline);
+        await pipeline(
+            got.stream(targetUrl),
+            fs.createWriteStream(zipfilepath),
+        );
+      }
+    } else {
+      fs.copyFileSync(localFile, zipfilepath);
     }
 
     // remove other file

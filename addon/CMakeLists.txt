@@ -25,6 +25,12 @@ endif() # CMAKE_BUILD_TYPE
 if(CMAKE_JS_INC)
 message(STATUS "[CMAKE_JS_INC]=${CMAKE_JS_INC}")
 
+if(NOT napi_build_version)
+add_compile_definitions(NAPI_VERSION=3)
+else()
+add_compile_definitions(NAPI_VERSION=${napi_build_version})
+endif()
+
 include(../cmake/Cpp11Setting.cmake)
 
 if(NOT CFD_SRC_ROOT_DIR)

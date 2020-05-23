@@ -963,6 +963,18 @@ export interface GetAddressInfoResponse {
     hash?: string;
 }
 
+export interface GetCommitmentRequest {
+    amount: bigint | number;
+    asset: string;
+    assetBlindFactor: string;
+    blindFactor: string;
+}
+
+export interface GetCommitmentResponse {
+    assetCommitment: string;
+    amountCommitment: string;
+}
+
 export interface GetCompressedPubkeyRequest {
     pubkey: string;
 }
@@ -1450,6 +1462,8 @@ export function FundRawTransaction(jsonObject: FundRawTransactionRequest): FundR
 export function GetAddressesFromMultisig(jsonObject: GetAddressesFromMultisigRequest): GetAddressesFromMultisigResponse;
 
 export function GetAddressInfo(jsonObject: GetAddressInfoRequest): GetAddressInfoResponse;
+
+export function GetCommitment(jsonObject: GetCommitmentRequest): GetCommitmentResponse;
 
 export function GetCompressedPubkey(jsonObject: GetCompressedPubkeyRequest): GetCompressedPubkeyResponse;
 

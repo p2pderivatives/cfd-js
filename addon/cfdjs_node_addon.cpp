@@ -670,6 +670,15 @@ Value CreateDestroyAmount(const CallbackInfo &information) {
 Value SerializeLedgerFormat(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::SerializeLedgerFormat);
 }
+
+/**
+ * @brief GetCommitmentのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value GetCommitment(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetCommitment);
+}
 #endif  // CFD_DISABLE_ELEMENTS
 
 /**
@@ -853,6 +862,8 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "SerializeLedgerFormat"),
       Function::New(env, SerializeLedgerFormat));
+  exports->Set(
+      String::New(env, "GetCommitment"), Function::New(env, GetCommitment));
 #endif  // CFD_DISABLE_ELEMENTS
 }
 

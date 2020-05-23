@@ -34,6 +34,7 @@ const {
   VerifySignature,
   GetAddressInfo,
   SerializeLedgerFormat,
+  GetCommitment,
 } = cfdjsModule;
 
 let supportFunctions;
@@ -1342,5 +1343,20 @@ if (!supportFunctions.elements) {
     console.log('*** Request ***\n', reqJson);
     serializeLedgerFormatResult = SerializeLedgerFormat(reqJson);
     console.log('\n*** Response ***\n', serializeLedgerFormatResult, '\n');
+  }
+
+  let getCommitmentResult;
+  {
+    console.log('\n===== GetCommitment =====');
+
+    const reqJson = {
+      amount: 100000000,
+      asset: '5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225',
+      assetBlindFactor: 'd56fabeb5054070e4ef01304bccfef7ac65123500985c8fc45995e0c7bd9eae3',
+      blindFactor: '7c9e92f46345c65bcbd1530c1124362d49779d6e43b75ab767c8272375b818fd',
+    };
+    console.log('*** Request ***\n', reqJson);
+    getCommitmentResult = GetCommitment(reqJson);
+    console.log('\n*** Response ***\n', getCommitmentResult, '\n');
   }
 }

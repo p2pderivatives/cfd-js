@@ -8557,6 +8557,112 @@ GetAddressInfoResponseStruct GetAddressInfoResponse::ConvertToStruct() const {  
 }
 
 // ------------------------------------------------------------------------
+// GetCommitmentRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<GetCommitmentRequest>
+  GetCommitmentRequest::json_mapper;
+std::vector<std::string> GetCommitmentRequest::item_list;
+
+void GetCommitmentRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<GetCommitmentRequest> func_table;  // NOLINT
+
+  func_table = {
+    GetCommitmentRequest::GetAmountString,
+    GetCommitmentRequest::SetAmountString,
+    GetCommitmentRequest::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    GetCommitmentRequest::GetAssetString,
+    GetCommitmentRequest::SetAssetString,
+    GetCommitmentRequest::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    GetCommitmentRequest::GetAssetBlindFactorString,
+    GetCommitmentRequest::SetAssetBlindFactorString,
+    GetCommitmentRequest::GetAssetBlindFactorFieldType,
+  };
+  json_mapper.emplace("assetBlindFactor", func_table);
+  item_list.push_back("assetBlindFactor");
+  func_table = {
+    GetCommitmentRequest::GetBlindFactorString,
+    GetCommitmentRequest::SetBlindFactorString,
+    GetCommitmentRequest::GetBlindFactorFieldType,
+  };
+  json_mapper.emplace("blindFactor", func_table);
+  item_list.push_back("blindFactor");
+}
+
+void GetCommitmentRequest::ConvertFromStruct(
+    const GetCommitmentRequestStruct& data) {
+  amount_ = data.amount;
+  asset_ = data.asset;
+  asset_blind_factor_ = data.asset_blind_factor;
+  blind_factor_ = data.blind_factor;
+  ignore_items = data.ignore_items;
+}
+
+GetCommitmentRequestStruct GetCommitmentRequest::ConvertToStruct() const {  // NOLINT
+  GetCommitmentRequestStruct result;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.asset_blind_factor = asset_blind_factor_;
+  result.blind_factor = blind_factor_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// GetCommitmentResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<GetCommitmentResponse>
+  GetCommitmentResponse::json_mapper;
+std::vector<std::string> GetCommitmentResponse::item_list;
+
+void GetCommitmentResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<GetCommitmentResponse> func_table;  // NOLINT
+
+  func_table = {
+    GetCommitmentResponse::GetAssetCommitmentString,
+    GetCommitmentResponse::SetAssetCommitmentString,
+    GetCommitmentResponse::GetAssetCommitmentFieldType,
+  };
+  json_mapper.emplace("assetCommitment", func_table);
+  item_list.push_back("assetCommitment");
+  func_table = {
+    GetCommitmentResponse::GetAmountCommitmentString,
+    GetCommitmentResponse::SetAmountCommitmentString,
+    GetCommitmentResponse::GetAmountCommitmentFieldType,
+  };
+  json_mapper.emplace("amountCommitment", func_table);
+  item_list.push_back("amountCommitment");
+}
+
+void GetCommitmentResponse::ConvertFromStruct(
+    const GetCommitmentResponseStruct& data) {
+  asset_commitment_ = data.asset_commitment;
+  amount_commitment_ = data.amount_commitment;
+  ignore_items = data.ignore_items;
+}
+
+GetCommitmentResponseStruct GetCommitmentResponse::ConvertToStruct() const {  // NOLINT
+  GetCommitmentResponseStruct result;
+  result.asset_commitment = asset_commitment_;
+  result.amount_commitment = amount_commitment_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // GetCompressedPubkeyRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<GetCompressedPubkeyRequest>

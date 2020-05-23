@@ -207,6 +207,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    */
   static SerializeLedgerFormatResponseStruct SerializeLedgerFormat(
       const SerializeLedgerFormatRequestStruct& request);
+
+  /**
+   * @brief パラメータの情報を元に、Commitmentを作成する.
+   * @param[in] request Commitmentを構築するパラメータの構造体
+   * @return Commitment dataを格納した構造体
+   */
+  static GetCommitmentResponseStruct GetCommitment(
+      const GetCommitmentRequestStruct& request);
 };
 
 }  // namespace api
