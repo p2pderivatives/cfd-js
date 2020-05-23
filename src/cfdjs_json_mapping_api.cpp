@@ -951,6 +951,13 @@ std::string JsonMappingApi::SerializeLedgerFormat(
       request_message, ElementsTransactionStructApi::SerializeLedgerFormat);
 }
 
+std::string JsonMappingApi::GetCommitment(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::GetCommitmentRequest, api::json::GetCommitmentResponse,
+      api::GetCommitmentRequestStruct, api::GetCommitmentResponseStruct>(
+      request_message, ElementsTransactionStructApi::GetCommitment);
+}
+
 #endif  // CFD_DISABLE_ELEMENTS
 
 }  // namespace json

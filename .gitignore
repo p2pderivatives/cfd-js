@@ -136,7 +136,6 @@ local.properties
 
 
 /wally.js
-/wrap_js/wally.js
 output
 
 m4
@@ -165,3 +164,5 @@ external/*
 
 /wrap_js/cfdjs*.zip
 /wrap_js/dl_lib
+
+/prebuilds

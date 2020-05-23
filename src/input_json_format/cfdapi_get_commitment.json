@@ -1,0 +1,22 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "GetCommitmentRequest",
+    "amount": 0,
+    "amount:type": "int64_t",
+    "amount:require": "require",
+    "asset": "",
+    "asset:require": "require",
+    "assetBlindFactor": "",
+    "assetBlindFactor:require": "require",
+    "blindFactor": "",
+    "blindFactor:require": "require"
+  },
+  "response": {
+    ":class": "GetCommitmentResponse",
+    "assetCommitment": "",
+    "assetCommitment:require": "require",
+    "amountCommitment": "",
+    "amountCommitment:require": "require"
+  }
+}

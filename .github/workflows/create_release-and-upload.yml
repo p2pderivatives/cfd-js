@@ -16,6 +16,14 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      shell: bash
+    - name: check package.json version
+      env:
+        version: ${{ steps.get_version.outputs.VERSION }}
+      run: node ./tools/checker.js version ${version}
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -79,15 +87,14 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B wrap_js/build
-        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off --build wrap_js/build
-        cmake --build wrap_js/build --parallel 4 --config Release
-        cd ../..
+        cmake -S . -B build
+        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off --build build
+        cmake --build build --parallel 4 --config Release
       timeout-minutes: 20
     - name: cmake-install
       run: |
-        cmake -DCMAKE_INSTALL_PREFIX="./dist" --install wrap_js/build
-        cmake --install wrap_js/build
+        cmake -DCMAKE_INSTALL_PREFIX="./dist" --install build
+        cmake --install build
         cd dist
         del /F /Q cmake\wallycore-*
         del /F /Q lib\wallycore.*
@@ -103,7 +110,6 @@ jobs:
         dir .
     - name: Upload Release Asset
       id: upload-release-asset 
-#      if: success()
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -112,6 +118,16 @@ jobs:
         asset_path: ./cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-win-vs2019-x86_64.zip
         asset_content_type: application/zip
+    - name: npm install
+      run: npm install
+      timeout-minutes: 20
+    - name: prebuild
+      run: npm run prebuild_all
+    - name: prebuild upload
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
+      shell: bash
 
   upload-object-ubuntu:
     name: upload-object-ubuntu
@@ -157,16 +173,16 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B wrap_js/build
-        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/wrap_js/build/Release;../node_modules/cfd-js/wrap_js/build/Release;../../node_modules/cfd-js/wrap_js/build/Release;../../../node_modules/cfd-js/wrap_js/build/Release;../../../../node_modules/cfd-js/wrap_js/build/Release;../../../../../node_modules/cfd-js/wrap_js/build/Release;../../../../../../node_modules/cfd-js/wrap_js/build/Release;./build/Release;./wrap_js/build/Release;./wrap_js/dl_lib/lib" --build wrap_js/build
-        cmake --build wrap_js/build --parallel 4 --config Release
+        cmake -S . -B build
+        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib" --build build
+        cmake --build build --parallel 4 --config Release
         cd ../..
       timeout-minutes: 20
     - name: cmake-install
       run: |
-        cd wrap_js/build
-        sudo make install DESTDIR=../../dist
-        cd ../..
+        cd build
+        sudo make install DESTDIR=../dist
+        cd ..
         sudo rm -rf dist/usr/local/cmake/wallycore-* dist/usr/local/lib/pkgconfig/wallycore.pc
         sudo rm -rf dist/usr/local/lib/wallycore.*   dist/usr/local/lib/libwallycore.*
     - name: create archive file
@@ -195,6 +211,15 @@ jobs:
         asset_path: ./dist/cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-ubuntu1804-gcc-x86_64.zip
         asset_content_type: application/zip
+    - name: npm install
+      run: npm install
+      timeout-minutes: 20
+    - name: prebuild
+      run: npm run prebuild_all
+    - name: prebuild upload
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
     - name: ubuntu-after
       run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
 

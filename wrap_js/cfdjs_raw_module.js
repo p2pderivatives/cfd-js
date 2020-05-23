@@ -4,6 +4,7 @@ const fs = require('fs');
 
 // check exists
 let buildTarget = 'Release';
+const buildDirPath = '../build';
 let isFindThisFile = false;
 try {
   fs.statSync(path.resolve(__dirname, './cfdjs_module.js'));
@@ -12,10 +13,10 @@ try {
   // compiled file.
 }
 try {
-  fs.statSync(path.resolve(__dirname, './build/Release'));
+  fs.statSync(path.resolve(__dirname, '../build/Release'));
 } catch (err) {
   try {
-    fs.statSync(path.resolve(__dirname, './build/Debug'));
+    fs.statSync(path.resolve(__dirname, '../build/Debug'));
     buildTarget = 'Debug';
   } catch (err) {
     if (isFindThisFile) {
@@ -25,16 +26,16 @@ try {
 }
 
 // search cfd-js path
-let requirePath = `./build/${buildTarget}/cfd_js`;
+let requirePath = `${buildDirPath}/${buildTarget}/cfd_js`;
 if (!isFindThisFile) {
   let parentPath = '';
   for (let i = 0; i < 10; ++i) {
     parentPath += '../';
     try {
       fs.statSync(path.resolve(__dirname, parentPath,
-          `node_modules/cfd-js/wrap_js/build/${buildTarget}`));
+          `node_modules/cfd-js/build/${buildTarget}`));
       requirePath = path.resolve(__dirname, parentPath,
-          `node_modules/cfd-js/wrap_js/build/${buildTarget}/cfd_js.node`);
+          `node_modules/cfd-js/build/${buildTarget}/cfd_js.node`);
     } catch (err) {
       // not found
     }

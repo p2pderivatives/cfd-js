@@ -38497,6 +38497,470 @@ class GetAddressInfoResponse
 };
 
 // ------------------------------------------------------------------------
+// GetCommitmentRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (GetCommitmentRequest) class
+ */
+class GetCommitmentRequest
+  : public cfd::core::JsonClassBase<GetCommitmentRequest> {
+ public:
+  GetCommitmentRequest() {
+    CollectFieldName();
+  }
+  virtual ~GetCommitmentRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of amount
+   * @return amount
+   */
+  int64_t GetAmount() const {
+    return amount_;
+  }
+  /**
+   * @brief Set to amount
+   * @param[in] amount    setting value.
+   */
+  void SetAmount(  // line separate
+    const int64_t& amount) {  // NOLINT
+    this->amount_ = amount;
+  }
+  /**
+   * @brief Get data type of amount
+   * @return Data type of amount
+   */
+  static std::string GetAmountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of amount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAmountString(  // line separate
+      const GetCommitmentRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.amount_);
+  }
+  /**
+   * @brief Set json object to amount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAmountString(  // line separate
+      GetCommitmentRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.amount_, json_value);
+  }
+
+  /**
+   * @brief Get of asset
+   * @return asset
+   */
+  std::string GetAsset() const {
+    return asset_;
+  }
+  /**
+   * @brief Set to asset
+   * @param[in] asset    setting value.
+   */
+  void SetAsset(  // line separate
+    const std::string& asset) {  // NOLINT
+    this->asset_ = asset;
+  }
+  /**
+   * @brief Get data type of asset
+   * @return Data type of asset
+   */
+  static std::string GetAssetFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of asset field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetString(  // line separate
+      const GetCommitmentRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_);
+  }
+  /**
+   * @brief Set json object to asset field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetString(  // line separate
+      GetCommitmentRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_, json_value);
+  }
+
+  /**
+   * @brief Get of assetBlindFactor
+   * @return assetBlindFactor
+   */
+  std::string GetAssetBlindFactor() const {
+    return asset_blind_factor_;
+  }
+  /**
+   * @brief Set to assetBlindFactor
+   * @param[in] asset_blind_factor    setting value.
+   */
+  void SetAssetBlindFactor(  // line separate
+    const std::string& asset_blind_factor) {  // NOLINT
+    this->asset_blind_factor_ = asset_blind_factor;
+  }
+  /**
+   * @brief Get data type of assetBlindFactor
+   * @return Data type of assetBlindFactor
+   */
+  static std::string GetAssetBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of assetBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetBlindFactorString(  // line separate
+      const GetCommitmentRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_blind_factor_);
+  }
+  /**
+   * @brief Set json object to assetBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetBlindFactorString(  // line separate
+      GetCommitmentRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Get of blindFactor
+   * @return blindFactor
+   */
+  std::string GetBlindFactor() const {
+    return blind_factor_;
+  }
+  /**
+   * @brief Set to blindFactor
+   * @param[in] blind_factor    setting value.
+   */
+  void SetBlindFactor(  // line separate
+    const std::string& blind_factor) {  // NOLINT
+    this->blind_factor_ = blind_factor;
+  }
+  /**
+   * @brief Get data type of blindFactor
+   * @return Data type of blindFactor
+   */
+  static std::string GetBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of blindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetBlindFactorString(  // line separate
+      const GetCommitmentRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.blind_factor_);
+  }
+  /**
+   * @brief Set json object to blindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetBlindFactorString(  // line separate
+      GetCommitmentRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const GetCommitmentRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  GetCommitmentRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using GetCommitmentRequestMapTable =
+    cfd::core::JsonTableMap<GetCommitmentRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const GetCommitmentRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static GetCommitmentRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(amount) value
+   */
+  int64_t amount_ = 0;
+  /**
+   * @brief JsonAPI(asset) value
+   */
+  std::string asset_ = "";
+  /**
+   * @brief JsonAPI(assetBlindFactor) value
+   */
+  std::string asset_blind_factor_ = "";
+  /**
+   * @brief JsonAPI(blindFactor) value
+   */
+  std::string blind_factor_ = "";
+};
+
+// ------------------------------------------------------------------------
+// GetCommitmentResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (GetCommitmentResponse) class
+ */
+class GetCommitmentResponse
+  : public cfd::core::JsonClassBase<GetCommitmentResponse> {
+ public:
+  GetCommitmentResponse() {
+    CollectFieldName();
+  }
+  virtual ~GetCommitmentResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of assetCommitment
+   * @return assetCommitment
+   */
+  std::string GetAssetCommitment() const {
+    return asset_commitment_;
+  }
+  /**
+   * @brief Set to assetCommitment
+   * @param[in] asset_commitment    setting value.
+   */
+  void SetAssetCommitment(  // line separate
+    const std::string& asset_commitment) {  // NOLINT
+    this->asset_commitment_ = asset_commitment;
+  }
+  /**
+   * @brief Get data type of assetCommitment
+   * @return Data type of assetCommitment
+   */
+  static std::string GetAssetCommitmentFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of assetCommitment field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetCommitmentString(  // line separate
+      const GetCommitmentResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_commitment_);
+  }
+  /**
+   * @brief Set json object to assetCommitment field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetCommitmentString(  // line separate
+      GetCommitmentResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_commitment_, json_value);
+  }
+
+  /**
+   * @brief Get of amountCommitment
+   * @return amountCommitment
+   */
+  std::string GetAmountCommitment() const {
+    return amount_commitment_;
+  }
+  /**
+   * @brief Set to amountCommitment
+   * @param[in] amount_commitment    setting value.
+   */
+  void SetAmountCommitment(  // line separate
+    const std::string& amount_commitment) {  // NOLINT
+    this->amount_commitment_ = amount_commitment;
+  }
+  /**
+   * @brief Get data type of amountCommitment
+   * @return Data type of amountCommitment
+   */
+  static std::string GetAmountCommitmentFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of amountCommitment field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAmountCommitmentString(  // line separate
+      const GetCommitmentResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.amount_commitment_);
+  }
+  /**
+   * @brief Set json object to amountCommitment field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAmountCommitmentString(  // line separate
+      GetCommitmentResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.amount_commitment_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const GetCommitmentResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  GetCommitmentResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using GetCommitmentResponseMapTable =
+    cfd::core::JsonTableMap<GetCommitmentResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const GetCommitmentResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static GetCommitmentResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(assetCommitment) value
+   */
+  std::string asset_commitment_ = "";
+  /**
+   * @brief JsonAPI(amountCommitment) value
+   */
+  std::string amount_commitment_ = "";
+};
+
+// ------------------------------------------------------------------------
 // GetCompressedPubkeyRequest
 // ------------------------------------------------------------------------
 /**

@@ -19,6 +19,7 @@ addons:
   homebrew:
     packages:
       - cmake
+      - nodejs
     update: true
 
 before_install:
@@ -34,28 +35,33 @@ before_script:
   - echo "${TRAVIS_BUILD_DIR}"
   - mkdir dist
   - mkdir build
-  - cmake -S . -B build
-  - cmake -DCMAKE_BUILD_TYPE="$BUILD_TYPE" -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off --build build
 
 script:
-  - cmake --build build
-
-after_success:
+  - npm install
+  - npm run check_version -- ${TRAVIS_TAG}
+  - npm run cmake_build
   - cd build
   - make install DESTDIR=../dist
   - cd ../dist
   - rm -rf usr/local/lib/libwallycore.a usr/local/lib/pkgconfig/wallycore.pc
   - rm -rf usr/local/cmake/wallycore-*
   - ls -l usr/local/lib
-  - zip -r "${ASSET_FILE_NAME}.zip" usr
+  - zip -r "../${ASSET_FILE_NAME}.zip" usr
+  - cd ..
+  - npm run deploy_object -- "./${ASSET_FILE_NAME}.zip"
+  - npm run prebuild_all
+
+after_success:
 
 before_deploy:
 
 deploy:
   provider: releases
   api_key: ${GITHUB_API_KEY}
+  file_glob: true
   file:
     - "${ASSET_FILE_NAME}.zip"
+    - prebuilds/*
   draft: false
   on:
     tags: true
