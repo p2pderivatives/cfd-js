@@ -152,19 +152,29 @@ ElementsTransactionStructApi::CreateRawTransaction(  // NOLINT
     // TxOutの追加
     Script script;
     for (const auto& txout_req : request.txouts) {
-      const std::string addr = txout_req.address;
+      const std::string& addr = txout_req.address;
       Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
       ConfidentialAssetId asset(txout_req.asset);
-      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
-        ElementsConfidentialAddress confidential_addr(addr);
-        if (txout_req.is_remove_nonce) {
-          txouts.emplace_back(
-              confidential_addr.GetUnblindedAddress(), asset, amount);
-        } else {
-          txouts.emplace_back(confidential_addr, asset, amount);
-        }
+      if (!txout_req.direct_locking_script.empty()) {
+        txouts.emplace_back(
+            Script(txout_req.direct_locking_script), asset,
+            ConfidentialValue(amount),
+            ConfidentialNonce(txout_req.direct_nonce), ByteData(), ByteData());
       } else {
-        txouts.emplace_back(address_factory.GetAddress(addr), asset, amount);
+        if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+          ElementsConfidentialAddress confidential_addr(addr);
+          if (txout_req.is_remove_nonce) {
+            txouts.emplace_back(
+                confidential_addr.GetUnblindedAddress(), asset, amount);
+          } else {
+            txouts.emplace_back(confidential_addr, asset, amount);
+          }
+        } else {
+          ConfidentialTxOut txout(
+              address_factory.GetAddress(addr), asset, amount);
+          txout.SetNonce(ConfidentialNonce(txout_req.direct_nonce));
+          txouts.emplace_back(txout);
+        }
       }
     }
 
@@ -242,27 +252,40 @@ ElementsTransactionStructApi::AddRawTransaction(  // NOLINT
     // TxOutの追加
     Script script;
     for (const auto& txout_req : request.txouts) {
-      const std::string addr = txout_req.address;
+      const std::string& addr = txout_req.address;
       Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
       ConfidentialAssetId asset(txout_req.asset);
-      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
-        ElementsConfidentialAddress confidential_addr(addr);
-        if (txout_req.is_remove_nonce) {
-          txouts.emplace_back(
-              confidential_addr.GetUnblindedAddress(), asset, amount);
-        } else {
-          txouts.emplace_back(confidential_addr, asset, amount);
-        }
+      if (!txout_req.direct_locking_script.empty()) {
+        txouts.emplace_back(
+            Script(txout_req.direct_locking_script), asset,
+            ConfidentialValue(amount),
+            ConfidentialNonce(txout_req.direct_nonce), ByteData(), ByteData());
       } else {
-        txouts.emplace_back(address_factory.GetAddress(addr), asset, amount);
+        if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+          ElementsConfidentialAddress confidential_addr(addr);
+          if (txout_req.is_remove_nonce) {
+            txouts.emplace_back(
+                confidential_addr.GetUnblindedAddress(), asset, amount);
+          } else {
+            txouts.emplace_back(confidential_addr, asset, amount);
+          }
+        } else {
+          ConfidentialTxOut txout(
+              address_factory.GetAddress(addr), asset, amount);
+          txout.SetNonce(ConfidentialNonce(txout_req.direct_nonce));
+          txouts.emplace_back(txout);
+        }
       }
     }
 
     for (const auto& destroy_req : request.destroy_amount_txouts) {
       // DestroyのTxOut追加
-      txouts.push_back(ConfidentialTxOut::CreateDestroyAmountTxOut(
-          ConfidentialAssetId(destroy_req.asset),
-          Amount::CreateBySatoshiAmount(destroy_req.amount)));
+      ConfidentialTxOut destroy_txout =
+          ConfidentialTxOut::CreateDestroyAmountTxOut(
+              ConfidentialAssetId(destroy_req.asset),
+              Amount::CreateBySatoshiAmount(destroy_req.amount));
+      destroy_txout.SetNonce(ConfidentialNonce(destroy_req.direct_nonce));
+      txouts.push_back(destroy_txout);
     }
 
     for (const auto& pegout_req : request.pegout_txouts) {
@@ -1127,6 +1150,42 @@ VerifySignResponseStruct ElementsTransactionStructApi::VerifySign(
   return result;
 }
 
+UpdateTxOutAmountResponseStruct
+ElementsTransactionStructApi::UpdateTxOutAmount(
+    const UpdateTxOutAmountRequestStruct& request) {
+  auto call_func = [](const UpdateTxOutAmountRequestStruct& request)
+      -> UpdateTxOutAmountResponseStruct {  // NOLINT
+    UpdateTxOutAmountResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    ElementsAddressFactory address_factory;
+    for (auto& txout : request.txouts) {
+      uint32_t index = txout.index;
+      if (!txout.direct_locking_script.empty()) {
+        index = ctx.GetTxOutIndex(Script(txout.direct_locking_script));
+      } else if (!txout.address.empty()) {
+        if (ElementsConfidentialAddress::IsConfidentialAddress(
+                txout.address)) {
+          ElementsConfidentialAddress confidential_addr(txout.address);
+          index = ctx.GetTxOutIndex(confidential_addr.GetUnblindedAddress());
+        } else {
+          index = ctx.GetTxOutIndex(address_factory.GetAddress(txout.address));
+        }
+      }
+      ctx.SetTxOutValue(index, Amount(txout.amount));
+    }
+
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  UpdateTxOutAmountResponseStruct result;
+  result = ExecuteStructApi<
+      UpdateTxOutAmountRequestStruct, UpdateTxOutAmountResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 BlindRawTransactionResponseStruct
 ElementsTransactionStructApi::BlindTransaction(
     const BlindRawTransactionRequestStruct& request) {
@@ -1468,12 +1527,12 @@ ElementsTransactionStructApi::SetRawReissueAsset(
   return result;
 }
 
-ElementsCreateRawPeginResponseStruct
+CreateRawPeginResponseStruct
 ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
-    const ElementsCreateRawPeginRequestStruct& request) {
-  auto call_func = [](const ElementsCreateRawPeginRequestStruct& request)
-      -> ElementsCreateRawPeginResponseStruct {  // NOLINT
-    ElementsCreateRawPeginResponseStruct response;
+    const CreateRawPeginRequestStruct& request) {
+  auto call_func = [](const CreateRawPeginRequestStruct& request)
+      -> CreateRawPeginResponseStruct {  // NOLINT
+    CreateRawPeginResponseStruct response;
     // Transaction作成
     std::vector<ConfidentialTxIn> txins;
     std::vector<ConfidentialTxOut> txouts;
@@ -1509,22 +1568,32 @@ ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
     }
 
     // TxOutの追加
+    ElementsAddressFactory address_factory;
     Script script;
     for (const auto& txout_req : request.txouts) {
-      const std::string addr = txout_req.address;
+      const std::string& addr = txout_req.address;
       Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
       ConfidentialAssetId asset(txout_req.asset);
-      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
-        ElementsConfidentialAddress confidential_addr(addr);
-        if (txout_req.is_remove_nonce) {
-          txouts.emplace_back(
-              confidential_addr.GetUnblindedAddress(), asset, amount);
-        } else {
-          txouts.emplace_back(confidential_addr, asset, amount);
-        }
-      } else {
+      if (!txout_req.direct_locking_script.empty()) {
         txouts.emplace_back(
-            ElementsAddressFactory().GetAddress(addr), asset, amount);
+            Script(txout_req.direct_locking_script), asset,
+            ConfidentialValue(amount),
+            ConfidentialNonce(txout_req.direct_nonce), ByteData(), ByteData());
+      } else {
+        if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+          ElementsConfidentialAddress confidential_addr(addr);
+          if (txout_req.is_remove_nonce) {
+            txouts.emplace_back(
+                confidential_addr.GetUnblindedAddress(), asset, amount);
+          } else {
+            txouts.emplace_back(confidential_addr, asset, amount);
+          }
+        } else {
+          ConfidentialTxOut txout(
+              address_factory.GetAddress(addr), asset, amount);
+          txout.SetNonce(ConfidentialNonce(txout_req.direct_nonce));
+          txouts.emplace_back(txout);
+        }
       }
     }
 
@@ -1550,20 +1619,19 @@ ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
     return response;
   };
 
-  ElementsCreateRawPeginResponseStruct result;
+  CreateRawPeginResponseStruct result;
   result = ExecuteStructApi<
-      ElementsCreateRawPeginRequestStruct,
-      ElementsCreateRawPeginResponseStruct>(
+      CreateRawPeginRequestStruct, CreateRawPeginResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-ElementsCreateRawPegoutResponseStruct
+CreateRawPegoutResponseStruct
 ElementsTransactionStructApi::CreateRawPegoutTransaction(  // NOLINT
-    const ElementsCreateRawPegoutRequestStruct& request) {
-  auto call_func = [](const ElementsCreateRawPegoutRequestStruct& request)
-      -> ElementsCreateRawPegoutResponseStruct {  // NOLINT
-    ElementsCreateRawPegoutResponseStruct response;
+    const CreateRawPegoutRequestStruct& request) {
+  auto call_func = [](const CreateRawPegoutRequestStruct& request)
+      -> CreateRawPegoutResponseStruct {  // NOLINT
+    CreateRawPegoutResponseStruct response;
     // Transaction作成
     std::vector<ConfidentialTxIn> txins;
     std::vector<ConfidentialTxOut> txouts;
@@ -1576,22 +1644,32 @@ ElementsTransactionStructApi::CreateRawPegoutTransaction(  // NOLINT
     }
 
     // TxOutの追加
+    ElementsAddressFactory address_factory;
     Script script;
     for (const auto& txout_req : request.txouts) {
-      const std::string addr = txout_req.address;
+      const std::string& addr = txout_req.address;
       Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
       ConfidentialAssetId asset(txout_req.asset);
-      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
-        ElementsConfidentialAddress confidential_addr(addr);
-        if (txout_req.is_remove_nonce) {
-          txouts.emplace_back(
-              confidential_addr.GetUnblindedAddress(), asset, amount);
-        } else {
-          txouts.emplace_back(confidential_addr, asset, amount);
-        }
-      } else {
+      if (!txout_req.direct_locking_script.empty()) {
         txouts.emplace_back(
-            ElementsAddressFactory().GetAddress(addr), asset, amount);
+            Script(txout_req.direct_locking_script), asset,
+            ConfidentialValue(amount),
+            ConfidentialNonce(txout_req.direct_nonce), ByteData(), ByteData());
+      } else {
+        if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+          ElementsConfidentialAddress confidential_addr(addr);
+          if (txout_req.is_remove_nonce) {
+            txouts.emplace_back(
+                confidential_addr.GetUnblindedAddress(), asset, amount);
+          } else {
+            txouts.emplace_back(confidential_addr, asset, amount);
+          }
+        } else {
+          ConfidentialTxOut txout(
+              address_factory.GetAddress(addr), asset, amount);
+          txout.SetNonce(ConfidentialNonce(txout_req.direct_nonce));
+          txouts.emplace_back(txout);
+        }
       }
     }
 
@@ -1658,10 +1736,9 @@ ElementsTransactionStructApi::CreateRawPegoutTransaction(  // NOLINT
     return response;
   };
 
-  ElementsCreateRawPegoutResponseStruct result;
+  CreateRawPegoutResponseStruct result;
   result = ExecuteStructApi<
-      ElementsCreateRawPegoutRequestStruct,
-      ElementsCreateRawPegoutResponseStruct>(
+      CreateRawPegoutRequestStruct, CreateRawPegoutResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -1719,12 +1796,12 @@ ElementsTransactionStructApi::GetDefaultBlindingKey(
   return result;
 }
 
-ElementsCreateDestroyAmountResponseStruct
+CreateDestroyAmountResponseStruct
 ElementsTransactionStructApi::CreateDestroyAmountTransaction(
-    const ElementsCreateDestroyAmountRequestStruct& request) {
-  auto call_func = [](const ElementsCreateDestroyAmountRequestStruct& request)
-      -> ElementsCreateDestroyAmountResponseStruct {  // NOLINT
-    ElementsCreateDestroyAmountResponseStruct response;
+    const CreateDestroyAmountRequestStruct& request) {
+  auto call_func = [](const CreateDestroyAmountRequestStruct& request)
+      -> CreateDestroyAmountResponseStruct {  // NOLINT
+    CreateDestroyAmountResponseStruct response;
     // Transaction作成
     ElementsAddressFactory address_factory;
     // Transaction作成
@@ -1740,26 +1817,39 @@ ElementsTransactionStructApi::CreateDestroyAmountTransaction(
     // TxOutの追加
     Script script;
     for (const auto& txout_req : request.txouts) {
-      const std::string addr = txout_req.address;
+      const std::string& addr = txout_req.address;
       Amount amount(Amount::CreateBySatoshiAmount(txout_req.amount));
       ConfidentialAssetId asset(txout_req.asset);
-      if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
-        ElementsConfidentialAddress confidential_addr(addr);
-        if (txout_req.is_remove_nonce) {
-          txouts.emplace_back(
-              confidential_addr.GetUnblindedAddress(), asset, amount);
-        } else {
-          txouts.emplace_back(confidential_addr, asset, amount);
-        }
+      if (!txout_req.direct_locking_script.empty()) {
+        txouts.emplace_back(
+            Script(txout_req.direct_locking_script), asset,
+            ConfidentialValue(amount),
+            ConfidentialNonce(txout_req.direct_nonce), ByteData(), ByteData());
       } else {
-        txouts.emplace_back(address_factory.GetAddress(addr), asset, amount);
+        if (ElementsConfidentialAddress::IsConfidentialAddress(addr)) {
+          ElementsConfidentialAddress confidential_addr(addr);
+          if (txout_req.is_remove_nonce) {
+            txouts.emplace_back(
+                confidential_addr.GetUnblindedAddress(), asset, amount);
+          } else {
+            txouts.emplace_back(confidential_addr, asset, amount);
+          }
+        } else {
+          ConfidentialTxOut txout(
+              address_factory.GetAddress(addr), asset, amount);
+          txout.SetNonce(ConfidentialNonce(txout_req.direct_nonce));
+          txouts.emplace_back(txout);
+        }
       }
     }
 
     // DestroyのTxOut追加
-    txouts.push_back(ConfidentialTxOut::CreateDestroyAmountTxOut(
-        ConfidentialAssetId(request.destroy.asset),
-        Amount::CreateBySatoshiAmount(request.destroy.amount)));
+    ConfidentialTxOut destroy_txout =
+        ConfidentialTxOut::CreateDestroyAmountTxOut(
+            ConfidentialAssetId(request.destroy.asset),
+            Amount::CreateBySatoshiAmount(request.destroy.amount));
+    destroy_txout.SetNonce(ConfidentialNonce(request.destroy.direct_nonce));
+    txouts.push_back(destroy_txout);
 
     // feeの追加
     ConfidentialTxOut txout_fee;
@@ -1779,10 +1869,9 @@ ElementsTransactionStructApi::CreateDestroyAmountTransaction(
     return response;
   };
 
-  ElementsCreateDestroyAmountResponseStruct result;
+  CreateDestroyAmountResponseStruct result;
   result = ExecuteStructApi<
-      ElementsCreateDestroyAmountRequestStruct,
-      ElementsCreateDestroyAmountResponseStruct>(
+      CreateDestroyAmountRequestStruct, CreateDestroyAmountResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

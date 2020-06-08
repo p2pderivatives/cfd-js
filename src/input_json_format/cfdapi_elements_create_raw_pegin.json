@@ -1,7 +1,7 @@
 {
   "namespace": ["cfd","js","api","json"],
   "request": {
-    ":class": "ElementsCreateRawPeginRequest",
+    ":class": "CreateRawPeginRequest",
     "version": 2,
     "version:type": "uint32_t",
     "version:require": "optional",
@@ -53,6 +53,10 @@
         "amount:require": "require",
         "asset": "",
         "asset:require": "require",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional",
+        "directNonce": "",
+        "directNonce:require": "optional",
         "isRemoveNonce": false,
         "isRemoveNonce:require": "optional"
       }
@@ -69,7 +73,7 @@
     "isRandomSortTxOut:require": "optional"
   },
   "response": {
-    ":class": "ElementsCreateRawPeginResponse",
+    ":class": "CreateRawPeginResponse",
     "hex": "",
     "hex:require": "require"
   }

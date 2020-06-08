@@ -92,8 +92,8 @@ const errorCase = [
   TestHelper.createElementsTestCase(
     'ElementsDecodeRawTransaction invalid elements network type',
     ElementsDecodeRawTransaction,
-    ['{"hex":"0200000000019775b8f73a45d84ef27d746401da5027082814e1d1b2f217f2232508043cd3b00000000000fdffffff030125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a01000000000000000000036a01000125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000014543ae60d002b9db456c4a2738cecfa7438280152663382a20355ef86c8756dc5349127f5d0417a914c69be2ffd44c43a3ed02e522e87844788fb29545870125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000000000005adc000000000000","network":"liquidregtest"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"regtest\\"."}}',
+    ['{"hex":"0200000000019775b8f73a45d84ef27d746401da5027082814e1d1b2f217f2232508043cd3b00000000000fdffffff030125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a01000000000000000000036a01000125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000014543ae60d002b9db456c4a2738cecfa7438280152663382a20355ef86c8756dc5349127f5d0417a914c69be2ffd44c43a3ed02e522e87844788fb29545870125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a010000000000005adc000000000000","network":"bitcoinregtest"}'],
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"liquidregtest\\" or \\"elementsregtest\\" or \\"regtest\\"."}}',
   ),
   TestHelper.createElementsTestCase(
     'ElementsDecodeRawTransaction pegout transaction but no mainchain network type',

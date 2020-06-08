@@ -2,7 +2,7 @@
 /**
  * @file cfdjs_node_addon.cpp
  *
- * @brief cfdのnode.js向けAPI実装ファイル
+ * @brief cfd node.js API implements file.
  */
 #include <napi.h>  // NOLINT
 #include <string>
@@ -512,6 +512,15 @@ Value FundRawTransaction(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::FundRawTransaction);
 }
 
+/**
+ * @brief UpdateTxOutAmountのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value UpdateTxOutAmount(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::UpdateTxOutAmount);
+}
+
 #ifndef CFD_DISABLE_ELEMENTS
 
 /**
@@ -811,6 +820,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "FundRawTransaction"),
       Function::New(env, FundRawTransaction));
+  exports->Set(
+      String::New(env, "UpdateTxOutAmount"),
+      Function::New(env, UpdateTxOutAmount));
 #ifndef CFD_DISABLE_ELEMENTS
   exports->Set(
       String::New(env, "GetConfidentialAddress"),

@@ -62,6 +62,7 @@ export interface AddTxIn {
 export interface AddTxOut {
     address: string;
     amount: bigint | number;
+    directLockingScript?: string;
 }
 
 export interface AddRawTransactionRequest {
@@ -410,12 +411,15 @@ export interface ElementsAddTxOut {
     address: string;
     amount: bigint | number;
     asset: string;
+    directLockingScript?: string;
+    directNonce?: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsAddDestroyAmount {
     amount: bigint | number;
     asset: string;
+    directNonce?: string;
 }
 
 export interface ElementsAddPegout {
@@ -463,12 +467,15 @@ export interface ElementsDestroyAmountTxOut {
     address: string;
     amount: bigint | number;
     asset: string;
+    directLockingScript?: string;
+    directNonce?: string;
     isRemoveNonce?: boolean;
 }
 
 export interface ElementsDestroyAmount {
     amount: bigint | number;
     asset: string;
+    directNonce?: string;
 }
 
 export interface ElementsDestroyAmountFee {
@@ -476,7 +483,7 @@ export interface ElementsDestroyAmountFee {
     asset: string;
 }
 
-export interface ElementsCreateDestroyAmountRequest {
+export interface CreateDestroyAmountRequest {
     version?: number;
     locktime?: number;
     txins?: ElementsDestroyAmountTxIn[];
@@ -485,11 +492,11 @@ export interface ElementsCreateDestroyAmountRequest {
     fee?: ElementsDestroyAmountFee;
 }
 
-export interface ElementsCreateDestroyAmountResponse {
+export interface CreateDestroyAmountResponse {
     hex: string;
 }
 
-export interface ElementsCreatePegInAddressRequest {
+export interface CreatePegInAddressRequest {
     fedpegscript: string;
     pubkey: string;
     redeemScript?: string;
@@ -497,7 +504,7 @@ export interface ElementsCreatePegInAddressRequest {
     hashType?: string;
 }
 
-export interface ElementsCreatePegInAddressResponse {
+export interface CreatePegInAddressResponse {
     mainchainAddress: string;
     claimScript: string;
     tweakFedpegscript: string;
@@ -525,6 +532,8 @@ export interface ElementsPeginTxOut {
     address: string;
     amount: bigint | number;
     asset: string;
+    directLockingScript?: string;
+    directNonce?: string;
     isRemoveNonce?: boolean;
 }
 
@@ -533,7 +542,7 @@ export interface ElementsPeginTxOutFee {
     asset: string;
 }
 
-export interface ElementsCreateRawPeginRequest {
+export interface CreateRawPeginRequest {
     version?: number;
     locktime?: number;
     txins: ElementsPeginTxIn[];
@@ -542,7 +551,7 @@ export interface ElementsCreateRawPeginRequest {
     isRandomSortTxOut?: boolean;
 }
 
-export interface ElementsCreateRawPeginResponse {
+export interface CreateRawPeginResponse {
     hex: string;
 }
 
@@ -556,6 +565,8 @@ export interface ElementsPegoutTxOut {
     address: string;
     amount: bigint | number;
     asset: string;
+    directLockingScript?: string;
+    directNonce?: string;
     isRemoveNonce?: boolean;
 }
 
@@ -578,7 +589,7 @@ export interface ElementsPegoutTxOutFee {
     asset: string;
 }
 
-export interface ElementsCreateRawPegoutRequest {
+export interface CreateRawPegoutRequest {
     version?: number;
     locktime?: number;
     txins?: ElementsPegoutTxIn[];
@@ -587,7 +598,7 @@ export interface ElementsCreateRawPegoutRequest {
     fee?: ElementsPegoutTxOutFee;
 }
 
-export interface ElementsCreateRawPegoutResponse {
+export interface CreateRawPegoutResponse {
     hex: string;
     btcAddress?: string;
 }
@@ -602,6 +613,8 @@ export interface ElementsTxOutRequest {
     address: string;
     amount: bigint | number;
     asset: string;
+    directLockingScript?: string;
+    directNonce?: string;
     isRemoveNonce?: boolean;
 }
 
@@ -998,6 +1011,7 @@ export interface GetExtkeyInfoRequest {
 }
 
 export interface GetExtkeyInfoResponse {
+    network: string;
     version: string;
     depth: number;
     fingerprint: string;
@@ -1299,6 +1313,7 @@ export interface TxInRequest {
 export interface TxOutRequest {
     address: string;
     amount: bigint | number;
+    directLockingScript?: string;
 }
 
 export interface CreateRawTransactionRequest {
@@ -1309,6 +1324,23 @@ export interface CreateRawTransactionRequest {
 }
 
 export interface CreateRawTransactionResponse {
+    hex: string;
+}
+
+export interface UpdateTxOutAmountData {
+    amount: bigint | number;
+    index?: number;
+    address?: string;
+    directLockingScript?: string;
+}
+
+export interface UpdateTxOutAmountRequest {
+    tx: string;
+    isElements?: boolean;
+    txouts?: UpdateTxOutAmountData[];
+}
+
+export interface UpdateTxOutAmountResponse {
     hex: string;
 }
 
@@ -1431,13 +1463,13 @@ export function DecodeRawTransaction(jsonObject: DecodeRawTransactionRequest): D
 
 export function ElementsAddRawTransaction(jsonObject: ElementsAddRawTransactionRequest): ElementsAddRawTransactionResponse;
 
-export function ElementsCreateDestroyAmount(jsonObject: ElementsCreateDestroyAmountRequest): ElementsCreateDestroyAmountResponse;
+export function CreateDestroyAmount(jsonObject: CreateDestroyAmountRequest): CreateDestroyAmountResponse;
 
-export function ElementsCreatePegInAddress(jsonObject: ElementsCreatePegInAddressRequest): ElementsCreatePegInAddressResponse;
+export function CreatePegInAddress(jsonObject: CreatePegInAddressRequest): CreatePegInAddressResponse;
 
-export function ElementsCreateRawPegin(jsonObject: ElementsCreateRawPeginRequest): ElementsCreateRawPeginResponse;
+export function CreateRawPegin(jsonObject: CreateRawPeginRequest): CreateRawPeginResponse;
 
-export function ElementsCreateRawPegout(jsonObject: ElementsCreateRawPegoutRequest): ElementsCreateRawPegoutResponse;
+export function CreateRawPegout(jsonObject: CreateRawPegoutRequest): CreateRawPegoutResponse;
 
 export function ElementsCreateRawTransaction(jsonObject: ElementsCreateRawTransactionRequest): ElementsCreateRawTransactionResponse;
 
@@ -1506,6 +1538,8 @@ export function SignWithPrivkey(jsonObject: SignWithPrivkeyRequest): SignWithPri
 export function GetSupportedFunction(): GetSupportedFunctionResponse;
 
 export function CreateRawTransaction(jsonObject: CreateRawTransactionRequest): CreateRawTransactionResponse;
+
+export function UpdateTxOutAmount(jsonObject: UpdateTxOutAmountRequest): UpdateTxOutAmountResponse;
 
 export function UpdateWitnessStack(jsonObject: UpdateWitnessStackRequest): UpdateWitnessStackResponse;
 

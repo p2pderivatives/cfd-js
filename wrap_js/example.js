@@ -49,6 +49,7 @@ const {
   GetCompressedPubkey,
   AddPubkeyHashSign,
   SignWithPrivkey,
+  UpdateTxOutAmount,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -1174,6 +1175,29 @@ let fundRawTransactionResult;
   console.log('*** Response ***\n', fundRawTransactionResult);
   const decReqJson = {
     hex: fundRawTransactionResult.hex,
+    network: NET_TYPE,
+  };
+  const decResult = DecodeRawTransaction(decReqJson);
+  console.log('*** decode tx ***\n',
+      JSON.stringify(decResult, null, '  '));
+}
+
+let updateTxOutAmountResult;
+{
+  console.log('-- UpdateTxOutAmount start --');
+  const reqJson = {
+    isElements: false,
+    tx: fundRawTransactionResult.hex,
+    txouts: [{
+      amount: 1118000,
+      index: 0,
+    }],
+  };
+  console.log('*** Request ***\n', reqJson);
+  updateTxOutAmountResult = UpdateTxOutAmount(reqJson);
+  console.log('*** Response ***\n', updateTxOutAmountResult);
+  const decReqJson = {
+    hex: updateTxOutAmountResult.hex,
     network: NET_TYPE,
   };
   const decResult = DecodeRawTransaction(decReqJson);

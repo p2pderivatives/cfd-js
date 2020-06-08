@@ -268,12 +268,11 @@ ElementsAddressStructApi::GetUnblindedAddress(
   return result;
 }
 
-ElementsCreatePegInAddressResponseStruct
-ElementsAddressStructApi::CreatePegInAddress(
-    const ElementsCreatePegInAddressRequestStruct& request) {
-  auto call_func = [](const ElementsCreatePegInAddressRequestStruct& request)
-      -> ElementsCreatePegInAddressResponseStruct {  // NOLINT
-    ElementsCreatePegInAddressResponseStruct response;
+CreatePegInAddressResponseStruct ElementsAddressStructApi::CreatePegInAddress(
+    const CreatePegInAddressRequestStruct& request) {
+  auto call_func = [](const CreatePegInAddressRequestStruct& request)
+      -> CreatePegInAddressResponseStruct {  // NOLINT
+    CreatePegInAddressResponseStruct response;
 
     // convert request arguments from struct
     Script fedpegscript = Script(request.fedpegscript);
@@ -313,10 +312,9 @@ ElementsAddressStructApi::CreatePegInAddress(
     return response;
   };
 
-  ElementsCreatePegInAddressResponseStruct result;
+  CreatePegInAddressResponseStruct result;
   result = ExecuteStructApi<
-      ElementsCreatePegInAddressRequestStruct,
-      ElementsCreatePegInAddressResponseStruct>(
+      CreatePegInAddressRequestStruct, CreatePegInAddressResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -376,7 +374,10 @@ ElementsNetType ElementsAddressStructApi::ConvertElementsNetType(
   ElementsNetType net_type;
   if (elements_net_type == "liquidv1") {
     net_type = ElementsNetType::kLiquidV1;
-  } else if (elements_net_type == "regtest") {
+  } else if (
+      (elements_net_type == "regtest") ||
+      (elements_net_type == "liquidregtest") ||
+      (elements_net_type == "elementsregtest")) {
     net_type = ElementsNetType::kElementsRegtest;
   } else {
     warn(
@@ -387,7 +388,8 @@ ElementsNetType ElementsAddressStructApi::ConvertElementsNetType(
     throw CfdException(
         CfdError::kCfdIllegalArgumentError,
         "Invalid elements_network_type passed. elements_network_type must be "
-        "\"liquidv1\" or \"regtest\".");  // NOLINT
+        "\"liquidv1\" or \"liquidregtest\" or \"elementsregtest\" "
+        "or \"regtest\".");  // NOLINT
   }
   return net_type;
 }

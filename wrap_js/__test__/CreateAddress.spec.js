@@ -200,7 +200,7 @@ const errorCase = [
     'CreateAddress Error(network is invalid)',
     CreateAddress,
     ['{"isElements":true,"keyData":{"hex":"025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357","type":"pubkey"},"network":"mainnet", "hashType":"p2wpkh"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"regtest\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"liquidregtest\\" or \\"elementsregtest\\" or \\"regtest\\"."}}',
   ),
   TestHelper.createElementsTestCase(
     'CreateAddress Error(hashtype is invalid)',

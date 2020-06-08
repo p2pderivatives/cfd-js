@@ -355,6 +355,13 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    */
   static std::string FundRawTransaction(const std::string &request_message);
 
+  /**
+   * @brief UpdateTxOutAmountのJSON API関数(request, response).
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string UpdateTxOutAmount(const std::string &request_message);
+
 #ifndef CFD_DISABLE_ELEMENTS
 
   /**

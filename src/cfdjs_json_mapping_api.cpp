@@ -777,6 +777,21 @@ std::string JsonMappingApi::FundRawTransaction(
 #endif
 }
 
+std::string JsonMappingApi::UpdateTxOutAmount(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::UpdateTxOutAmountRequest,
+      api::json::UpdateTxOutAmountResponse,
+      api::UpdateTxOutAmountRequestStruct,
+      api::UpdateTxOutAmountResponseStruct>(
+      request_message, TransactionStructApi::UpdateTxOutAmount,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::UpdateTxOutAmount);
+#else
+      TransactionStructApi::UpdateTxOutAmount);
+#endif
+}
+
 #ifndef CFD_DISABLE_ELEMENTS
 
 std::string JsonMappingApi::GetConfidentialAddress(
@@ -802,10 +817,10 @@ std::string JsonMappingApi::GetUnblindedAddress(
 std::string JsonMappingApi::CreatePegInAddress(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::ElementsCreatePegInAddressRequest,
-      api::json::ElementsCreatePegInAddressResponse,
-      api::ElementsCreatePegInAddressRequestStruct,
-      api::ElementsCreatePegInAddressResponseStruct>(
+      api::json::CreatePegInAddressRequest,
+      api::json::CreatePegInAddressResponse,
+      api::CreatePegInAddressRequestStruct,
+      api::CreatePegInAddressResponseStruct>(
       request_message, ElementsAddressStructApi::CreatePegInAddress);
 }
 
@@ -891,10 +906,8 @@ std::string JsonMappingApi::CreateElementsSignatureHash(
 std::string JsonMappingApi::CreateRawPegin(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::ElementsCreateRawPeginRequest,
-      api::json::ElementsCreateRawPeginResponse,
-      api::ElementsCreateRawPeginRequestStruct,
-      api::ElementsCreateRawPeginResponseStruct>(
+      api::json::CreateRawPeginRequest, api::json::CreateRawPeginResponse,
+      api::CreateRawPeginRequestStruct, api::CreateRawPeginResponseStruct>(
       request_message,
       ElementsTransactionStructApi::CreateRawPeginTransaction);
 }
@@ -902,10 +915,8 @@ std::string JsonMappingApi::CreateRawPegin(
 std::string JsonMappingApi::CreateRawPegout(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::ElementsCreateRawPegoutRequest,
-      api::json::ElementsCreateRawPegoutResponse,
-      api::ElementsCreateRawPegoutRequestStruct,
-      api::ElementsCreateRawPegoutResponseStruct>(
+      api::json::CreateRawPegoutRequest, api::json::CreateRawPegoutResponse,
+      api::CreateRawPegoutRequestStruct, api::CreateRawPegoutResponseStruct>(
       request_message,
       ElementsTransactionStructApi::CreateRawPegoutTransaction);
 }
@@ -933,10 +944,10 @@ std::string JsonMappingApi::GetDefaultBlindingKey(
 std::string JsonMappingApi::CreateDestroyAmount(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::ElementsCreateDestroyAmountRequest,
-      api::json::ElementsCreateDestroyAmountResponse,
-      api::ElementsCreateDestroyAmountRequestStruct,
-      api::ElementsCreateDestroyAmountResponseStruct>(
+      api::json::CreateDestroyAmountRequest,
+      api::json::CreateDestroyAmountResponse,
+      api::CreateDestroyAmountRequestStruct,
+      api::CreateDestroyAmountResponseStruct>(
       request_message,
       ElementsTransactionStructApi::CreateDestroyAmountTransaction);
 }
