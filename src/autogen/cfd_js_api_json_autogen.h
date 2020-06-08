@@ -2555,6 +2555,49 @@ class AddTxOut
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const AddTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      AddTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -2631,6 +2674,10 @@ class AddTxOut
    * @brief JsonAPI(amount) value
    */
   int64_t amount_ = 0;
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -16080,6 +16127,92 @@ class ElementsAddTxOut
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const ElementsAddTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      ElementsAddTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsAddTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsAddTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Get of isRemoveNonce
    * @return isRemoveNonce
    */
@@ -16204,6 +16337,14 @@ class ElementsAddTxOut
    */
   std::string asset_ = "";
   /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
+  /**
    * @brief JsonAPI(isRemoveNonce) value
    */
   bool is_remove_nonce_ = false;
@@ -16316,6 +16457,49 @@ class ElementsAddDestroyAmount
   }
 
   /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsAddDestroyAmount& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsAddDestroyAmount& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -16392,6 +16576,10 @@ class ElementsAddDestroyAmount
    * @brief JsonAPI(asset) value
    */
   std::string asset_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -18228,6 +18416,92 @@ class ElementsDestroyAmountTxOut
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const ElementsDestroyAmountTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      ElementsDestroyAmountTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsDestroyAmountTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsDestroyAmountTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Get of isRemoveNonce
    * @return isRemoveNonce
    */
@@ -18352,6 +18626,14 @@ class ElementsDestroyAmountTxOut
    */
   std::string asset_ = "";
   /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
+  /**
    * @brief JsonAPI(isRemoveNonce) value
    */
   bool is_remove_nonce_ = false;
@@ -18464,6 +18746,49 @@ class ElementsDestroyAmount
   }
 
   /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsDestroyAmount& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsDestroyAmount& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -18540,6 +18865,10 @@ class ElementsDestroyAmount
    * @brief JsonAPI(asset) value
    */
   std::string asset_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -18728,18 +19057,18 @@ class ElementsDestroyAmountFee
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountRequest
+// CreateDestroyAmountRequest
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateDestroyAmountRequest) class
+ * @brief JSON-API (CreateDestroyAmountRequest) class
  */
-class ElementsCreateDestroyAmountRequest
-  : public cfd::core::JsonClassBase<ElementsCreateDestroyAmountRequest> {
+class CreateDestroyAmountRequest
+  : public cfd::core::JsonClassBase<CreateDestroyAmountRequest> {
  public:
-  ElementsCreateDestroyAmountRequest() {
+  CreateDestroyAmountRequest() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateDestroyAmountRequest() {
+  virtual ~CreateDestroyAmountRequest() {
     // do nothing
   }
   /**
@@ -18775,7 +19104,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string
    */
   static std::string GetVersionString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.version_);
   }
   /**
@@ -18784,7 +19113,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object.
    */
   static void SetVersionString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.version_, json_value);
@@ -18818,7 +19147,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string
    */
   static std::string GetLocktimeString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.locktime_);
   }
   /**
@@ -18827,7 +19156,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object.
    */
   static void SetLocktimeString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.locktime_, json_value);
@@ -18861,7 +19190,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string.
    */
   static std::string GetTxinsString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txins_.Serialize();
@@ -18872,7 +19201,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxinsString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txins_.DeserializeUniValue(json_value);
   }
@@ -18905,7 +19234,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string.
    */
   static std::string GetTxoutsString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txouts_.Serialize();
@@ -18916,7 +19245,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxoutsString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txouts_.DeserializeUniValue(json_value);
   }
@@ -18949,7 +19278,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string.
    */
   static std::string GetDestroyString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.destroy_.Serialize();
@@ -18960,7 +19289,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object
    */
   static void SetDestroyString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.destroy_.DeserializeUniValue(json_value);
   }
@@ -18993,7 +19322,7 @@ class ElementsCreateDestroyAmountRequest
    * @return JSON string.
    */
   static std::string GetFeeString(  // line separate
-      const ElementsCreateDestroyAmountRequest& obj) {  // NOLINT
+      const CreateDestroyAmountRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.fee_.Serialize();
@@ -19004,7 +19333,7 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] json_value  JSON object
    */
   static void SetFeeString(  // line separate
-      ElementsCreateDestroyAmountRequest& obj,  // NOLINT
+      CreateDestroyAmountRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.fee_.DeserializeUniValue(json_value);
   }
@@ -19022,27 +19351,27 @@ class ElementsCreateDestroyAmountRequest
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateDestroyAmountRequestStruct& data);
+      const CreateDestroyAmountRequestStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateDestroyAmountRequestStruct ConvertToStruct()  const;
+  CreateDestroyAmountRequestStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateDestroyAmountRequestMapTable =
-    cfd::core::JsonTableMap<ElementsCreateDestroyAmountRequest>;
+  using CreateDestroyAmountRequestMapTable =
+    cfd::core::JsonTableMap<CreateDestroyAmountRequest>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateDestroyAmountRequestMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateDestroyAmountRequestMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -19068,7 +19397,7 @@ class ElementsCreateDestroyAmountRequest
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateDestroyAmountRequestMapTable json_mapper;
+  static CreateDestroyAmountRequestMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -19105,18 +19434,18 @@ class ElementsCreateDestroyAmountRequest
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountResponse
+// CreateDestroyAmountResponse
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateDestroyAmountResponse) class
+ * @brief JSON-API (CreateDestroyAmountResponse) class
  */
-class ElementsCreateDestroyAmountResponse
-  : public cfd::core::JsonClassBase<ElementsCreateDestroyAmountResponse> {
+class CreateDestroyAmountResponse
+  : public cfd::core::JsonClassBase<CreateDestroyAmountResponse> {
  public:
-  ElementsCreateDestroyAmountResponse() {
+  CreateDestroyAmountResponse() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateDestroyAmountResponse() {
+  virtual ~CreateDestroyAmountResponse() {
     // do nothing
   }
   /**
@@ -19152,7 +19481,7 @@ class ElementsCreateDestroyAmountResponse
    * @return JSON string
    */
   static std::string GetHexString(  // line separate
-      const ElementsCreateDestroyAmountResponse& obj) {  // NOLINT
+      const CreateDestroyAmountResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.hex_);
   }
   /**
@@ -19161,7 +19490,7 @@ class ElementsCreateDestroyAmountResponse
    * @param[in] json_value  JSON object.
    */
   static void SetHexString(  // line separate
-      ElementsCreateDestroyAmountResponse& obj,  // NOLINT
+      CreateDestroyAmountResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.hex_, json_value);
@@ -19180,27 +19509,27 @@ class ElementsCreateDestroyAmountResponse
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateDestroyAmountResponseStruct& data);
+      const CreateDestroyAmountResponseStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateDestroyAmountResponseStruct ConvertToStruct()  const;
+  CreateDestroyAmountResponseStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateDestroyAmountResponseMapTable =
-    cfd::core::JsonTableMap<ElementsCreateDestroyAmountResponse>;
+  using CreateDestroyAmountResponseMapTable =
+    cfd::core::JsonTableMap<CreateDestroyAmountResponse>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateDestroyAmountResponseMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateDestroyAmountResponseMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -19226,7 +19555,7 @@ class ElementsCreateDestroyAmountResponse
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateDestroyAmountResponseMapTable json_mapper;
+  static CreateDestroyAmountResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -19243,18 +19572,18 @@ class ElementsCreateDestroyAmountResponse
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressRequest
+// CreatePegInAddressRequest
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreatePegInAddressRequest) class
+ * @brief JSON-API (CreatePegInAddressRequest) class
  */
-class ElementsCreatePegInAddressRequest
-  : public cfd::core::JsonClassBase<ElementsCreatePegInAddressRequest> {
+class CreatePegInAddressRequest
+  : public cfd::core::JsonClassBase<CreatePegInAddressRequest> {
  public:
-  ElementsCreatePegInAddressRequest() {
+  CreatePegInAddressRequest() {
     CollectFieldName();
   }
-  virtual ~ElementsCreatePegInAddressRequest() {
+  virtual ~CreatePegInAddressRequest() {
     // do nothing
   }
   /**
@@ -19290,7 +19619,7 @@ class ElementsCreatePegInAddressRequest
    * @return JSON string
    */
   static std::string GetFedpegscriptString(  // line separate
-      const ElementsCreatePegInAddressRequest& obj) {  // NOLINT
+      const CreatePegInAddressRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.fedpegscript_);
   }
   /**
@@ -19299,7 +19628,7 @@ class ElementsCreatePegInAddressRequest
    * @param[in] json_value  JSON object.
    */
   static void SetFedpegscriptString(  // line separate
-      ElementsCreatePegInAddressRequest& obj,  // NOLINT
+      CreatePegInAddressRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.fedpegscript_, json_value);
@@ -19333,7 +19662,7 @@ class ElementsCreatePegInAddressRequest
    * @return JSON string
    */
   static std::string GetPubkeyString(  // line separate
-      const ElementsCreatePegInAddressRequest& obj) {  // NOLINT
+      const CreatePegInAddressRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.pubkey_);
   }
   /**
@@ -19342,7 +19671,7 @@ class ElementsCreatePegInAddressRequest
    * @param[in] json_value  JSON object.
    */
   static void SetPubkeyString(  // line separate
-      ElementsCreatePegInAddressRequest& obj,  // NOLINT
+      CreatePegInAddressRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.pubkey_, json_value);
@@ -19376,7 +19705,7 @@ class ElementsCreatePegInAddressRequest
    * @return JSON string
    */
   static std::string GetRedeemScriptString(  // line separate
-      const ElementsCreatePegInAddressRequest& obj) {  // NOLINT
+      const CreatePegInAddressRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.redeem_script_);
   }
   /**
@@ -19385,7 +19714,7 @@ class ElementsCreatePegInAddressRequest
    * @param[in] json_value  JSON object.
    */
   static void SetRedeemScriptString(  // line separate
-      ElementsCreatePegInAddressRequest& obj,  // NOLINT
+      CreatePegInAddressRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.redeem_script_, json_value);
@@ -19419,7 +19748,7 @@ class ElementsCreatePegInAddressRequest
    * @return JSON string
    */
   static std::string GetNetworkString(  // line separate
-      const ElementsCreatePegInAddressRequest& obj) {  // NOLINT
+      const CreatePegInAddressRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.network_);
   }
   /**
@@ -19428,7 +19757,7 @@ class ElementsCreatePegInAddressRequest
    * @param[in] json_value  JSON object.
    */
   static void SetNetworkString(  // line separate
-      ElementsCreatePegInAddressRequest& obj,  // NOLINT
+      CreatePegInAddressRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.network_, json_value);
@@ -19462,7 +19791,7 @@ class ElementsCreatePegInAddressRequest
    * @return JSON string
    */
   static std::string GetHashTypeString(  // line separate
-      const ElementsCreatePegInAddressRequest& obj) {  // NOLINT
+      const CreatePegInAddressRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.hash_type_);
   }
   /**
@@ -19471,7 +19800,7 @@ class ElementsCreatePegInAddressRequest
    * @param[in] json_value  JSON object.
    */
   static void SetHashTypeString(  // line separate
-      ElementsCreatePegInAddressRequest& obj,  // NOLINT
+      CreatePegInAddressRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.hash_type_, json_value);
@@ -19490,27 +19819,27 @@ class ElementsCreatePegInAddressRequest
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreatePegInAddressRequestStruct& data);
+      const CreatePegInAddressRequestStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreatePegInAddressRequestStruct ConvertToStruct()  const;
+  CreatePegInAddressRequestStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreatePegInAddressRequestMapTable =
-    cfd::core::JsonTableMap<ElementsCreatePegInAddressRequest>;
+  using CreatePegInAddressRequestMapTable =
+    cfd::core::JsonTableMap<CreatePegInAddressRequest>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreatePegInAddressRequestMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreatePegInAddressRequestMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -19536,7 +19865,7 @@ class ElementsCreatePegInAddressRequest
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreatePegInAddressRequestMapTable json_mapper;
+  static CreatePegInAddressRequestMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -19569,18 +19898,18 @@ class ElementsCreatePegInAddressRequest
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressResponse
+// CreatePegInAddressResponse
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreatePegInAddressResponse) class
+ * @brief JSON-API (CreatePegInAddressResponse) class
  */
-class ElementsCreatePegInAddressResponse
-  : public cfd::core::JsonClassBase<ElementsCreatePegInAddressResponse> {
+class CreatePegInAddressResponse
+  : public cfd::core::JsonClassBase<CreatePegInAddressResponse> {
  public:
-  ElementsCreatePegInAddressResponse() {
+  CreatePegInAddressResponse() {
     CollectFieldName();
   }
-  virtual ~ElementsCreatePegInAddressResponse() {
+  virtual ~CreatePegInAddressResponse() {
     // do nothing
   }
   /**
@@ -19616,7 +19945,7 @@ class ElementsCreatePegInAddressResponse
    * @return JSON string
    */
   static std::string GetMainchainAddressString(  // line separate
-      const ElementsCreatePegInAddressResponse& obj) {  // NOLINT
+      const CreatePegInAddressResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.mainchain_address_);
   }
   /**
@@ -19625,7 +19954,7 @@ class ElementsCreatePegInAddressResponse
    * @param[in] json_value  JSON object.
    */
   static void SetMainchainAddressString(  // line separate
-      ElementsCreatePegInAddressResponse& obj,  // NOLINT
+      CreatePegInAddressResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.mainchain_address_, json_value);
@@ -19659,7 +19988,7 @@ class ElementsCreatePegInAddressResponse
    * @return JSON string
    */
   static std::string GetClaimScriptString(  // line separate
-      const ElementsCreatePegInAddressResponse& obj) {  // NOLINT
+      const CreatePegInAddressResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.claim_script_);
   }
   /**
@@ -19668,7 +19997,7 @@ class ElementsCreatePegInAddressResponse
    * @param[in] json_value  JSON object.
    */
   static void SetClaimScriptString(  // line separate
-      ElementsCreatePegInAddressResponse& obj,  // NOLINT
+      CreatePegInAddressResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.claim_script_, json_value);
@@ -19702,7 +20031,7 @@ class ElementsCreatePegInAddressResponse
    * @return JSON string
    */
   static std::string GetTweakFedpegscriptString(  // line separate
-      const ElementsCreatePegInAddressResponse& obj) {  // NOLINT
+      const CreatePegInAddressResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.tweak_fedpegscript_);
   }
   /**
@@ -19711,7 +20040,7 @@ class ElementsCreatePegInAddressResponse
    * @param[in] json_value  JSON object.
    */
   static void SetTweakFedpegscriptString(  // line separate
-      ElementsCreatePegInAddressResponse& obj,  // NOLINT
+      CreatePegInAddressResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.tweak_fedpegscript_, json_value);
@@ -19730,27 +20059,27 @@ class ElementsCreatePegInAddressResponse
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreatePegInAddressResponseStruct& data);
+      const CreatePegInAddressResponseStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreatePegInAddressResponseStruct ConvertToStruct()  const;
+  CreatePegInAddressResponseStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreatePegInAddressResponseMapTable =
-    cfd::core::JsonTableMap<ElementsCreatePegInAddressResponse>;
+  using CreatePegInAddressResponseMapTable =
+    cfd::core::JsonTableMap<CreatePegInAddressResponse>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreatePegInAddressResponseMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreatePegInAddressResponseMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -19776,7 +20105,7 @@ class ElementsCreatePegInAddressResponse
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreatePegInAddressResponseMapTable json_mapper;
+  static CreatePegInAddressResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -20697,6 +21026,92 @@ class ElementsPeginTxOut
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const ElementsPeginTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      ElementsPeginTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsPeginTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsPeginTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Get of isRemoveNonce
    * @return isRemoveNonce
    */
@@ -20820,6 +21235,14 @@ class ElementsPeginTxOut
    * @brief JsonAPI(asset) value
    */
   std::string asset_ = "";
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
   /**
    * @brief JsonAPI(isRemoveNonce) value
    */
@@ -21012,18 +21435,18 @@ class ElementsPeginTxOutFee
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginRequest
+// CreateRawPeginRequest
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateRawPeginRequest) class
+ * @brief JSON-API (CreateRawPeginRequest) class
  */
-class ElementsCreateRawPeginRequest
-  : public cfd::core::JsonClassBase<ElementsCreateRawPeginRequest> {
+class CreateRawPeginRequest
+  : public cfd::core::JsonClassBase<CreateRawPeginRequest> {
  public:
-  ElementsCreateRawPeginRequest() {
+  CreateRawPeginRequest() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateRawPeginRequest() {
+  virtual ~CreateRawPeginRequest() {
     // do nothing
   }
   /**
@@ -21059,7 +21482,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string
    */
   static std::string GetVersionString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.version_);
   }
   /**
@@ -21068,7 +21491,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object.
    */
   static void SetVersionString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.version_, json_value);
@@ -21102,7 +21525,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string
    */
   static std::string GetLocktimeString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.locktime_);
   }
   /**
@@ -21111,7 +21534,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object.
    */
   static void SetLocktimeString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.locktime_, json_value);
@@ -21145,7 +21568,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string.
    */
   static std::string GetTxinsString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txins_.Serialize();
@@ -21156,7 +21579,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxinsString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txins_.DeserializeUniValue(json_value);
   }
@@ -21189,7 +21612,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string.
    */
   static std::string GetTxoutsString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txouts_.Serialize();
@@ -21200,7 +21623,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxoutsString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txouts_.DeserializeUniValue(json_value);
   }
@@ -21233,7 +21656,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string.
    */
   static std::string GetFeeString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.fee_.Serialize();
@@ -21244,7 +21667,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object
    */
   static void SetFeeString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.fee_.DeserializeUniValue(json_value);
   }
@@ -21277,7 +21700,7 @@ class ElementsCreateRawPeginRequest
    * @return JSON string
    */
   static std::string GetIsRandomSortTxOutString(  // line separate
-      const ElementsCreateRawPeginRequest& obj) {  // NOLINT
+      const CreateRawPeginRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.is_random_sort_tx_out_);
   }
   /**
@@ -21286,7 +21709,7 @@ class ElementsCreateRawPeginRequest
    * @param[in] json_value  JSON object.
    */
   static void SetIsRandomSortTxOutString(  // line separate
-      ElementsCreateRawPeginRequest& obj,  // NOLINT
+      CreateRawPeginRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.is_random_sort_tx_out_, json_value);
@@ -21305,27 +21728,27 @@ class ElementsCreateRawPeginRequest
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateRawPeginRequestStruct& data);
+      const CreateRawPeginRequestStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateRawPeginRequestStruct ConvertToStruct()  const;
+  CreateRawPeginRequestStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateRawPeginRequestMapTable =
-    cfd::core::JsonTableMap<ElementsCreateRawPeginRequest>;
+  using CreateRawPeginRequestMapTable =
+    cfd::core::JsonTableMap<CreateRawPeginRequest>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateRawPeginRequestMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateRawPeginRequestMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -21351,7 +21774,7 @@ class ElementsCreateRawPeginRequest
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateRawPeginRequestMapTable json_mapper;
+  static CreateRawPeginRequestMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -21388,18 +21811,18 @@ class ElementsCreateRawPeginRequest
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginResponse
+// CreateRawPeginResponse
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateRawPeginResponse) class
+ * @brief JSON-API (CreateRawPeginResponse) class
  */
-class ElementsCreateRawPeginResponse
-  : public cfd::core::JsonClassBase<ElementsCreateRawPeginResponse> {
+class CreateRawPeginResponse
+  : public cfd::core::JsonClassBase<CreateRawPeginResponse> {
  public:
-  ElementsCreateRawPeginResponse() {
+  CreateRawPeginResponse() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateRawPeginResponse() {
+  virtual ~CreateRawPeginResponse() {
     // do nothing
   }
   /**
@@ -21435,7 +21858,7 @@ class ElementsCreateRawPeginResponse
    * @return JSON string
    */
   static std::string GetHexString(  // line separate
-      const ElementsCreateRawPeginResponse& obj) {  // NOLINT
+      const CreateRawPeginResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.hex_);
   }
   /**
@@ -21444,7 +21867,7 @@ class ElementsCreateRawPeginResponse
    * @param[in] json_value  JSON object.
    */
   static void SetHexString(  // line separate
-      ElementsCreateRawPeginResponse& obj,  // NOLINT
+      CreateRawPeginResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.hex_, json_value);
@@ -21463,27 +21886,27 @@ class ElementsCreateRawPeginResponse
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateRawPeginResponseStruct& data);
+      const CreateRawPeginResponseStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateRawPeginResponseStruct ConvertToStruct()  const;
+  CreateRawPeginResponseStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateRawPeginResponseMapTable =
-    cfd::core::JsonTableMap<ElementsCreateRawPeginResponse>;
+  using CreateRawPeginResponseMapTable =
+    cfd::core::JsonTableMap<CreateRawPeginResponse>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateRawPeginResponseMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateRawPeginResponseMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -21509,7 +21932,7 @@ class ElementsCreateRawPeginResponse
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateRawPeginResponseMapTable json_mapper;
+  static CreateRawPeginResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -21907,6 +22330,92 @@ class ElementsPegoutTxOut
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const ElementsPegoutTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      ElementsPegoutTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsPegoutTxOut& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsPegoutTxOut& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Get of isRemoveNonce
    * @return isRemoveNonce
    */
@@ -22030,6 +22539,14 @@ class ElementsPegoutTxOut
    * @brief JsonAPI(asset) value
    */
   std::string asset_ = "";
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
   /**
    * @brief JsonAPI(isRemoveNonce) value
    */
@@ -22830,18 +23347,18 @@ class ElementsPegoutTxOutFee
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutRequest
+// CreateRawPegoutRequest
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateRawPegoutRequest) class
+ * @brief JSON-API (CreateRawPegoutRequest) class
  */
-class ElementsCreateRawPegoutRequest
-  : public cfd::core::JsonClassBase<ElementsCreateRawPegoutRequest> {
+class CreateRawPegoutRequest
+  : public cfd::core::JsonClassBase<CreateRawPegoutRequest> {
  public:
-  ElementsCreateRawPegoutRequest() {
+  CreateRawPegoutRequest() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateRawPegoutRequest() {
+  virtual ~CreateRawPegoutRequest() {
     // do nothing
   }
   /**
@@ -22877,7 +23394,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string
    */
   static std::string GetVersionString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.version_);
   }
   /**
@@ -22886,7 +23403,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object.
    */
   static void SetVersionString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.version_, json_value);
@@ -22920,7 +23437,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string
    */
   static std::string GetLocktimeString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.locktime_);
   }
   /**
@@ -22929,7 +23446,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object.
    */
   static void SetLocktimeString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.locktime_, json_value);
@@ -22963,7 +23480,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string.
    */
   static std::string GetTxinsString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txins_.Serialize();
@@ -22974,7 +23491,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxinsString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txins_.DeserializeUniValue(json_value);
   }
@@ -23007,7 +23524,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string.
    */
   static std::string GetTxoutsString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.txouts_.Serialize();
@@ -23018,7 +23535,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object
    */
   static void SetTxoutsString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.txouts_.DeserializeUniValue(json_value);
   }
@@ -23051,7 +23568,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string.
    */
   static std::string GetPegoutString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.pegout_.Serialize();
@@ -23062,7 +23579,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object
    */
   static void SetPegoutString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.pegout_.DeserializeUniValue(json_value);
   }
@@ -23095,7 +23612,7 @@ class ElementsCreateRawPegoutRequest
    * @return JSON string.
    */
   static std::string GetFeeString(  // line separate
-      const ElementsCreateRawPegoutRequest& obj) {  // NOLINT
+      const CreateRawPegoutRequest& obj) {  // NOLINT
     // Do not set to const, because substitution of member variables
     // may occur in pre / post processing inside Serialize
     return obj.fee_.Serialize();
@@ -23106,7 +23623,7 @@ class ElementsCreateRawPegoutRequest
    * @param[in] json_value  JSON object
    */
   static void SetFeeString(  // line separate
-      ElementsCreateRawPegoutRequest& obj,  // NOLINT
+      CreateRawPegoutRequest& obj,  // NOLINT
       const UniValue& json_value) {
     obj.fee_.DeserializeUniValue(json_value);
   }
@@ -23124,27 +23641,27 @@ class ElementsCreateRawPegoutRequest
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateRawPegoutRequestStruct& data);
+      const CreateRawPegoutRequestStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateRawPegoutRequestStruct ConvertToStruct()  const;
+  CreateRawPegoutRequestStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateRawPegoutRequestMapTable =
-    cfd::core::JsonTableMap<ElementsCreateRawPegoutRequest>;
+  using CreateRawPegoutRequestMapTable =
+    cfd::core::JsonTableMap<CreateRawPegoutRequest>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateRawPegoutRequestMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateRawPegoutRequestMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -23170,7 +23687,7 @@ class ElementsCreateRawPegoutRequest
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateRawPegoutRequestMapTable json_mapper;
+  static CreateRawPegoutRequestMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -23207,18 +23724,18 @@ class ElementsCreateRawPegoutRequest
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutResponse
+// CreateRawPegoutResponse
 // ------------------------------------------------------------------------
 /**
- * @brief JSON-API (ElementsCreateRawPegoutResponse) class
+ * @brief JSON-API (CreateRawPegoutResponse) class
  */
-class ElementsCreateRawPegoutResponse
-  : public cfd::core::JsonClassBase<ElementsCreateRawPegoutResponse> {
+class CreateRawPegoutResponse
+  : public cfd::core::JsonClassBase<CreateRawPegoutResponse> {
  public:
-  ElementsCreateRawPegoutResponse() {
+  CreateRawPegoutResponse() {
     CollectFieldName();
   }
-  virtual ~ElementsCreateRawPegoutResponse() {
+  virtual ~CreateRawPegoutResponse() {
     // do nothing
   }
   /**
@@ -23254,7 +23771,7 @@ class ElementsCreateRawPegoutResponse
    * @return JSON string
    */
   static std::string GetHexString(  // line separate
-      const ElementsCreateRawPegoutResponse& obj) {  // NOLINT
+      const CreateRawPegoutResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.hex_);
   }
   /**
@@ -23263,7 +23780,7 @@ class ElementsCreateRawPegoutResponse
    * @param[in] json_value  JSON object.
    */
   static void SetHexString(  // line separate
-      ElementsCreateRawPegoutResponse& obj,  // NOLINT
+      CreateRawPegoutResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.hex_, json_value);
@@ -23297,7 +23814,7 @@ class ElementsCreateRawPegoutResponse
    * @return JSON string
    */
   static std::string GetBtcAddressString(  // line separate
-      const ElementsCreateRawPegoutResponse& obj) {  // NOLINT
+      const CreateRawPegoutResponse& obj) {  // NOLINT
     return cfd::core::ConvertToString(obj.btc_address_);
   }
   /**
@@ -23306,7 +23823,7 @@ class ElementsCreateRawPegoutResponse
    * @param[in] json_value  JSON object.
    */
   static void SetBtcAddressString(  // line separate
-      ElementsCreateRawPegoutResponse& obj,  // NOLINT
+      CreateRawPegoutResponse& obj,  // NOLINT
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.btc_address_, json_value);
@@ -23325,27 +23842,27 @@ class ElementsCreateRawPegoutResponse
    * @param[in] data   struct data.
    */
   void ConvertFromStruct(
-      const ElementsCreateRawPegoutResponseStruct& data);
+      const CreateRawPegoutResponseStruct& data);
 
   /**
    * @brief Convert class to struct.
    * @return  struct data.
    */
-  ElementsCreateRawPegoutResponseStruct ConvertToStruct()  const;
+  CreateRawPegoutResponseStruct ConvertToStruct()  const;
 
  protected:
   /**
    * @brief definition type of Map table.
    */
-  using ElementsCreateRawPegoutResponseMapTable =
-    cfd::core::JsonTableMap<ElementsCreateRawPegoutResponse>;
+  using CreateRawPegoutResponseMapTable =
+    cfd::core::JsonTableMap<CreateRawPegoutResponse>;
 
   /**
    * @brief Get JSON mapping object.
    * @return JSON mapping object.
    * @see cfd::core::JsonClassBase::GetJsonMapper()
    */
-  virtual const ElementsCreateRawPegoutResponseMapTable& GetJsonMapper() const {  // NOLINT
+  virtual const CreateRawPegoutResponseMapTable& GetJsonMapper() const {  // NOLINT
     return json_mapper;
   }
   /**
@@ -23371,7 +23888,7 @@ class ElementsCreateRawPegoutResponse
  /**
   * @brief JsonFunctionMap table
   */
-  static ElementsCreateRawPegoutResponseMapTable json_mapper;
+  static CreateRawPegoutResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -23773,6 +24290,92 @@ class ElementsTxOutRequest
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const ElementsTxOutRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      ElementsTxOutRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Get of directNonce
+   * @return directNonce
+   */
+  std::string GetDirectNonce() const {
+    return direct_nonce_;
+  }
+  /**
+   * @brief Set to directNonce
+   * @param[in] direct_nonce    setting value.
+   */
+  void SetDirectNonce(  // line separate
+    const std::string& direct_nonce) {  // NOLINT
+    this->direct_nonce_ = direct_nonce;
+  }
+  /**
+   * @brief Get data type of directNonce
+   * @return Data type of directNonce
+   */
+  static std::string GetDirectNonceFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directNonce field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectNonceString(  // line separate
+      const ElementsTxOutRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_nonce_);
+  }
+  /**
+   * @brief Set json object to directNonce field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectNonceString(  // line separate
+      ElementsTxOutRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_nonce_, json_value);
+  }
+
+  /**
    * @brief Get of isRemoveNonce
    * @return isRemoveNonce
    */
@@ -23896,6 +24499,14 @@ class ElementsTxOutRequest
    * @brief JsonAPI(asset) value
    */
   std::string asset_ = "";
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+  /**
+   * @brief JsonAPI(directNonce) value
+   */
+  std::string direct_nonce_ = "";
   /**
    * @brief JsonAPI(isRemoveNonce) value
    */
@@ -39765,6 +40376,49 @@ class GetExtkeyInfoResponse
   static void CollectFieldName();
 
   /**
+   * @brief Get of network
+   * @return network
+   */
+  std::string GetNetwork() const {
+    return network_;
+  }
+  /**
+   * @brief Set to network
+   * @param[in] network    setting value.
+   */
+  void SetNetwork(  // line separate
+    const std::string& network) {  // NOLINT
+    this->network_ = network;
+  }
+  /**
+   * @brief Get data type of network
+   * @return Data type of network
+   */
+  static std::string GetNetworkFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of network field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetNetworkString(  // line separate
+      const GetExtkeyInfoResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.network_);
+  }
+  /**
+   * @brief Set json object to network field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetNetworkString(  // line separate
+      GetExtkeyInfoResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.network_, json_value);
+  }
+
+  /**
    * @brief Get of version
    * @return version
    */
@@ -40048,6 +40702,10 @@ class GetExtkeyInfoResponse
    */
   std::set<std::string> ignore_items;
 
+  /**
+   * @brief JsonAPI(network) value
+   */
+  std::string network_ = "";
   /**
    * @brief JsonAPI(version) value
    */
@@ -51007,6 +51665,49 @@ class TxOutRequest
   }
 
   /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const TxOutRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      TxOutRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -51083,6 +51784,10 @@ class TxOutRequest
    * @brief JsonAPI(amount) value
    */
   int64_t amount_ = 0;
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
 };
 
 // ------------------------------------------------------------------------
@@ -51489,6 +52194,656 @@ class CreateRawTransactionResponse
   * @brief JsonFunctionMap table
   */
   static CreateRawTransactionResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(hex) value
+   */
+  std::string hex_ = "";
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountData
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (UpdateTxOutAmountData) class
+ */
+class UpdateTxOutAmountData
+  : public cfd::core::JsonClassBase<UpdateTxOutAmountData> {
+ public:
+  UpdateTxOutAmountData() {
+    CollectFieldName();
+  }
+  virtual ~UpdateTxOutAmountData() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of amount
+   * @return amount
+   */
+  int64_t GetAmount() const {
+    return amount_;
+  }
+  /**
+   * @brief Set to amount
+   * @param[in] amount    setting value.
+   */
+  void SetAmount(  // line separate
+    const int64_t& amount) {  // NOLINT
+    this->amount_ = amount;
+  }
+  /**
+   * @brief Get data type of amount
+   * @return Data type of amount
+   */
+  static std::string GetAmountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of amount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAmountString(  // line separate
+      const UpdateTxOutAmountData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.amount_);
+  }
+  /**
+   * @brief Set json object to amount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAmountString(  // line separate
+      UpdateTxOutAmountData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.amount_, json_value);
+  }
+
+  /**
+   * @brief Get of index
+   * @return index
+   */
+  uint32_t GetIndex() const {
+    return index_;
+  }
+  /**
+   * @brief Set to index
+   * @param[in] index    setting value.
+   */
+  void SetIndex(  // line separate
+    const uint32_t& index) {  // NOLINT
+    this->index_ = index;
+  }
+  /**
+   * @brief Get data type of index
+   * @return Data type of index
+   */
+  static std::string GetIndexFieldType() {
+    return "uint32_t";
+  }
+  /**
+   * @brief Get json string of index field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetIndexString(  // line separate
+      const UpdateTxOutAmountData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.index_);
+  }
+  /**
+   * @brief Set json object to index field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetIndexString(  // line separate
+      UpdateTxOutAmountData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.index_, json_value);
+  }
+
+  /**
+   * @brief Get of address
+   * @return address
+   */
+  std::string GetAddress() const {
+    return address_;
+  }
+  /**
+   * @brief Set to address
+   * @param[in] address    setting value.
+   */
+  void SetAddress(  // line separate
+    const std::string& address) {  // NOLINT
+    this->address_ = address;
+  }
+  /**
+   * @brief Get data type of address
+   * @return Data type of address
+   */
+  static std::string GetAddressFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of address field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAddressString(  // line separate
+      const UpdateTxOutAmountData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.address_);
+  }
+  /**
+   * @brief Set json object to address field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAddressString(  // line separate
+      UpdateTxOutAmountData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.address_, json_value);
+  }
+
+  /**
+   * @brief Get of directLockingScript
+   * @return directLockingScript
+   */
+  std::string GetDirectLockingScript() const {
+    return direct_locking_script_;
+  }
+  /**
+   * @brief Set to directLockingScript
+   * @param[in] direct_locking_script    setting value.
+   */
+  void SetDirectLockingScript(  // line separate
+    const std::string& direct_locking_script) {  // NOLINT
+    this->direct_locking_script_ = direct_locking_script;
+  }
+  /**
+   * @brief Get data type of directLockingScript
+   * @return Data type of directLockingScript
+   */
+  static std::string GetDirectLockingScriptFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetDirectLockingScriptString(  // line separate
+      const UpdateTxOutAmountData& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.direct_locking_script_);
+  }
+  /**
+   * @brief Set json object to directLockingScript field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetDirectLockingScriptString(  // line separate
+      UpdateTxOutAmountData& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.direct_locking_script_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const UpdateTxOutAmountDataStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  UpdateTxOutAmountDataStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using UpdateTxOutAmountDataMapTable =
+    cfd::core::JsonTableMap<UpdateTxOutAmountData>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const UpdateTxOutAmountDataMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static UpdateTxOutAmountDataMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(amount) value
+   */
+  int64_t amount_ = 0;
+  /**
+   * @brief JsonAPI(index) value
+   */
+  uint32_t index_ = 0;
+  /**
+   * @brief JsonAPI(address) value
+   */
+  std::string address_ = "";
+  /**
+   * @brief JsonAPI(directLockingScript) value
+   */
+  std::string direct_locking_script_ = "";
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (UpdateTxOutAmountRequest) class
+ */
+class UpdateTxOutAmountRequest
+  : public cfd::core::JsonClassBase<UpdateTxOutAmountRequest> {
+ public:
+  UpdateTxOutAmountRequest() {
+    CollectFieldName();
+  }
+  virtual ~UpdateTxOutAmountRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of tx
+   * @return tx
+   */
+  std::string GetTx() const {
+    return tx_;
+  }
+  /**
+   * @brief Set to tx
+   * @param[in] tx    setting value.
+   */
+  void SetTx(  // line separate
+    const std::string& tx) {  // NOLINT
+    this->tx_ = tx;
+  }
+  /**
+   * @brief Get data type of tx
+   * @return Data type of tx
+   */
+  static std::string GetTxFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of tx field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTxString(  // line separate
+      const UpdateTxOutAmountRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.tx_);
+  }
+  /**
+   * @brief Set json object to tx field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTxString(  // line separate
+      UpdateTxOutAmountRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.tx_, json_value);
+  }
+
+  /**
+   * @brief Get of isElements
+   * @return isElements
+   */
+  bool GetIsElements() const {
+    return is_elements_;
+  }
+  /**
+   * @brief Set to isElements
+   * @param[in] is_elements    setting value.
+   */
+  void SetIsElements(  // line separate
+    const bool& is_elements) {  // NOLINT
+    this->is_elements_ = is_elements;
+  }
+  /**
+   * @brief Get data type of isElements
+   * @return Data type of isElements
+   */
+  static std::string GetIsElementsFieldType() {
+    return "bool";
+  }
+  /**
+   * @brief Get json string of isElements field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetIsElementsString(  // line separate
+      const UpdateTxOutAmountRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.is_elements_);
+  }
+  /**
+   * @brief Set json object to isElements field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetIsElementsString(  // line separate
+      UpdateTxOutAmountRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.is_elements_, json_value);
+  }
+
+  /**
+   * @brief Get of txouts.
+   * @return txouts
+   */
+  JsonObjectVector<UpdateTxOutAmountData, UpdateTxOutAmountDataStruct>& GetTxouts() {  // NOLINT
+    return txouts_;
+  }
+  /**
+   * @brief Set to txouts.
+   * @param[in] txouts    setting value.
+   */
+  void SetTxouts(  // line separate
+      const JsonObjectVector<UpdateTxOutAmountData, UpdateTxOutAmountDataStruct>& txouts) {  // NOLINT
+    this->txouts_ = txouts;
+  }
+  /**
+   * @brief Get data type of txouts.
+   * @return Data type of txouts.
+   */
+  static std::string GetTxoutsFieldType() {
+    return "JsonObjectVector<UpdateTxOutAmountData, UpdateTxOutAmountDataStruct>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of txouts field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetTxoutsString(  // line separate
+      const UpdateTxOutAmountRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.txouts_.Serialize();
+  }
+  /**
+   * @brief Set json object to txouts field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetTxoutsString(  // line separate
+      UpdateTxOutAmountRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.txouts_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const UpdateTxOutAmountRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  UpdateTxOutAmountRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using UpdateTxOutAmountRequestMapTable =
+    cfd::core::JsonTableMap<UpdateTxOutAmountRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const UpdateTxOutAmountRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static UpdateTxOutAmountRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(tx) value
+   */
+  std::string tx_ = "";
+  /**
+   * @brief JsonAPI(isElements) value
+   */
+  bool is_elements_ = false;
+  /**
+   * @brief JsonAPI(txouts) value
+   */
+  JsonObjectVector<UpdateTxOutAmountData, UpdateTxOutAmountDataStruct> txouts_;  // NOLINT
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (UpdateTxOutAmountResponse) class
+ */
+class UpdateTxOutAmountResponse
+  : public cfd::core::JsonClassBase<UpdateTxOutAmountResponse> {
+ public:
+  UpdateTxOutAmountResponse() {
+    CollectFieldName();
+  }
+  virtual ~UpdateTxOutAmountResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of hex
+   * @return hex
+   */
+  std::string GetHex() const {
+    return hex_;
+  }
+  /**
+   * @brief Set to hex
+   * @param[in] hex    setting value.
+   */
+  void SetHex(  // line separate
+    const std::string& hex) {  // NOLINT
+    this->hex_ = hex;
+  }
+  /**
+   * @brief Get data type of hex
+   * @return Data type of hex
+   */
+  static std::string GetHexFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of hex field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetHexString(  // line separate
+      const UpdateTxOutAmountResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.hex_);
+  }
+  /**
+   * @brief Set json object to hex field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetHexString(  // line separate
+      UpdateTxOutAmountResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.hex_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const UpdateTxOutAmountResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  UpdateTxOutAmountResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using UpdateTxOutAmountResponseMapTable =
+    cfd::core::JsonTableMap<UpdateTxOutAmountResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const UpdateTxOutAmountResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mnapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static UpdateTxOutAmountResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */

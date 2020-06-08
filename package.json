@@ -1,6 +1,6 @@
 {
   "name": "cfd-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "domain": "p2pderivatives",
   "repository": {
     "type": "git",
@@ -113,7 +113,7 @@
     "cmake_clean_dl": "rimraf wrap_js/dl_lib",
     "cmake_clean": "run-s cmake_clean_build cmake_clean_wally_file",
     "cmake_clean_build": "cmake-js clean -O build",
-    "cmake_clean_wally_file": "cd wrap_js && del wally.js",
+    "cmake_clean_wally_file": "del wally.js",
     "cmake_install_pkg": "run-script-os",
     "cmake_install_pkg:win32": "cmake --install build",
     "cmake_install_pkg:linux": "sudo cmake --install build",

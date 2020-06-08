@@ -1,0 +1,31 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "UpdateTxOutAmountRequest",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "txouts:require": "optional",
+    "txouts": [
+      {
+        ":class": "UpdateTxOutAmountData",
+        "amount": 0,
+        "amount:require": "require",
+        "index": 0,
+        "index:require": "optional",
+        "index:type": "uint32_t",
+        "address": "",
+        "address:require": "optional",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional"
+      }
+    ]
+  },
+  "response": {
+    ":class": "UpdateTxOutAmountResponse",
+    "hex": "",
+    "hex:require": "require"
+  }
+}

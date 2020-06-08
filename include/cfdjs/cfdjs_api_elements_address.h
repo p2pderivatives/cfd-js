@@ -89,8 +89,8 @@ class CFD_JS_API_EXPORT ElementsAddressStructApi {
    * @param[in] request peg-inに利用できるAddressを構成するパラメータ
    * @return peg-inに利用できるAddress hexを格納した構造体
    */
-  static ElementsCreatePegInAddressResponseStruct CreatePegInAddress(
-      const ElementsCreatePegInAddressRequestStruct& request);
+  static CreatePegInAddressResponseStruct CreatePegInAddress(
+      const CreatePegInAddressRequestStruct& request);
 
   /**
    * @brief JSONパラメータの情報を元に、Descriptorを解析する

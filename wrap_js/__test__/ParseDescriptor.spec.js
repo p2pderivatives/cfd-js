@@ -220,7 +220,7 @@ const errorCase = [
     'ParseDescriptor Error(network is invalid)',
     ParseDescriptor,
     ['{"isElements":true,"descriptor":"pkh(02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce)","network":"liquidv0"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"regtest\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"liquidregtest\\" or \\"elementsregtest\\" or \\"regtest\\"."}}',
   ),
   TestHelper.createElementsTestCase(
     'ParseDescriptor Error(addr prefix is invalid)',

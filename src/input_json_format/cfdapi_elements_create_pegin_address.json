@@ -1,7 +1,7 @@
 {
   "namespace": ["cfd","js","api","json"],
   "request": {
-    ":class": "ElementsCreatePegInAddressRequest",
+    ":class": "CreatePegInAddressRequest",
     ":comment": "If unlock pegin tx, sign to p2wpkh or p2wsh format.",
     "fedpegscript": "",
     "fedpegscript:require": "require",
@@ -21,7 +21,7 @@
     "hashType:hint": "p2wsh, p2sh-p2wsh, p2sh"
   },
   "response": {
-    ":class": "ElementsCreatePegInAddressResponse",
+    ":class": "CreatePegInAddressResponse",
     "mainchainAddress": "",
     "mainchainAddress:require": "require",
     "claimScript": "",

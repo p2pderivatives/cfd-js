@@ -1,7 +1,7 @@
 {
   "namespace": ["cfd","js","api","json"],
   "request": {
-    ":class": "ElementsCreateRawPegoutRequest",
+    ":class": "CreateRawPegoutRequest",
     "version": 2,
     "version:type": "uint32_t",
     "version:require": "optional",
@@ -32,6 +32,10 @@
         "amount:require": "require",
         "asset": "",
         "asset:require": "require",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional",
+        "directNonce": "",
+        "directNonce:require": "optional",
         "isRemoveNonce": false,
         "isRemoveNonce:require": "optional"
       }
@@ -75,7 +79,7 @@
     }
   },
   "response": {
-    ":class": "ElementsCreateRawPegoutResponse",
+    ":class": "CreateRawPegoutResponse",
     "hex": "",
     "hex:require": "require",
     "btcAddress": "",

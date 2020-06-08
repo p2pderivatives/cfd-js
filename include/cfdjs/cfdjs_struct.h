@@ -164,8 +164,9 @@ struct AddTxInStruct {
  * @brief AddTxOutStruct struct
  */
 struct AddTxOutStruct {
-  std::string address = "";  //!< address  // NOLINT
-  int64_t amount = 0;        //!< amount  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -930,10 +931,12 @@ struct ElementsAddPeginTxInStruct {
  * @brief ElementsAddTxOutStruct struct
  */
 struct ElementsAddTxOutStruct {
-  std::string address = "";      //!< address  // NOLINT
-  int64_t amount = 0;            //!< amount  // NOLINT
-  std::string asset = "";        //!< asset  // NOLINT
-  bool is_remove_nonce = false;  //!< is_remove_nonce  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string asset = "";                  //!< asset  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::string direct_nonce = "";           //!< direct_nonce  // NOLINT
+  bool is_remove_nonce = false;            //!< is_remove_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -944,8 +947,9 @@ struct ElementsAddTxOutStruct {
  * @brief ElementsAddDestroyAmountStruct struct
  */
 struct ElementsAddDestroyAmountStruct {
-  int64_t amount = 0;      //!< amount  // NOLINT
-  std::string asset = "";  //!< asset  // NOLINT
+  int64_t amount = 0;             //!< amount  // NOLINT
+  std::string asset = "";         //!< asset  // NOLINT
+  std::string direct_nonce = "";  //!< direct_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1033,10 +1037,12 @@ struct ElementsDestroyAmountTxInStruct {
  * @brief ElementsDestroyAmountTxOutStruct struct
  */
 struct ElementsDestroyAmountTxOutStruct {
-  std::string address = "";      //!< address  // NOLINT
-  int64_t amount = 0;            //!< amount  // NOLINT
-  std::string asset = "";        //!< asset  // NOLINT
-  bool is_remove_nonce = false;  //!< is_remove_nonce  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string asset = "";                  //!< asset  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::string direct_nonce = "";           //!< direct_nonce  // NOLINT
+  bool is_remove_nonce = false;            //!< is_remove_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1047,8 +1053,9 @@ struct ElementsDestroyAmountTxOutStruct {
  * @brief ElementsDestroyAmountStruct struct
  */
 struct ElementsDestroyAmountStruct {
-  int64_t amount = 0;      //!< amount  // NOLINT
-  std::string asset = "";  //!< asset  // NOLINT
+  int64_t amount = 0;             //!< amount  // NOLINT
+  std::string asset = "";         //!< asset  // NOLINT
+  std::string direct_nonce = "";  //!< direct_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1065,12 +1072,12 @@ struct ElementsDestroyAmountFeeStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountRequestStruct
+// CreateDestroyAmountRequestStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateDestroyAmountRequestStruct struct
+ * @brief CreateDestroyAmountRequestStruct struct
  */
-struct ElementsCreateDestroyAmountRequestStruct {
+struct CreateDestroyAmountRequestStruct {
   uint32_t version = 2;                                  //!< version  // NOLINT
   uint32_t locktime = 0;                                 //!< locktime  // NOLINT
   std::vector<ElementsDestroyAmountTxInStruct> txins;    //!< txins  // NOLINT
@@ -1081,24 +1088,24 @@ struct ElementsCreateDestroyAmountRequestStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountResponseStruct
+// CreateDestroyAmountResponseStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateDestroyAmountResponseStruct struct
+ * @brief CreateDestroyAmountResponseStruct struct
  */
-struct ElementsCreateDestroyAmountResponseStruct {
+struct CreateDestroyAmountResponseStruct {
   std::string hex = "";  //!< hex  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressRequestStruct
+// CreatePegInAddressRequestStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreatePegInAddressRequestStruct struct
+ * @brief CreatePegInAddressRequestStruct struct
  */
-struct ElementsCreatePegInAddressRequestStruct {
+struct CreatePegInAddressRequestStruct {
   std::string fedpegscript = "";         //!< fedpegscript  // NOLINT
   std::string pubkey = "";               //!< pubkey  // NOLINT
   std::string redeem_script = "";        //!< redeem_script  // NOLINT
@@ -1108,12 +1115,12 @@ struct ElementsCreatePegInAddressRequestStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressResponseStruct
+// CreatePegInAddressResponseStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreatePegInAddressResponseStruct struct
+ * @brief CreatePegInAddressResponseStruct struct
  */
-struct ElementsCreatePegInAddressResponseStruct {
+struct CreatePegInAddressResponseStruct {
   std::string mainchain_address = "";   //!< mainchain_address  // NOLINT
   std::string claim_script = "";        //!< claim_script  // NOLINT
   std::string tweak_fedpegscript = "";  //!< tweak_fedpegscript  // NOLINT
@@ -1160,10 +1167,12 @@ struct ElementsPeginTxInStruct {
  * @brief ElementsPeginTxOutStruct struct
  */
 struct ElementsPeginTxOutStruct {
-  std::string address = "";      //!< address  // NOLINT
-  int64_t amount = 0;            //!< amount  // NOLINT
-  std::string asset = "";        //!< asset  // NOLINT
-  bool is_remove_nonce = false;  //!< is_remove_nonce  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string asset = "";                  //!< asset  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::string direct_nonce = "";           //!< direct_nonce  // NOLINT
+  bool is_remove_nonce = false;            //!< is_remove_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1180,12 +1189,12 @@ struct ElementsPeginTxOutFeeStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginRequestStruct
+// CreateRawPeginRequestStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateRawPeginRequestStruct struct
+ * @brief CreateRawPeginRequestStruct struct
  */
-struct ElementsCreateRawPeginRequestStruct {
+struct CreateRawPeginRequestStruct {
   uint32_t version = 2;                          //!< version  // NOLINT
   uint32_t locktime = 0;                         //!< locktime  // NOLINT
   std::vector<ElementsPeginTxInStruct> txins;    //!< txins  // NOLINT
@@ -1196,12 +1205,12 @@ struct ElementsCreateRawPeginRequestStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginResponseStruct
+// CreateRawPeginResponseStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateRawPeginResponseStruct struct
+ * @brief CreateRawPeginResponseStruct struct
  */
-struct ElementsCreateRawPeginResponseStruct {
+struct CreateRawPeginResponseStruct {
   std::string hex = "";  //!< hex  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
@@ -1227,10 +1236,12 @@ struct ElementsPegoutTxInStruct {
  * @brief ElementsPegoutTxOutStruct struct
  */
 struct ElementsPegoutTxOutStruct {
-  std::string address = "";      //!< address  // NOLINT
-  int64_t amount = 0;            //!< amount  // NOLINT
-  std::string asset = "";        //!< asset  // NOLINT
-  bool is_remove_nonce = false;  //!< is_remove_nonce  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string asset = "";                  //!< asset  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::string direct_nonce = "";           //!< direct_nonce  // NOLINT
+  bool is_remove_nonce = false;            //!< is_remove_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1268,12 +1279,12 @@ struct ElementsPegoutTxOutFeeStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutRequestStruct
+// CreateRawPegoutRequestStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateRawPegoutRequestStruct struct
+ * @brief CreateRawPegoutRequestStruct struct
  */
-struct ElementsCreateRawPegoutRequestStruct {
+struct CreateRawPegoutRequestStruct {
   uint32_t version = 2;                           //!< version  // NOLINT
   uint32_t locktime = 0;                          //!< locktime  // NOLINT
   std::vector<ElementsPegoutTxInStruct> txins;    //!< txins  // NOLINT
@@ -1284,12 +1295,12 @@ struct ElementsCreateRawPegoutRequestStruct {
 };
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutResponseStruct
+// CreateRawPegoutResponseStruct
 // ------------------------------------------------------------------------
 /**
- * @brief ElementsCreateRawPegoutResponseStruct struct
+ * @brief CreateRawPegoutResponseStruct struct
  */
-struct ElementsCreateRawPegoutResponseStruct {
+struct CreateRawPegoutResponseStruct {
   std::string hex = "";          //!< hex  // NOLINT
   std::string btc_address = "";  //!< btc_address  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
@@ -1316,10 +1327,12 @@ struct ElementsTxInRequestStruct {
  * @brief ElementsTxOutRequestStruct struct
  */
 struct ElementsTxOutRequestStruct {
-  std::string address = "";      //!< address  // NOLINT
-  int64_t amount = 0;            //!< amount  // NOLINT
-  std::string asset = "";        //!< asset  // NOLINT
-  bool is_remove_nonce = false;  //!< is_remove_nonce  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string asset = "";                  //!< asset  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::string direct_nonce = "";           //!< direct_nonce  // NOLINT
+  bool is_remove_nonce = false;            //!< is_remove_nonce  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -2079,6 +2092,7 @@ struct GetExtkeyInfoRequestStruct {
  * @brief GetExtkeyInfoResponseStruct struct
  */
 struct GetExtkeyInfoResponseStruct {
+  std::string network = "";      //!< network  // NOLINT
   std::string version = "";      //!< version  // NOLINT
   uint8_t depth = 0;             //!< depth  // NOLINT
   std::string fingerprint = "";  //!< fingerprint  // NOLINT
@@ -2713,8 +2727,9 @@ struct TxInRequestStruct {
  * @brief TxOutRequestStruct struct
  */
 struct TxOutRequestStruct {
-  std::string address = "";  //!< address  // NOLINT
-  int64_t amount = 0;        //!< amount  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -2739,6 +2754,45 @@ struct CreateRawTransactionRequestStruct {
  * @brief CreateRawTransactionResponseStruct struct
  */
 struct CreateRawTransactionResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountDataStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UpdateTxOutAmountDataStruct struct
+ */
+struct UpdateTxOutAmountDataStruct {
+  int64_t amount = 0;                      //!< amount  // NOLINT
+  uint32_t index = 0;                      //!< index  // NOLINT
+  std::string address = "";                //!< address  // NOLINT
+  std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UpdateTxOutAmountRequestStruct struct
+ */
+struct UpdateTxOutAmountRequestStruct {
+  std::string tx = "";                              //!< tx  // NOLINT
+  bool is_elements = false;                         //!< is_elements  // NOLINT
+  std::vector<UpdateTxOutAmountDataStruct> txouts;  //!< txouts  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UpdateTxOutAmountResponseStruct struct
+ */
+struct UpdateTxOutAmountResponseStruct {
   std::string hex = "";  //!< hex  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.

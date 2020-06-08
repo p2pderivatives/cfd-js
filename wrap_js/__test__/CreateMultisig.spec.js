@@ -161,7 +161,7 @@ const errorCase = [
     'CreateMultisig Elements Error(Wrong network type)',
     CreateMultisig,
     ['{"isElements":true,"nrequired":2,"keys":["0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe","02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"],"network":"test","hashType":"p2wsh"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"regtest\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"liquidregtest\\" or \\"elementsregtest\\" or \\"regtest\\"."}}',
   ),
   TestHelper.createElementsTestCase(
     'CreateMultisig Elements Error(Nonexisting address type)',

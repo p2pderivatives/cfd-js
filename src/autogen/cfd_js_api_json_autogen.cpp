@@ -589,12 +589,20 @@ void AddTxOut::CollectFieldName() {
   };
   json_mapper.emplace("amount", func_table);
   item_list.push_back("amount");
+  func_table = {
+    AddTxOut::GetDirectLockingScriptString,
+    AddTxOut::SetDirectLockingScriptString,
+    AddTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
 }
 
 void AddTxOut::ConvertFromStruct(
     const AddTxOutStruct& data) {
   address_ = data.address;
   amount_ = data.amount;
+  direct_locking_script_ = data.direct_locking_script;
   ignore_items = data.ignore_items;
 }
 
@@ -602,6 +610,7 @@ AddTxOutStruct AddTxOut::ConvertToStruct() const {  // NOLINT
   AddTxOutStruct result;
   result.address = address_;
   result.amount = amount_;
+  result.direct_locking_script = direct_locking_script_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -3664,6 +3673,20 @@ void ElementsAddTxOut::CollectFieldName() {
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
   func_table = {
+    ElementsAddTxOut::GetDirectLockingScriptString,
+    ElementsAddTxOut::SetDirectLockingScriptString,
+    ElementsAddTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsAddTxOut::GetDirectNonceString,
+    ElementsAddTxOut::SetDirectNonceString,
+    ElementsAddTxOut::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
     ElementsAddTxOut::GetIsRemoveNonceString,
     ElementsAddTxOut::SetIsRemoveNonceString,
     ElementsAddTxOut::GetIsRemoveNonceFieldType,
@@ -3677,6 +3700,8 @@ void ElementsAddTxOut::ConvertFromStruct(
   address_ = data.address;
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
   is_remove_nonce_ = data.is_remove_nonce;
   ignore_items = data.ignore_items;
 }
@@ -3686,6 +3711,8 @@ ElementsAddTxOutStruct ElementsAddTxOut::ConvertToStruct() const {  // NOLINT
   result.address = address_;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
   result.is_remove_nonce = is_remove_nonce_;
   result.ignore_items = ignore_items;
   return result;
@@ -3718,12 +3745,20 @@ void ElementsAddDestroyAmount::CollectFieldName() {
   };
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
+  func_table = {
+    ElementsAddDestroyAmount::GetDirectNonceString,
+    ElementsAddDestroyAmount::SetDirectNonceString,
+    ElementsAddDestroyAmount::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
 }
 
 void ElementsAddDestroyAmount::ConvertFromStruct(
     const ElementsAddDestroyAmountStruct& data) {
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_nonce_ = data.direct_nonce;
   ignore_items = data.ignore_items;
 }
 
@@ -3731,6 +3766,7 @@ ElementsAddDestroyAmountStruct ElementsAddDestroyAmount::ConvertToStruct() const
   ElementsAddDestroyAmountStruct result;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_nonce = direct_nonce_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -4134,6 +4170,20 @@ void ElementsDestroyAmountTxOut::CollectFieldName() {
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
   func_table = {
+    ElementsDestroyAmountTxOut::GetDirectLockingScriptString,
+    ElementsDestroyAmountTxOut::SetDirectLockingScriptString,
+    ElementsDestroyAmountTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsDestroyAmountTxOut::GetDirectNonceString,
+    ElementsDestroyAmountTxOut::SetDirectNonceString,
+    ElementsDestroyAmountTxOut::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
     ElementsDestroyAmountTxOut::GetIsRemoveNonceString,
     ElementsDestroyAmountTxOut::SetIsRemoveNonceString,
     ElementsDestroyAmountTxOut::GetIsRemoveNonceFieldType,
@@ -4147,6 +4197,8 @@ void ElementsDestroyAmountTxOut::ConvertFromStruct(
   address_ = data.address;
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
   is_remove_nonce_ = data.is_remove_nonce;
   ignore_items = data.ignore_items;
 }
@@ -4156,6 +4208,8 @@ ElementsDestroyAmountTxOutStruct ElementsDestroyAmountTxOut::ConvertToStruct() c
   result.address = address_;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
   result.is_remove_nonce = is_remove_nonce_;
   result.ignore_items = ignore_items;
   return result;
@@ -4188,12 +4242,20 @@ void ElementsDestroyAmount::CollectFieldName() {
   };
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
+  func_table = {
+    ElementsDestroyAmount::GetDirectNonceString,
+    ElementsDestroyAmount::SetDirectNonceString,
+    ElementsDestroyAmount::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
 }
 
 void ElementsDestroyAmount::ConvertFromStruct(
     const ElementsDestroyAmountStruct& data) {
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_nonce_ = data.direct_nonce;
   ignore_items = data.ignore_items;
 }
 
@@ -4201,6 +4263,7 @@ ElementsDestroyAmountStruct ElementsDestroyAmount::ConvertToStruct() const {  //
   ElementsDestroyAmountStruct result;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_nonce = direct_nonce_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -4250,64 +4313,64 @@ ElementsDestroyAmountFeeStruct ElementsDestroyAmountFee::ConvertToStruct() const
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountRequest
+// CreateDestroyAmountRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateDestroyAmountRequest>
-  ElementsCreateDestroyAmountRequest::json_mapper;
-std::vector<std::string> ElementsCreateDestroyAmountRequest::item_list;
+cfd::core::JsonTableMap<CreateDestroyAmountRequest>
+  CreateDestroyAmountRequest::json_mapper;
+std::vector<std::string> CreateDestroyAmountRequest::item_list;
 
-void ElementsCreateDestroyAmountRequest::CollectFieldName() {
+void CreateDestroyAmountRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateDestroyAmountRequest> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateDestroyAmountRequest> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetVersionString,
-    ElementsCreateDestroyAmountRequest::SetVersionString,
-    ElementsCreateDestroyAmountRequest::GetVersionFieldType,
+    CreateDestroyAmountRequest::GetVersionString,
+    CreateDestroyAmountRequest::SetVersionString,
+    CreateDestroyAmountRequest::GetVersionFieldType,
   };
   json_mapper.emplace("version", func_table);
   item_list.push_back("version");
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetLocktimeString,
-    ElementsCreateDestroyAmountRequest::SetLocktimeString,
-    ElementsCreateDestroyAmountRequest::GetLocktimeFieldType,
+    CreateDestroyAmountRequest::GetLocktimeString,
+    CreateDestroyAmountRequest::SetLocktimeString,
+    CreateDestroyAmountRequest::GetLocktimeFieldType,
   };
   json_mapper.emplace("locktime", func_table);
   item_list.push_back("locktime");
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetTxinsString,
-    ElementsCreateDestroyAmountRequest::SetTxinsString,
-    ElementsCreateDestroyAmountRequest::GetTxinsFieldType,
+    CreateDestroyAmountRequest::GetTxinsString,
+    CreateDestroyAmountRequest::SetTxinsString,
+    CreateDestroyAmountRequest::GetTxinsFieldType,
   };
   json_mapper.emplace("txins", func_table);
   item_list.push_back("txins");
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetTxoutsString,
-    ElementsCreateDestroyAmountRequest::SetTxoutsString,
-    ElementsCreateDestroyAmountRequest::GetTxoutsFieldType,
+    CreateDestroyAmountRequest::GetTxoutsString,
+    CreateDestroyAmountRequest::SetTxoutsString,
+    CreateDestroyAmountRequest::GetTxoutsFieldType,
   };
   json_mapper.emplace("txouts", func_table);
   item_list.push_back("txouts");
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetDestroyString,
-    ElementsCreateDestroyAmountRequest::SetDestroyString,
-    ElementsCreateDestroyAmountRequest::GetDestroyFieldType,
+    CreateDestroyAmountRequest::GetDestroyString,
+    CreateDestroyAmountRequest::SetDestroyString,
+    CreateDestroyAmountRequest::GetDestroyFieldType,
   };
   json_mapper.emplace("destroy", func_table);
   item_list.push_back("destroy");
   func_table = {
-    ElementsCreateDestroyAmountRequest::GetFeeString,
-    ElementsCreateDestroyAmountRequest::SetFeeString,
-    ElementsCreateDestroyAmountRequest::GetFeeFieldType,
+    CreateDestroyAmountRequest::GetFeeString,
+    CreateDestroyAmountRequest::SetFeeString,
+    CreateDestroyAmountRequest::GetFeeFieldType,
   };
   json_mapper.emplace("fee", func_table);
   item_list.push_back("fee");
 }
 
-void ElementsCreateDestroyAmountRequest::ConvertFromStruct(
-    const ElementsCreateDestroyAmountRequestStruct& data) {
+void CreateDestroyAmountRequest::ConvertFromStruct(
+    const CreateDestroyAmountRequestStruct& data) {
   version_ = data.version;
   locktime_ = data.locktime;
   txins_.ConvertFromStruct(data.txins);
@@ -4317,8 +4380,8 @@ void ElementsCreateDestroyAmountRequest::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateDestroyAmountRequestStruct ElementsCreateDestroyAmountRequest::ConvertToStruct() const {  // NOLINT
-  ElementsCreateDestroyAmountRequestStruct result;
+CreateDestroyAmountRequestStruct CreateDestroyAmountRequest::ConvertToStruct() const {  // NOLINT
+  CreateDestroyAmountRequestStruct result;
   result.version = version_;
   result.locktime = locktime_;
   result.txins = txins_.ConvertToStruct();
@@ -4330,92 +4393,92 @@ ElementsCreateDestroyAmountRequestStruct ElementsCreateDestroyAmountRequest::Con
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateDestroyAmountResponse
+// CreateDestroyAmountResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateDestroyAmountResponse>
-  ElementsCreateDestroyAmountResponse::json_mapper;
-std::vector<std::string> ElementsCreateDestroyAmountResponse::item_list;
+cfd::core::JsonTableMap<CreateDestroyAmountResponse>
+  CreateDestroyAmountResponse::json_mapper;
+std::vector<std::string> CreateDestroyAmountResponse::item_list;
 
-void ElementsCreateDestroyAmountResponse::CollectFieldName() {
+void CreateDestroyAmountResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateDestroyAmountResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateDestroyAmountResponse> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateDestroyAmountResponse::GetHexString,
-    ElementsCreateDestroyAmountResponse::SetHexString,
-    ElementsCreateDestroyAmountResponse::GetHexFieldType,
+    CreateDestroyAmountResponse::GetHexString,
+    CreateDestroyAmountResponse::SetHexString,
+    CreateDestroyAmountResponse::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
 }
 
-void ElementsCreateDestroyAmountResponse::ConvertFromStruct(
-    const ElementsCreateDestroyAmountResponseStruct& data) {
+void CreateDestroyAmountResponse::ConvertFromStruct(
+    const CreateDestroyAmountResponseStruct& data) {
   hex_ = data.hex;
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateDestroyAmountResponseStruct ElementsCreateDestroyAmountResponse::ConvertToStruct() const {  // NOLINT
-  ElementsCreateDestroyAmountResponseStruct result;
+CreateDestroyAmountResponseStruct CreateDestroyAmountResponse::ConvertToStruct() const {  // NOLINT
+  CreateDestroyAmountResponseStruct result;
   result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressRequest
+// CreatePegInAddressRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreatePegInAddressRequest>
-  ElementsCreatePegInAddressRequest::json_mapper;
-std::vector<std::string> ElementsCreatePegInAddressRequest::item_list;
+cfd::core::JsonTableMap<CreatePegInAddressRequest>
+  CreatePegInAddressRequest::json_mapper;
+std::vector<std::string> CreatePegInAddressRequest::item_list;
 
-void ElementsCreatePegInAddressRequest::CollectFieldName() {
+void CreatePegInAddressRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreatePegInAddressRequest> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreatePegInAddressRequest> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreatePegInAddressRequest::GetFedpegscriptString,
-    ElementsCreatePegInAddressRequest::SetFedpegscriptString,
-    ElementsCreatePegInAddressRequest::GetFedpegscriptFieldType,
+    CreatePegInAddressRequest::GetFedpegscriptString,
+    CreatePegInAddressRequest::SetFedpegscriptString,
+    CreatePegInAddressRequest::GetFedpegscriptFieldType,
   };
   json_mapper.emplace("fedpegscript", func_table);
   item_list.push_back("fedpegscript");
   func_table = {
-    ElementsCreatePegInAddressRequest::GetPubkeyString,
-    ElementsCreatePegInAddressRequest::SetPubkeyString,
-    ElementsCreatePegInAddressRequest::GetPubkeyFieldType,
+    CreatePegInAddressRequest::GetPubkeyString,
+    CreatePegInAddressRequest::SetPubkeyString,
+    CreatePegInAddressRequest::GetPubkeyFieldType,
   };
   json_mapper.emplace("pubkey", func_table);
   item_list.push_back("pubkey");
   func_table = {
-    ElementsCreatePegInAddressRequest::GetRedeemScriptString,
-    ElementsCreatePegInAddressRequest::SetRedeemScriptString,
-    ElementsCreatePegInAddressRequest::GetRedeemScriptFieldType,
+    CreatePegInAddressRequest::GetRedeemScriptString,
+    CreatePegInAddressRequest::SetRedeemScriptString,
+    CreatePegInAddressRequest::GetRedeemScriptFieldType,
   };
   json_mapper.emplace("redeemScript", func_table);
   item_list.push_back("redeemScript");
   func_table = {
-    ElementsCreatePegInAddressRequest::GetNetworkString,
-    ElementsCreatePegInAddressRequest::SetNetworkString,
-    ElementsCreatePegInAddressRequest::GetNetworkFieldType,
+    CreatePegInAddressRequest::GetNetworkString,
+    CreatePegInAddressRequest::SetNetworkString,
+    CreatePegInAddressRequest::GetNetworkFieldType,
   };
   json_mapper.emplace("network", func_table);
   item_list.push_back("network");
   func_table = {
-    ElementsCreatePegInAddressRequest::GetHashTypeString,
-    ElementsCreatePegInAddressRequest::SetHashTypeString,
-    ElementsCreatePegInAddressRequest::GetHashTypeFieldType,
+    CreatePegInAddressRequest::GetHashTypeString,
+    CreatePegInAddressRequest::SetHashTypeString,
+    CreatePegInAddressRequest::GetHashTypeFieldType,
   };
   json_mapper.emplace("hashType", func_table);
   item_list.push_back("hashType");
 }
 
-void ElementsCreatePegInAddressRequest::ConvertFromStruct(
-    const ElementsCreatePegInAddressRequestStruct& data) {
+void CreatePegInAddressRequest::ConvertFromStruct(
+    const CreatePegInAddressRequestStruct& data) {
   fedpegscript_ = data.fedpegscript;
   pubkey_ = data.pubkey;
   redeem_script_ = data.redeem_script;
@@ -4424,8 +4487,8 @@ void ElementsCreatePegInAddressRequest::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-ElementsCreatePegInAddressRequestStruct ElementsCreatePegInAddressRequest::ConvertToStruct() const {  // NOLINT
-  ElementsCreatePegInAddressRequestStruct result;
+CreatePegInAddressRequestStruct CreatePegInAddressRequest::ConvertToStruct() const {  // NOLINT
+  CreatePegInAddressRequestStruct result;
   result.fedpegscript = fedpegscript_;
   result.pubkey = pubkey_;
   result.redeem_script = redeem_script_;
@@ -4436,51 +4499,51 @@ ElementsCreatePegInAddressRequestStruct ElementsCreatePegInAddressRequest::Conve
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreatePegInAddressResponse
+// CreatePegInAddressResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreatePegInAddressResponse>
-  ElementsCreatePegInAddressResponse::json_mapper;
-std::vector<std::string> ElementsCreatePegInAddressResponse::item_list;
+cfd::core::JsonTableMap<CreatePegInAddressResponse>
+  CreatePegInAddressResponse::json_mapper;
+std::vector<std::string> CreatePegInAddressResponse::item_list;
 
-void ElementsCreatePegInAddressResponse::CollectFieldName() {
+void CreatePegInAddressResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreatePegInAddressResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreatePegInAddressResponse> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreatePegInAddressResponse::GetMainchainAddressString,
-    ElementsCreatePegInAddressResponse::SetMainchainAddressString,
-    ElementsCreatePegInAddressResponse::GetMainchainAddressFieldType,
+    CreatePegInAddressResponse::GetMainchainAddressString,
+    CreatePegInAddressResponse::SetMainchainAddressString,
+    CreatePegInAddressResponse::GetMainchainAddressFieldType,
   };
   json_mapper.emplace("mainchainAddress", func_table);
   item_list.push_back("mainchainAddress");
   func_table = {
-    ElementsCreatePegInAddressResponse::GetClaimScriptString,
-    ElementsCreatePegInAddressResponse::SetClaimScriptString,
-    ElementsCreatePegInAddressResponse::GetClaimScriptFieldType,
+    CreatePegInAddressResponse::GetClaimScriptString,
+    CreatePegInAddressResponse::SetClaimScriptString,
+    CreatePegInAddressResponse::GetClaimScriptFieldType,
   };
   json_mapper.emplace("claimScript", func_table);
   item_list.push_back("claimScript");
   func_table = {
-    ElementsCreatePegInAddressResponse::GetTweakFedpegscriptString,
-    ElementsCreatePegInAddressResponse::SetTweakFedpegscriptString,
-    ElementsCreatePegInAddressResponse::GetTweakFedpegscriptFieldType,
+    CreatePegInAddressResponse::GetTweakFedpegscriptString,
+    CreatePegInAddressResponse::SetTweakFedpegscriptString,
+    CreatePegInAddressResponse::GetTweakFedpegscriptFieldType,
   };
   json_mapper.emplace("tweakFedpegscript", func_table);
   item_list.push_back("tweakFedpegscript");
 }
 
-void ElementsCreatePegInAddressResponse::ConvertFromStruct(
-    const ElementsCreatePegInAddressResponseStruct& data) {
+void CreatePegInAddressResponse::ConvertFromStruct(
+    const CreatePegInAddressResponseStruct& data) {
   mainchain_address_ = data.mainchain_address;
   claim_script_ = data.claim_script;
   tweak_fedpegscript_ = data.tweak_fedpegscript;
   ignore_items = data.ignore_items;
 }
 
-ElementsCreatePegInAddressResponseStruct ElementsCreatePegInAddressResponse::ConvertToStruct() const {  // NOLINT
-  ElementsCreatePegInAddressResponseStruct result;
+CreatePegInAddressResponseStruct CreatePegInAddressResponse::ConvertToStruct() const {  // NOLINT
+  CreatePegInAddressResponseStruct result;
   result.mainchain_address = mainchain_address_;
   result.claim_script = claim_script_;
   result.tweak_fedpegscript = tweak_fedpegscript_;
@@ -4683,6 +4746,20 @@ void ElementsPeginTxOut::CollectFieldName() {
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
   func_table = {
+    ElementsPeginTxOut::GetDirectLockingScriptString,
+    ElementsPeginTxOut::SetDirectLockingScriptString,
+    ElementsPeginTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsPeginTxOut::GetDirectNonceString,
+    ElementsPeginTxOut::SetDirectNonceString,
+    ElementsPeginTxOut::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
     ElementsPeginTxOut::GetIsRemoveNonceString,
     ElementsPeginTxOut::SetIsRemoveNonceString,
     ElementsPeginTxOut::GetIsRemoveNonceFieldType,
@@ -4696,6 +4773,8 @@ void ElementsPeginTxOut::ConvertFromStruct(
   address_ = data.address;
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
   is_remove_nonce_ = data.is_remove_nonce;
   ignore_items = data.ignore_items;
 }
@@ -4705,6 +4784,8 @@ ElementsPeginTxOutStruct ElementsPeginTxOut::ConvertToStruct() const {  // NOLIN
   result.address = address_;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
   result.is_remove_nonce = is_remove_nonce_;
   result.ignore_items = ignore_items;
   return result;
@@ -4755,64 +4836,64 @@ ElementsPeginTxOutFeeStruct ElementsPeginTxOutFee::ConvertToStruct() const {  //
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginRequest
+// CreateRawPeginRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateRawPeginRequest>
-  ElementsCreateRawPeginRequest::json_mapper;
-std::vector<std::string> ElementsCreateRawPeginRequest::item_list;
+cfd::core::JsonTableMap<CreateRawPeginRequest>
+  CreateRawPeginRequest::json_mapper;
+std::vector<std::string> CreateRawPeginRequest::item_list;
 
-void ElementsCreateRawPeginRequest::CollectFieldName() {
+void CreateRawPeginRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateRawPeginRequest> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateRawPeginRequest> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateRawPeginRequest::GetVersionString,
-    ElementsCreateRawPeginRequest::SetVersionString,
-    ElementsCreateRawPeginRequest::GetVersionFieldType,
+    CreateRawPeginRequest::GetVersionString,
+    CreateRawPeginRequest::SetVersionString,
+    CreateRawPeginRequest::GetVersionFieldType,
   };
   json_mapper.emplace("version", func_table);
   item_list.push_back("version");
   func_table = {
-    ElementsCreateRawPeginRequest::GetLocktimeString,
-    ElementsCreateRawPeginRequest::SetLocktimeString,
-    ElementsCreateRawPeginRequest::GetLocktimeFieldType,
+    CreateRawPeginRequest::GetLocktimeString,
+    CreateRawPeginRequest::SetLocktimeString,
+    CreateRawPeginRequest::GetLocktimeFieldType,
   };
   json_mapper.emplace("locktime", func_table);
   item_list.push_back("locktime");
   func_table = {
-    ElementsCreateRawPeginRequest::GetTxinsString,
-    ElementsCreateRawPeginRequest::SetTxinsString,
-    ElementsCreateRawPeginRequest::GetTxinsFieldType,
+    CreateRawPeginRequest::GetTxinsString,
+    CreateRawPeginRequest::SetTxinsString,
+    CreateRawPeginRequest::GetTxinsFieldType,
   };
   json_mapper.emplace("txins", func_table);
   item_list.push_back("txins");
   func_table = {
-    ElementsCreateRawPeginRequest::GetTxoutsString,
-    ElementsCreateRawPeginRequest::SetTxoutsString,
-    ElementsCreateRawPeginRequest::GetTxoutsFieldType,
+    CreateRawPeginRequest::GetTxoutsString,
+    CreateRawPeginRequest::SetTxoutsString,
+    CreateRawPeginRequest::GetTxoutsFieldType,
   };
   json_mapper.emplace("txouts", func_table);
   item_list.push_back("txouts");
   func_table = {
-    ElementsCreateRawPeginRequest::GetFeeString,
-    ElementsCreateRawPeginRequest::SetFeeString,
-    ElementsCreateRawPeginRequest::GetFeeFieldType,
+    CreateRawPeginRequest::GetFeeString,
+    CreateRawPeginRequest::SetFeeString,
+    CreateRawPeginRequest::GetFeeFieldType,
   };
   json_mapper.emplace("fee", func_table);
   item_list.push_back("fee");
   func_table = {
-    ElementsCreateRawPeginRequest::GetIsRandomSortTxOutString,
-    ElementsCreateRawPeginRequest::SetIsRandomSortTxOutString,
-    ElementsCreateRawPeginRequest::GetIsRandomSortTxOutFieldType,
+    CreateRawPeginRequest::GetIsRandomSortTxOutString,
+    CreateRawPeginRequest::SetIsRandomSortTxOutString,
+    CreateRawPeginRequest::GetIsRandomSortTxOutFieldType,
   };
   json_mapper.emplace("isRandomSortTxOut", func_table);
   item_list.push_back("isRandomSortTxOut");
 }
 
-void ElementsCreateRawPeginRequest::ConvertFromStruct(
-    const ElementsCreateRawPeginRequestStruct& data) {
+void CreateRawPeginRequest::ConvertFromStruct(
+    const CreateRawPeginRequestStruct& data) {
   version_ = data.version;
   locktime_ = data.locktime;
   txins_.ConvertFromStruct(data.txins);
@@ -4822,8 +4903,8 @@ void ElementsCreateRawPeginRequest::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateRawPeginRequestStruct ElementsCreateRawPeginRequest::ConvertToStruct() const {  // NOLINT
-  ElementsCreateRawPeginRequestStruct result;
+CreateRawPeginRequestStruct CreateRawPeginRequest::ConvertToStruct() const {  // NOLINT
+  CreateRawPeginRequestStruct result;
   result.version = version_;
   result.locktime = locktime_;
   result.txins = txins_.ConvertToStruct();
@@ -4835,35 +4916,35 @@ ElementsCreateRawPeginRequestStruct ElementsCreateRawPeginRequest::ConvertToStru
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPeginResponse
+// CreateRawPeginResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateRawPeginResponse>
-  ElementsCreateRawPeginResponse::json_mapper;
-std::vector<std::string> ElementsCreateRawPeginResponse::item_list;
+cfd::core::JsonTableMap<CreateRawPeginResponse>
+  CreateRawPeginResponse::json_mapper;
+std::vector<std::string> CreateRawPeginResponse::item_list;
 
-void ElementsCreateRawPeginResponse::CollectFieldName() {
+void CreateRawPeginResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateRawPeginResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateRawPeginResponse> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateRawPeginResponse::GetHexString,
-    ElementsCreateRawPeginResponse::SetHexString,
-    ElementsCreateRawPeginResponse::GetHexFieldType,
+    CreateRawPeginResponse::GetHexString,
+    CreateRawPeginResponse::SetHexString,
+    CreateRawPeginResponse::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
 }
 
-void ElementsCreateRawPeginResponse::ConvertFromStruct(
-    const ElementsCreateRawPeginResponseStruct& data) {
+void CreateRawPeginResponse::ConvertFromStruct(
+    const CreateRawPeginResponseStruct& data) {
   hex_ = data.hex;
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateRawPeginResponseStruct ElementsCreateRawPeginResponse::ConvertToStruct() const {  // NOLINT
-  ElementsCreateRawPeginResponseStruct result;
+CreateRawPeginResponseStruct CreateRawPeginResponse::ConvertToStruct() const {  // NOLINT
+  CreateRawPeginResponseStruct result;
   result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
@@ -4957,6 +5038,20 @@ void ElementsPegoutTxOut::CollectFieldName() {
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
   func_table = {
+    ElementsPegoutTxOut::GetDirectLockingScriptString,
+    ElementsPegoutTxOut::SetDirectLockingScriptString,
+    ElementsPegoutTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsPegoutTxOut::GetDirectNonceString,
+    ElementsPegoutTxOut::SetDirectNonceString,
+    ElementsPegoutTxOut::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
     ElementsPegoutTxOut::GetIsRemoveNonceString,
     ElementsPegoutTxOut::SetIsRemoveNonceString,
     ElementsPegoutTxOut::GetIsRemoveNonceFieldType,
@@ -4970,6 +5065,8 @@ void ElementsPegoutTxOut::ConvertFromStruct(
   address_ = data.address;
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
   is_remove_nonce_ = data.is_remove_nonce;
   ignore_items = data.ignore_items;
 }
@@ -4979,6 +5076,8 @@ ElementsPegoutTxOutStruct ElementsPegoutTxOut::ConvertToStruct() const {  // NOL
   result.address = address_;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
   result.is_remove_nonce = is_remove_nonce_;
   result.ignore_items = ignore_items;
   return result;
@@ -5154,64 +5253,64 @@ ElementsPegoutTxOutFeeStruct ElementsPegoutTxOutFee::ConvertToStruct() const {  
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutRequest
+// CreateRawPegoutRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateRawPegoutRequest>
-  ElementsCreateRawPegoutRequest::json_mapper;
-std::vector<std::string> ElementsCreateRawPegoutRequest::item_list;
+cfd::core::JsonTableMap<CreateRawPegoutRequest>
+  CreateRawPegoutRequest::json_mapper;
+std::vector<std::string> CreateRawPegoutRequest::item_list;
 
-void ElementsCreateRawPegoutRequest::CollectFieldName() {
+void CreateRawPegoutRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateRawPegoutRequest> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateRawPegoutRequest> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateRawPegoutRequest::GetVersionString,
-    ElementsCreateRawPegoutRequest::SetVersionString,
-    ElementsCreateRawPegoutRequest::GetVersionFieldType,
+    CreateRawPegoutRequest::GetVersionString,
+    CreateRawPegoutRequest::SetVersionString,
+    CreateRawPegoutRequest::GetVersionFieldType,
   };
   json_mapper.emplace("version", func_table);
   item_list.push_back("version");
   func_table = {
-    ElementsCreateRawPegoutRequest::GetLocktimeString,
-    ElementsCreateRawPegoutRequest::SetLocktimeString,
-    ElementsCreateRawPegoutRequest::GetLocktimeFieldType,
+    CreateRawPegoutRequest::GetLocktimeString,
+    CreateRawPegoutRequest::SetLocktimeString,
+    CreateRawPegoutRequest::GetLocktimeFieldType,
   };
   json_mapper.emplace("locktime", func_table);
   item_list.push_back("locktime");
   func_table = {
-    ElementsCreateRawPegoutRequest::GetTxinsString,
-    ElementsCreateRawPegoutRequest::SetTxinsString,
-    ElementsCreateRawPegoutRequest::GetTxinsFieldType,
+    CreateRawPegoutRequest::GetTxinsString,
+    CreateRawPegoutRequest::SetTxinsString,
+    CreateRawPegoutRequest::GetTxinsFieldType,
   };
   json_mapper.emplace("txins", func_table);
   item_list.push_back("txins");
   func_table = {
-    ElementsCreateRawPegoutRequest::GetTxoutsString,
-    ElementsCreateRawPegoutRequest::SetTxoutsString,
-    ElementsCreateRawPegoutRequest::GetTxoutsFieldType,
+    CreateRawPegoutRequest::GetTxoutsString,
+    CreateRawPegoutRequest::SetTxoutsString,
+    CreateRawPegoutRequest::GetTxoutsFieldType,
   };
   json_mapper.emplace("txouts", func_table);
   item_list.push_back("txouts");
   func_table = {
-    ElementsCreateRawPegoutRequest::GetPegoutString,
-    ElementsCreateRawPegoutRequest::SetPegoutString,
-    ElementsCreateRawPegoutRequest::GetPegoutFieldType,
+    CreateRawPegoutRequest::GetPegoutString,
+    CreateRawPegoutRequest::SetPegoutString,
+    CreateRawPegoutRequest::GetPegoutFieldType,
   };
   json_mapper.emplace("pegout", func_table);
   item_list.push_back("pegout");
   func_table = {
-    ElementsCreateRawPegoutRequest::GetFeeString,
-    ElementsCreateRawPegoutRequest::SetFeeString,
-    ElementsCreateRawPegoutRequest::GetFeeFieldType,
+    CreateRawPegoutRequest::GetFeeString,
+    CreateRawPegoutRequest::SetFeeString,
+    CreateRawPegoutRequest::GetFeeFieldType,
   };
   json_mapper.emplace("fee", func_table);
   item_list.push_back("fee");
 }
 
-void ElementsCreateRawPegoutRequest::ConvertFromStruct(
-    const ElementsCreateRawPegoutRequestStruct& data) {
+void CreateRawPegoutRequest::ConvertFromStruct(
+    const CreateRawPegoutRequestStruct& data) {
   version_ = data.version;
   locktime_ = data.locktime;
   txins_.ConvertFromStruct(data.txins);
@@ -5221,8 +5320,8 @@ void ElementsCreateRawPegoutRequest::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateRawPegoutRequestStruct ElementsCreateRawPegoutRequest::ConvertToStruct() const {  // NOLINT
-  ElementsCreateRawPegoutRequestStruct result;
+CreateRawPegoutRequestStruct CreateRawPegoutRequest::ConvertToStruct() const {  // NOLINT
+  CreateRawPegoutRequestStruct result;
   result.version = version_;
   result.locktime = locktime_;
   result.txins = txins_.ConvertToStruct();
@@ -5234,43 +5333,43 @@ ElementsCreateRawPegoutRequestStruct ElementsCreateRawPegoutRequest::ConvertToSt
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawPegoutResponse
+// CreateRawPegoutResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateRawPegoutResponse>
-  ElementsCreateRawPegoutResponse::json_mapper;
-std::vector<std::string> ElementsCreateRawPegoutResponse::item_list;
+cfd::core::JsonTableMap<CreateRawPegoutResponse>
+  CreateRawPegoutResponse::json_mapper;
+std::vector<std::string> CreateRawPegoutResponse::item_list;
 
-void ElementsCreateRawPegoutResponse::CollectFieldName() {
+void CreateRawPegoutResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateRawPegoutResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CreateRawPegoutResponse> func_table;  // NOLINT
 
   func_table = {
-    ElementsCreateRawPegoutResponse::GetHexString,
-    ElementsCreateRawPegoutResponse::SetHexString,
-    ElementsCreateRawPegoutResponse::GetHexFieldType,
+    CreateRawPegoutResponse::GetHexString,
+    CreateRawPegoutResponse::SetHexString,
+    CreateRawPegoutResponse::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
   func_table = {
-    ElementsCreateRawPegoutResponse::GetBtcAddressString,
-    ElementsCreateRawPegoutResponse::SetBtcAddressString,
-    ElementsCreateRawPegoutResponse::GetBtcAddressFieldType,
+    CreateRawPegoutResponse::GetBtcAddressString,
+    CreateRawPegoutResponse::SetBtcAddressString,
+    CreateRawPegoutResponse::GetBtcAddressFieldType,
   };
   json_mapper.emplace("btcAddress", func_table);
   item_list.push_back("btcAddress");
 }
 
-void ElementsCreateRawPegoutResponse::ConvertFromStruct(
-    const ElementsCreateRawPegoutResponseStruct& data) {
+void CreateRawPegoutResponse::ConvertFromStruct(
+    const CreateRawPegoutResponseStruct& data) {
   hex_ = data.hex;
   btc_address_ = data.btc_address;
   ignore_items = data.ignore_items;
 }
 
-ElementsCreateRawPegoutResponseStruct ElementsCreateRawPegoutResponse::ConvertToStruct() const {  // NOLINT
-  ElementsCreateRawPegoutResponseStruct result;
+CreateRawPegoutResponseStruct CreateRawPegoutResponse::ConvertToStruct() const {  // NOLINT
+  CreateRawPegoutResponseStruct result;
   result.hex = hex_;
   result.btc_address = btc_address_;
   result.ignore_items = ignore_items;
@@ -5365,6 +5464,20 @@ void ElementsTxOutRequest::CollectFieldName() {
   json_mapper.emplace("asset", func_table);
   item_list.push_back("asset");
   func_table = {
+    ElementsTxOutRequest::GetDirectLockingScriptString,
+    ElementsTxOutRequest::SetDirectLockingScriptString,
+    ElementsTxOutRequest::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsTxOutRequest::GetDirectNonceString,
+    ElementsTxOutRequest::SetDirectNonceString,
+    ElementsTxOutRequest::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
     ElementsTxOutRequest::GetIsRemoveNonceString,
     ElementsTxOutRequest::SetIsRemoveNonceString,
     ElementsTxOutRequest::GetIsRemoveNonceFieldType,
@@ -5378,6 +5491,8 @@ void ElementsTxOutRequest::ConvertFromStruct(
   address_ = data.address;
   amount_ = data.amount;
   asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
   is_remove_nonce_ = data.is_remove_nonce;
   ignore_items = data.ignore_items;
 }
@@ -5387,6 +5502,8 @@ ElementsTxOutRequestStruct ElementsTxOutRequest::ConvertToStruct() const {  // N
   result.address = address_;
   result.amount = amount_;
   result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
   result.is_remove_nonce = is_remove_nonce_;
   result.ignore_items = ignore_items;
   return result;
@@ -8869,6 +8986,13 @@ void GetExtkeyInfoResponse::CollectFieldName() {
   cfd::core::CLASS_FUNCTION_TABLE<GetExtkeyInfoResponse> func_table;  // NOLINT
 
   func_table = {
+    GetExtkeyInfoResponse::GetNetworkString,
+    GetExtkeyInfoResponse::SetNetworkString,
+    GetExtkeyInfoResponse::GetNetworkFieldType,
+  };
+  json_mapper.emplace("network", func_table);
+  item_list.push_back("network");
+  func_table = {
     GetExtkeyInfoResponse::GetVersionString,
     GetExtkeyInfoResponse::SetVersionString,
     GetExtkeyInfoResponse::GetVersionFieldType,
@@ -8907,6 +9031,7 @@ void GetExtkeyInfoResponse::CollectFieldName() {
 
 void GetExtkeyInfoResponse::ConvertFromStruct(
     const GetExtkeyInfoResponseStruct& data) {
+  network_ = data.network;
   version_ = data.version;
   depth_ = data.depth;
   fingerprint_ = data.fingerprint;
@@ -8917,6 +9042,7 @@ void GetExtkeyInfoResponse::ConvertFromStruct(
 
 GetExtkeyInfoResponseStruct GetExtkeyInfoResponse::ConvertToStruct() const {  // NOLINT
   GetExtkeyInfoResponseStruct result;
+  result.network = network_;
   result.version = version_;
   result.depth = depth_;
   result.fingerprint = fingerprint_;
@@ -11418,12 +11544,20 @@ void TxOutRequest::CollectFieldName() {
   };
   json_mapper.emplace("amount", func_table);
   item_list.push_back("amount");
+  func_table = {
+    TxOutRequest::GetDirectLockingScriptString,
+    TxOutRequest::SetDirectLockingScriptString,
+    TxOutRequest::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
 }
 
 void TxOutRequest::ConvertFromStruct(
     const TxOutRequestStruct& data) {
   address_ = data.address;
   amount_ = data.amount;
+  direct_locking_script_ = data.direct_locking_script;
   ignore_items = data.ignore_items;
 }
 
@@ -11431,6 +11565,7 @@ TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
   TxOutRequestStruct result;
   result.address = address_;
   result.amount = amount_;
+  result.direct_locking_script = direct_locking_script_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -11527,6 +11662,156 @@ void CreateRawTransactionResponse::ConvertFromStruct(
 
 CreateRawTransactionResponseStruct CreateRawTransactionResponse::ConvertToStruct() const {  // NOLINT
   CreateRawTransactionResponseStruct result;
+  result.hex = hex_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UpdateTxOutAmountData>
+  UpdateTxOutAmountData::json_mapper;
+std::vector<std::string> UpdateTxOutAmountData::item_list;
+
+void UpdateTxOutAmountData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UpdateTxOutAmountData> func_table;  // NOLINT
+
+  func_table = {
+    UpdateTxOutAmountData::GetAmountString,
+    UpdateTxOutAmountData::SetAmountString,
+    UpdateTxOutAmountData::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    UpdateTxOutAmountData::GetIndexString,
+    UpdateTxOutAmountData::SetIndexString,
+    UpdateTxOutAmountData::GetIndexFieldType,
+  };
+  json_mapper.emplace("index", func_table);
+  item_list.push_back("index");
+  func_table = {
+    UpdateTxOutAmountData::GetAddressString,
+    UpdateTxOutAmountData::SetAddressString,
+    UpdateTxOutAmountData::GetAddressFieldType,
+  };
+  json_mapper.emplace("address", func_table);
+  item_list.push_back("address");
+  func_table = {
+    UpdateTxOutAmountData::GetDirectLockingScriptString,
+    UpdateTxOutAmountData::SetDirectLockingScriptString,
+    UpdateTxOutAmountData::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+}
+
+void UpdateTxOutAmountData::ConvertFromStruct(
+    const UpdateTxOutAmountDataStruct& data) {
+  amount_ = data.amount;
+  index_ = data.index;
+  address_ = data.address;
+  direct_locking_script_ = data.direct_locking_script;
+  ignore_items = data.ignore_items;
+}
+
+UpdateTxOutAmountDataStruct UpdateTxOutAmountData::ConvertToStruct() const {  // NOLINT
+  UpdateTxOutAmountDataStruct result;
+  result.amount = amount_;
+  result.index = index_;
+  result.address = address_;
+  result.direct_locking_script = direct_locking_script_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UpdateTxOutAmountRequest>
+  UpdateTxOutAmountRequest::json_mapper;
+std::vector<std::string> UpdateTxOutAmountRequest::item_list;
+
+void UpdateTxOutAmountRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UpdateTxOutAmountRequest> func_table;  // NOLINT
+
+  func_table = {
+    UpdateTxOutAmountRequest::GetTxString,
+    UpdateTxOutAmountRequest::SetTxString,
+    UpdateTxOutAmountRequest::GetTxFieldType,
+  };
+  json_mapper.emplace("tx", func_table);
+  item_list.push_back("tx");
+  func_table = {
+    UpdateTxOutAmountRequest::GetIsElementsString,
+    UpdateTxOutAmountRequest::SetIsElementsString,
+    UpdateTxOutAmountRequest::GetIsElementsFieldType,
+  };
+  json_mapper.emplace("isElements", func_table);
+  item_list.push_back("isElements");
+  func_table = {
+    UpdateTxOutAmountRequest::GetTxoutsString,
+    UpdateTxOutAmountRequest::SetTxoutsString,
+    UpdateTxOutAmountRequest::GetTxoutsFieldType,
+  };
+  json_mapper.emplace("txouts", func_table);
+  item_list.push_back("txouts");
+}
+
+void UpdateTxOutAmountRequest::ConvertFromStruct(
+    const UpdateTxOutAmountRequestStruct& data) {
+  tx_ = data.tx;
+  is_elements_ = data.is_elements;
+  txouts_.ConvertFromStruct(data.txouts);
+  ignore_items = data.ignore_items;
+}
+
+UpdateTxOutAmountRequestStruct UpdateTxOutAmountRequest::ConvertToStruct() const {  // NOLINT
+  UpdateTxOutAmountRequestStruct result;
+  result.tx = tx_;
+  result.is_elements = is_elements_;
+  result.txouts = txouts_.ConvertToStruct();
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// UpdateTxOutAmountResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UpdateTxOutAmountResponse>
+  UpdateTxOutAmountResponse::json_mapper;
+std::vector<std::string> UpdateTxOutAmountResponse::item_list;
+
+void UpdateTxOutAmountResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UpdateTxOutAmountResponse> func_table;  // NOLINT
+
+  func_table = {
+    UpdateTxOutAmountResponse::GetHexString,
+    UpdateTxOutAmountResponse::SetHexString,
+    UpdateTxOutAmountResponse::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+}
+
+void UpdateTxOutAmountResponse::ConvertFromStruct(
+    const UpdateTxOutAmountResponseStruct& data) {
+  hex_ = data.hex;
+  ignore_items = data.ignore_items;
+}
+
+UpdateTxOutAmountResponseStruct UpdateTxOutAmountResponse::ConvertToStruct() const {  // NOLINT
+  UpdateTxOutAmountResponseStruct result;
   result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;

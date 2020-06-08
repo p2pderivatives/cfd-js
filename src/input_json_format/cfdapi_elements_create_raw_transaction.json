@@ -31,6 +31,10 @@
         "amount:require": "require",
         "asset": "",
         "asset:require": "require",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional",
+        "directNonce": "",
+        "directNonce:require": "optional",
         "isRemoveNonce": false,
         "isRemoveNonce:require": "optional"
       }

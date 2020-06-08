@@ -26,7 +26,9 @@
         "address": "",
         "address:require": "require",
         "amount": 0,
-        "amount:require": "require"
+        "amount:require": "require",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional"
       }
     ]
   },

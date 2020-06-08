@@ -125,6 +125,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
   static VerifySignResponseStruct VerifySign(
       const VerifySignRequestStruct& request);
 
+  /**
+   * @brief Update the transaction amount.
+   * @param[in] request   transaction and changing amount data struct.
+   * @return Updating transaction struct.
+   */
+  static UpdateTxOutAmountResponseStruct UpdateTxOutAmount(
+      const UpdateTxOutAmountRequestStruct& request);
+
  private:
   TransactionStructApi();
 

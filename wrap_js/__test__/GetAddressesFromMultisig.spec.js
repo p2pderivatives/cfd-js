@@ -119,7 +119,7 @@ const errorCase = [
     'GetAddressesFromMultisig Error(network is invalid)',
     GetAddressesFromMultisig,
     ['{"isElements":true,"redeemScript":"522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae","network":"mainnet", "hashType":"p2pkh"}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"regtest\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid elements_network_type passed. elements_network_type must be \\"liquidv1\\" or \\"liquidregtest\\" or \\"elementsregtest\\" or \\"regtest\\"."}}',
   ),
   TestHelper.createElementsTestCase(
     'GetAddressesFromMultisig Error(hashtype is invalid)',

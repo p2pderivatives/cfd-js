@@ -1,7 +1,7 @@
 {
   "namespace": ["cfd","js","api","json"],
   "request": {
-    ":class": "ElementsCreateDestroyAmountRequest",
+    ":class": "CreateDestroyAmountRequest",
     "version": 2,
     "version:type": "uint32_t",
     "version:require": "optional",
@@ -32,6 +32,10 @@
         "amount:require": "require",
         "asset": "",
         "asset:require": "require",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional",
+        "directNonce": "",
+        "directNonce:require": "optional",
         "isRemoveNonce": false,
         "isRemoveNonce:require": "optional"
       }
@@ -42,7 +46,9 @@
       "amount": 0,
       "amount:require": "require",
       "asset": "",
-      "asset:require": "require"
+      "asset:require": "require",
+      "directNonce": "",
+      "directNonce:require": "optional"
     },
     "fee:require": "optional",
     "fee": {
@@ -54,7 +60,7 @@
     }
   },
   "response": {
-    ":class": "ElementsCreateDestroyAmountResponse",
+    ":class": "CreateDestroyAmountResponse",
     "hex": "",
     "hex:require": "require"
   }

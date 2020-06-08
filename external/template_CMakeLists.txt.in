@@ -12,6 +12,8 @@ ExternalProject_Add(
   GIT_TAG ${TEMPLATE_PROJECT_GIT_TAG}
   ### Path to source tree
   PREFIX            ""
+  ### update step to be skipped.
+  UPDATE_DISCONNECTED  ${GIT_SKIP_UPDATE}
   SOURCE_DIR        ${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}
   BINARY_DIR        ${CFD_ROOT_BINARY_DIR}/${TEMPLATE_PROJECT_NAME}/build
   CONFIGURE_COMMAND ""
