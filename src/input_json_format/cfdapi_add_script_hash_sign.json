@@ -1,0 +1,51 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "AddScriptHashSignRequest",
+    ":class:comment": "Add signatures to pubkey hash input",
+    "isElements": false,
+    "isElements:require": "optional",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txin": {
+      ":class": "AddScriptHashSignTxInRequest",
+      "txid": "",
+      "txid:require": "require",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "signParam:require": "require",
+      "signParam": [
+        {
+          ":class": "ScriptHashSignData",
+          "hex": "",
+          "hex:require": "require",
+          "hex:comment": "If the type is auto or op_code, character string input is enabled. Others are hex byte array only.",
+          "type": "auto",
+          "type:require": "optional",
+          "type:hint": "binary, sign",
+          "derEncode": false,
+          "derEncode:require": "optional",
+          "derEncode:comment": "Valid when type is auto or sign.",
+          "sighashType": "all",
+          "sighashType:require": "optional",
+          "sighashType:hint": "all, none, single",
+          "sighashAnyoneCanPay": false,
+          "sighashAnyoneCanPay:require": "optional"
+        }
+      ],
+      "redeemScript": "",
+      "redeemScript:require": "require",
+      "redeemScript:comment": "redeem script.",
+      "hashType": "",
+      "hashType:require": "require",
+      "hashType:hint": "p2sh, p2wsh or p2sh-p2wsh"
+    }
+  },
+  "response": {
+    ":class": "AddScriptHashSignResponse",
+    "hex": "",
+    "hex:require": "require"
+  }
+}

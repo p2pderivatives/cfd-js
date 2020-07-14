@@ -50,6 +50,9 @@ const {
   AddPubkeyHashSign,
   SignWithPrivkey,
   UpdateTxOutAmount,
+  ConvertAes,
+  EncodeBase58,
+  DecodeBase58,
 } = cfdjsModule;
 
 const DUMMY_TXID_1 = '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac'; // eslint-disable-line max-len
@@ -840,7 +843,7 @@ let addP2WPKHTxSign2;
     },
   };
   /* eslint-enable max-len */
-  console.log('*** Request ***\n', reqJson);
+  console.log('*** Request ***\n', JSON.stringify(reqJson, null, '  '));
   addP2WPKHTxSign2 = AddSign(reqJson);
   console.log('\n*** Response ***\n', addP2WPKHTxSign2, '\n');
 }
@@ -1378,6 +1381,52 @@ let getCompressedPubkeyResult;
   console.log('*** GetCompressedPubkey:Request ***\n', reqJson);
   getCompressedPubkeyResult = GetCompressedPubkey(reqJson);
   console.log('*** GetCompressedPubkey:Response ***\n', getCompressedPubkeyResult);
+}
+
+let convertAesResult;
+{
+  console.log('\n===== ConvertAes (encode/decode) =====');
+  const encReqJson = {
+    isEncrypt: true,
+    mode: 'cbc',
+    key: '9876543210987654321098765432109876543210987654321098765432109876',
+    iv: '01234567890123456789012345678901',
+    data: '000011112222333300001111222233330000111122223333',
+  };
+  console.log('*** ConvertAes(encode):Request ***\n', encReqJson);
+  convertAesResult = ConvertAes(encReqJson);
+  console.log('*** ConvertAes(encode):Response ***\n', convertAesResult);
+
+  const decReqJson = {
+    isEncrypt: false,
+    mode: 'cbc',
+    key: '9876543210987654321098765432109876543210987654321098765432109876',
+    iv: '01234567890123456789012345678901',
+    data: convertAesResult.hex,
+  };
+  console.log('*** ConvertAes(decode):Request ***\n', decReqJson);
+  const result = ConvertAes(decReqJson);
+  console.log('*** ConvertAes(decode):Response ***\n', result);
+}
+
+let convertBase58Result;
+{
+  console.log('\n===== EncodeBase58 / DecodeBase58 =====');
+  const decReqJson = {
+    data: 'xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB',
+    hasChecksum: true,
+  };
+  console.log('*** DecodeBase58:Request ***\n', decReqJson);
+  const result = DecodeBase58(decReqJson);
+  console.log('*** DecodeBase58:Response ***\n', result);
+
+  const encReqJson = {
+    hex: result.hex,
+    hasChecksum: true,
+  };
+  console.log('*** EncodeBase58:Request ***\n', encReqJson);
+  convertBase58Result = EncodeBase58(encReqJson);
+  console.log('*** EncodeBase58:Response ***\n', convertBase58Result);
 }
 
 {

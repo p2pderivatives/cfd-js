@@ -33,6 +33,29 @@ class CFD_JS_API_EXPORT UtilStructApi {
   static GetSupportedFunctionResponseStruct GetSupportedFunction();
 
   /**
+   * @brief Convert data by AES.
+   * @param[in] request   request struct from json
+   * @return response struct including encoded or decoded data.
+   */
+  static ConvertAesResponseStruct ConvertAes(ConvertAesRequestStruct request);
+
+  /**
+   * @brief Encode the data by base58.
+   * @param[in] request   request struct from json
+   * @return response struct including encoded string.
+   */
+  static EncodeBase58ResponseStruct EncodeBase58(
+      EncodeBase58RequestStruct request);
+
+  /**
+   * @brief Decode the data by base58.
+   * @param[in] request   request struct from json
+   * @return response struct including decoded data.
+   */
+  static DecodeBase58ResponseStruct DecodeBase58(
+      DecodeBase58RequestStruct request);
+
+  /**
    * @brief Encode the secp signature by der encodeing
    * @param[in] request   request struct from json
    * @return response struct including encoded signature

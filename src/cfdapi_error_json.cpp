@@ -5,9 +5,10 @@
  * @brief JSONマッピングファイル
  */
 
+#include "cfdapi_error_json.h"  // NOLINT
+
 #include <string>
 
-#include "cfdapi_error_json.h"  // NOLINT
 #include "cfdcore/cfdcore_exception.h"
 
 namespace cfd {

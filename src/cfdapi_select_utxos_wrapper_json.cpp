@@ -4,13 +4,13 @@
  *
  * @brief json mapping override file.
  */
+#include "cfdapi_select_utxos_wrapper_json.h"  // NOLINT
+
 #include <map>
 #include <set>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include "cfdapi_select_utxos_wrapper_json.h"  // NOLINT
 
 #include "cfdcore/cfdcore_elements_transaction.h"
 

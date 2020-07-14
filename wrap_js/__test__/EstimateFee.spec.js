@@ -252,7 +252,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1036,\"txFeeAmount\":945,\"utxoFeeAmount\":91}',
+      '{\"feeAmount\":1012,\"txFeeAmount\":921,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -268,7 +268,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":2015,\"txFeeAmount\":1833,\"utxoFeeAmount\":182}',
+      '{\"feeAmount\":1984,\"txFeeAmount\":1802,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -284,7 +284,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":20720,\"txFeeAmount\":18900,\"utxoFeeAmount\":1820}',
+      '{\"feeAmount\":20240,\"txFeeAmount\":18420,\"utxoFeeAmount\":1820}',
     );
   })(),
   (() => {
@@ -300,7 +300,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":40300,\"txFeeAmount\":36660,\"utxoFeeAmount\":3640}',
+      '{\"feeAmount\":39680,\"txFeeAmount\":36040,\"utxoFeeAmount\":3640}',
     );
   })(),
   (() => {
@@ -316,7 +316,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1014,\"txFeeAmount\":945,\"utxoFeeAmount\":69}',
+      '{\"feeAmount\":990,\"txFeeAmount\":921,\"utxoFeeAmount\":69}',
     );
   })(),
   (() => {
@@ -332,7 +332,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1971,\"txFeeAmount\":1833,\"utxoFeeAmount\":138}',
+      '{\"feeAmount\":1940,\"txFeeAmount\":1802,\"utxoFeeAmount\":138}',
     );
   })(),
   (() => {
@@ -347,7 +347,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1344,\"txFeeAmount\":1265,\"utxoFeeAmount\":79}',
+      '{\"feeAmount\":1320,\"txFeeAmount\":1241,\"utxoFeeAmount\":79}',
     );
   })(),
   (() => {
@@ -362,7 +362,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":2632,\"txFeeAmount\":2474,\"utxoFeeAmount\":158}',
+      '{\"feeAmount\":2600,\"txFeeAmount\":2442,\"utxoFeeAmount\":158}',
     );
   })(),
   (() => {
@@ -394,7 +394,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1516,\"txFeeAmount\":1334,\"utxoFeeAmount\":182}',
+      '{\"feeAmount\":1501,\"txFeeAmount\":1319,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -418,7 +418,7 @@ const elementsTestCase = [
         feeAsset: '017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c18',
         minimumBits: 36,
       })],
-      '{\"feeAmount\":4387,\"txFeeAmount\":2720,\"utxoFeeAmount\":1667}',
+      '{\"feeAmount\":4364,\"txFeeAmount\":2697,\"utxoFeeAmount\":1667}',
     );
   })(),
   (() => {
@@ -443,7 +443,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1536,\"txFeeAmount\":1334,\"utxoFeeAmount\":202}',
+      '{\"feeAmount\":1513,\"txFeeAmount\":1311,\"utxoFeeAmount\":202}',
     );
   })(),
 ];

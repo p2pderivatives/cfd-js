@@ -6,10 +6,8 @@
  */
 #include <string>
 
-#include "cfdcore/cfdcore_transaction_common.h"
-
 #include "cfd/cfdapi_key.h"
-
+#include "cfdcore/cfdcore_transaction_common.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_key.h"
 #include "cfdjs_internal.h"  // NOLINT

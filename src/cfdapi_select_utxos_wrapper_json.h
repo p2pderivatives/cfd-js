@@ -9,6 +9,7 @@
 
 #include <map>
 #include <vector>
+
 #include "cfd/cfd_utxo.h"
 #include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdjs/cfdjs_struct.h"

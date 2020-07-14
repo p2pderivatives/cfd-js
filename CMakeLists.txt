@@ -75,7 +75,9 @@ else()
 add_subdirectory(src)
 endif()  # CFDJS_API_INSTALLED
 
+if(NOT ENABLE_EMSCRIPTEN)
 add_subdirectory(addon)
+endif()
 
 
 if(NOT CFDJS_API_INSTALLED)

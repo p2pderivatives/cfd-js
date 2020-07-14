@@ -5,10 +5,10 @@
  */
 #ifndef CFD_JS_INCLUDE_CFDJS_CFDJS_COMMON_H_
 #define CFD_JS_INCLUDE_CFDJS_CFDJS_COMMON_H_
+#include <napi.h>  // NOLINT
+
 #include <cstddef>
 #include <cstdint>
-
-#include <napi.h>  // NOLINT
 
 /**
  * @brief APIのDLLエクスポート定義

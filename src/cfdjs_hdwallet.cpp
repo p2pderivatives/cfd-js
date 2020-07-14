@@ -177,18 +177,8 @@ HDWalletStructApi::CreateExtkeyFromParentPath(
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
     HDWalletApi api;
     if (request.path.empty()) {
-      std::vector<uint32_t> path;
-      int64_t max = static_cast<int64_t>(std::numeric_limits<uint32_t>::max());
-      for (const int64_t& value : request.child_number_array) {
-        if ((value < 0) || (value > max)) {
-          throw CfdException(
-              CfdError::kCfdIllegalArgumentError,
-              "childNumber out of range. (0 - 0xffffffff)");
-        }
-        path.push_back(static_cast<uint32_t>(value));
-      }
       response.extkey = api.CreateExtkeyFromParentPath(
-          request.extkey, net_type, key_type, path);
+          request.extkey, net_type, key_type, request.child_number_array);
     } else {
       response.extkey = api.CreateExtkeyFromPathString(
           request.extkey, net_type, key_type, request.path);

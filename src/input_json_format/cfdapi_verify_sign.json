@@ -39,7 +39,10 @@
       "txid:require": "require",
       "vout": 0,
       "vout:type": "uint32_t",
-      "vout:require": "require"
+      "vout:require": "require",
+      "reason": "",
+      "reason:require": "require",
+      "reason:hint": "error reason."
     }],
     "failTxins:require": "optional"
   }

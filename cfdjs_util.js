@@ -1,4 +1,4 @@
-const cfdjs = require('./wrap_js/cfdjs_module.js');
+const cfdjs = require('./index');
 
 /**
  * Parse bip32 path.

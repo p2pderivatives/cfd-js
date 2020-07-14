@@ -917,6 +917,40 @@ ElementsTransactionStructApi::AddPubkeyHashSign(
   return result;
 }
 
+AddScriptHashSignResponseStruct
+ElementsTransactionStructApi::AddScriptHashSign(
+    const AddScriptHashSignRequestStruct& request) {
+  auto call_func = [](const AddScriptHashSignRequestStruct& request)
+      -> AddScriptHashSignResponseStruct {  // NOLINT
+    AddScriptHashSignResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    Script redeem_script(request.txin.redeem_script);
+    AddressType addr_type =
+        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+    std::vector<SignParameter> signatures;
+    for (const auto& sign_data : request.txin.sign_param) {
+      SignParameter signature =
+          TransactionStructApiBase::ConvertSignDataStructToSignParameter(
+              sign_data);  // NOLINT
+      signatures.emplace_back(signature);
+    }
+
+    ctx.AddScriptHashSign(
+        outpoint, signatures, redeem_script, addr_type,
+        redeem_script.IsMultisigScript());
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  AddScriptHashSignResponseStruct result;
+  result = ExecuteStructApi<
+      AddScriptHashSignRequestStruct, AddScriptHashSignResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 UpdateWitnessStackResponseStruct
 ElementsTransactionStructApi::UpdateWitnessStack(
     const UpdateWitnessStackRequestStruct& request) {
@@ -1130,14 +1164,14 @@ VerifySignResponseStruct ElementsTransactionStructApi::VerifySign(
       try {
         ctx.Verify(outpoint);
       } catch (const CfdException& except) {
-        warn(
-            CFD_LOG_SOURCE, "Failed to VerifySign. {}",
-            std::string(except.what()));
+        std::string error_msg = std::string(except.what());
+        warn(CFD_LOG_SOURCE, "Failed to VerifySign. {}", error_msg);
         response.success = false;
         FailSignTxInStruct fail_data;
         fail_data.txid = outpoint.GetTxid().GetHex();
         fail_data.vout = outpoint.GetVout();
-        response.fail_txins.push_back(fail_data);
+        fail_data.reason = error_msg;
+        response.fail_txins.emplace_back(fail_data);
       }
     }
 

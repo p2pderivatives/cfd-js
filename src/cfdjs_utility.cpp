@@ -7,12 +7,11 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_common.h"
 #include "cfdcore/cfdcore_bytedata.h"
 #include "cfdcore/cfdcore_exception.h"
 #include "cfdcore/cfdcore_logger.h"
 #include "cfdcore/cfdcore_util.h"
-
-#include "cfd/cfd_common.h"
 #include "cfdjs/cfdjs_api_utility.h"
 #include "cfdjs_internal.h"          // NOLINT
 #include "cfdjs_transaction_base.h"  // NOLINT
@@ -48,6 +47,73 @@ GetSupportedFunctionResponseStruct UtilStructApi::GetSupportedFunction() {
   GetSupportedFunctionResponseStruct result;
   result = ExecuteResponseStructApi<GetSupportedFunctionResponseStruct>(
       call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+ConvertAesResponseStruct UtilStructApi::ConvertAes(
+    ConvertAesRequestStruct request) {
+  auto call_func =
+      [](const ConvertAesRequestStruct& request) -> ConvertAesResponseStruct {
+    ConvertAesResponseStruct result;
+    ByteData data;
+
+    if (request.is_encrypt) {
+      data = CryptoUtil::EncryptAes256Cbc(
+          ByteData(request.key), ByteData(request.iv), ByteData(request.data));
+    } else {  // decrypto
+      data = CryptoUtil::DecryptAes256Cbc(
+          ByteData(request.key), ByteData(request.iv), ByteData(request.data));
+    }
+
+    result.hex = data.GetHex();
+    return result;
+  };
+
+  ConvertAesResponseStruct result;
+  result = ExecuteStructApi<ConvertAesRequestStruct, ConvertAesResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+EncodeBase58ResponseStruct UtilStructApi::EncodeBase58(
+    EncodeBase58RequestStruct request) {
+  auto call_func = [](const EncodeBase58RequestStruct& request)
+      -> EncodeBase58ResponseStruct {
+    EncodeBase58ResponseStruct result;
+    if (request.has_checksum) {
+      result.data = CryptoUtil::EncodeBase58Check(ByteData(request.hex));
+    } else {
+      result.data = CryptoUtil::EncodeBase58(ByteData(request.hex));
+    }
+    return result;
+  };
+
+  EncodeBase58ResponseStruct result;
+  result =
+      ExecuteStructApi<EncodeBase58RequestStruct, EncodeBase58ResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+DecodeBase58ResponseStruct UtilStructApi::DecodeBase58(
+    DecodeBase58RequestStruct request) {
+  auto call_func = [](const DecodeBase58RequestStruct& request)
+      -> DecodeBase58ResponseStruct {
+    DecodeBase58ResponseStruct result;
+    ByteData data;
+    if (request.has_checksum) {
+      data = CryptoUtil::DecodeBase58Check(request.data);
+    } else {
+      data = CryptoUtil::DecodeBase58(request.data);
+    }
+    result.hex = data.GetHex();
+    return result;
+  };
+
+  DecodeBase58ResponseStruct result;
+  result =
+      ExecuteStructApi<DecodeBase58RequestStruct, DecodeBase58ResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
@@ -94,7 +160,7 @@ DecodeDerSignatureToRawResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
   return result;
 }
 
-// 実体定義用(多重定義防止のためCPP側に定義)
+// Define the entity (Define on CPP side to prevent duplicate definition)
 InnerErrorResponseStruct ConvertCfdExceptionToStruct(
     const CfdException& cfde) {
   InnerErrorResponseStruct result;
