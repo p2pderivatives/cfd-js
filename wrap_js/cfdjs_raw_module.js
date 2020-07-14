@@ -1,49 +1,5 @@
 'use strict';
-const path = require('path');
-const fs = require('fs');
-
-// check exists
-let buildTarget = 'Release';
-const buildDirPath = '../build';
-let isFindThisFile = false;
-try {
-  fs.statSync(path.resolve(__dirname, './cfdjs_module.js'));
-  isFindThisFile = true;
-} catch (err) {
-  // compiled file.
-}
-try {
-  fs.statSync(path.resolve(__dirname, '../build/Release'));
-} catch (err) {
-  try {
-    fs.statSync(path.resolve(__dirname, '../build/Debug'));
-    buildTarget = 'Debug';
-  } catch (err) {
-    if (isFindThisFile) {
-      throw new ReferenceError(`missing cfdjs module. ${err}`);
-    }
-  }
-}
-
-// search cfd-js path
-let requirePath = `${buildDirPath}/${buildTarget}/cfd_js`;
-if (!isFindThisFile) {
-  let parentPath = '';
-  for (let i = 0; i < 10; ++i) {
-    parentPath += '../';
-    try {
-      fs.statSync(path.resolve(__dirname, parentPath,
-          `node_modules/cfd-js/build/${buildTarget}`));
-      requirePath = path.resolve(__dirname, parentPath,
-          `node_modules/cfd-js/build/${buildTarget}/cfd_js.node`);
-    } catch (err) {
-      // not found
-    }
-  }
-}
-
-// load cfd-js module
-const cfdjs = require(requirePath);
+const cfdjs = require('bindings')('cfd_js.node');
 if (typeof cfdjs !== 'object' || cfdjs === null) {
   throw new ReferenceError('Not support typeof cfdjs.');
 }

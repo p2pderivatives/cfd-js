@@ -5,6 +5,7 @@
  * @brief cfd node.js API implements file.
  */
 #include <napi.h>  // NOLINT
+
 #include <string>
 
 #include "cfd/cfd_common.h"
@@ -218,6 +219,33 @@ Value AppendDescriptorChecksum(const CallbackInfo &information) {
  */
 Value CreateSignatureHash(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::CreateSignatureHash);
+}
+
+/**
+ * @brief ConvertAes の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value ConvertAes(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::ConvertAes);
+}
+
+/**
+ * @brief EncodeBase58 の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value EncodeBase58(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::EncodeBase58);
+}
+
+/**
+ * @brief DecodeBase58 の JSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value DecodeBase58(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::DecodeBase58);
 }
 
 /**
@@ -438,6 +466,15 @@ Value AddPubkeyHashSign(const CallbackInfo &information) {
  */
 Value SignWithPrivkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::SignWithPrivkey);
+}
+
+/**
+ * @brief AddScriptHashSignのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value AddScriptHashSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AddScriptHashSign);
 }
 
 /**
@@ -736,6 +773,11 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreateSignatureHash"),
       Function::New(env, CreateSignatureHash));
+  exports->Set(String::New(env, "ConvertAes"), Function::New(env, ConvertAes));
+  exports->Set(
+      String::New(env, "EncodeBase58"), Function::New(env, EncodeBase58));
+  exports->Set(
+      String::New(env, "DecodeBase58"), Function::New(env, DecodeBase58));
   exports->Set(
       String::New(env, "EncodeSignatureByDer"),
       Function::New(env, EncodeSignatureByDer));
@@ -752,6 +794,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "SignWithPrivkey"),
       Function::New(env, SignWithPrivkey));
+  exports->Set(
+      String::New(env, "AddScriptHashSign"),
+      Function::New(env, AddScriptHashSign));
   exports->Set(
       String::New(env, "UpdateWitnessStack"),
       Function::New(env, UpdateWitnessStack));

@@ -608,7 +608,7 @@ if (!supportFunctions.elements) {
       },
     };
     /* eslint-enable max-len */
-    console.log('*** Request ***\n', reqJson);
+    console.log('*** Request ***\n', JSON.stringify(reqJson, null, '  '));
     addSign1 = AddSign(reqJson);
     console.log('\n*** Response ***\n', addSign1, '\n');
   }
@@ -634,7 +634,7 @@ if (!supportFunctions.elements) {
       },
     };
     /* eslint-enable max-len */
-    console.log('*** Request ***\n', reqJson);
+    console.log('*** Request ***\n', JSON.stringify(reqJson, null, '  '));
     addSign2 = AddSign(reqJson);
     console.log('\n*** Response ***\n', addSign2, '\n');
   }

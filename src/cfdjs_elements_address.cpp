@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "cfd/cfd_elements_address.h"
-
 #include "cfd/cfdapi_elements_address.h"
 #include "cfdcore/cfdcore_descriptor.h"
 #include "cfdcore/cfdcore_elements_script.h"

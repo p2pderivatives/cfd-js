@@ -75,6 +75,32 @@ export interface AddRawTransactionResponse {
     hex: string;
 }
 
+export interface ScriptHashSignData {
+    hex: string;
+    type?: string;
+    derEncode?: boolean;
+    sighashType?: string;
+    sighashAnyoneCanPay?: boolean;
+}
+
+export interface AddScriptHashSignTxInRequest {
+    txid: string;
+    vout: number;
+    signParam: ScriptHashSignData[];
+    redeemScript: string;
+    hashType: string;
+}
+
+export interface AddScriptHashSignRequest {
+    isElements?: boolean;
+    tx: string;
+    txin?: AddScriptHashSignTxInRequest;
+}
+
+export interface AddScriptHashSignResponse {
+    hex: string;
+}
+
 export interface SignData {
     hex: string;
     type?: string;
@@ -162,6 +188,18 @@ export interface CalculateEcSignatureRequest {
 
 export interface CalculateEcSignatureResponse {
     signature: string;
+}
+
+export interface ConvertAesRequest {
+    isEncrypt: boolean;
+    mode?: string;
+    key: string;
+    iv?: string;
+    data: string;
+}
+
+export interface ConvertAesResponse {
+    hex: string;
 }
 
 export interface ConvertEntropyToMnemonicRequest {
@@ -327,6 +365,15 @@ export interface CreateScriptRequest {
 }
 
 export interface CreateScriptResponse {
+    hex: string;
+}
+
+export interface DecodeBase58Request {
+    data: string;
+    hasChecksum?: boolean;
+}
+
+export interface DecodeBase58Response {
     hex: string;
 }
 
@@ -836,6 +883,15 @@ export interface UnblindRawTransactionResponse {
     hex: string;
     outputs?: UnblindOutput[];
     issuanceOutputs?: UnblindIssuanceOutput[];
+}
+
+export interface EncodeBase58Request {
+    hex: string;
+    hasChecksum?: boolean;
+}
+
+export interface EncodeBase58Response {
+    data: string;
 }
 
 export interface EncodeSignatureByDerRequest {
@@ -1387,6 +1443,7 @@ export interface VerifySignRequest {
 export interface FailSignTxIn {
     txid: string;
     vout: number;
+    reason: string;
 }
 
 export interface VerifySignResponse {
@@ -1423,6 +1480,8 @@ export function AddPubkeyHashSign(jsonObject: AddPubkeyHashSignRequest): AddPubk
 
 export function AddRawTransaction(jsonObject: AddRawTransactionRequest): AddRawTransactionResponse;
 
+export function AddScriptHashSign(jsonObject: AddScriptHashSignRequest): AddScriptHashSignResponse;
+
 export function AddSign(jsonObject: AddSignRequest): AddSignResponse;
 
 export function AppendDescriptorChecksum(jsonObject: AppendDescriptorChecksumRequest): AppendDescriptorChecksumResponse;
@@ -1430,6 +1489,8 @@ export function AppendDescriptorChecksum(jsonObject: AppendDescriptorChecksumReq
 export function BlindRawTransaction(jsonObject: BlindRawTransactionRequest): BlindRawTransactionResponse;
 
 export function CalculateEcSignature(jsonObject: CalculateEcSignatureRequest): CalculateEcSignatureResponse;
+
+export function ConvertAes(jsonObject: ConvertAesRequest): ConvertAesResponse;
 
 export function ConvertEntropyToMnemonic(jsonObject: ConvertEntropyToMnemonicRequest): ConvertEntropyToMnemonicResponse;
 
@@ -1456,6 +1517,8 @@ export function CreateKeyPair(jsonObject: CreateKeyPairRequest): CreateKeyPairRe
 export function CreateMultisigScriptSig(jsonObject: CreateMultisigScriptSigRequest): CreateMultisigScriptSigResponse;
 
 export function CreateScript(jsonObject: CreateScriptRequest): CreateScriptResponse;
+
+export function DecodeBase58(jsonObject: DecodeBase58Request): DecodeBase58Response;
 
 export function DecodeDerSignatureToRaw(jsonObject: DecodeDerSignatureToRawRequest): DecodeDerSignatureToRawResponse;
 
@@ -1484,6 +1547,8 @@ export function SetRawIssueAsset(jsonObject: SetRawIssueAssetRequest): SetRawIss
 export function SetRawReissueAsset(jsonObject: SetRawReissueAssetRequest): SetRawReissueAssetResponse;
 
 export function UnblindRawTransaction(jsonObject: UnblindRawTransactionRequest): UnblindRawTransactionResponse;
+
+export function EncodeBase58(jsonObject: EncodeBase58Request): EncodeBase58Response;
 
 export function EncodeSignatureByDer(jsonObject: EncodeSignatureByDerRequest): EncodeSignatureByDerResponse;
 

@@ -102,6 +102,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const AddPubkeyHashSignRequestStruct& request);
 
   /**
+   * @brief パラメータの情報を元に、Scriptの署名情報を追加する.
+   * @param[in] request Transactionと署名情報を格納した構造体
+   * @return Transactionのhexデータを格納した構造体
+   */
+  static AddScriptHashSignResponseStruct AddScriptHashSign(
+      const AddScriptHashSignRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、SigHashを作成する
    * @param[in] request sighashを生成するパラメータ
    * @return sighashのhexデータを格納した構造体

@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "ConvertAesRequest",
+    "isEncrypt": true,
+    "isEncrypt:require": "require",
+    "isEncrypt:hint": "false is decrypto",
+    "mode": "cbc",
+    "mode:require": "optional",
+    "mode:hint": "cbc only",
+    "key": "",
+    "key:require": "require",
+    "key:comment": "key data (32 byte)",
+    "iv": "",
+    "iv:require": "optional",
+    "iv:comment": "initial vector (16 byte)",
+    "iv:hint": "using by cbc mode only.",
+    "data": "",
+    "data:require": "require",
+    "data:comment": "crypto target data"
+  },
+  "response": {
+    ":class": "ConvertAesResponse",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "encrypted or decrypted data"
+  }
+}

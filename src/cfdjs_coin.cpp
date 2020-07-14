@@ -4,13 +4,14 @@
  *
  * @brief cfd-apiで利用するCoin操作の実装ファイル
  */
+#include "cfdjs_coin.h"  // NOLINT
+
 #include <algorithm>
 #include <map>
 #include <string>
 #include <vector>
 
 #include "cfd/cfd_utxo.h"
-#include "cfdjs_coin.h"      // NOLINT
 #include "cfdjs_internal.h"  // NOLINT
 
 namespace cfd {

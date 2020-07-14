@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "request": {
+    ":class": "EncodeBase58Request",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "base58 target byte hex",
+    "hasChecksum": true,
+    "useChecksum:require": "optional",
+    "useChecksum:comment": "use checksum mode."
+  },
+  "response": {
+    ":class": "EncodeBase58Response",
+    "data": "",
+    "data:require": "require",
+    "data:comment": "encoded data"
+  }
+}
