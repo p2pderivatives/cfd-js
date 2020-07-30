@@ -38,7 +38,7 @@
       "redeemScript:require": "optional",
       "redeemScript:comment": "(required for P2SH or P2SH-P2WSH) redeem script for unlocking script",
       "witnessScript": "",
-      "redeemScript:require": "optional",
+      "witnessScript:require": "optional",
       "witnessScript:comment": "(required for P2WSH or P2SH-P2WSH) witness script for witness stack",
       "hashType": "",
       "hashType:require": "require",

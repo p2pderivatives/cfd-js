@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable require-jsdoc */
 export interface MultisigSignData {
     hex: string;
     type?: string;
@@ -1611,3 +1613,10 @@ export function UpdateWitnessStack(jsonObject: UpdateWitnessStackRequest): Updat
 export function VerifySign(jsonObject: VerifySignRequest): VerifySignResponse;
 
 export function VerifySignature(jsonObject: VerifySignatureRequest): VerifySignatureResponse;
+
+export class CfdError extends Error {
+  constructor(message: string, errorInformation: InnerErrorResponse, cause: Error);
+  toString(): string;
+  getErrorInformation(): InnerErrorResponse;
+  getCause(): Error;
+}

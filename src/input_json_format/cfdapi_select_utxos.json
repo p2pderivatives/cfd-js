@@ -27,6 +27,7 @@
     "targetAmount:type": "int64_t",
     "targetAmount:require": "optional",
     "targetAmount:hint": "This field is available only bitcoin.",
+    "targetAmount:comment": "Amount more than the specified amount is set in txout. default is 0 (disable).",
     "isElements": false,
     "isElements:require": "optional",
     "targets:require": "optional",
@@ -35,7 +36,8 @@
       "asset": "",
       "amount": 0,
       "amount:type": "int64_t",
-      "amount:require": "optional"
+      "amount:require": "optional",
+      "amount:comment": "Amount more than the specified amount is set in txout. default is 0 (disable)."
     }],
     "targets:hint": "This field is available only elements.",
     "feeInfo:require": "optional",
@@ -56,6 +58,7 @@
       "knapsackMinChange:require": "optional",
       "knapsackMinChange:type": "int32_t",
       "knapsackMinChange:hint": "knapsack minimum change amount.",
+      "knapsackMinChange:comment": "knapsack logic's threshold. Recommended value is 1.",
       "feeAsset": "",
       "feeAsset:require": "optional",
       "feeAsset:hint": "This field is available only elements.",

@@ -39,7 +39,7 @@
           "mainchainTxoutproof:require": "require"
         },
         "isRemoveMainchainTxWitness": false,
-        "isRemoveNonce:require": "optional",
+        "isRemoveMainchainTxWitness:require": "optional",
         "isRemoveMainchainTxWitness:hint": "It is necessary to set true for Elements v0.18 or higher."
       }
     ],
