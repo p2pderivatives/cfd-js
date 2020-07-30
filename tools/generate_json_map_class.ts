@@ -19,7 +19,18 @@ interface CollectMapDataResponse {
   type: string;
   map: ClassMapType;
   list: any[];
-}
+};
+
+interface ParameterType {
+  name: string;
+  type: string;
+};
+
+interface TsAppendFunctionData {
+  name: string;
+  parameters: ParameterType[];
+  returnType: string;
+};
 
 // ----------------------------------------------------------------------------
 // debug log function
@@ -1282,7 +1293,10 @@ const generateStructHeader = (dirname: string, filename: string,
 // ----------------------------------------------------------------------------
 const generateTsData = (dirname: string, filename: string,
     jsonClassMap: ClassMapType, jsonTypeList: any[],
-    functionList: string | any[], loadCfdjsIndexFile: fs.PathLike) => {
+    functionList: string | any[], loadCfdjsIndexFile: fs.PathLike,
+    promiseMode: boolean, tsClassName: string,
+    insertFunctions: TsAppendFunctionData[],
+    insertErrorFunctions: TsAppendFunctionData[]) => {
   let outPath = `${dirname}/${filename}`;
   if (outPath.startsWith(__dirname)) {
     outPath = outPath.substr(__dirname.length);
@@ -1317,6 +1331,9 @@ const generateTsData = (dirname: string, filename: string,
     if (errorObj !== undefined) {
       errorObj.remove();
     }
+  } else {
+    file.insertStatements(0, '/* eslint-disable max-len */');
+    file.insertStatements(1, '/* eslint-disable require-jsdoc */');
   }
 
   for (let i = 0; i < jsonTypeList.length; ++i) {
@@ -1330,19 +1347,71 @@ const generateTsData = (dirname: string, filename: string,
     });
   }
 
+  let classObj = undefined;
+  if (tsClassName !== '') {
+    classObj = file.addClass({
+      name: tsClassName,
+      isExported: true,
+    });
+  }
+
   for (let i = 0; i < functionList.length; ++i) {
     // manipulate
     const funcName = functionList[i];
     const reqName = `${funcName}Request`;
     const resName = `${funcName}Response`;
+    const resDataName = (promiseMode) ? `Promise<${resName}>` : resName;
     const params = (reqName in jsonClassMap) ? [{name: 'jsonObject', type: reqName}] : [];
-    const retType = (resName in jsonClassMap) ? resName : undefined;
+    const retType = (resName in jsonClassMap) ? resDataName : undefined;
+    if (classObj === undefined) {
+      file.addFunction({
+        name: funcName,
+        isExported: true,
+        parameters: params,
+        returnType: retType,
+      });
+    } else {
+      classObj.addMethod({
+        name: funcName,
+        parameters: params,
+        returnType: retType,
+      });
+    }
+  }
+
+  for (let i = 0; i < insertFunctions.length; ++i) {
+    const funcName = insertFunctions[i].name;
+    const params = insertFunctions[i].parameters;
+    const retType = insertFunctions[i].returnType;
     file.addFunction({
       name: funcName,
       isExported: true,
       parameters: params,
       returnType: retType,
     });
+  }
+
+  const errorClassObj = file.addClass({
+    name: 'CfdError',
+    isExported: true,
+  });
+  errorClassObj.setExtends('Error');
+  for (let i = 0; i < insertErrorFunctions.length; ++i) {
+    const funcName = insertErrorFunctions[i].name;
+    const params = insertErrorFunctions[i].parameters;
+    const retType = insertErrorFunctions[i].returnType;
+    if (funcName == 'constructor') {
+      errorClassObj.addConstructor({
+        parameters: params,
+        returnType: retType,
+      });
+    } else {
+      errorClassObj.addMethod({
+        name: funcName,
+        parameters: params,
+        returnType: retType,
+      });
+    }
   }
 
   // asynchronously save all the changes above
@@ -1375,6 +1444,35 @@ function convertFile() {
   let jsonClassMap: ClassMapType = {};
   let jsonTypeList: any[] = [];
   const functionList: string[] = [];
+  const promiseMode = false;
+  const tsClassName = '';
+  const insertFunctions: TsAppendFunctionData[] = [];
+  const insertErrorFunctions: TsAppendFunctionData[] = [{
+    name: 'constructor',
+    parameters: [{
+      name: 'message',
+      type: 'string',
+    }, {
+      name: 'errorInformation',
+      type: 'InnerErrorResponse',
+    }, {
+      name: 'cause',
+      type: 'Error',
+    }],
+    returnType: 'void',
+  }, {
+    name: 'toString',
+    parameters: [],
+    returnType: 'string',
+  }, {
+    name: 'getErrorInformation',
+    parameters: [],
+    returnType: 'InnerErrorResponse',
+  }, {
+    name: 'getCause',
+    parameters: [],
+    returnType: 'Error',
+  }];
 
   if (fs.existsSync(cfdPath) && fs.statSync(cfdPath).isDirectory()) {
     cfdBaseDir = cfdPath;
@@ -1451,18 +1549,20 @@ function convertFile() {
         srnamespaceName += namespace;
       }
 
-      const outHeaderFile = `${srnamespaceName}_autogen.h`;
-      const outSourceFile = `${srnamespaceName}_autogen.cpp`;
-      const headerStr = generateFileHeader(outHeaderFile,
-          outJsonHeaderFolderPath,
-          classHeaderList, jsonObjectCommon, `${libPrefix}/${outStructFileName}`);
-      fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, headerStr);
-      const srcStr = generateFileSource(outSourceFile,
-          outHeaderFile, classSourceList, jsonObjectCommon);
-      fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, srcStr);
+      if (outStructFileName !== '') {
+        const outHeaderFile = `${srnamespaceName}_autogen.h`;
+        const outSourceFile = `${srnamespaceName}_autogen.cpp`;
+        const headerStr = generateFileHeader(outHeaderFile,
+            outJsonHeaderFolderPath,
+            classHeaderList, jsonObjectCommon, `${libPrefix}/${outStructFileName}`);
+        fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, headerStr);
+        const srcStr = generateFileSource(outSourceFile,
+            outHeaderFile, classSourceList, jsonObjectCommon);
+        fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, srcStr);
+      }
     };
 
-    if (jsonDataList.length > 0) {
+    if ((jsonDataList.length > 0) && (outStructFileName !== '')) {
       const headerStr = generateStructHeader(outStructDirPath,
           outStructFileName, jsonDataList, libNamespace);
       fs.writeFileSync(path.resolve(`${outStructDirPath}${outStructFileName}`), headerStr);
@@ -1476,7 +1576,8 @@ function convertFile() {
         // do nothing
       }
       generateTsData(outTsFolderPath, outTsFileName, jsonClassMap,
-          jsonTypeList, functionList, loadCfdjsIndexFile);
+          jsonTypeList, functionList, loadCfdjsIndexFile, promiseMode,
+          tsClassName, insertFunctions, insertErrorFunctions);
     }
   });
 };

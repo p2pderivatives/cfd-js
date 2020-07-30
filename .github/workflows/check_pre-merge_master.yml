@@ -28,8 +28,6 @@ jobs:
             node: 8
           - os: macos-latest
             node: 13
-          - os: macos-latest
-            node: 14
 
     steps:
     - uses: actions/checkout@v2
@@ -90,7 +88,7 @@ jobs:
         npm --version
         echo "::set-output name=npm_cachedir::$(npm config get cache)"
     - name: use npm cache
-      if: steps.node_cache.outputs.cache-hit != 'true'
+      if: matrix.os != 'windows-latest' && steps.node_cache.outputs.cache-hit != 'true'
       uses: actions/cache@v1
       id: npm_cache
       with:
