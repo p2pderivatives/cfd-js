@@ -1011,14 +1011,17 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
         (value_hex.empty())
             ? ConfidentialValue(Amount::CreateBySatoshiAmount(amount))
             : ConfidentialValue(value_hex);
-    if ((hashtype_str == "p2pkh") || (hashtype_str == "p2wpkh")) {
+    if (hashtype_str == "p2pkh" || hashtype_str == "p2wpkh" ||
+        hashtype_str == "p2sh-p2wpkh") {
       hash_type =
-          (hashtype_str == "p2wpkh") ? HashType::kP2wpkh : HashType::kP2pkh;
+          (hashtype_str == "p2pkh") ? HashType::kP2pkh : HashType::kP2wpkh;
       sig_hash = api.CreateSignatureHash(
           request.tx, txin, pubkey, value, hash_type, sighashtype);
-    } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
+    } else if (
+        hashtype_str == "p2sh" || hashtype_str == "p2wsh" ||
+        hashtype_str == "p2sh-p2wsh") {
       hash_type =
-          (hashtype_str == "p2wsh") ? HashType::kP2wsh : HashType::kP2sh;
+          (hashtype_str == "p2sh") ? HashType::kP2sh : HashType::kP2wsh;
       sig_hash = api.CreateSignatureHash(
           request.tx, txin, script, value, hash_type, sighashtype);
     } else {
@@ -1030,7 +1033,8 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
       throw CfdException(
           CfdError::kCfdIllegalArgumentError,
           "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
-          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
+          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\" or \"p2sh-p2wpkh\" "
+          "or \"p2sh-p2wsh\".");  // NOLINT
     }
 
     response.sighash = sig_hash;

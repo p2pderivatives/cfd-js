@@ -13,18 +13,20 @@ JavaScript wrapper of cfd libraries
 - C/C++ Compiler
   - can compile c++11
 - CMake (3.14.3 or higher)
-- Python 3.x
 - node.js (stable version)
+- Python 3.x
+  - for building libwally-core js wrapper
 
 ### Windows
 
 download and install files.
-- Visual Studio (Verified version is 2017 or higher)
-  - use for compiler only
-- Visual Studio Build Tools (2017 or higher)
-- cmake (3.14.3 or higher)
+- node.js
 - Python 3.x
-- node.js (12.x or higher)
+- [CMake](https://cmake.org/) (3.14.3 or higher)
+- MSVC
+  - [Visual Studio](https://visualstudio.microsoft.com/downloads/) (Verified version is 2017 or higher)
+  - [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) (2017 or higher)
+  - (Using only) [msvc redistribution package](https://support.microsoft.com/help/2977003/the-latest-supported-visual-c-downloads)
 
 ### MacOS
 
@@ -52,7 +54,7 @@ cmake version 3.14.2 or lower, download from website and install cmake.
 
 ## Use case
 
-### add dependencies on package.json
+### add dependencies on package.json (nodejs or Electron)
 
 Add cfd-js github on caller app's package.json.
 
@@ -70,7 +72,7 @@ ex)
 
 When npm is installed, the cfd-js build is executed.
 
-### Electron
+### Electron setting (for build)
 
 Add cmake-js setting on caller app's package.json.
 
@@ -85,7 +87,7 @@ ex)
 
 ---
 
-## for Developper
+## Test and Example
 
 ### Build
 
@@ -118,23 +120,36 @@ npm run example
 npm run elements_example
 ```
 
-### Tool and library
+---
 
-#### using library
+## Information for developers
+
+### using library
 
 - cfd
+  - cfd-core
+    - [libwally-core](https://github.com/cryptogarageinc/libwally-core/tree/cfd-develop) (forked from [ElementsProject/libwally-core](https://github.com/ElementsProject/libwally-core))
+    - [univalue](https://github.com/jgarzik/univalue) (for JSON encoding and decoding)
 
-#### formatter
+### formatter
 
 - clang-format (using v10.0.0)
+- eslint
 
-#### linter
+### linter
 
 - cpplint
+- eslint
 
-#### document tool
+### document tool
 
-- doxygen & graphviz
+- Not Implemented yet
+
+### support compilers
+
+- Visual Studio (2017 or higher)
+- Clang (7.x or higher)
+- GCC (contains MinGW) (5.x or higher)
 
 ---
 

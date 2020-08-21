@@ -581,18 +581,19 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
     TransactionApi api;
     HashType hash_type;
     TxInReference txin_ref(TxIn(txid, vout, 0));
-    if (hashtype_str == "p2pkh" || hashtype_str == "p2wpkh") {
+    if (hashtype_str == "p2pkh" || hashtype_str == "p2wpkh" ||
+        hashtype_str == "p2sh-p2wpkh") {
       hash_type =
           (hashtype_str == "p2pkh") ? HashType::kP2pkh : HashType::kP2wpkh;
       sig_hash = api.CreateSignatureHash(
           request.tx, txin_ref, pubkey, amount, hash_type, sighashtype);
-
-    } else if (hashtype_str == "p2sh" || hashtype_str == "p2wsh") {
+    } else if (
+        hashtype_str == "p2sh" || hashtype_str == "p2wsh" ||
+        hashtype_str == "p2sh-p2wsh") {
       hash_type =
           (hashtype_str == "p2sh") ? HashType::kP2sh : HashType::kP2wsh;
       sig_hash = api.CreateSignatureHash(
           request.tx, txin_ref, script, amount, hash_type, sighashtype);
-
     } else {
       warn(
           CFD_LOG_SOURCE,
@@ -602,7 +603,8 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
       throw CfdException(
           CfdError::kCfdIllegalArgumentError,
           "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
-          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
+          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\" or \"p2sh-p2wpkh\" "
+          "or \"p2sh-p2wsh\".");  // NOLINT
     }
 
     // レスポンスとなるモデルへ変換

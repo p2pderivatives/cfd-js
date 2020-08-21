@@ -41,32 +41,6 @@ jobs:
       timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
-    - name: cmake-useCache-ubuntu
-      if: matrix.os == 'ubuntu-latest'
-      uses: actions/cache@v1
-      id: cache
-      with:
-        path: cache/cmake
-        key: ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-0
-        restore-keys: |
-          ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-
-    - name: cmake-download-ubuntu
-      if: matrix.os == 'ubuntu-latest' && steps.cache.outputs.cache-hit != 'true'
-      run: |
-        mkdir -p cache/cmake
-        cd cache/cmake
-        wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
-        cd ../..
-    - name: cmake-setting-ubuntu
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        export cmake_file_name="cmake-$CMAKE_VERSION-Linux-x86_64"
-        cd cache/cmake
-        tar zxvf $cmake_file_name.tar.gz
-        chmod +x $cmake_file_name/bin/cmake $cmake_file_name/bin/ctest
-        export CURRENT_DIR=$(pwd)
-        echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
-        cd ../..
     - name: dump node version
       id: node_ver
       run: |
@@ -119,9 +93,6 @@ jobs:
       run: rm -rf node_modules/cfd-js
       shell: bash
       continue-on-error: true
-    - name: ubuntu-after
-      if: matrix.os == 'ubuntu-latest'
-      run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
 
   doxygen-ubuntu:
     name: doxygen-ubuntu
