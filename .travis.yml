@@ -63,6 +63,7 @@ deploy:
     - "${ASSET_FILE_NAME}.zip"
     - prebuilds/*
   draft: false
+  prerelease: true
   on:
     tags: true
   skip_cleanup: true

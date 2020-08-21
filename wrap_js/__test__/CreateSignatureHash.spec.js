@@ -51,6 +51,18 @@ const testCase = [
     ['{"tx":"0100000001e007005f3b95e18a7b1faa75d13b98999f7381f345e3849a48ec1eb24c69e4a80000000000ffffffff0130ea052a010000001976a9140c989a8914b27e3a8402990000c05d081f3376c588ac00000000","txin":{"txid":"a8e4694cb21eec489a84e345f381739f99983bd175aa1f7b8ae1953b5f0007e0", "vout":0, "keyData":{"hex":"2102ddeda4a5b67955c32247c28379cf3461c872e34f96ec94ddd61c66bbcfda1906ac", "type":"redeem_script"}, "amount":4999998000, "hashType":"p2sh", "sighashType":"all", "sighashAnyoneCanPay":false}}'],
     '{"sighash":"45a0abd384fa552e98d1a35f47b2990146bb1a430ea4191569b7324cae3c9da3"}',
   ),
+  TestHelper.createBitcoinTestCase(
+    'CreateSignatureHash HashType(P2SH-P2WPKH) SigHashType(all)',
+    CreateSignatureHash,
+    ['{"tx":"01000000019c53cb2a6118530aaa345b799aeb7e4e5055de41ac5b2dd2ce47419624c57b580000000000ffffffff0130ea052a010000001976a9143cadb10040e9e7002bbd9d0620f5f79c05603ffd88ac00000000","txin":{"txid":"587bc524964147ced22d5bac41de55504e7eeb9a795b34aa0a5318612acb539c", "vout":0, "keyData":{"hex":"031777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb", "type":"pubkey"}, "amount":4999998000, "hashType":"p2sh-p2wpkh", "sighashType":"all", "sighashAnyoneCanPay":false}}'],
+    '{"sighash":"3717db19cd23a81a3800b1ca448d818d9963f9558e9476bbdcf6827d574ab15a"}',
+  ),
+  TestHelper.createBitcoinTestCase(
+    'CreateSignatureHash HashType(P2SH-P2WSH) SigHashType(all)',
+    CreateSignatureHash,
+    ['{"tx":"0100000001e007005f3b95e18a7b1faa75d13b98999f7381f345e3849a48ec1eb24c69e4a80000000000ffffffff0130ea052a010000001976a9140c989a8914b27e3a8402990000c05d081f3376c588ac00000000","txin":{"txid":"a8e4694cb21eec489a84e345f381739f99983bd175aa1f7b8ae1953b5f0007e0", "vout":0, "keyData":{"hex":"2102ddeda4a5b67955c32247c28379cf3461c872e34f96ec94ddd61c66bbcfda1906ac", "type":"redeem_script"}, "amount":4999998000, "hashType":"p2sh-p2wsh", "sighashType":"all", "sighashAnyoneCanPay":false}}'],
+    '{"sighash":"830cbe9845f555337c6b17334ce375030c3bf7f709e862d468586771047791f5"}',
+  ),
 ];
 
 const errorCase = [
@@ -106,7 +118,7 @@ const errorCase = [
     'CreateSignatureHash Error(hashType is invalid)',
     CreateSignatureHash,
     ['{"tx":"0100000002fff7f7881a8099afa6940d42d1e7f6362bec38171ea3edf433541db4e4ad969f0000000000eeffffffef51e1b804cc89d182d279655c3aa89e815b1b309fe287d9b2b55d57b90ec68a0100000000ffffffff02202cb206000000001976a9148280b37df378db99f66f85c95a783a76ac7a6d5988ac9093510d000000001976a9143bde42dbee7e4dbe6a21b2d50ce2f0167faa815988ac11000000","txin":{"txid":"8ac60eb9575db5b2d987e29f301b5b819ea83a5c6579d282d189cc04b8e151ef", "vout":1, "keyData":{"hex":"025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357", "type":"pubkey"}, "amount":600000000, "hashType":"aaa", "sighashType":"all"}}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid hashtype_str. hashtype_str must be \\"p2pkh\\" or \\"p2sh\\" or \\"p2wpkh\\" or \\"p2wsh\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid hashtype_str. hashtype_str must be \\"p2pkh\\" or \\"p2sh\\" or \\"p2wpkh\\" or \\"p2wsh\\" or \\"p2sh-p2wpkh\\" or \\"p2sh-p2wsh\\"."}}',
   ),
   TestHelper.createBitcoinTestCase(
     'CreateSignatureHash Error(sighashType is invalid)',

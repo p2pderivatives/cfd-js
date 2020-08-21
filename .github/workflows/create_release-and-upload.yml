@@ -37,7 +37,7 @@ jobs:
           - First Change
           - Second Change
         draft: false
-        prerelease: false
+        prerelease: true
 #      continue-on-error: true
     - name: write upload url
       env:
@@ -142,30 +142,6 @@ jobs:
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
     - name: list
       run: ls -a $GITHUB_WORKSPACE
-    - name: cmake-useCache-ubuntu
-      uses: actions/cache@v1
-      id: cache
-      with:
-        path: cache/cmake
-        key: ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-0
-        restore-keys: |
-          ${{ runner.os }}-cmake-${{ env.CMAKE_VERSION }}-x64-
-    - name: cmake-download-ubuntu
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: |
-        mkdir -p cache/cmake
-        cd cache/cmake
-        wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION-Linux-x86_64.tar.gz
-        cd ../..
-    - name: cmake-setting-ubuntu
-      run: |
-        export cmake_file_name="cmake-$CMAKE_VERSION-Linux-x86_64"
-        cd cache/cmake
-        tar zxvf $cmake_file_name.tar.gz
-        chmod +x $cmake_file_name/bin/cmake $cmake_file_name/bin/ctest
-        export CURRENT_DIR=$(pwd)
-        echo ::add-path::$CURRENT_DIR/$cmake_file_name/bin
-        cd ../..
     - name: create folder
       run: |
         echo "---- dump output data ----"
@@ -220,6 +196,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
-    - name: ubuntu-after
-      run: rm -rf cache/cmake/cmake-$CMAKE_VERSION-Linux-x86_64
 

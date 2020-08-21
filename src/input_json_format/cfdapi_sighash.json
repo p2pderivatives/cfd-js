@@ -27,6 +27,7 @@
       "amount:require": "require",
       "hashType": "p2wsh",
       "hashType:require": "require",
+      "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh",
       "sighashType": "all",
       "sighashAnyoneCanPay:require": "optional",
       "sighashType:hint": "all, none, single",
