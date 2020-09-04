@@ -73,10 +73,6 @@ jobs:
       id: get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       shell: bash
-#      run: |
-#        echo "##[set-output name=VERSION;]$(echo ${GITHUB_REF#refs/tags/})"
-#        echo "CMAKE_VERSION=${env:CMAKE_VERSION}" > cmake_ver.txt
-#        cat cmake_ver.txt
     - name: dump version
       env:
         version: ${{ steps.get_version.outputs.VERSION }}
@@ -118,16 +114,17 @@ jobs:
         asset_path: ./cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-win-vs2019-x86_64.zip
         asset_content_type: application/zip
-    - name: npm install
-      run: npm install
-      timeout-minutes: 20
-    - name: prebuild
-      run: npm run prebuild_all
-    - name: prebuild upload
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
-      shell: bash
+# Comment out until the node addon's build on windows is possible.
+#    - name: npm install
+#      run: npm install
+#      timeout-minutes: 20
+#    - name: prebuild
+#      run: npm run prebuild_all
+#    - name: prebuild upload
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
+#      shell: bash
 
   upload-object-ubuntu:
     name: upload-object-ubuntu

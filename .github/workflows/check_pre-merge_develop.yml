@@ -11,7 +11,6 @@ on:
     - test_ci
 
 env:
-  CMAKE_VERSION: 3.15.5
   CMAKE_BUILD_PARALLEL_LEVEL: 4
 
 jobs:
@@ -21,25 +20,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-        node: [8, 12, 13, 14]
+        os: [macos-latest, ubuntu-latest]
+        node: [8, 12, 14]
         exclude:
-          - os: windows-latest
-            node: 8
           - os: macos-latest
             node: 8
-          - os: macos-latest
-            node: 13
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.0
+    - uses: actions/setup-node@v2.1.1
       continue-on-error: true
-      timeout-minutes: 1
-      with:
-        node-version: ${{ matrix.node }}
-    - name: setup-node retry
-      uses: actions/setup-node@v2.1.0
       timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
@@ -62,13 +52,13 @@ jobs:
       id: npm_info
       run: |
         npm --version
-        echo "::set-output name=npm_cachedir::$(npm config get cache)"
+        echo "::set-output name=temp_npm_cachedir::$(npm config get cache)"
     - name: use npm cache
       if: matrix.os != 'windows-latest' && steps.node_cache.outputs.cache-hit != 'true'
       uses: actions/cache@v1
       id: npm_cache
       with:
-        path: ${{ steps.npm_info.outputs.npm_cachedir }}
+        path: ${{ steps.npm_info.outputs.temp_npm_cachedir }}
         key: npm-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-0
         restore-keys: |
           npm-${{ runner.os }}-${{ matrix.node }}-${{ steps.node_ver.outputs.node_version }}-

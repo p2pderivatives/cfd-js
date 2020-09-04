@@ -1089,19 +1089,19 @@ void AddSignRequest::CollectFieldName() {
   cfd::core::CLASS_FUNCTION_TABLE<AddSignRequest> func_table;  // NOLINT
 
   func_table = {
-    AddSignRequest::GetTxString,
-    AddSignRequest::SetTxString,
-    AddSignRequest::GetTxFieldType,
-  };
-  json_mapper.emplace("tx", func_table);
-  item_list.push_back("tx");
-  func_table = {
     AddSignRequest::GetIsElementsString,
     AddSignRequest::SetIsElementsString,
     AddSignRequest::GetIsElementsFieldType,
   };
   json_mapper.emplace("isElements", func_table);
   item_list.push_back("isElements");
+  func_table = {
+    AddSignRequest::GetTxString,
+    AddSignRequest::SetTxString,
+    AddSignRequest::GetTxFieldType,
+  };
+  json_mapper.emplace("tx", func_table);
+  item_list.push_back("tx");
   func_table = {
     AddSignRequest::GetTxinString,
     AddSignRequest::SetTxinString,
@@ -1113,16 +1113,16 @@ void AddSignRequest::CollectFieldName() {
 
 void AddSignRequest::ConvertFromStruct(
     const AddSignRequestStruct& data) {
-  tx_ = data.tx;
   is_elements_ = data.is_elements;
+  tx_ = data.tx;
   txin_.ConvertFromStruct(data.txin);
   ignore_items = data.ignore_items;
 }
 
 AddSignRequestStruct AddSignRequest::ConvertToStruct() const {  // NOLINT
   AddSignRequestStruct result;
-  result.tx = tx_;
   result.is_elements = is_elements_;
+  result.tx = tx_;
   result.txin = txin_.ConvertToStruct();
   result.ignore_items = ignore_items;
   return result;
@@ -8369,6 +8369,13 @@ void EstimateFeeResponse::CollectFieldName() {
   json_mapper.emplace("txFeeAmount", func_table);
   item_list.push_back("txFeeAmount");
   func_table = {
+    EstimateFeeResponse::GetTxoutFeeAmountString,
+    EstimateFeeResponse::SetTxoutFeeAmountString,
+    EstimateFeeResponse::GetTxoutFeeAmountFieldType,
+  };
+  json_mapper.emplace("txoutFeeAmount", func_table);
+  item_list.push_back("txoutFeeAmount");
+  func_table = {
     EstimateFeeResponse::GetUtxoFeeAmountString,
     EstimateFeeResponse::SetUtxoFeeAmountString,
     EstimateFeeResponse::GetUtxoFeeAmountFieldType,
@@ -8381,6 +8388,7 @@ void EstimateFeeResponse::ConvertFromStruct(
     const EstimateFeeResponseStruct& data) {
   fee_amount_ = data.fee_amount;
   tx_fee_amount_ = data.tx_fee_amount;
+  txout_fee_amount_ = data.txout_fee_amount;
   utxo_fee_amount_ = data.utxo_fee_amount;
   ignore_items = data.ignore_items;
 }
@@ -8389,6 +8397,7 @@ EstimateFeeResponseStruct EstimateFeeResponse::ConvertToStruct() const {  // NOL
   EstimateFeeResponseStruct result;
   result.fee_amount = fee_amount_;
   result.tx_fee_amount = tx_fee_amount_;
+  result.txout_fee_amount = txout_fee_amount_;
   result.utxo_fee_amount = utxo_fee_amount_;
   result.ignore_items = ignore_items;
   return result;

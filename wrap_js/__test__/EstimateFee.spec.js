@@ -59,7 +59,7 @@ const testCase = [
         tx: '02000000000000000000',
         isElements: false,
       })],
-      '{\"feeAmount\":100,\"txFeeAmount\":10,\"utxoFeeAmount\":90}',
+      '{\"feeAmount\":100,\"txFeeAmount\":10,\"txoutFeeAmount\":10,\"utxoFeeAmount\":90}',
     );
   })(),
   (() => {
@@ -73,7 +73,7 @@ const testCase = [
         tx: '02000000000000000000',
         isElements: false,
       })],
-      '{\"feeAmount\":280,\"txFeeAmount\":10,\"utxoFeeAmount\":270}',
+      '{\"feeAmount\":280,\"txFeeAmount\":10,\"txoutFeeAmount\":10,\"utxoFeeAmount\":270}',
     );
   })(),
   (() => {
@@ -87,7 +87,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":143,\"txFeeAmount\":53,\"utxoFeeAmount\":90}',
+      '{\"feeAmount\":143,\"txFeeAmount\":53,\"txoutFeeAmount\":53,\"utxoFeeAmount\":90}',
     );
   })(),
   (() => {
@@ -101,7 +101,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":319,\"txFeeAmount\":139,\"utxoFeeAmount\":180}',
+      '{\"feeAmount\":319,\"txFeeAmount\":139,\"txoutFeeAmount\":139,\"utxoFeeAmount\":180}',
     );
   })(),
   (() => {
@@ -115,7 +115,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":2860,\"txFeeAmount\":1060,\"utxoFeeAmount\":1800}',
+      '{\"feeAmount\":2860,\"txFeeAmount\":1060,\"txoutFeeAmount\":1060,\"utxoFeeAmount\":1800}',
     );
   })(),
   (() => {
@@ -129,7 +129,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":6380,\"txFeeAmount\":2780,\"utxoFeeAmount\":3600}',
+      '{\"feeAmount\":6380,\"txFeeAmount\":2780,\"txoutFeeAmount\":2780,\"utxoFeeAmount\":3600}',
     );
   })(),
   (() => {
@@ -143,7 +143,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":121,\"txFeeAmount\":53,\"utxoFeeAmount\":68}',
+      '{\"feeAmount\":121,\"txFeeAmount\":53,\"txoutFeeAmount\":53,\"utxoFeeAmount\":68}',
     );
   })(),
   (() => {
@@ -157,7 +157,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":275,\"txFeeAmount\":139,\"utxoFeeAmount\":136}',
+      '{\"feeAmount\":275,\"txFeeAmount\":139,\"txoutFeeAmount\":139,\"utxoFeeAmount\":136}',
     );
   })(),
   (() => {
@@ -171,7 +171,7 @@ const testCase = [
         tx: '02000000014cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff0101000000000000002200201863143c14c5166804bd19203356da136c985678cd4d27a1b8c632960490326200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":131,\"txFeeAmount\":53,\"utxoFeeAmount\":78}',
+      '{\"feeAmount\":131,\"txFeeAmount\":53,\"txoutFeeAmount\":53,\"utxoFeeAmount\":78}',
     );
   })(),
   (() => {
@@ -185,7 +185,7 @@ const testCase = [
         tx: '02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000',
         isElements: false,
       })],
-      '{\"feeAmount\":295,\"txFeeAmount\":139,\"utxoFeeAmount\":156}',
+      '{\"feeAmount\":295,\"txFeeAmount\":139,\"txoutFeeAmount\":139,\"utxoFeeAmount\":156}',
     );
   })(),
 ];
@@ -220,7 +220,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":147,\"txFeeAmount\":56,\"utxoFeeAmount\":91}',
+      '{\"feeAmount\":147,\"txFeeAmount\":56,\"txoutFeeAmount\":56,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -236,7 +236,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":329,\"txFeeAmount\":56,\"utxoFeeAmount\":273}',
+      '{\"feeAmount\":329,\"txFeeAmount\":56,\"txoutFeeAmount\":56,\"utxoFeeAmount\":273}',
     );
   })(),
   (() => {
@@ -252,7 +252,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1012,\"txFeeAmount\":921,\"utxoFeeAmount\":91}',
+      '{\"feeAmount\":1012,\"txFeeAmount\":921,\"txoutFeeAmount\":921,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -268,7 +268,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1984,\"txFeeAmount\":1802,\"utxoFeeAmount\":182}',
+      '{\"feeAmount\":1984,\"txFeeAmount\":1802,\"txoutFeeAmount\":1802,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -284,7 +284,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":20240,\"txFeeAmount\":18420,\"utxoFeeAmount\":1820}',
+      '{\"feeAmount\":20240,\"txFeeAmount\":18420,\"txoutFeeAmount\":18420,\"utxoFeeAmount\":1820}',
     );
   })(),
   (() => {
@@ -300,7 +300,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":39680,\"txFeeAmount\":36040,\"utxoFeeAmount\":3640}',
+      '{\"feeAmount\":39680,\"txFeeAmount\":36040,\"txoutFeeAmount\":36040,\"utxoFeeAmount\":3640}',
     );
   })(),
   (() => {
@@ -316,7 +316,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":990,\"txFeeAmount\":921,\"utxoFeeAmount\":69}',
+      '{\"feeAmount\":990,\"txFeeAmount\":921,\"txoutFeeAmount\":921,\"utxoFeeAmount\":69}',
     );
   })(),
   (() => {
@@ -332,7 +332,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         minimumBits: 36,
       })],
-      '{\"feeAmount\":1940,\"txFeeAmount\":1802,\"utxoFeeAmount\":138}',
+      '{\"feeAmount\":1940,\"txFeeAmount\":1802,\"txoutFeeAmount\":1802,\"utxoFeeAmount\":138}',
     );
   })(),
   (() => {
@@ -347,7 +347,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":1320,\"txFeeAmount\":1241,\"utxoFeeAmount\":79}',
+      '{\"feeAmount\":1320,\"txFeeAmount\":1241,\"txoutFeeAmount\":1241,\"utxoFeeAmount\":79}',
     );
   })(),
   (() => {
@@ -362,7 +362,7 @@ const elementsTestCase = [
         isElements: true,
         feeAsset: FEE_ASSET,
       })],
-      '{\"feeAmount\":2600,\"txFeeAmount\":2442,\"utxoFeeAmount\":158}',
+      '{\"feeAmount\":2600,\"txFeeAmount\":2442,\"txoutFeeAmount\":2442,\"utxoFeeAmount\":158}',
     );
   })(),
   (() => {
@@ -378,7 +378,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":216,\"txFeeAmount\":125,\"utxoFeeAmount\":91}',
+      '{\"feeAmount\":216,\"txFeeAmount\":125,\"txoutFeeAmount\":125,\"utxoFeeAmount\":91}',
     );
   })(),
   (() => {
@@ -394,7 +394,7 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1501,\"txFeeAmount\":1319,\"utxoFeeAmount\":182}',
+      '{\"feeAmount\":1501,\"txFeeAmount\":1319,\"txoutFeeAmount\":1319,\"utxoFeeAmount\":182}',
     );
   })(),
   (() => {
@@ -418,7 +418,7 @@ const elementsTestCase = [
         feeAsset: '017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c18',
         minimumBits: 36,
       })],
-      '{\"feeAmount\":4364,\"txFeeAmount\":2697,\"utxoFeeAmount\":1667}',
+      '{\"feeAmount\":4364,\"txFeeAmount\":2697,\"txoutFeeAmount\":2697,\"utxoFeeAmount\":1667}',
     );
   })(),
   (() => {
@@ -443,7 +443,32 @@ const elementsTestCase = [
         feeAsset: FEE_ASSET,
         isBlind: false,
       })],
-      '{\"feeAmount\":1513,\"txFeeAmount\":1311,\"utxoFeeAmount\":202}',
+      '{\"feeAmount\":1513,\"txFeeAmount\":1311,\"txoutFeeAmount\":1311,\"utxoFeeAmount\":202}',
+    );
+  })(),
+  (() => {
+    const selectUtxos = [{
+      txid: '1234567890123456789012345678901234567890123456789012345678901234',
+      vout: 0,
+      amount: 600000000,
+      asset: DEFAULT_ASSET,
+      descriptor: FIXED_DESCRIPTOR,
+      isPegin: true,
+      peginBtcTxSize: 210,
+      fedpegScript: '51',
+    }];
+    return TestHelper.createElementsTestCase(
+      'EstimateFee Elements - 13[6,7]coins-pegin, tx: 2 output, feeRate: 0.1',
+      EstimateFee,
+      [JSON.stringify({
+        selectUtxos,
+        feeRate: 0.1,
+        tx: '020000000002d4b91f8ea0be3d89d33f9588884a843e78688152f4dff8aca5abc6f5973a83ae0000000000feffffff140510708ffd1fc8bea09e204d36b0d5b9402a31767a4f6c36f23b40cd0cbaf70a00000000faffffff0301f38611eb688e6fcd06f25e2faf52b9f98364dc14c379ab085f1b57d56b4b1a6f01000000003b9328e0001976a9146d715ab3da8090fd8f9e7aada1588e531b16b7da88ac0151f799a22a9375b31c2f20edce025f0df5231306e81222a0061bde342dc447ef010000000008f0d1800255fb6295bfd3bbf4760776a59d9476fac2e52f9c0c16549aea5c2ca5f1c15e6f1976a9147cafacbfc72f3682b1055b3a6b8711f3622eabfd88ac01f38611eb688e6fcd06f25e2faf52b9f98364dc14c379ab085f1b57d56b4b1a6f01000000000007a120000090000000',
+        isElements: true,
+        feeAsset: FEE_ASSET,
+        isBlind: false,
+      })],
+      '{\"feeAmount\":153,\"txFeeAmount\":132,\"txoutFeeAmount\":132,\"utxoFeeAmount\":21}',
     );
   })(),
 ];

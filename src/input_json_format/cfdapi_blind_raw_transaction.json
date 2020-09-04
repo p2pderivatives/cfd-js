@@ -1,69 +1,96 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "blind the transaction.",
   "request": {
     ":class": "BlindRawTransactionRequest",
+    ":class:comment": "Request blind the transaction.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
+    "txins:require": "require",
+    "txins:comment": "input data list.",
     "txins": [
       {
         ":class": "BlindTxInRequest",
+        ":class:comment": "Tx input data for blinding.",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid.",
         "vout": 0,
-        "vout:require": "require",
         "vout:type": "uint32_t",
+        "vout:require": "require",
+        "vout:comment": "utxo vout.",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "asset hex.",
         "blindFactor": "",
         "blindFactor:require": "optional",
+        "blindFactor:comment": "amount blinder.",
         "assetBlindFactor": "",
         "assetBlindFactor:require": "optional",
+        "assetBlindFactor:comment": "asset blinder.",
         "amount": 0,
-        "amount:require": "require"
+        "amount:require": "require",
+        "amount:comment": "satoshi amount."
       }
     ],
     "txouts:require": "optional",
+    "txouts:comment": "output data list. Used when directly setting ConfidentialKey.",
     "txouts": [
       {
         ":class": "BlindTxOutRequest",
+        ":class:comment": "Tx output data for blinding.",
         "index": 0,
         "index:type": "uint32_t",
         "index:require": "require",
+        "index:comment": "target txout index.",
         "confidentialKey": "",
         "confidentialKey:require": "require",
+        "confidentialKey:comment": "confidential key.",
         "blindPubkey": "",
         "blindPubkey:require": "optional",
-        "blindPubkey:comment": "deprecated field"
+        "blindPubkey:comment": "(deprecated field)"
       }
     ],
     "txoutConfidentialAddresses": [""],
     "txoutConfidentialAddresses:require": "optional",
-    "txoutConfidentialAddresses:comment": "confidential address list",
+    "txoutConfidentialAddresses:comment": "Confidential address list. Use instead of txouts.",
     "issuances:require": "optional",
+    "issuances:comment": "used when issue/reissue transaction",
     "issuances":[
       {
         ":class": "BlindIssuanceRequest",
+        ":class:comment": "Tx input issuance data for blinding.",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid.",
         "vout": 0,
-        "vout:require": "require",
         "vout:type": "uint32_t",
+        "vout:require": "require",
+        "vout:comment": "utxo vout.",
         "assetBlindingKey":"",
         "assetBlindingKey:require": "require",
+        "assetBlindingKey:comment": "asset blinding key.",
         "tokenBlindingKey":"",
-        "tokenBlindingKey:require": "optional"
+        "tokenBlindingKey:require": "optional",
+        "tokenBlindingKey:comment": "token blinding key. Used when issue transaction."
       }
     ],
     "minimumRangeValue": 1,
+    "minimumRangeValue:require": "optional",
+    "minimumRangeValue:comment": "rangeproof minimum value.",
     "exponent": 0,
     "exponent:type": "int",
+    "exponent:comment": "An exponential value that guarantees a range of rangeproof.",
     "minimumBits": 52,
-    "minimumBits:type": "int"
+    "minimumBits:type": "int",
+    "minimumBits:comment": "minimum bits of rangeproof."
   },
   "response": {
     ":class": "BlindRawTransactionResponse",
+    ":class:comment": "The data containing blinded transaction.",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "blinded transaction hex."
   }
 }

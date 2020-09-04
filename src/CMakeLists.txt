@@ -37,7 +37,11 @@ if(NOT CFD_SRC_ROOT_DIR)
 set(CFD_SRC_ROOT_DIR   ${CMAKE_SOURCE_DIR})
 endif()
 
-find_package(cfd  QUIET)
+
+find_package(univalue QUIET CONFIG)
+find_package(wally  QUIET CONFIG)
+find_package(cfdcore  QUIET CONFIG)
+find_package(cfd  QUIET CONFIG)
 if((NOT cfd_FOUND) OR (NOT ${cfd_FOUND}))
 set(CFD_LIBRARY cfd)
 set(CFDCORE_LIBRARY cfdcore)

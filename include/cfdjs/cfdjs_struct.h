@@ -287,8 +287,8 @@ struct AddSignTxInRequestStruct {
  * @brief AddSignRequestStruct struct
  */
 struct AddSignRequestStruct {
-  std::string tx = "";            //!< tx  // NOLINT
   bool is_elements = false;       //!< is_elements  // NOLINT
+  std::string tx = "";            //!< tx  // NOLINT
   AddSignTxInRequestStruct txin;  //!< txin  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
@@ -1962,9 +1962,10 @@ struct EstimateFeeRequestStruct {
  * @brief EstimateFeeResponseStruct struct
  */
 struct EstimateFeeResponseStruct {
-  int64_t fee_amount = 0;       //!< fee_amount  // NOLINT
-  int64_t tx_fee_amount = 0;    //!< tx_fee_amount  // NOLINT
-  int64_t utxo_fee_amount = 0;  //!< utxo_fee_amount  // NOLINT
+  int64_t fee_amount = 0;        //!< fee_amount  // NOLINT
+  int64_t tx_fee_amount = 0;     //!< tx_fee_amount  // NOLINT
+  int64_t txout_fee_amount = 0;  //!< txout_fee_amount  // NOLINT
+  int64_t utxo_fee_amount = 0;   //!< utxo_fee_amount  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
