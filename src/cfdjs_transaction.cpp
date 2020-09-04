@@ -874,6 +874,7 @@ void TransactionJsonApi::EstimateFee(
 
   response->SetFeeAmount(fee.GetSatoshiValue());
   response->SetTxFeeAmount(tx_fee.GetSatoshiValue());
+  response->SetTxoutFeeAmount(tx_fee.GetSatoshiValue());
   response->SetUtxoFeeAmount(utxo_fee.GetSatoshiValue());
 }
 

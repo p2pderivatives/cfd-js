@@ -735,6 +735,36 @@ const elementsTestCase = [
     const utxosForFee = TestUtxoCreater.createUtxos([0.01, 0.02, 0.03, 0.04, 0.05], FIXED_DESCRIPTOR, FEE_ASSET);
     const utxos = [].concat(utxoSetA, utxoSetB, utxosForFee);
     return TestHelper.createElementsTestCase(
+      'FundRawTransaction - Elements - (tx: 0 input 0 output, targetAmount: 0, feeRate: 0.1)',
+      FundRawTransaction,
+      [JSON.stringify({
+        utxos,
+        tx: '0200000000000000000000',
+        isElements: true,
+        network: 'regtest',
+        targets: [{
+          asset: FEE_ASSET,
+          amount: 0,
+          reserveAddress: 'XDq5RRCBNnqgvWVUzKycmmo3dPnxWP6y5h',
+        }],
+        feeInfo: {
+          feeRate: 0.1,
+          longTermFeeRate: 0.1,
+          knapsackMinChange: -1,
+          dustFeeRate: 0.1,
+          feeAsset: FEE_ASSET,
+          isBlindEstimateFee: false,
+        },
+      })],
+      '{"hex":"02000000000100000002000000000000000000000000000000000000000000000000000000000000000000ffffffff0201efcdabefcdabcdabefcdabefcdabefcdabefcdabefcdabefcdabefcdabefcdab010000000000000021000001efcdabefcdabcdabefcdabefcdabefcdabefcdabefcdabefcdabefcdabefcdab0100000000001e845f0017a9141b3407a0be5d01401fae0ddfc3af014758f3aed48700000000","usedAddresses":["XDq5RRCBNnqgvWVUzKycmmo3dPnxWP6y5h"],"feeAmount":33}',
+    );
+  })(),
+  (() => {
+    const utxoSetA = TestUtxoCreater.createUtxos([0.1, 0.2, 0.3, 0.4, 0.5], FIXED_DESCRIPTOR, DEFAULT_ASSET_A);
+    const utxoSetB = TestUtxoCreater.createUtxos([0.6, 0.7, 0.8, 0.9, 1.0], SEGWIT_DESCRIPTOR, DEFAULT_ASSET_B);
+    const utxosForFee = TestUtxoCreater.createUtxos([0.01, 0.02, 0.03, 0.04, 0.05], FIXED_DESCRIPTOR, FEE_ASSET);
+    const utxos = [].concat(utxoSetA, utxoSetB, utxosForFee);
+    return TestHelper.createElementsTestCase(
       'FundRawTransaction - Elements - (tx: 0 input 0 output, targetAmount: 11000000(AssetA), feeRate: 2.0, multi asset utxos)',
       FundRawTransaction,
       [JSON.stringify({

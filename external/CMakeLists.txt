@@ -39,8 +39,10 @@ set(CFDJS_API_INSTALLED   TRUE)
 endif()  # find_package
 endif()
 
-find_package(cfd  QUIET CONFIG)
+find_package(univalue QUIET CONFIG)
+find_package(wally  QUIET CONFIG)
 find_package(cfdcore  QUIET CONFIG)
+find_package(cfd  QUIET CONFIG)
 if((NOT CFDJS_API_INSTALLED) OR (NOT cfd_FOUND) OR (NOT ${cfd_FOUND}) OR (NOT cfdcore_FOUND) OR (NOT ${cfdcore_FOUND}))
 # load and compile libwally
 else()
@@ -64,6 +66,59 @@ include(${CMAKE_CURRENT_BINARY_DIR}/${EXTERNAL_LOCAL_CURRENT_FILENAME}.cmake)
 message(STATUS "[external project local] load current cfd-js file")
 endif()
 
+
+# libwally-core (force build on wallycore.node)
+if(LIBWALLY_TARGET_VERSION)
+set(LIBWALLY_TARGET_TAG  ${LIBWALLY_TARGET_VERSION})
+message(STATUS "[external project cfd-js local] libwally-core target=${LIBWALLY_TARGET_VERSION}")
+else()
+set(LIBWALLY_TARGET_TAG  refs/tags/cfd-0.0.6)
+endif()
+
+if(${USE_GIT_SSH})
+set(LIBWALLY_URL  git@github.com:cryptogarageinc/libwally-core.git)
+else()
+set(LIBWALLY_URL  https://github.com/cryptogarageinc/libwally-core.git)
+endif()
+
+set(TEMPLATE_PROJECT_NAME           libwally-core)
+set(TEMPLATE_PROJECT_GIT_REPOSITORY ${LIBWALLY_URL})
+set(TEMPLATE_PROJECT_GIT_TAG        ${LIBWALLY_TARGET_TAG})
+set(PROJECT_EXTERNAL  "${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}/external")
+set(DIR_PATH "${CFD_ROOT_BINARY_DIR}/${TEMPLATE_PROJECT_NAME}")
+set(DL_PATH "${CFD_ROOT_BINARY_DIR}/external/${TEMPLATE_PROJECT_NAME}/download")
+
+get_property(PROP_VALUE  GLOBAL  PROPERTY ${TEMPLATE_PROJECT_NAME})
+if(PROP_VALUE)
+  message(STATUS "[exist directory] ${TEMPLATE_PROJECT_NAME} exist")
+else()
+message(STATUS "[external project cfd-js] libwally-core target=${LIBWALLY_TARGET_TAG}")
+configure_file(template_CMakeLists.txt.in ${DL_PATH}/CMakeLists.txt)
+execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -S . -B ${DL_PATH}
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${DL_PATH} )
+if(result)
+  message(FATAL_ERROR "CMake step for ${TEMPLATE_PROJECT_NAME} failed: ${result}")
+endif()
+execute_process(COMMAND ${CMAKE_COMMAND} --build ${DL_PATH}
+  RESULT_VARIABLE result
+  WORKING_DIRECTORY ${DL_PATH} )
+if(result)
+  message(FATAL_ERROR "Build step for ${TEMPLATE_PROJECT_NAME} failed: ${result}")
+endif()
+if(EXISTS ${PROJECT_EXTERNAL})
+  message(STATUS "[check exist directory] exist ${PROJECT_EXTERNAL}")
+  message(STATUS "[check exist directory] dirpath ${DIR_PATH}")
+  add_subdirectory(${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}/external
+                   ${CFD_ROOT_BINARY_DIR}/external/${TEMPLATE_PROJECT_NAME}/external)
+endif()
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}
+                 ${DIR_PATH}/build)
+set_property(GLOBAL PROPERTY ${TEMPLATE_PROJECT_NAME} 1)
+endif()
+
+
 if(NOT CFDJS_API_INSTALLED)
 
 # cfd
@@ -71,7 +126,7 @@ if(CFD_TARGET_VERSION)
 set(CFD_TARGET_TAG  ${CFD_TARGET_VERSION})
 message(STATUS "[external project local] cfd target=${CFD_TARGET_VERSION}")
 else()
-set(CFD_TARGET_TAG  v0.1.5)
+set(CFD_TARGET_TAG  v0.1.6)
 endif()
 if(CFD_TARGET_URL)
 set(CFD_TARGET_REP  ${CFD_TARGET_URL})
@@ -128,56 +183,3 @@ set_property(GLOBAL PROPERTY ${TEMPLATE_PROJECT_NAME} 1)
 endif()
 
 endif(NOT CFDJS_API_INSTALLED)
-
-
-# libwally-core (force build on wallycore.node)
-if(LIBWALLY_TARGET_VERSION)
-set(LIBWALLY_TARGET_TAG  ${LIBWALLY_TARGET_VERSION})
-message(STATUS "[external project cfd-js local] libwally-core target=${LIBWALLY_TARGET_VERSION}")
-else()
-set(LIBWALLY_TARGET_TAG  refs/tags/cfd-0.0.4)
-endif()
-
-if(${USE_GIT_SSH})
-set(LIBWALLY_URL  git@github.com:cryptogarageinc/libwally-core.git)
-else()
-set(LIBWALLY_URL  https://github.com/cryptogarageinc/libwally-core.git)
-endif()
-
-set(TEMPLATE_PROJECT_NAME           libwally-core)
-set(TEMPLATE_PROJECT_GIT_REPOSITORY ${LIBWALLY_URL})
-set(TEMPLATE_PROJECT_GIT_TAG        ${LIBWALLY_TARGET_TAG})
-set(PROJECT_EXTERNAL  "${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}/external")
-set(DIR_PATH "${CFD_ROOT_BINARY_DIR}/${TEMPLATE_PROJECT_NAME}")
-set(DL_PATH "${CFD_ROOT_BINARY_DIR}/external/${TEMPLATE_PROJECT_NAME}/download")
-
-get_property(PROP_VALUE  GLOBAL  PROPERTY ${TEMPLATE_PROJECT_NAME})
-if(PROP_VALUE)
-  message(STATUS "[exist directory] ${TEMPLATE_PROJECT_NAME} exist")
-else()
-message(STATUS "[external project cfd-js] libwally-core target=${LIBWALLY_TARGET_TAG}")
-configure_file(template_CMakeLists.txt.in ${DL_PATH}/CMakeLists.txt)
-execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" -S . -B ${DL_PATH}
-  RESULT_VARIABLE result
-  WORKING_DIRECTORY ${DL_PATH} )
-if(result)
-  message(FATAL_ERROR "CMake step for ${TEMPLATE_PROJECT_NAME} failed: ${result}")
-endif()
-execute_process(COMMAND ${CMAKE_COMMAND} --build ${DL_PATH}
-  RESULT_VARIABLE result
-  WORKING_DIRECTORY ${DL_PATH} )
-if(result)
-  message(FATAL_ERROR "Build step for ${TEMPLATE_PROJECT_NAME} failed: ${result}")
-endif()
-if(EXISTS ${PROJECT_EXTERNAL})
-  message(STATUS "[check exist directory] exist ${PROJECT_EXTERNAL}")
-  message(STATUS "[check exist directory] dirpath ${DIR_PATH}")
-  add_subdirectory(${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}/external
-                   ${CFD_ROOT_BINARY_DIR}/external/${TEMPLATE_PROJECT_NAME}/external)
-endif()
-
-add_subdirectory(${CMAKE_SOURCE_DIR}/external/${TEMPLATE_PROJECT_NAME}
-                 ${DIR_PATH}/build)
-set_property(GLOBAL PROPERTY ${TEMPLATE_PROJECT_NAME} 1)
-endif()
-

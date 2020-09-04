@@ -1,47 +1,64 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Add a signature and pubkey to the transaction.",
   "request": {
     ":class": "AddPubkeyHashSignRequest",
-    ":class:comment": "Add signatures to pubkey hash input",
+    ":class:comment": "pubkey hash input data to add to tx.",
     "isElements": false,
     "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
+    "txin:require": "require",
+    "txin:comment": "transaction input data",
     "txin": {
       ":class": "AddPubkeyHashSignTxInRequest",
+      ":class:comment": "pubkey hash input data",
       "txid": "",
       "txid:require": "require",
+      "txid:comment": "utxo txid.",
       "vout": 0,
       "vout:type": "uint32_t",
       "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "signParam:require": "require",
+      "signParam:comment": "sign parameter.",
       "signParam": {
         ":class": "PubkeyHashSignData",
+        ":class:comment": "pubkey hash signature data",
         "hex": "",
         "hex:require": "require",
         "hex:comment": "signature hex.",
         "type": "sign",
         "type:require": "optional",
+        "type:comment": "parameter type.",
         "type:hint": "sign only",
         "derEncode": true,
         "derEncode:require": "optional",
+        "derEncode:comment": "der encode option flag",
         "sighashType": "all",
         "sighashType:require": "optional",
+        "sighashType:comment": "signature hash type.",
         "sighashType:hint": "all, none or single",
         "sighashAnyoneCanPay": false,
-        "sighashAnyoneCanPay:require": "optional"
+        "sighashAnyoneCanPay:require": "optional",
+        "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
       },
       "pubkey": "",
       "pubkey:require": "require",
       "pubkey:comment": "public key.",
       "hashType": "",
       "hashType:require": "require",
+      "hashType:comment": "hash type.",
       "hashType:hint": "p2pkh, p2wpkh or p2sh-p2wpkh"
     }
   },
   "response": {
     ":class": "AddPubkeyHashSignResponse",
+    ":class:comment": "The output data with signature added.",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "signed transaction hex."
   }
 }

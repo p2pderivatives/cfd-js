@@ -1,27 +1,38 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "calculate ec signature.",
   "request": {
     ":class": "CalculateEcSignatureRequest",
+    ":class:comment": "request ec signature data.",
     "sighash": "",
     "sighash:require": "require",
+    "sighash:comment": "signature hash.",
     "privkeyData": {
       ":class": "PrivkeyData",
+      ":class:comment": "private key data.",
       "privkey": "",
       "privkey:require": "require",
+      "privkey:comment": "private key. set is wif or hex.",
       "wif": true,
       "wif:require": "require",
+      "wif:comment": "use wif flag. true is wif, false is hex.",
       "network": "mainnet",
       "network:require": "optional",
+      "network:comment": "wif network type.",
       "network:hint": "mainnet, testnet or regtest",
       "isCompressed": true,
-      "isCompressed:require": "optional"
+      "isCompressed:require": "optional",
+      "isCompressed:comment": "wif compressed flag"
     },
     "isGrindR": true,
-    "isGrindR:require": "optional"
+    "isGrindR:require": "optional",
+    "isGrindR:comment": "Grind-R flag"
   },
   "response": {
     ":class": "CalculateEcSignatureResponse",
+    ":class:comment": "response ec signature data.",
     "signature": "",
-    "signature:require": "require"
+    "signature:require": "require",
+    "signature:comment": "ec signature"
   }
 }

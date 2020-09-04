@@ -4750,49 +4750,6 @@ class AddSignRequest
   static void CollectFieldName();
 
   /**
-   * @brief Get of tx
-   * @return tx
-   */
-  std::string GetTx() const {
-    return tx_;
-  }
-  /**
-   * @brief Set to tx
-   * @param[in] tx    setting value.
-   */
-  void SetTx(  // line separate
-    const std::string& tx) {  // NOLINT
-    this->tx_ = tx;
-  }
-  /**
-   * @brief Get data type of tx
-   * @return Data type of tx
-   */
-  static std::string GetTxFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of tx field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetTxString(  // line separate
-      const AddSignRequest& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.tx_);
-  }
-  /**
-   * @brief Set json object to tx field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetTxString(  // line separate
-      AddSignRequest& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.tx_, json_value);
-  }
-
-  /**
    * @brief Get of isElements
    * @return isElements
    */
@@ -4833,6 +4790,49 @@ class AddSignRequest
       const UniValue& json_value) {
     cfd::core::ConvertFromUniValue(  // line separate
       obj.is_elements_, json_value);
+  }
+
+  /**
+   * @brief Get of tx
+   * @return tx
+   */
+  std::string GetTx() const {
+    return tx_;
+  }
+  /**
+   * @brief Set to tx
+   * @param[in] tx    setting value.
+   */
+  void SetTx(  // line separate
+    const std::string& tx) {  // NOLINT
+    this->tx_ = tx;
+  }
+  /**
+   * @brief Get data type of tx
+   * @return Data type of tx
+   */
+  static std::string GetTxFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of tx field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTxString(  // line separate
+      const AddSignRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.tx_);
+  }
+  /**
+   * @brief Set json object to tx field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTxString(  // line separate
+      AddSignRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.tx_, json_value);
   }
 
   /**
@@ -4949,13 +4949,13 @@ class AddSignRequest
   std::set<std::string> ignore_items;
 
   /**
-   * @brief JsonAPI(tx) value
-   */
-  std::string tx_ = "";
-  /**
    * @brief JsonAPI(isElements) value
    */
   bool is_elements_ = false;
+  /**
+   * @brief JsonAPI(tx) value
+   */
+  std::string tx_ = "";
   /**
    * @brief JsonAPI(txin) value
    */
@@ -37520,6 +37520,49 @@ class EstimateFeeResponse
   }
 
   /**
+   * @brief Get of txoutFeeAmount
+   * @return txoutFeeAmount
+   */
+  int64_t GetTxoutFeeAmount() const {
+    return txout_fee_amount_;
+  }
+  /**
+   * @brief Set to txoutFeeAmount
+   * @param[in] txout_fee_amount    setting value.
+   */
+  void SetTxoutFeeAmount(  // line separate
+    const int64_t& txout_fee_amount) {  // NOLINT
+    this->txout_fee_amount_ = txout_fee_amount;
+  }
+  /**
+   * @brief Get data type of txoutFeeAmount
+   * @return Data type of txoutFeeAmount
+   */
+  static std::string GetTxoutFeeAmountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of txoutFeeAmount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTxoutFeeAmountString(  // line separate
+      const EstimateFeeResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.txout_fee_amount_);
+  }
+  /**
+   * @brief Set json object to txoutFeeAmount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTxoutFeeAmountString(  // line separate
+      EstimateFeeResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.txout_fee_amount_, json_value);
+  }
+
+  /**
    * @brief Get of utxoFeeAmount
    * @return utxoFeeAmount
    */
@@ -37639,6 +37682,10 @@ class EstimateFeeResponse
    * @brief JsonAPI(txFeeAmount) value
    */
   int64_t tx_fee_amount_ = 0;
+  /**
+   * @brief JsonAPI(txoutFeeAmount) value
+   */
+  int64_t txout_fee_amount_ = 0;
   /**
    * @brief JsonAPI(utxoFeeAmount) value
    */

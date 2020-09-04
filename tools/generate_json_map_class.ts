@@ -12,25 +12,38 @@ interface JsonObjectCommonType {
 };
 
 interface ClassMapType {
-  [key: string]: any;
+  [key: string]: ParameterType[];
+};
+
+interface ClassCommentMapType {
+  [key: string]: string;
+};
+
+interface ClassParameterType {
+  name: string;
+  comment: string;
 };
 
 interface CollectMapDataResponse {
   type: string;
   map: ClassMapType;
-  list: any[];
+  list: ClassParameterType[];
+  comment: string;
 };
 
 interface ParameterType {
   name: string;
   type: string;
+  comment: string;
 };
 
 interface TsAppendFunctionData {
   name: string;
   parameters: ParameterType[];
   returnType: string;
+  comment: string;
 };
+
 
 // ----------------------------------------------------------------------------
 // debug log function
@@ -49,12 +62,14 @@ class JsonMappingData {
   variableName: string;
   initValue: string | number | boolean;
   className: string;
+  classComment: string;
   childList: {[key: string]: JsonMappingData};
   parent: null;
   isOutputStruct: boolean;
   isArray: boolean;
   isObject: boolean;
   isRequire: boolean;
+  comment: string;
   type: string;
   structType: string;
   constructor(name: string, type: string, initValue: string | number | boolean,
@@ -80,6 +95,8 @@ class JsonMappingData {
     this.isArray = false;
     this.isObject = false;
     this.isRequire = false;
+    this.comment = '';
+    this.classComment = '';
     // Reserved word support.
     // TODO(k-matsuzawa): If the number increases, make a list.
     if (this.variableName == 'asm') this.variableName = `${this.variableName}_`;
@@ -100,6 +117,14 @@ class JsonMappingData {
   setRequired(requireInfo: string) {
     if (requireInfo === 'require') {
       this.isRequire = true;
+    }
+  }
+  setComment(comment: string, hint: string) {
+    if (comment) {
+      this.comment = comment;
+      if (hint) {
+        this.comment = `${comment} (${hint})`;
+      }
     }
   }
 
@@ -125,21 +150,27 @@ class JsonMappingData {
     return str;
   }
 
-  collectMapData(map: ClassMapType, list: any[],
+  collectMapData(map: ClassMapType, list: ClassParameterType[],
       isRequest: boolean): CollectMapDataResponse {
-    if (this.type.startsWith('JsonValueVector') || this.type.startsWith('JsonObjectVector')) {
+    if (this.type.startsWith('JsonValueVector') ||
+        this.type.startsWith('JsonObjectVector')) {
       for (const key in this.childList) {
         if (!{}.hasOwnProperty.call(this.childList, key)) continue;
         if (this.childList[key]) {
           const ret = this.childList[key].collectMapData(map, list, isRequest);
-          return {type: ret['type'] + '[]', map: ret['map'], list: ret['list']};
+          return {
+            type: ret['type'] + '[]',
+            map: ret['map'],
+            list: ret['list'],
+            comment: ret['comment'],
+          };
         }
         break;
       }
       throw Error('Illegal state.');
     } else if (this.type === 'ErrorResponseBase') {
       const clsName = 'ErrorResponse';
-      const props = [];
+      const props: ParameterType[] = [];
       let tmpMap = map;
       let tmpList = list;
       for (const key in this.childList) {
@@ -148,17 +179,23 @@ class JsonMappingData {
           const ret = this.childList[key].collectMapData(
               tmpMap, tmpList, isRequest);
           const type = ret['type'];
+          const comment = ret['comment'];
           tmpMap = ret['map'];
           tmpList = ret['list'];
           if (name === 'isOutputStruct') {
             continue;
           }
-          props.push({name: name, type: type});
+          props.push({name: name, type: type, comment});
         }
       }
       tmpMap[clsName] = props;
-      tmpList.push(clsName);
-      return {type: clsName, map: tmpMap, list: tmpList};
+      tmpList.push({name: clsName, comment: this.classComment});
+      return {
+        type: clsName,
+        map: tmpMap,
+        list: tmpList,
+        comment: this.classComment,
+      };
     } else if (Object.keys(this.childList).length > 0) {
       // my class name
       const props = [];
@@ -171,18 +208,26 @@ class JsonMappingData {
               tmpMap, tmpList, isRequest);
           debugLog('prop : ', ret);
           const type = ret['type'];
+          const comment = ret['comment'];
           tmpMap = ret['map'];
           tmpList = ret['list'];
           if (name.indexOf('-') > 0) {
             name = '\'' + name + '\'';
           }
-          props.push({name: name, type: type});
+          props.push({name: name, type: type, comment: comment});
         }
       }
+      debugLog(`type = ${this.type}, comment = ${this.comment}`);
+      debugLog(`class = ${this.className}, clsComment = ${this.classComment}`);
       debugLog('props = ', props);
       tmpMap[this.type] = props;
-      tmpList.push(this.type);
-      return {type: this.type, map: tmpMap, list: tmpList};
+      tmpList.push({name: this.type, comment: this.classComment});
+      return {
+        type: this.type,
+        map: tmpMap,
+        list: tmpList,
+        comment: this.comment || this.classComment,
+      };
     } else {
       let type = '';
       if (this.type === 'std::string') {
@@ -194,7 +239,7 @@ class JsonMappingData {
       } else {
         type = 'number';
       }
-      return {type: type, map: map, list: list};
+      return {type: type, map: map, list: list, comment: this.comment};
     }
   }
 
@@ -298,10 +343,17 @@ const analyzeJson = (jsonObj: any | any[],
     } else { // object
       debugLog(`read keys = ${objKey}`);
       let className = objName;
+      let classComment = '';
       if (':class' in jsonObj) {
         if (typeof jsonObj[':class'] === 'string') {
           className = jsonObj[':class'];
           debugLog(`read className = ${className}`);
+        }
+      }
+      if (':class:comment' in jsonObj) {
+        if (typeof jsonObj[':class:comment'] === 'string') {
+          classComment = jsonObj[':class:comment'];
+          debugLog(`read classComment = ${classComment}`);
         }
       }
       let isOutputStruct = true;
@@ -314,19 +366,24 @@ const analyzeJson = (jsonObj: any | any[],
       // Class name is set by the caller.
       result = new JsonMappingData(objName, className, '', '', isOutputStruct);
       result.isObject = true;
+      result.classComment = classComment;
       // Stored in temporary map to maintain sort order.
       const tmpMap: {[key: string]: JsonMappingData} = {};
       const requireMap: {[key: string]: string} = {};
+      const clsCommentMap: {[key: string]: string} = {};
+      const commentMap: {[key: string]: string} = {};
+      const hintMap: {[key: string]: string} = {};
       const rarraytypeMap: {[key: string]: string} = {};
       for (const key in jsonObj) {
         if (!{}.hasOwnProperty.call(jsonObj, key)) continue;
-        if (key != ':class') {
+        if ((key != ':class') && (key != ':class:comment')) {
           if (key.lastIndexOf(':type') >= 0) {
             const keyName = key.split(':')[0];
             if (tmpMap[keyName]) {
               tmpMap[keyName].setType(jsonObj[key]);
             } else {
               const data = new JsonMappingData(keyName, jsonObj[key], '', className, isOutputStruct);
+              data.classComment = classComment;
               tmpMap[keyName] = data;
               debugLog(`set JsonMappingData = ${keyName}`);
             }
@@ -338,6 +395,19 @@ const analyzeJson = (jsonObj: any | any[],
           if (key.lastIndexOf(':arraytype') >= 0) {
             const keyName = key.split(':')[0];
             rarraytypeMap[keyName] = jsonObj[key];
+          }
+          if (key.lastIndexOf(':comment') >= 0) {
+            const keyName = key.split(':')[0];
+            commentMap[keyName] = jsonObj[key];
+          }
+          if (key.lastIndexOf(':hint') >= 0) {
+            const keyName = key.split(':')[0];
+            hintMap[keyName] = jsonObj[key];
+          }
+        } else {
+          if (key == ':class:comment') {
+            const tmpKeyName = jsonObj[':class'];
+            clsCommentMap[tmpKeyName] = jsonObj[key];
           }
         }
       }
@@ -374,6 +444,9 @@ const analyzeJson = (jsonObj: any | any[],
           if (requireMap[key]) {
             result.childList[key].setRequired(requireMap[key]);
           }
+          if (commentMap[key]) {
+            result.childList[key].setComment(commentMap[key], hintMap[key]);
+          }
           const tempChild = analyzeJson(value, key, rarraytypeMap[key]);
           if (tempChild) {
             if (result.childList[key].type == '') {
@@ -384,6 +457,7 @@ const analyzeJson = (jsonObj: any | any[],
                 result.childList[key].isArray = true;
               } else {
                 result.childList[key].isObject = true;
+                result.childList[key].classComment = tempChild.classComment;
               }
             }
             result.childList[key].childList = tempChild.childList;
@@ -1292,11 +1366,12 @@ const generateStructHeader = (dirname: string, filename: string,
 // generate typescript data file function
 // ----------------------------------------------------------------------------
 const generateTsData = (dirname: string, filename: string,
-    jsonClassMap: ClassMapType, jsonTypeList: any[],
+    jsonClassMap: ClassMapType, jsonTypeList: ClassParameterType[],
     functionList: string | any[], loadCfdjsIndexFile: fs.PathLike,
     promiseMode: boolean, tsClassName: string,
     insertFunctions: TsAppendFunctionData[],
-    insertErrorFunctions: TsAppendFunctionData[]) => {
+    insertErrorFunctions: TsAppendFunctionData[],
+    functionCommentMap: ClassCommentMapType) => {
   let outPath = `${dirname}/${filename}`;
   if (outPath.startsWith(__dirname)) {
     outPath = outPath.substr(__dirname.length);
@@ -1306,6 +1381,10 @@ const generateTsData = (dirname: string, filename: string,
   }
   while (outPath.indexOf('//') >= 0) {
     outPath = outPath.replace('//', '/');
+  }
+  const classCommentMap: {[key: string]: string} = {};
+  for (const typeData of jsonTypeList) {
+    classCommentMap[typeData.name] = typeData.comment;
   }
 
   // initialize
@@ -1333,17 +1412,30 @@ const generateTsData = (dirname: string, filename: string,
     }
   } else {
     file.insertStatements(0, '/* eslint-disable max-len */');
-    file.insertStatements(1, '/* eslint-disable require-jsdoc */');
+    file.insertStatements(1, '/* eslint-disable indent */');
   }
 
   for (let i = 0; i < jsonTypeList.length; ++i) {
-    const clsName = jsonTypeList[i];
-    const props = jsonClassMap[clsName];
+    const clsName = jsonTypeList[i].name;
+    const comment = jsonTypeList[i].comment || classCommentMap[clsName];
+    const props: ParameterType[] = jsonClassMap[clsName];
+    const tags = [];
+    for (const prop of props) {
+      if (prop && prop.comment) {
+        const type = prop.type;
+        const name = prop.name;
+        tags.push({tagName: 'property', text: `\{${type}\} ${name} - ${prop.comment}`});
+      }
+    }
     debugLog(`${clsName} = `, props);
     file.addInterface({
       name: clsName,
       isExported: true,
       properties: props,
+      docs: [{
+        description: comment,
+        tags,
+      }],
     });
   }
 
@@ -1352,29 +1444,46 @@ const generateTsData = (dirname: string, filename: string,
     classObj = file.addClass({
       name: tsClassName,
       isExported: true,
+      docs: [{
+        description: 'function definition class.',
+      }],
     });
   }
 
   for (let i = 0; i < functionList.length; ++i) {
     // manipulate
     const funcName = functionList[i];
+    const funcComment = functionCommentMap[funcName] || '';
     const reqName = `${funcName}Request`;
     const resName = `${funcName}Response`;
     const resDataName = (promiseMode) ? `Promise<${resName}>` : resName;
     const params = (reqName in jsonClassMap) ? [{name: 'jsonObject', type: reqName}] : [];
     const retType = (resName in jsonClassMap) ? resDataName : undefined;
+    const inputDoc = {tagName: 'param', text: `\{${reqName}\} - request data.`};
+    const returnDoc = {tagName: 'return', text: `\{${retType}\} - response data.`};
+    const tags = [];
+    if (reqName in jsonClassMap) tags.push(inputDoc);
+    if (resName in jsonClassMap) tags.push(returnDoc);
     if (classObj === undefined) {
       file.addFunction({
         name: funcName,
         isExported: true,
         parameters: params,
         returnType: retType,
+        docs: [{
+          description: funcComment,
+          tags,
+        }],
       });
     } else {
       classObj.addMethod({
         name: funcName,
         parameters: params,
         returnType: retType,
+        docs: [{
+          description: funcComment,
+          tags,
+        }],
       });
     }
   }
@@ -1383,33 +1492,69 @@ const generateTsData = (dirname: string, filename: string,
     const funcName = insertFunctions[i].name;
     const params = insertFunctions[i].parameters;
     const retType = insertFunctions[i].returnType;
+    const comment = insertFunctions[i].comment;
+    const tags = [];
+    for (const prop of params) {
+      if (prop && prop.comment) {
+        const type = prop.type;
+        const name = prop.name;
+        tags.push({tagName: 'param', text: `\{${type}\} ${name} - ${prop.comment}`});
+      }
+    }
     file.addFunction({
       name: funcName,
       isExported: true,
       parameters: params,
       returnType: retType,
+      docs: [{
+        description: comment,
+        tags,
+      }],
     });
   }
 
   const errorClassObj = file.addClass({
     name: 'CfdError',
     isExported: true,
+    docs: [{
+      description: 'error class.',
+    }],
   });
   errorClassObj.setExtends('Error');
   for (let i = 0; i < insertErrorFunctions.length; ++i) {
     const funcName = insertErrorFunctions[i].name;
     const params = insertErrorFunctions[i].parameters;
     const retType = insertErrorFunctions[i].returnType;
+    const comment = insertErrorFunctions[i].comment;
+    const tags = [];
+    for (const prop of params) {
+      if (prop) {
+        const type = prop.type;
+        const name = prop.name;
+        tags.push({tagName: 'param', text: `\{${type}\} ${name} - ${prop.comment}`});
+      }
+    }
     if (funcName == 'constructor') {
       errorClassObj.addConstructor({
         parameters: params,
         returnType: retType,
+        docs: [{
+          description: 'constructor.',
+          tags,
+        }],
       });
     } else {
+      if (retType) {
+        tags.push({tagName: 'return', text: `\{${retType}\} - ${retType} data.`});
+      }
       errorClassObj.addMethod({
         name: funcName,
         parameters: params,
         returnType: retType,
+        docs: [{
+          description: comment,
+          tags,
+        }],
       });
     }
   }
@@ -1442,8 +1587,9 @@ function convertFile() {
   const classSourceList: string[] = [];
   const jsonDataList: JsonData[] = [];
   let jsonClassMap: ClassMapType = {};
-  let jsonTypeList: any[] = [];
+  let jsonTypeList: ClassParameterType[] = [];
   const functionList: string[] = [];
+  const functionCommentMap: ClassCommentMapType = {};
   const promiseMode = false;
   const tsClassName = '';
   const insertFunctions: TsAppendFunctionData[] = [];
@@ -1452,26 +1598,33 @@ function convertFile() {
     parameters: [{
       name: 'message',
       type: 'string',
+      comment: 'Error message.',
     }, {
       name: 'errorInformation',
       type: 'InnerErrorResponse',
+      comment: 'Error information data.',
     }, {
       name: 'cause',
       type: 'Error',
+      comment: 'Cause of the error.',
     }],
     returnType: 'void',
+    comment: 'constructor.',
   }, {
     name: 'toString',
     parameters: [],
     returnType: 'string',
+    comment: 'get error string.',
   }, {
     name: 'getErrorInformation',
     parameters: [],
     returnType: 'InnerErrorResponse',
+    comment: 'get error information.',
   }, {
     name: 'getCause',
     parameters: [],
     returnType: 'Error',
+    comment: 'get error cause.',
   }];
 
   if (fs.existsSync(cfdPath) && fs.statSync(cfdPath).isDirectory()) {
@@ -1516,7 +1669,12 @@ function convertFile() {
         jsonTypeList = ret['list'];
         if (funcName === '') funcName = resData.getFunctionName();
       }
-      if (funcName !== '') functionList.push(funcName);
+      if (funcName !== '') {
+        functionList.push(funcName);
+        if (jsonObject.comment) {
+          functionCommentMap[funcName] = jsonObject.comment;
+        }
+      }
       debugLog(`reqData = ${reqData}`);
       debugLog(`resData = ${resData}`);
       jsonDataList.push(new JsonData(jsonObject, reqData, resData));
@@ -1577,7 +1735,8 @@ function convertFile() {
       }
       generateTsData(outTsFolderPath, outTsFileName, jsonClassMap,
           jsonTypeList, functionList, loadCfdjsIndexFile, promiseMode,
-          tsClassName, insertFunctions, insertErrorFunctions);
+          tsClassName, insertFunctions, insertErrorFunctions,
+          functionCommentMap);
     }
   });
 };

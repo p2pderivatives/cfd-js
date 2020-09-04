@@ -68,11 +68,18 @@
     "feeAmount": 0,
     "feeAmount:type": "int64_t",
     "feeAmount:require": "require",
+    "feeAmount:comment": "tx fee amount. (txoutFeeAmount + utxoFeeAmount)",
     "txFeeAmount": 0,
     "txFeeAmount:type": "int64_t",
     "txFeeAmount:require": "optional",
+    "txFeeAmount:comment": "(deprecated: rename to txoutFeeAmount)",
+    "txoutFeeAmount": 0,
+    "txoutFeeAmount:type": "int64_t",
+    "txoutFeeAmount:require": "optional",
+    "txoutFeeAmount:comment": "fee of tx output & base area.",
     "utxoFeeAmount": 0,
     "utxoFeeAmount:type": "int64_t",
-    "utxoFeeAmount:require": "optional"
+    "utxoFeeAmount:require": "optional",
+    "utxoFeeAmount:comment": "fee of tx inputs utxo."
   }
 }

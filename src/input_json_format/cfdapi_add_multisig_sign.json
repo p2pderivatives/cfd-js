@@ -1,37 +1,53 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Add multisig signatures to the transaction.",
   "request": {
     ":class": "AddMultisigSignRequest",
-    ":class:comment": "Add signatures to multisig input",
+    ":class:comment": "Multisig input data to add to tx.",
     "isElements": false,
     "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
+    "txin:require": "require",
+    "txin:comment": "transaction input data",
     "txin": {
       ":class": "AddMultisigSignTxInRequest",
+      ":class:comment": "Multisig signature input data.",
       "txid": "",
       "txid:require": "require",
+      "txid:comment": "utxo txid.",
       "vout": 0,
       "vout:type": "uint32_t",
       "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "signParams:require": "require",
+      "signParams:comment": "signature list.",
       "signParams": [
         {
           ":class": "MultisigSignData",
+          ":class:comment": "Multisig signature data.",
           "hex": "",
           "hex:require": "require",
+          "hex:comment": "signature hex.",
           "type": "sign",
           "type:require": "optional",
+          "type:comment": "parameter type.",
           "type:hint": "sign only",
           "derEncode": true,
           "derEncode:require": "optional",
+          "derEncode:comment": "der encode option flag",
           "sighashType": "all",
           "sighashType:require": "optional",
+          "sighashType:comment": "signature hash type.",
           "sighashType:hint": "all, none or single",
           "sighashAnyoneCanPay": false,
           "sighashAnyoneCanPay:require": "optional",
+          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag.",
           "relatedPubkey": "",
-          "relatedPubkey:require": "optional"
+          "relatedPubkey:require": "optional",
+          "relatedPubkey:comment": "a pubkey related to signature."
         }
       ],
       "redeemScript": "",
@@ -42,6 +58,7 @@
       "witnessScript:comment": "(required for P2WSH or P2SH-P2WSH) witness script for witness stack",
       "hashType": "",
       "hashType:require": "require",
+      "hashType:comment": "hash type.",
       "hashType:hint": "p2sh, p2wsh or p2sh-p2wsh",
       "clearStack": true,
       "clearStack:require": "optional",
@@ -50,7 +67,9 @@
   },
   "response": {
     ":class": "AddMultisigSignResponse",
+    ":class:comment": "The output data with signature added.",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "signed transaction hex."
   }
 }
