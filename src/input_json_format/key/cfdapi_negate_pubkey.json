@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "NegatePubkey",
+  "comment": "Negate pubkey.",
+  "request": {
+    ":class": "PubkeyData",
+    ":class:comment": "pubkey data",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "public key"
+  },
+  "response": {
+    ":class": "PubkeyData",
+    ":class:comment": "schnorr pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "public key"
+  }
+}

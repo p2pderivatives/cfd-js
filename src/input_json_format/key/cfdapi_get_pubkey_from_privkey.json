@@ -1,0 +1,21 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get pubkey from privkey.",
+  "request": {
+    ":class": "GetPubkeyFromPrivkeyRequest",
+    ":class:comment": "Request for get pubkey from privkey.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey (wif or hex)",
+    "isCompressed": true,
+    "isCompressed:require": "optional",
+    "isCompressed:comment": "compressed pubkey flag"
+  },
+  "response": {
+    ":class": "PubkeyData",
+    ":class:comment": "Response pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey"
+  }
+}

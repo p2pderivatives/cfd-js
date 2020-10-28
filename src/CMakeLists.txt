@@ -77,6 +77,7 @@ target_sources(${PROJECT_NAME}
     cfdjs_transaction_base.cpp
     cfdjs_utility.cpp
     cfdjs_coin.cpp
+    cfdjs_schnorr.cpp
     cfdapi_error_json.cpp
     cfdapi_select_utxos_wrapper_json.cpp
     autogen/cfd_js_api_json_autogen.cpp

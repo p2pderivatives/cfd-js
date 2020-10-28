@@ -346,12 +346,12 @@ ParseDescriptorResponseStruct ElementsAddressStructApi::ParseDescriptor(
   return result;
 }
 
-AppendDescriptorChecksumResponseStruct
+OutputDescriptorResponseStruct
 ElementsAddressStructApi::AppendDescriptorChecksum(
     const AppendDescriptorChecksumRequestStruct& request) {
   auto call_func = [](const AppendDescriptorChecksumRequestStruct& request)
-      -> AppendDescriptorChecksumResponseStruct {  // NOLINT
-    AppendDescriptorChecksumResponseStruct response;
+      -> OutputDescriptorResponseStruct {  // NOLINT
+    OutputDescriptorResponseStruct response;
 
     Descriptor descriptor = Descriptor::ParseElements(request.descriptor);
 
@@ -360,10 +360,9 @@ ElementsAddressStructApi::AppendDescriptorChecksum(
     return response;
   };
 
-  AppendDescriptorChecksumResponseStruct result;
+  OutputDescriptorResponseStruct result;
   result = ExecuteStructApi<
-      AppendDescriptorChecksumRequestStruct,
-      AppendDescriptorChecksumResponseStruct>(
+      AppendDescriptorChecksumRequestStruct, OutputDescriptorResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

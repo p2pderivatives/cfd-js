@@ -30,7 +30,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static ElementsCreateRawTransactionResponseStruct CreateRawTransaction(
+  static RawTransactionResponseStruct CreateRawTransaction(
       const ElementsCreateRawTransactionRequestStruct& request);
 
   /**
@@ -62,7 +62,8 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddSignResponseStruct AddSign(const AddSignRequestStruct& request);
+  static RawTransactionResponseStruct AddSign(
+      const AddSignRequestStruct& request);
 
   /**
    * @brief パラメータの情報を元に、SegwitのMultisig署名情報を追加する.
@@ -74,7 +75,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request TransactionとSegwitのMultisig署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddMultisigSignResponseStruct AddMultisigSign(
+  static RawTransactionResponseStruct AddMultisigSign(
       const AddMultisigSignRequestStruct& request);
 
   /**
@@ -82,7 +83,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static SignWithPrivkeyResponseStruct SignWithPrivkey(
+  static RawTransactionResponseStruct SignWithPrivkey(
       const SignWithPrivkeyRequestStruct& request);
 
   /**
@@ -90,7 +91,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddPubkeyHashSignResponseStruct AddPubkeyHashSign(
+  static RawTransactionResponseStruct AddPubkeyHashSign(
       const AddPubkeyHashSignRequestStruct& request);
 
   /**
@@ -98,7 +99,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddScriptHashSignResponseStruct AddScriptHashSign(
+  static RawTransactionResponseStruct AddScriptHashSign(
       const AddScriptHashSignRequestStruct& request);
 
   /**
@@ -106,7 +107,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request TransactionとWitnessStack追加情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static UpdateWitnessStackResponseStruct UpdateWitnessStack(
+  static RawTransactionResponseStruct UpdateWitnessStack(
       const UpdateWitnessStackRequestStruct& request);
 
   /**
@@ -114,7 +115,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request sighashを生成するパラメータ
    * @return sighashのhexデータを格納した構造体
    */
-  static CreateElementsSignatureHashResponseStruct CreateSignatureHash(
+  static CreateSignatureHashResponseStruct CreateSignatureHash(
       const CreateElementsSignatureHashRequestStruct& request);
 
   /**
@@ -138,7 +139,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request   transaction and changing amount data struct.
    * @return Updating transaction struct.
    */
-  static UpdateTxOutAmountResponseStruct UpdateTxOutAmount(
+  static RawTransactionResponseStruct UpdateTxOutAmount(
       const UpdateTxOutAmountRequestStruct& request);
 
   /**
@@ -146,7 +147,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Blind対象のTransactionとBlind情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static BlindRawTransactionResponseStruct BlindTransaction(
+  static RawTransactionResponseStruct BlindTransaction(
       const BlindRawTransactionRequestStruct& request);
 
   /**
@@ -179,7 +180,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static CreateRawPeginResponseStruct CreateRawPeginTransaction(  // NOLINT
+  static RawTransactionResponseStruct CreateRawPeginTransaction(  // NOLINT
       const CreateRawPeginRequestStruct& request);
 
   /**
@@ -195,7 +196,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request BlindingKeyを構築するパラメータの構造体
    * @return BlindingKeyを格納した構造体
    */
-  static GetIssuanceBlindingKeyResponseStruct GetIssuanceBlindingKey(
+  static BlindingKeyResponseStruct GetIssuanceBlindingKey(
       const GetIssuanceBlindingKeyRequestStruct& request);
 
   /**
@@ -203,7 +204,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request BlindingKeyを構築するパラメータの構造体
    * @return BlindingKeyを格納した構造体
    */
-  static GetDefaultBlindingKeyResponseStruct GetDefaultBlindingKey(
+  static BlindingKeyResponseStruct GetDefaultBlindingKey(
       const GetDefaultBlindingKeyRequestStruct& request);
 
   /**
@@ -211,7 +212,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static CreateDestroyAmountResponseStruct CreateDestroyAmountTransaction(
+  static RawTransactionResponseStruct CreateDestroyAmountTransaction(
       const CreateDestroyAmountRequestStruct& request);
 
   /**

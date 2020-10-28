@@ -1,75 +1,103 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Unblind transaction.",
   "request": {
     ":class": "UnblindRawTransactionRequest",
+    ":class:comment": "Request for unblind transaction.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "txouts:require": "optional",
+    "txouts:comment": "txout list",
     "txouts": [
       {
         ":class": "UnblindTxOut",
         "index": 0,
         "index:type": "uint32_t",
         "index:require": "require",
+        "index:comment": "vout",
         "blindingKey": "",
-        "blindingKey:require": "require"
+        "blindingKey:require": "require",
+        "blindingKey:comment": "blinding key"
       }
     ],
     "issuances:require": "optional",
+    "issuances:comment": "issuance blinding key data",
     "issuances": [
       {
         ":class": "UnblindIssuance",
+        ":class:comment": "issuance blinding key data",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "vout:type": "uint32_t",
         "assetBlindingKey":"",
         "assetBlindingKey:require": "optional",
+        "assetBlindingKey:comment": "asset blinding key",
         "tokenBlindingKey":"",
-        "tokenBlindingKey:require": "optional"
+        "tokenBlindingKey:require": "optional",
+        "tokenBlindingKey:comment": "token blinding key"
       }
     ]
   },
   "response": {
     ":class": "UnblindRawTransactionResponse",
+    ":class:comment": "Response of unblind transaction.",
     "hex": "",
     "hex:require": "require",
+    "hex:comment": "unblinded transaction hex",
     "outputs:require": "optional",
+    "outputs:comment": "Unblind data",
     "outputs": [
       {
         ":class": "UnblindOutput",
+        ":class:comment": "unblind txout",
         "index": 0,
         "index:type": "uint32_t",
         "index:require": "require",
+        "index:comment": "vout",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "asset",
         "blindFactor": "",
         "blindFactor:require": "require",
+        "blindFactor:comment": "amount blind factor",
         "assetBlindFactor": "",
         "assetBlindFactor:require": "require",
+        "assetBlindFactor:comment": "asset blind factor",
         "amount": 0,
-        "amount:require": "require"
+        "amount:require": "require",
+        "amount:comment": "satoshi amount"
       }
     ],
     "issuanceOutputs:require": "optional",
+    "issuanceOutputs:comment": "Unblind issuance data",
     "issuanceOutputs": [
       {
         ":class": "UnblindIssuanceOutput",
+        ":class:comment": "unblind issuance data",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "vout:type": "uint32_t",
         "asset": "",
         "asset:require": "optional",
+        "asset:comment": "asset",
         "assetamount": 0,
         "assetamount:require": "optional",
+        "assetamount:comment": "asset amount",
         "token": "",
         "token:require": "optional",
+        "token:comment": "token",
         "tokenamount": 0,
-        "tokenamount:require": "optional"
+        "tokenamount:require": "optional",
+        "tokenamount:comment": "token amount"
       }
     ]
   }

@@ -1,0 +1,74 @@
+[
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "7ca81dd22c934747f4f5ab7844178445fe931fb248e0704c062b8f4fbd3d500a",
+        "vout": 0,
+        "amount": 155062500,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    },
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+        "vout": 0,
+        "amount": 85062500,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    },
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "9e1ead91c432889cb478237da974dd1e9009c9e22694fd1e3999c40a1ef59b0a",
+        "vout": 0,
+        "amount": 39062500,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    },
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "8f4af7ee42e62a3d32f25ca56f618fb2f5df3d4c3a9c59e2c3646c5535a3d40a",
+        "vout": 0,
+        "amount": 61062500,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    },
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "4d97d0119b90421818bff4ec9033e5199199b53358f56390cb20f8148e76f40a",
+        "vout": 0,
+        "amount": 15675000,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    },
+    {
+        "memo": "Bitcoin CoinSelection UTXO for BnB search.",
+        "txid": "b9720ed2265a4ced42425bffdb4ef90a473b4106811a802fce53f7c57487fa0b",
+        "vout": 0,
+        "amount": 14938590,
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))",
+        "scriptSigTemplate": "",
+        "keyData": {
+            "privkey": ""
+        }
+    }
+]

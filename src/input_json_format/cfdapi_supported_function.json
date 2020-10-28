@@ -1,10 +1,14 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Get supported function.",
   "response": {
     ":class": "GetSupportedFunctionResponse",
+    ":class:comment": "Request for get supported function.",
     "bitcoin": false,
     "bitcoin:require": "require",
+    "bitcoin:comment": "bitcoin support flag",
     "elements": false,
-    "elements:require": "require"
+    "elements:require": "require",
+    "elements:comment": "elements support flag"
   }
 }

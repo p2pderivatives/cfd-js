@@ -1,0 +1,25 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "TweakAddSchnorrPubkeyFromPubkey",
+  "comment": "TweakAdd schnorr pubkey from pubkey.",
+  "request": {
+    ":class": "TweakPubkeyData",
+    ":class:comment": "tweak pubkey data",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "public key",
+    "tweak": "",
+    "tweak:require": "require",
+    "tweak:comment": "32-byte tweak data"
+  },
+  "response": {
+    ":class": "SchnorrPubkeyData",
+    ":class:comment": "schnorr pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "schnorr public key",
+    "parity": false,
+    "parity:require": "require",
+    "parity:comment": "y-parity flag"
+  }
+}

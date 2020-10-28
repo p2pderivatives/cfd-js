@@ -1,33 +1,45 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Serialize to ledger format.",
   "request": {
     ":class": "SerializeLedgerFormatRequest",
+    ":class:comment": "Request for serialize ledger format.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "txouts:require": "optional",
+    "txouts:comment": "(deprecated) txout data.",
     "txouts": [
       {
         ":class": "SerializeLedgerFormatTxOut",
+        ":class:comment": "Txout data.",
         "index": 0,
         "index:type": "uint32_t",
         "index:require": "require",
+        "index:comment": "txout index",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "asset",
         "amount": 0,
-        "amount:require": "require"
+        "amount:require": "require",
+        "amount:comment": "satoshi amount"
       }
     ],
     "skipWitness": false,
     "skipWitness:require": "optional",
+    "skipWitness:comment": "skip witness flag.",
     "isAuthorization": true,
-    "isAuthorization:require": "require"
+    "isAuthorization:require": "require",
+    "isAuthorization:comment": "authorization flag."
   },
   "response": {
     ":class": "SerializeLedgerFormatResponse",
+    ":class:comment": "Response of serialize ledger format.",
     "serialize": "",
     "serialize:require": "require",
+    "serialize:comment": "(unused) serialized value.",
     "sha256": "",
-    "sha256:require": "require"
+    "sha256:require": "require",
+    "sha256:comment": "sha256 hashed value."
   }
 }

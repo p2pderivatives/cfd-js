@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Elements.GetCommitment",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "amount": 13000000000000,
+                    "asset": "6f1a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f3",
+                    "assetBlindFactor": "346dbdba35c19f6e3958a2c00881024503f6611d23d98d270b98ef9de3edc7a3",
+                    "blindFactor": "fe3357df1f35df75412d9ad86ebd99e622e26019722f316027787a685e2cd71a"
+                },
+                "expect": {
+                    "assetCommitment": "0a533b742a568c0b5285bf5bdfe9623a78082d19fac9be1678f7c3adbb48b34d29",
+                    "amountCommitment": "08672d4e2e60f2e8d742552a8bc4ca6335ed214982c7728b4483284169aaae7f49"
+                }
+            }
+        ]
+    }
+]

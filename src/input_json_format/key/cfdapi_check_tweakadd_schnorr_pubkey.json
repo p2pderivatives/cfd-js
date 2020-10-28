@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "CheckTweakedSchnorrPubkey",
+  "comment": "check tweakadd schnorr pubkey.",
+  "request": {
+    ":class": "CheckTweakedSchnorrPubkeyRequest",
+    ":class:comment": "tweak pubkey data",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "tweaked schnorr public key",
+    "parity": false,
+    "parity:require": "require",
+    "parity:comment": "y-parity flag",
+    "basePubkey": "",
+    "basePubkey:require": "require",
+    "basePubkey:comment": "tweak based schnorr public key",
+    "tweak": "",
+    "tweak:require": "require",
+    "tweak:comment": "32-byte tweak data"
+  },
+  "response": {
+    ":class": "VerifySignatureResponse",
+    "success": true,
+    "success:require": "require",
+    "success:comment": "verify result",
+    "success:hint": "true only. If it fails, an error is thrown."
+  }
+}

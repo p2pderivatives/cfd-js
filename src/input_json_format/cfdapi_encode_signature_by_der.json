@@ -1,19 +1,25 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Encode signature by der.",
   "request": {
     ":class": "EncodeSignatureByDerRequest",
+    ":class:comment": "Request for encode signature.",
     "signature": "",
     "signature:require": "require",
     "signature:comment": "signature",
     "sighashType": "all",
     "sighashType:require": "require",
+    "sighashType:comment": "sighash type",
     "sighashType:hint": "all, none, single",
     "sighashAnyoneCanPay": false,
-    "sighashAnyoneCanPay:require": "optional"
+    "sighashAnyoneCanPay:require": "optional",
+    "sighashAnyoneCanPay:comment": "sighash anyone can pay"
   },
   "response": {
     ":class": "EncodeSignatureByDerResponse",
+    ":class:comment": "Response of encode signature.",
     "signature": "",
-    "signature:require": "require"
+    "signature:require": "require",
+    "signature:comment": "encoded signature"
   }
 }

@@ -27,7 +27,7 @@ using cfd::core::CfdException;
 void CoinJsonApi::SelectUtxos(
     SelectUtxosWrapRequest* req, SelectUtxosWrapResponse* res) {
   const std::vector<Utxo>& utxos = req->GetUtxoList();
-  CoinSelectionFeeInfomationField fee_info = req->GetFeeInfo();
+  CoinSelectionFeeInformationField fee_info = req->GetFeeInfo();
   Amount target_amount;
   AmountMap map_target_amount;
   bool is_elements = req->GetIsElements();

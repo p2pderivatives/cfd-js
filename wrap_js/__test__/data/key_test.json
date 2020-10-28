@@ -1,0 +1,1542 @@
+[
+    {
+        "name": "Privkey.GenerateKeyPair",
+        "cases": [
+            {
+                "case": "mainnet, wif=true, isCompressed=true",
+                "request": {
+                    "wif": true,
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": true,
+                    "network": "mainnet",
+                    "isCompressed": true
+                }
+            },
+            {
+                "case": "testnet, wif=true, isCompressed=true",
+                "request": {
+                    "wif": true,
+                    "network": "testnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": true,
+                    "network": "testnet",
+                    "isCompressed": true
+                }
+            },
+            {
+                "case": "mainnet, wif=true, isCompressed=false",
+                "request": {
+                    "wif": true,
+                    "network": "mainnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": true,
+                    "network": "mainnet",
+                    "isCompressed": false
+                }
+            },
+            {
+                "case": "testnet, wif=true, isCompressed=false",
+                "request": {
+                    "wif": true,
+                    "network": "testnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": true,
+                    "network": "testnet",
+                    "isCompressed": false
+                }
+            },
+            {
+                "case": "mainnet, wif=false, isCompressed=true",
+                "request": {
+                    "wif": false,
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": false,
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "testnet, wif=false, isCompressed=true",
+                "request": {
+                    "wif": false,
+                    "network": "testnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": false,
+                    "network": "testnet",
+                    "isCompressed": true
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "mainnet, wif=false, isCompressed=false",
+                "request": {
+                    "wif": false,
+                    "network": "mainnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": false,
+                    "network": "mainnet",
+                    "isCompressed": false
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "testnet, wif=false, isCompressed=false",
+                "request": {
+                    "wif": false,
+                    "network": "testnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": false,
+                    "network": "testnet",
+                    "isCompressed": false
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid network string",
+                "request": {
+                    "wif": true,
+                    "network": "",
+                    "isCompressed": true
+                },
+                "error": {
+                    "python": "Error: Invalid network type.",
+                    "cfd": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.FromHex",
+        "cases": [
+            {
+                "case": "mainnet, compress",
+                "request": {
+                    "hex": "0ed9aa2c6c7c900854d7852fbad63e0500ebf335d880678b92203505ca01e81a",
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": "KwiaU5gXTSAfKf6SZtYSg3XGmbvNgjTS3Tdo3ZeQbb5xJrd19uYf"
+                }
+            },
+            {
+                "case": "testnet, compress",
+                "request": {
+                    "hex": "d371c0115118916450d4fafc4a123b7ead0e320b1f7f82f119e6caacc860b06f",
+                    "network": "testnet",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "wif": "cUfipPioYnHU61pfYTH9uuNoswRXx8rtzXhJZrsPeVV1LRFdTxvp"
+                }
+            },
+            {
+                "case": "mainnet, uncompress",
+                "request": {
+                    "hex": "c5fadc0c2b8144c0f97d600b95f42d9959ddcafb30dba62bc2925084e2b7fbe9",
+                    "network": "mainnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": "5KKUiJHk4ZT1vyZjLauvZpst6STMwcJ6y5i285vkbvWUrJWDUw6"
+                }
+            },
+            {
+                "case": "testnet, uncompress",
+                "request": {
+                    "hex": "9e1285166b42230e448ae63f72d4135d42300e0462c3b7018a5d041a43bed7a0",
+                    "network": "testnet",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "wif": "92nXugKVPD1wCiuy6Ain4BnjxSJainfDHmF4V8rwxmSpZiXrb5E"
+                }
+            },
+            {
+                "case": "empty privkey.",
+                "request": {
+                    "hex": "",
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "error": {
+                    "capi": "Failed to parameter. privkey is null or empty.",
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "invalid privkey.",
+                "request": {
+                    "hex": "11112222",
+                    "network": "mainnet",
+                    "isCompressed": true
+                },
+                "error": {
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "empty network.",
+                "request": {
+                    "hex": "c5fadc0c2b8144c0f97d600b95f42d9959ddcafb30dba62bc2925084e2b7fbe9",
+                    "network": "",
+                    "isCompressed": true
+                },
+                "error": {
+                    "python": "Error: Invalid network type.",
+                    "cfd": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "invalid network.",
+                "request": {
+                    "hex": "c5fadc0c2b8144c0f97d600b95f42d9959ddcafb30dba62bc2925084e2b7fbe9",
+                    "network": "dummyNet",
+                    "isCompressed": true
+                },
+                "error": {
+                    "python": "Error: Invalid network type.",
+                    "cfd": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.FromWif",
+        "cases": [
+            {
+                "case": "mainnet, compress",
+                "request": {
+                    "wif": "KwiaU5gXTSAfKf6SZtYSg3XGmbvNgjTS3Tdo3ZeQbb5xJrd19uYf"
+                },
+                "expect": {
+                    "hex": "0ed9aa2c6c7c900854d7852fbad63e0500ebf335d880678b92203505ca01e81a",
+                    "network": "mainnet",
+                    "isCompressed": true
+                }
+            },
+            {
+                "case": "testnet, compress",
+                "request": {
+                    "wif": "cUfipPioYnHU61pfYTH9uuNoswRXx8rtzXhJZrsPeVV1LRFdTxvp"
+                },
+                "expect": {
+                    "hex": "d371c0115118916450d4fafc4a123b7ead0e320b1f7f82f119e6caacc860b06f",
+                    "network": "testnet",
+                    "isCompressed": true
+                }
+            },
+            {
+                "case": "mainnet, uncompress",
+                "request": {
+                    "wif": "5KKUiJHk4ZT1vyZjLauvZpst6STMwcJ6y5i285vkbvWUrJWDUw6"
+                },
+                "expect": {
+                    "hex": "c5fadc0c2b8144c0f97d600b95f42d9959ddcafb30dba62bc2925084e2b7fbe9",
+                    "network": "mainnet",
+                    "isCompressed": false
+                }
+            },
+            {
+                "case": "testnet, uncompress",
+                "request": {
+                    "wif": "92nXugKVPD1wCiuy6Ain4BnjxSJainfDHmF4V8rwxmSpZiXrb5E"
+                },
+                "expect": {
+                    "hex": "9e1285166b42230e448ae63f72d4135d42300e0462c3b7018a5d041a43bed7a0",
+                    "network": "testnet",
+                    "isCompressed": false
+                }
+            },
+            {
+                "case": "empty wif.",
+                "request": {
+                    "wif": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. privkey is null or empty.",
+                    "cfd": "Failed to GetPrivkeyFromWif. Wif format error."
+                }
+            },
+            {
+                "case": "invalid wif.",
+                "request": {
+                    "wif": "aabbccddee"
+                },
+                "error": {
+                    "cfd": "Failed to GetPrivkeyFromWif. Wif format error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.GetPubkey",
+        "cases": [
+            {
+                "case": "mainnet",
+                "request": {
+                    "privkey": "KxBKppNkbysiCv8xELG2cCFwaKWJ1wc9xBQW6UJzsdg6d6aVgimc",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "pubkey": "02fd54c734e48c544c3c3ad1aab0607f896eb95e23e7058b174a580826a7940ad8"
+                }
+            },
+            {
+                "case": "testnet",
+                "request": {
+                    "privkey": "cNYKHjNc33ZyNMcDck59yWm1CYohgPhr2DYyCtmWNkL6sqb5L1rH",
+                    "isCompressed": true
+                },
+                "expect": {
+                    "pubkey": "02fd54c734e48c544c3c3ad1aab0607f896eb95e23e7058b174a580826a7940ad8"
+                }
+            },
+            {
+                "case": "wif false",
+                "request": {
+                    "privkey": "1c9c3636830860edfe1cc70649417f33b0799959ea7197a4e75a5ba2a326ddd3",
+                    "isCompressed": true,
+                    "wif": false
+                },
+                "expect": {
+                    "pubkey": "02fd54c734e48c544c3c3ad1aab0607f896eb95e23e7058b174a580826a7940ad8"
+                }
+            },
+            {
+                "case": "isCompressed false",
+                "request": {
+                    "privkey": "5J2tPcf1N4pjsH7nbHbft2C67eGhZPLkGDnCaQrquhwAtGFz91H",
+                    "isCompressed": false
+                },
+                "expect": {
+                    "pubkey": "04fd54c734e48c544c3c3ad1aab0607f896eb95e23e7058b174a580826a7940ad8f8d85f9c561b8b778aaaebfe295a83e58794c9ccc03042c72a1314f442b66920"
+                }
+            },
+            {
+                "case": "empty privkey.",
+                "request": {
+                    "privkey": "",
+                    "isCompressed": true
+                },
+                "error": {
+                    "capi": "Failed to parameter. privkey is null or empty.",
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "invalid privkey.",
+                "request": {
+                    "privkey": "xprvA2YKGLieCs6cYbr4fuLtwU1V4EPSNgfsE1wFtJURbwHsauUFSutAtqVJv62XzTAYSCNFWAvhFwWgxhKY8mz3Rdr6KEwwhEjwcZJDwHCrk1m",
+                    "isCompressed": true
+                },
+                "error": {
+                    "capi": "Failed to GetPrivkeyFromWif. Wif format error.",
+                    "cfd": "hex to byte convert error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.AddTweak",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "036b13c5a0dd9935fe175b2b9ff86585c231e734b2148149d788a941f1f4f566",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd06508e"
+                },
+                "expect": {
+                    "hex": "9bae20d5e7fa8fcde07d795d6eb0d78d12e781b9e957122b4d0244e7cefb45f4"
+                }
+            },
+            {
+                "case": "invalid tweak size",
+                "request": {
+                    "hex": "036b13c5a0dd9935fe175b2b9ff86585c231e734b2148149d788a941f1f4f566",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd0650"
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.MulTweak",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "036b13c5a0dd9935fe175b2b9ff86585c231e734b2148149d788a941f1f4f566",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd06508e"
+                },
+                "expect": {
+                    "hex": "aa71b12accba23b49761a7521e661f07a7e5742ac48cf708b8f9497b3a72a957"
+                }
+            },
+            {
+                "case": "invalid tweak size",
+                "request": {
+                    "hex": "036b13c5a0dd9935fe175b2b9ff86585c231e734b2148149d788a941f1f4f566",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd0650"
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.Negate",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "036b13c5a0dd9935fe175b2b9ff86585c231e734b2148149d788a941f1f4f566"
+                },
+                "expect": {
+                    "hex": "fc94ec3a5f2266ca01e8a4d460079a78f87cf5b1fd341ef1e849b54ade414bdb"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Privkey.CalculateEcSignature",
+        "cases": [
+            {
+                "case": "wif=true, isCompress=true",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "expect": {
+                    "signature": "0bc7f08a2a8a5446e7483db1b46184ba3cc79d78a3452a72c5bc712cc7efb51f58af044d646c1fd4f755d49db26faa203937bc66c569047a7d3d3da531826060"
+                }
+            },
+            {
+                "case": "wif=true, isCompress=false",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "921MwcRyNpUntgWJFjiqtcHzKpPfURQ2icLG6KX9JGCHMsz1KWZ",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": false
+                    },
+                    "isGrindR": true
+                },
+                "expect": {
+                    "signature": "12605156e906a45631b972dfe9f07b68823d5543fb1c729db34d7111aa79da900fa3240d75a1d320bf71208c249cd9321778d231b50ac49cded831f21eafdb79"
+                }
+            },
+            {
+                "case": "wif=false",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "619c335025c7f4012e556c2a58b2506e30b8511b53ade95ea316fd8c3286feb9",
+                        "wif": false,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "expect": {
+                    "signature": "1bf3aeadb82179c696e6759cb89d30a9b833b96ac369ebcae3e3b16f6b58f7316be9d70293dc4e935d6a5144d69ce2e137e3c4915908e5523bb2b0636a8fbec5"
+                }
+            },
+            {
+                "case": "isGrindR=false",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": false
+                },
+                "expect": {
+                    "signature": "ddc1e86d6043c7ec80cd23701084b2c7ee020d8e18f152dda2898e2e083450e54e50751bf84c983ca996a6f3427049eba27a640c6f033928a2b1e05beac7d2b5"
+                }
+            },
+            {
+                "case": "invalid network",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "xxxx",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "unmatch network",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "mainnet",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "Error WIF to Private key."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid privkey wif data",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "DcU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "Error WIF to Private key."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid privkey wif not compress",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": false
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "Error WIF to Private key."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid privkey hex",
+                "request": {
+                    "sighash": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "9b169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56c",
+                        "wif": false,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "invalid sighash",
+                "request": {
+                    "sighash": "169f5af064cc2a0dac08d8be3c9e8bc3d3e1a3f3e2a44f0c3e4ecf23d56cf2",
+                    "privkeyData": {
+                        "privkey": "cU4KjNUT7GjHm7CkjRjG46SzLrXHXoH3ekXmqa2jTCFPMkQ64sw1",
+                        "wif": true,
+                        "network": "regtest",
+                        "isCompressed": true
+                    },
+                    "isGrindR": true
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey",
+        "cases": [
+            {
+                "case": "compressed",
+                "request": {
+                    "hex": "031d7463018f867de51a27db866f869ceaf52abab71827a6051bab8a0fd020f4c1"
+                },
+                "expect": {
+                    "hex": "031d7463018f867de51a27db866f869ceaf52abab71827a6051bab8a0fd020f4c1"
+                }
+            },
+            {
+                "case": "uncompressed",
+                "request": {
+                    "hex": "076468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                },
+                "expect": {
+                    "hex": "076468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                }
+            },
+            {
+                "case": "uncompressed from compressed",
+                "request": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                },
+                "expect": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                }
+            },
+            {
+                "case": "empty key",
+                "request": {
+                    "hex": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. pubkey is null or empty.",
+                    "cfd": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "invalid hex size",
+                "request": {
+                    "hex": "031d7463018f867de51a27db866f869ceaf52abab71827a6051bab8a0fd020"
+                },
+                "error": {
+                    "cfd": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.AddTweak",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "03662a01c232918c9deb3b330272483c3e4ec0c6b5da86df59252835afeb4ab5f9",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd06508e"
+                },
+                "expect": {
+                    "hex": "02b05cf99a2f556177a38f5108445472316e87eb4f5b243d79d7e5829d3d53babc"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.MulTweak",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "03662a01c232918c9deb3b330272483c3e4ec0c6b5da86df59252835afeb4ab5f9",
+                    "tweak": "98430d10471cf697e2661e31ceb8720750b59a85374290e175799ba5dd06508e"
+                },
+                "expect": {
+                    "hex": "0305d10e760a529d0523e98892d2deff59b91593a0d670bd82271cfa627c9e7e18"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.Negate",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "hex": "03662a01c232918c9deb3b330272483c3e4ec0c6b5da86df59252835afeb4ab5f9"
+                },
+                "expect": {
+                    "hex": "02662a01c232918c9deb3b330272483c3e4ec0c6b5da86df59252835afeb4ab5f9"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.Compress",
+        "cases": [
+            {
+                "case": "uncompressed",
+                "request": {
+                    "hex": "076468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                },
+                "expect": {
+                    "hex": "036468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955"
+                }
+            },
+            {
+                "case": "uncompressed from compressed",
+                "request": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                },
+                "expect": {
+                    "hex": "036468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955"
+                }
+            },
+            {
+                "case": "compressed",
+                "request": {
+                    "hex": "036468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955"
+                },
+                "expect": {
+                    "hex": "036468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955"
+                }
+            },
+            {
+                "case": "empty pubkey",
+                "request": {
+                    "hex": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. pubkey is null or empty.",
+                    "cfd": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.Uncompress",
+        "cases": [
+            {
+                "case": "uncompressed from compressed",
+                "request": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                },
+                "expect": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                }
+            },
+            {
+                "case": "compressed",
+                "request": {
+                    "hex": "036468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955"
+                },
+                "expect": {
+                    "hex": "046468efc14b8512007bb720d6e7d4217a6686095a79b57e50dd48355110422955400e1a8f159b5dcea116049d09eb756b80d52aeaabb195b343cf713f62f01a73"
+                }
+            },
+            {
+                "case": "empty pubkey",
+                "request": {
+                    "hex": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. pubkey is null or empty.",
+                    "cfd": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.VerifyEcSignature",
+        "cases": [
+            {
+                "case": "success",
+                "request": {
+                    "hex": "031777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "sighash": "2a67f03e63a6a422125878b40b82da593be8d4efaafe88ee528af6e5a9955c6e",
+                    "signature": "0e68b55347fe37338beb3c28920267c5915a0c474d1dcafc65b087b9b3819cae6ae5e8fb12d669a63127abb4724070f8bd232a9efe3704e6544296a843a64f2c"
+                },
+                "expect": {
+                    "bool": true
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "verify fail",
+                "request": {
+                    "hex": "031777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "sighash": "2a67f03e63a6a422125878b40b82da593be8d4efaafe88ee528af6e5a9955c6e",
+                    "signature": "1e68b55347fe37338beb3c28920267c5915a0c474d1dcafc65b087b9b3819cae6ae5e8fb12d669a63127abb4724070f8bd232a9efe3704e6544296a843a64f2c"
+                },
+                "expect": {
+                    "bool": false
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "invalid signature data",
+                "request": {
+                    "hex": "031777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "sighash": "2a67f03e63a6a422125878b40b82da593be8d4efaafe88ee528af6e5a9955c6e",
+                    "signature": "zz68b55347fe37338beb3c28920267c5915a0c474d1dcafc65b087b9b3819cae6ae5e8fb12d669a63127abb4724070f8bd232a9efe3704e6544296a843a64f2c"
+                },
+                "error": {
+                    "capi": "hex to byte convert error.",
+                    "json": ""
+                },
+                "exclude": [
+                    "json"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Pubkey.Combine",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "keyList": [
+                        "03662a01c232918c9deb3b330272483c3e4ec0c6b5da86df59252835afeb4ab5f9",
+                        "0261e37f277f02a977b4f11eb5055abab4990bbf8dee701119d88df382fcc1fafe"
+                    ]
+                },
+                "expect": {
+                    "hex": "022a66efd1ea9b1ad3acfcc62a5ce8c756fa6fc3917fce3d4952a8701244ed1049"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.GetSchnorrPubkeyFromPrivkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef"
+                },
+                "expect": {
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "parity": true
+                }
+            },
+            {
+                "case": "empty privkey.",
+                "request": {
+                    "privkey": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. privkey is null or empty.",
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "invalid privkey.",
+                "request": {
+                    "privkey": "6877bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef"
+                },
+                "error": {
+                    "cfd": "Invalid Privkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.GetSchnorrPubkeyFromPubkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "pubkey": "03b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "parity": true
+                }
+            },
+            {
+                "case": "empty pubkey.",
+                "request": {
+                    "pubkey": ""
+                },
+                "error": {
+                    "capi": "Failed to parameter. pubkey is null or empty.",
+                    "cfd": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "invalid pubkey.",
+                "request": {
+                    "pubkey": "6877bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef"
+                },
+                "error": {
+                    "cfd": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.TweakAddSchnorrPubkeyFromPrivkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "expect": {
+                    "pubkey": "1fc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": true,
+                    "privkey": "7bf7c9ba025ca01b698d3e9b3e40efce2774f8a388f8c390550481e1407b2a25"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.TweakAddSchnorrPubkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "expect": {
+                    "pubkey": "1fc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": true
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.CheckTweakAddSchnorrPubkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "pubkey": "1fc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": true,
+                    "basePubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "expect": {
+                    "valid": true
+                }
+            },
+            {
+                "case": "fail1 on capi",
+                "request": {
+                    "pubkey": "1fc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": false,
+                    "basePubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "expect": {
+                    "valid": false
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "fail2 on capi",
+                "request": {
+                    "pubkey": "1dc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": true,
+                    "basePubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "expect": {
+                    "valid": false
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "fail1 on json",
+                "request": {
+                    "pubkey": "1fc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": false,
+                    "basePubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "error": {
+                    "json": "Failed to CheckTweakedSchnorrPubkey. check fail."
+                },
+                "exclude": [
+                    "capi"
+                ]
+            },
+            {
+                "case": "fail2 by json",
+                "request": {
+                    "pubkey": "1dc8e882e34cc7942a15f39ffaebcbdf58a19239bcb17b7f5aa88e0eb808f906",
+                    "parity": true,
+                    "basePubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390",
+                    "tweak": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614"
+                },
+                "error": {
+                    "json": "Failed to CheckTweakedSchnorrPubkey. check fail."
+                },
+                "exclude": [
+                    "capi"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.Sign",
+        "cases": [
+            {
+                "case": "hashed no nonce",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "nonceOrAux": "02cce08e913f22a36c5648d6405a2c7c50106e7aa2f1649e381c7f09d16b80ab"
+                },
+                "expect": {
+                    "hex": "6470fd1303dda4fda717b9837153c24a6eab377183fc438f939e0ed2b620e9ee5077c4a8b8dca28963d772a94f5f0ddf598e1c47c137f91933274c7c3edadce8"
+                }
+            },
+            {
+                "case": "non hashed no nonce",
+                "request": {
+                    "message": "5214612220693526874",
+                    "isHashed": false,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "nonceOrAux": "02cce08e913f22a36c5648d6405a2c7c50106e7aa2f1649e381c7f09d16b80ab"
+                },
+                "expect": {
+                    "hex": "1a5e01b7a94dce17ea8cdaab2998fee753797c79a4537714b1ffd9b7cbc2b03f068add0979bfd93e9aea2ab3909fa54002fd74ed3941250d0152d302e4a584d7"
+                }
+            },
+            {
+                "case": "hashed with nonce",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "isNonce": true,
+                    "nonceOrAux": "8c8ca771d3c25eb38de7401818eeda281ac5446f5c1396148f8d9d67592440fe"
+                },
+                "expect": {
+                    "hex": "5da618c1936ec728e5ccff29207f1680dcf4146370bdcfab0039951b91e3637a958e91d68537d1f6f19687cec1fd5db1d83da56ef3ade1f3c611babd7d08af42"
+                }
+            },
+            {
+                "case": "non hashed with nonce",
+                "request": {
+                    "message": "5214612220693526874",
+                    "isHashed": false,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "isNonce": true,
+                    "nonceOrAux": "8c8ca771d3c25eb38de7401818eeda281ac5446f5c1396148f8d9d67592440fe"
+                },
+                "expect": {
+                    "hex": "5da618c1936ec728e5ccff29207f1680dcf4146370bdcfab0039951b91e3637a79c44609c105d1bd218c3176ebec6b8fab9c3ec62fe252917db4e4162c396048"
+                }
+            },
+            {
+                "case": "bad privkey",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "privkey": "6877bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "nonceOrAux": "02cce08e913f22a36c5648d6405a2c7c50106e7aa2f1649e381c7f09d16b80ab"
+                },
+                "error": {
+                    "cfd": "Invalid Privkey data."
+                }
+            },
+            {
+                "case": "bad message",
+                "request": {
+                    "message": "e441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "nonceOrAux": "02cce08e913f22a36c5648d6405a2c7c50106e7aa2f1649e381c7f09d16b80ab"
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            },
+            {
+                "case": "bad nonce",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "privkey": "688c77bc2d5aaff5491cf309d4753b732135470d05b7b2cd21add0744fe97bef",
+                    "nonceOrAux": "02e08e913f22a36c5648d6405a2c7c50106e7aa2f1649e381c7f09d16b80ab"
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.Verify",
+        "cases": [
+            {
+                "case": "hashed valid signature",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "signature": "6470fd1303dda4fda717b9837153c24a6eab377183fc438f939e0ed2b620e9ee5077c4a8b8dca28963d772a94f5f0ddf598e1c47c137f91933274c7c3edadce8",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "valid": true
+                }
+            },
+            {
+                "case": "non hashed valid signature",
+                "request": {
+                    "message": "5214612220693526874",
+                    "isHashed": false,
+                    "signature": "1a5e01b7a94dce17ea8cdaab2998fee753797c79a4537714b1ffd9b7cbc2b03f068add0979bfd93e9aea2ab3909fa54002fd74ed3941250d0152d302e4a584d7",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "valid": true
+                }
+            },
+            {
+                "case": "hashed invalid signature",
+                "request": {
+                    "message": "e43441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "signature": "6470fd1303dda4fda717b9837153c24a6eab377183fc438f939e0ed2b620e9ee5077c4a8b8dca28963d772a94f5f0ddf598e1c47c137f91933274c7c3edadce8",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "valid": false
+                }
+            },
+            {
+                "case": "non hashed invalid signature",
+                "request": {
+                    "message": "5224612220693526874",
+                    "isHashed": false,
+                    "signature": "1a5e01b7a94dce17ea8cdaab2998fee753797c79a4537714b1ffd9b7cbc2b03f068add0979bfd93e9aea2ab3909fa54002fd74ed3941250d0152d302e4a584d7",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "valid": false
+                }
+            },
+            {
+                "case": "bad pubkey",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "signature": "6470fd1303dda4fda717b9837153c24a6eab377183fc438f939e0ed2b620e9ee5077c4a8b8dca28963d772a94f5f0ddf598e1c47c137f91933274c7c3edadce8",
+                    "pubkey": "b3c9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "error": {
+                    "python": "Invalid Schnorr pubkey length.",
+                    "cfd": "Invalid Schnorr pubkey length."
+                }
+            },
+            {
+                "case": "bad message",
+                "request": {
+                    "message": "e48g1762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "signature": "1a5e01b7a94dce17ea8cdaab2998fee753797c79a4537714b1ffd9b7cbc2b03f068add0979bfd93e9aea2ab3909fa54002fd74ed3941250d0152d302e4a584d7",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "error": {
+                    "cfd": "hex to byte convert error."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "bad signature",
+                "request": {
+                    "message": "e441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "signature": "",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "error": {
+                    "capi": "Failed to parameter. signature is null or empty.",
+                    "cfd": "Invalid Schnorr signature data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.ComputeSigPoint",
+        "cases": [
+            {
+                "case": "hashed byte",
+                "request": {
+                    "message": "e48441762fb75010b2aa31a512b62b4148aa3fb08eb0765d76b252559064a614",
+                    "isHashed": true,
+                    "nonce": "f14d7e54ff58c5d019ce9986be4a0e8b7d643bd08ef2cdf1099e1a457865b547",
+                    "pubkey": "b33cc9edc096d0a83416964bd3c6247b8fecd256e4efa7870d2c854bdeb33390"
+                },
+                "expect": {
+                    "pubkey": "03735acf82eef9da1540efb07a68251d5476dabb11ac77054924eccbb4121885e8"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Signature.EncodeByDer",
+        "references": [
+            "https://techmedia-think.hatenablog.com/entry/2016/07/08/153449"
+        ],
+        "cases": [
+            {
+                "case": "SigHashType(all)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "all"
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb01"
+                }
+            },
+            {
+                "case": "SigHashType(single)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "single"
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb03"
+                }
+            },
+            {
+                "case": "SigHashType(none)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "none"
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb02"
+                }
+            },
+            {
+                "case": "SigHashType(all|anyoneCanPay)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "all",
+                    "sighashAnyoneCanPay": true
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb81"
+                }
+            },
+            {
+                "case": "SigHashType(single|anyoneCanPay)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "single",
+                    "sighashAnyoneCanPay": true
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb83"
+                }
+            },
+            {
+                "case": "SigHashType(none|anyoneCanPay)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "none",
+                    "sighashAnyoneCanPay": true
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb82"
+                }
+            },
+            {
+                "case": "Error(empty signature)",
+                "request": {
+                    "signature": "",
+                    "sighashType": "all",
+                    "sighashAnyoneCanPay": false
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "capi": "Failed to parameter. signature is null or empty.",
+                    "cfd": "der encode error."
+                }
+            },
+            {
+                "case": "Error(invalid signature)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f",
+                    "sighashType": "all",
+                    "sighashAnyoneCanPay": false
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "cfd": "der encode error."
+                }
+            },
+            {
+                "case": "Error(empty sighash type)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "",
+                    "sighashAnyoneCanPay": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid sighash type.",
+                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                }
+            },
+            {
+                "case": "Error(invalid sighash type)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "dummy",
+                    "sighashAnyoneCanPay": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid sighash type.",
+                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Signature.DecodeDerToRaw",
+        "cases": [
+            {
+                "case": "success",
+                "request": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb01"
+                },
+                "expect": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "all",
+                    "sighashAnyoneCanPay": false
+                }
+            },
+            {
+                "case": "Error(empty signature)",
+                "request": {
+                    "signature": ""
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "capi": "Failed to parameter. der_signature is null or empty.",
+                    "cfd": "der decode error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Signature.Normalize",
+        "cases": [
+            {
+                "case": "un normal signature",
+                "request": {
+                    "signature": "c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5f67f6cf81a19873091aa7c9578fa2e96490e9bfc78ae7e9798004e8252c06287"
+                },
+                "expect": {
+                    "signature": "c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee509809307e5e678cf6e55836a8705d16871a040ea369a21a427d2100a7d75deba"
+                }
+            },
+            {
+                "case": "normalized signature",
+                "request": {
+                    "signature": "c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee509809307e5e678cf6e55836a8705d16871a040ea369a21a427d2100a7d75deba"
+                },
+                "expect": {
+                    "signature": "c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee509809307e5e678cf6e55836a8705d16871a040ea369a21a427d2100a7d75deba"
+                }
+            },
+            {
+                "case": "Error(empty signature)",
+                "request": {
+                    "signature": ""
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "capi": "Failed to parameter. signature is null or empty.",
+                    "cfd": "normalize error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "EcdsaAdaptor.Sign",
+        "cases": [
+            {
+                "case": "hashed message",
+                "request": {
+                    "message": "024bdd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "privkey": "90ac0d5dc0a1a9ab352afb02005a5cc6c4df0da61d8149d729ff50db9b5a5215",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349"
+                },
+                "expect": {
+                    "signature": "00cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d"
+                }
+            }
+        ]
+    },
+    {
+        "name": "EcdsaAdaptor.Verify",
+        "cases": [
+            {
+                "case": "hashed message",
+                "request": {
+                    "signature": "00cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349",
+                    "message": "024bdd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "pubkey": "03490cec9a53cd8f2f664aea61922f26ee920c42d2489778bb7c9d9ece44d149a7"
+                },
+                "expect": {
+                    "valid": true
+                }
+            },
+            {
+                "case": "unmatch signature",
+                "request": {
+                    "signature": "11cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349",
+                    "message": "024bdd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "pubkey": "03490cec9a53cd8f2f664aea61922f26ee920c42d2489778bb7c9d9ece44d149a7"
+                },
+                "expect": {
+                    "valid": false
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "unmatch signature by json",
+                "request": {
+                    "signature": "11cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349",
+                    "message": "024bdd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "pubkey": "03490cec9a53cd8f2f664aea61922f26ee920c42d2489778bb7c9d9ece44d149a7"
+                },
+                "error": {
+                    "json": "Failed to VerifyEcdsaAdaptor. check fail."
+                },
+                "exclude": [
+                    "capi"
+                ]
+            },
+            {
+                "case": "Error: invalid message",
+                "request": {
+                    "signature": "00cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349",
+                    "message": "02dd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "pubkey": "03490cec9a53cd8f2f664aea61922f26ee920c42d2489778bb7c9d9ece44d149a7"
+                },
+                "error": {
+                    "cfd": "ByteData256 size unmatch."
+                }
+            },
+            {
+                "case": "Error: invalid pubkey",
+                "request": {
+                    "signature": "00cbe0859638c3600ea1872ed7a55b8182a251969f59d7d2da6bd4afedf25f5021a49956234cbbbbede8ca72e0113319c84921bf1224897a6abd89dc96b9c5b208",
+                    "proof": "00b02472be1ba09f5675488e841a10878b38c798ca63eff3650c8e311e3e2ebe2e3b6fee5654580a91cc5149a71bf25bcbeae63dea3ac5ad157a0ab7373c3011d0fc2592a07f719c5fc1323f935569ecd010db62f045e965cc1d564eb42cce8d6d",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349",
+                    "message": "024bdd11f2144e825db05759bdd9041367a420fad14b665fd08af5b42056e5e2",
+                    "isHashed": true,
+                    "pubkey": "030cec9a53cd8f2f664aea61922f26ee920c42d2489778bb7c9d9ece44d149a7"
+                },
+                "error": {
+                    "cfd": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "EcdsaAdaptor.Adapt",
+        "cases": [
+            {
+                "case": "hashed message",
+                "request": {
+                    "signature": "01099c91aa1fe7f25c41085c1d3c9e73fe04a9d24dac3f9c2172d6198628e57f47bb90e2ad6630900b69f55674c8ad74a419e6ce113c10a21a79345a6e47bc74c1",
+                    "secret": "475697a71a74ff3f2a8f150534e9b67d4b0b6561fab86fcaa51f8c9d6c9db8c6"
+                },
+                "expect": {
+                    "signature": "099c91aa1fe7f25c41085c1d3c9e73fe04a9d24dac3f9c2172d6198628e57f474d13456e98d8989043fd4674302ce90c432e2f8bb0269f02c72aafec60b72de1"
+                }
+            }
+        ]
+    },
+    {
+        "name": "EcdsaAdaptor.ExtractSecret",
+        "cases": [
+            {
+                "case": "hashed message",
+                "request": {
+                    "adaptorSignature": "01099c91aa1fe7f25c41085c1d3c9e73fe04a9d24dac3f9c2172d6198628e57f47bb90e2ad6630900b69f55674c8ad74a419e6ce113c10a21a79345a6e47bc74c1",
+                    "signature": "099c91aa1fe7f25c41085c1d3c9e73fe04a9d24dac3f9c2172d6198628e57f474d13456e98d8989043fd4674302ce90c432e2f8bb0269f02c72aafec60b72de1",
+                    "adaptor": "038d48057fc4ce150482114d43201b333bf3706f3cd527e8767ceb4b443ab5d349"
+                },
+                "expect": {
+                    "secret": "475697a71a74ff3f2a8f150534e9b67d4b0b6561fab86fcaa51f8c9d6c9db8c6"
+                }
+            }
+        ]
+    }
+]

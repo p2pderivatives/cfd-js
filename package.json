@@ -1,6 +1,6 @@
 {
   "name": "cfd-js",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "domain": "p2pderivatives",
   "repository": {
     "type": "git",
@@ -154,6 +154,7 @@
     "lint_check:darwin": "cd tools && ./lint_quiet.sh",
     "eslint_check": "eslint --ext .js,.ts *.ts *.js wrap_js/",
     "git_subm_update": "git submodule -q foreach git fetch -q && git submodule -q update -i",
+    "test_example": "run-s test_quiet example elements_example ts_example util_example",
     "check_local": "run-p doxygen_dev format_cpp_all format_js_all",
     "check": "run-s doxygen_check lint_all ctest_quiet test_quiet example elements_example ts_example util_example",
     "check_all": "run-s cmake_clean git_subm_update cmake_quiet doxygen_check ctest_quiet test_quiet example elements_example ts_example util_example lint_all",

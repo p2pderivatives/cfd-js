@@ -5,15 +5,19 @@
     "api",
     "json"
   ],
+  "comment": "Decode der-encoded signature.",
   "request": {
     ":class": "DecodeDerSignatureToRawRequest",
+    ":class:comment": "Request for decode signature.",
     "signature": "",
     "signature:require": "require",
     "signature:comment": "der signature"
   },
   "response": {
-    ":class": "DecodeDerSignatureToRawResponse",
+    ":class": "SignatureDataResponse",
+    ":class:comment": "The data containing signature.",
     "signature": "",
-    "signature:require": "require"
+    "signature:require": "require",
+    "signature:comment": "signature"
   }
 }

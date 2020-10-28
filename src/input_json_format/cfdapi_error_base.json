@@ -3,17 +3,23 @@
   "priority": "high",
   "response": {
     ":class": "ErrorResponseBase",
+    ":class:comment": "Error response base interface",
     ":isOutputStruct": false,
     "error:require": "require",
+    "error:comment": "Inner error information",
     "error": {
       ":class": "InnerErrorResponse",
+      ":class:comment": "Inner error information",
       "code": 0,
       "code:require": "require",
+      "code:comment": "require",
       "code:type": "int",
       "type": "",
       "type:require": "require",
+      "type:comment": "require",
       "message": "",
-      "message:require": "require"
+      "message:require": "require",
+      "message:comment": "error message"
     }
   }
 }

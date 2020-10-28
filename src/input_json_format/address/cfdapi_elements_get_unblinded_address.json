@@ -1,0 +1,21 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get unblinded address.",
+  "request": {
+    ":class": "GetUnblindedAddressRequest",
+    ":class:comment": "Request for get unblinded address.",
+    "confidentialAddress": "",
+    "confidentialAddress:require": "require",
+    "confidentialAddress:comment": "confidential address"
+  },
+  "response": {
+    ":class": "GetUnblindedAddressResponse",
+    ":class:comment": "Response of get unblinded address.",
+    "unblindedAddress": "",
+    "unblindedAddress:require": "require",
+    "unblindedAddress:comment": "unblinded address",
+    "confidentialKey": "",
+    "confidentialKey:require": "require",
+    "confidentialKey:comment": "confidential key"
+  }
+}

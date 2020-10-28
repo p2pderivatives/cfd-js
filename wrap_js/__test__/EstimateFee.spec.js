@@ -418,7 +418,7 @@ const elementsTestCase = [
         feeAsset: '017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c18',
         minimumBits: 36,
       })],
-      '{\"feeAmount\":4364,\"txFeeAmount\":2697,\"txoutFeeAmount\":2697,\"utxoFeeAmount\":1667}',
+      '{\"feeAmount\":4972,\"txFeeAmount\":2697,\"txoutFeeAmount\":2697,\"utxoFeeAmount\":2275}',
     );
   })(),
   (() => {

@@ -1,0 +1,23 @@
+{
+  "namespace": ["cfd", "js", "api", "json"],
+  "comment": "Verify a Schnorr signature for a given message",
+  "request": {
+    ":class": "SchnorrVerifyRequest",
+    ":class:comment": "Request for creating a Schnorr signature.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "message:require": "require",
+    "message": "",
+    "isHashed": false,
+    "isHashed:require": "optional",
+    "signature": "",
+    "signature:require": "require"
+  },
+  "response": {
+    ":class": "SchnorrVerifyResponse",
+    ":class:comment": "Contains the validation result",
+    "valid": false,
+    "valid:require": "require",
+    "valid:comment": "whether the signature is valid."
+  }
+}

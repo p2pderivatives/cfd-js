@@ -105,7 +105,7 @@ class CFD_JS_API_EXPORT ElementsAddressStructApi {
    * @param[in] request Descriptorを構築するパラメータ
    * @return Descriptor解析結果を格納した構造体
    */
-  static AppendDescriptorChecksumResponseStruct AppendDescriptorChecksum(
+  static OutputDescriptorResponseStruct AppendDescriptorChecksum(
       const AppendDescriptorChecksumRequestStruct& request);
 
   /**

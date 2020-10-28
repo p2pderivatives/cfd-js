@@ -14,7 +14,7 @@
       "privkey:require": "require",
       "privkey:comment": "private key. set is wif or hex.",
       "wif": true,
-      "wif:require": "require",
+      "wif:require": "optional",
       "wif:comment": "use wif flag. true is wif, false is hex.",
       "network": "mainnet",
       "network:require": "optional",
@@ -29,10 +29,10 @@
     "isGrindR:comment": "Grind-R flag"
   },
   "response": {
-    ":class": "CalculateEcSignatureResponse",
-    ":class:comment": "response ec signature data.",
+    ":class": "SignatureDataResponse",
+    ":class:comment": "The data containing signature.",
     "signature": "",
     "signature:require": "require",
-    "signature:comment": "ec signature"
+    "signature:comment": "signature"
   }
 }

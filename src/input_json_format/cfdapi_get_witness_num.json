@@ -1,26 +1,33 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Get witness stack count.",
   "request": {
     ":class": "GetWitnessStackNumRequest",
+    ":class:comment": "Request for get witness stack count.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "isElements": false,
     "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
     "txin:require": "require",
+    "txin:comment": "target txin",
     "txin": {
-      ":class": "GetWitnessStackNumTxInRequest",
+      ":class": "TxInRequest",
       "txid": "",
       "txid:require": "require",
+      "txid:comment": "utxo txid",
       "vout": 0,
       "vout:type": "uint32_t",
-      "vout:require": "require"
+      "vout:require": "require",
+      "vout:comment": "utxo vout"
     }
   },
   "response": {
     ":class": "GetWitnessStackNumResponse",
     "count": 0,
     "count:require": "require",
+    "count:comment": "witness stack count",
     "count:type": "uint32_t"
   }
 }

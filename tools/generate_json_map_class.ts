@@ -12,11 +12,7 @@ interface JsonObjectCommonType {
 };
 
 interface ClassMapType {
-  [key: string]: ParameterType[];
-};
-
-interface ClassCommentMapType {
-  [key: string]: string;
+  [key: string]: DetailClassParameterType;
 };
 
 interface ClassParameterType {
@@ -26,9 +22,18 @@ interface ClassParameterType {
 
 interface CollectMapDataResponse {
   type: string;
-  map: ClassMapType;
-  list: ClassParameterType[];
   comment: string;
+};
+
+interface DetailClassParameterType {
+  data: JsonMappingData;
+  childList: DetailParameterType[];
+  parentList: string[];
+};
+
+interface DetailParameterType {
+  param: ParameterType;
+  data: JsonMappingData;
 };
 
 interface ParameterType {
@@ -44,6 +49,11 @@ interface TsAppendFunctionData {
   comment: string;
 };
 
+interface ReferenceClassInfo {
+  name: string;
+  references: Set<string>;
+  weight: number;
+};
 
 // ----------------------------------------------------------------------------
 // debug log function
@@ -51,6 +61,12 @@ interface TsAppendFunctionData {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let debugLog = function(...args: any | any[]) {
   // do nothing
+  // console.log(...args);
+};
+
+// eslint-disable-next-line prefer-const
+let requireOptionFunc = function(requireInfo: string) {
+  return requireInfo !== 'optional';
 };
 
 // ----------------------------------------------------------------------------
@@ -115,9 +131,7 @@ class JsonMappingData {
   }
 
   setRequired(requireInfo: string) {
-    if (requireInfo === 'require') {
-      this.isRequire = true;
-    }
+    this.isRequire = requireOptionFunc(requireInfo);
   }
   setComment(comment: string, hint: string) {
     if (comment) {
@@ -140,6 +154,48 @@ class JsonMappingData {
     }
   }
 
+  join(data: JsonMappingData) {
+    const newList: {[key: string]: JsonMappingData} = {};
+    for (const key2 in this.childList) {
+      if (this.childList[key2]) {
+        newList[key2] = this.childList[key2];
+      }
+    }
+    for (const key1 in data.childList) {
+      if (data.childList[key1]) {
+        let exist = false;
+        for (const key2 in this.childList) {
+          if (key1 == key2) {
+            exist = true;
+            break;
+          }
+        }
+        if (exist) {
+          newList[key1] = data.childList[key1];
+        }
+      }
+    }
+
+    const obj = new JsonMappingData(
+        this.name, this.type, this.initValue, this.className);
+    obj.name = this.name;
+    obj.methodName = this.methodName;
+    obj.variableName = this.variableName;
+    obj.initValue = this.initValue;
+    obj.className = this.className;
+    obj.classComment = this.classComment;
+    obj.childList = newList;
+    obj.parent = this.parent;
+    obj.isOutputStruct = this.isOutputStruct;
+    obj.isArray = this.isArray;
+    obj.isObject = this.isObject;
+    obj.isRequire = this.isRequire;
+    obj.comment = this.comment;
+    obj.type = this.type;
+    obj.structType = this.structType;
+    return obj;
+  }
+
   toString() {
     const str = `[JsonMappingData] ${this.name}:${this.type}:${this.className}`;
     // for debug code.
@@ -151,18 +207,18 @@ class JsonMappingData {
   }
 
   collectMapData(map: ClassMapType, list: ClassParameterType[],
-      isRequest: boolean): CollectMapDataResponse {
+      isRequest: boolean, parentInfo: JsonMappingData): CollectMapDataResponse {
     if (this.type.startsWith('JsonValueVector') ||
         this.type.startsWith('JsonObjectVector')) {
       for (const key in this.childList) {
         if (!{}.hasOwnProperty.call(this.childList, key)) continue;
         if (this.childList[key]) {
-          const ret = this.childList[key].collectMapData(map, list, isRequest);
+          const ret = this.childList[key].collectMapData(
+              map, list, isRequest, parentInfo);
+          const comment = ret['comment'] || this.comment;
           return {
             type: ret['type'] + '[]',
-            map: ret['map'],
-            list: ret['list'],
-            comment: ret['comment'],
+            comment,
           };
         }
         break;
@@ -170,62 +226,117 @@ class JsonMappingData {
       throw Error('Illegal state.');
     } else if (this.type === 'ErrorResponseBase') {
       const clsName = 'ErrorResponse';
-      const props: ParameterType[] = [];
-      let tmpMap = map;
-      let tmpList = list;
+      const props: DetailParameterType[] = [];
       for (const key in this.childList) {
         if (this.childList[key]) {
           const name = this.childList[key].name + (this.childList[key].isRequire ? '' : '?');
           const ret = this.childList[key].collectMapData(
-              tmpMap, tmpList, isRequest);
+              map, list, isRequest, parentInfo);
           const type = ret['type'];
           const comment = ret['comment'];
-          tmpMap = ret['map'];
-          tmpList = ret['list'];
           if (name === 'isOutputStruct') {
             continue;
           }
-          props.push({name: name, type: type, comment});
+          props.push({
+            param: {name: name, type: type, comment},
+            data: this.childList[key],
+          });
         }
       }
-      tmpMap[clsName] = props;
-      tmpList.push({name: clsName, comment: this.classComment});
+      map[clsName] = {data: this, childList: props, parentList: []};
+      list.push({name: clsName, comment: this.classComment});
       return {
         type: clsName,
-        map: tmpMap,
-        list: tmpList,
         comment: this.classComment,
       };
     } else if (Object.keys(this.childList).length > 0) {
       // my class name
-      const props = [];
-      let tmpMap = map;
-      let tmpList = list;
+      const props: DetailParameterType[] = [];
       for (const key in this.childList) {
         if (this.childList[key]) {
           let name = this.childList[key].name + (this.childList[key].isRequire ? '' : '?');
           const ret = this.childList[key].collectMapData(
-              tmpMap, tmpList, isRequest);
+              map, list, isRequest, this);
           debugLog('prop : ', ret);
           const type = ret['type'];
           const comment = ret['comment'];
-          tmpMap = ret['map'];
-          tmpList = ret['list'];
           if (name.indexOf('-') > 0) {
             name = '\'' + name + '\'';
           }
-          props.push({name: name, type: type, comment: comment});
+          props.push({
+            param: {name: name, type: type, comment},
+            data: this.childList[key],
+          });
         }
       }
       debugLog(`type = ${this.type}, comment = ${this.comment}`);
       debugLog(`class = ${this.className}, clsComment = ${this.classComment}`);
       debugLog('props = ', props);
-      tmpMap[this.type] = props;
-      tmpList.push({name: this.type, comment: this.classComment});
+      if (map[this.type]) {
+        // property check
+        const appendProps = [];
+        const existDataProps = map[this.type].childList;
+        const removeProps: string[] = [];
+        for (const newProp of props) {
+          let exist = false;
+          const srcName = newProp.param.name.replace('?', '');
+          for (const prop of existDataProps) {
+            const dstName = prop.param.name.replace('?', '');
+            if (newProp.param.name == prop.param.name) {
+              if (newProp.data.isRequire != prop.data.isRequire) {
+                throw new Error(`unmatch require. caller:${this.type}, name=${prop.param.name} type=${prop.param.type},${newProp.param.type}`);
+              }
+              if (newProp.param.type != prop.param.type) {
+                if ((newProp.param.type.indexOf('bigint') >= 0) &&
+                    (prop.param.type.indexOf('bigint') >= 0)) {
+                  if (newProp.param.type == 'bigint') {
+                    // removeProps.push(prop.param.name);
+                    exist = true;
+                  }
+                  break;
+                }
+                throw new Error(`unmatch type. caller:${this.type}, name=${prop.param.name} type=${prop.param.type},${newProp.param.type}`);
+              }
+              exist = true;
+              break;
+            } else if (newProp.param.type == prop.param.type) {
+              if (srcName == dstName) {
+                throw new Error(`unmatch option. caller:${this.type}, name=${prop.param.name} type=${prop.param.type},${newProp.param.type}`);
+              }
+            } else if (srcName == dstName) {
+              throw new Error(`unmatch option. caller:${this.type}, name=${prop.param.name} type=${prop.param.type},${newProp.param.type}`);
+            }
+          }
+          if (!exist) appendProps.push(newProp);
+        }
+        if (appendProps) {
+          const newProps = (!removeProps) ? existDataProps :
+            existDataProps.filter(
+                (value: DetailParameterType) =>
+                  (removeProps.indexOf(value.param.name) == -1));
+          const parentList = map[this.type].parentList;
+          if (parentInfo != null) {
+            parentList.push(parentInfo.type);
+          }
+          const joinData = map[this.type].data.join(this);
+          for (const prop of appendProps) {
+            newProps.push(prop);
+          }
+          map[this.type] = {
+            data: joinData, childList: newProps,
+            parentList: parentList,
+          };
+        }
+      } else {
+        let parentName = '';
+        if (parentInfo != null) parentName = parentInfo.type;
+        map[this.type] = {
+          data: this, childList: props, parentList: [parentName],
+        };
+        list.push({name: this.type, comment: this.classComment});
+      }
       return {
         type: this.type,
-        map: tmpMap,
-        list: tmpList,
         comment: this.comment || this.classComment,
       };
     } else {
@@ -239,7 +350,7 @@ class JsonMappingData {
       } else {
         type = 'number';
       }
-      return {type: type, map: map, list: list, comment: this.comment};
+      return {type: type, comment: this.comment};
     }
   }
 
@@ -262,16 +373,23 @@ class JsonMappingData {
 // json data class
 // ----------------------------------------------------------------------------
 class JsonData {
-  tjsonData: any;
+  filename: string;
+  inputJsonData: any;
   requestData: JsonMappingData | null | undefined;
   responseData: JsonMappingData | null | undefined;
-  constructor(tjsonData: any, requestData: JsonMappingData | null | undefined,
+  constructor(filename: string, inputJsonData: any,
+      requestData: JsonMappingData | null | undefined,
       responseData: JsonMappingData | null | undefined) {
-    this.tjsonData = tjsonData;
+    this.filename = path.basename(filename).split('.').shift() || '';
+    this.inputJsonData = inputJsonData;
     this.requestData = requestData;
     this.responseData = responseData;
   }
 }
+
+interface ClassCache {
+  cache: Map<string, JsonMappingData>;
+};
 
 // ----------------------------------------------------------------------------
 // array check function
@@ -284,16 +402,16 @@ function isArray(obj: any) {
 // ----------------------------------------------------------------------------
 // analyze function
 // ----------------------------------------------------------------------------
-const analyzeJson = (jsonObj: any | any[],
-    objName = '', arraytype = '') => {
+function analyzeJson(jsonObj: any | any[],
+    objName = '', arrayType = '') {
   debugLog(`analyzeJson obj=${objName}`);
-  let result;
+  let result: JsonMappingData;
   if (typeof jsonObj == 'string') {
-    result = new JsonMappingData(objName, 'std::string', jsonObj, '');
+    return new JsonMappingData(objName, 'std::string', jsonObj, '');
   } else if (typeof jsonObj == 'number') {
-    result = new JsonMappingData(objName, 'int64_t', jsonObj, '');
+    return new JsonMappingData(objName, 'int64_t', jsonObj, '');
   } else if (typeof jsonObj == 'boolean') {
-    result = new JsonMappingData(objName, 'boolean', jsonObj, '');
+    return new JsonMappingData(objName, 'boolean', jsonObj, '');
   } else if (jsonObj) {
     const objKey = Object.keys(jsonObj);
     const objValues = Object.values(jsonObj);
@@ -312,7 +430,7 @@ const analyzeJson = (jsonObj: any | any[],
           pastType = tempChild.type;
         } else if (pastType != tempChild.type) {
           console.log('illegal list elements. fail.');
-          return result;
+          throw new Error('illegal list elements. fail.');
         }
       }
       debugLog(`pastType = ${pastType}`);
@@ -323,9 +441,9 @@ const analyzeJson = (jsonObj: any | any[],
         if ((typeof objValues[0] == 'string') || (typeof objValues[0] == 'number') ||
           (typeof objValues[0] == 'boolean')) {
           // array of string or number.
-          if ((typeof objValues[0] == 'number') && (arraytype)) {
-            result = new JsonMappingData(objName, `JsonValueVector<${arraytype}>`, '', '');
-            if (firstMap !== null) firstMap.setType(arraytype);
+          if ((typeof objValues[0] == 'number') && (arrayType)) {
+            result = new JsonMappingData(objName, `JsonValueVector<${arrayType}>`, '', '');
+            if (firstMap !== null) firstMap.setType(arrayType);
           } else {
             result = new JsonMappingData(objName, `JsonValueVector<${pastType}>`, '', '');
           }
@@ -339,7 +457,8 @@ const analyzeJson = (jsonObj: any | any[],
       }
       result.isArray = true;
       debugLog(`list_type = ${result.type}`);
-      debugLog(`clist_type = ${result.childList[0].type}`);
+      debugLog(`childList_type = ${result.childList[0].type}`);
+      return result;
     } else { // object
       debugLog(`read keys = ${objKey}`);
       let className = objName;
@@ -373,7 +492,7 @@ const analyzeJson = (jsonObj: any | any[],
       const clsCommentMap: {[key: string]: string} = {};
       const commentMap: {[key: string]: string} = {};
       const hintMap: {[key: string]: string} = {};
-      const rarraytypeMap: {[key: string]: string} = {};
+      const arrayTypeMap: {[key: string]: string} = {};
       for (const key in jsonObj) {
         if (!{}.hasOwnProperty.call(jsonObj, key)) continue;
         if ((key != ':class') && (key != ':class:comment')) {
@@ -394,7 +513,7 @@ const analyzeJson = (jsonObj: any | any[],
           }
           if (key.lastIndexOf(':arraytype') >= 0) {
             const keyName = key.split(':')[0];
-            rarraytypeMap[keyName] = jsonObj[key];
+            arrayTypeMap[keyName] = jsonObj[key];
           }
           if (key.lastIndexOf(':comment') >= 0) {
             const keyName = key.split(':')[0];
@@ -441,13 +560,14 @@ const analyzeJson = (jsonObj: any | any[],
             result.childList[key] = new JsonMappingData(
                 key, typeStr, value, className);
           }
-          if (requireMap[key]) {
-            result.childList[key].setRequired(requireMap[key]);
-          }
+          // if (requireMap[key]) {
+          //   result.childList[key].setRequired(requireMap[key]);
+          // }
+          result.childList[key].setRequired(requireMap[key]);
           if (commentMap[key]) {
             result.childList[key].setComment(commentMap[key], hintMap[key]);
           }
-          const tempChild = analyzeJson(value, key, rarraytypeMap[key]);
+          const tempChild = analyzeJson(value, key, arrayTypeMap[key]);
           if (tempChild) {
             if (result.childList[key].type == '') {
               result.childList[key].setTypeStruct(
@@ -466,23 +586,18 @@ const analyzeJson = (jsonObj: any | any[],
         }
       }
     }
+    return result;
   } else {
     console.log('empty value.');
+    throw new Error('empty value.');
   }
-  return result;
 };
 
-interface JsonMapDataType {
-  isObject: boolean;
-  childList: any[];
-  isArray: boolean;
-}
-
 // ----------------------------------------------------------------------------
-// analize child class function
+// analyze child class function
 // ----------------------------------------------------------------------------
-const getChildClasses = (jsonMapData: JsonMappingData,
-    list: JsonMappingData[]) => {
+function getChildClasses(jsonMapData: JsonMappingData,
+    list: JsonMappingData[]) {
   if (!jsonMapData) {
     // do nothing
   } else if (jsonMapData.isObject) {
@@ -503,14 +618,15 @@ const getChildClasses = (jsonMapData: JsonMappingData,
 // ----------------------------------------------------------------------------
 // generate cpp file source function
 // ----------------------------------------------------------------------------
-const generateFileSource = (filename: string, headerName: string | string[],
-    classList: any[], jsonSetting: JsonObjectCommonType | undefined) => {
+function generateFileSource(copyright: string, filename: string,
+    headerName: string | string[],
+    classList: any[], jsonSetting: JsonObjectCommonType | undefined) {
   const result = [];
   const namespace = (!jsonSetting) ? '' : jsonSetting.namespace;
   const includeNolint = (headerName.indexOf('/') >= 0) ? '' : '  // NOLINT';
 
   // header
-  const sourceFileHeader = `// Copyright 2019 CryptoGarage
+  const sourceFileHeader = `// ${copyright}
 /**
  * @file ${filename}
  *
@@ -567,34 +683,13 @@ using cfd::core::JsonVector;
   return result.join('\n');
 };
 
-
 // ----------------------------------------------------------------------------
-// generate cpp class source function
+// generate cpp class source direct function
 // ----------------------------------------------------------------------------
-const generateClassSource = (req: JsonMappingData | null | undefined,
-    res: JsonMappingData | null | undefined) => {
+function generateClassSourceDirect(mapData: JsonMappingData,
+    responseList: string[] | undefined) {
   const result = [];
-  const processedList: any[] = [];
-
-  if (req || res) {
-    const list: JsonMappingData[] = [];
-    if (req) list.push(req);
-    if (res) list.push(res);
-    for (const data of list) {
-      if (!data) continue;
-      // sort by classname
-      // for child elements
-      const mapList: JsonMappingData[] = [];
-      getChildClasses(data, mapList);
-      debugLog(`mapList = ${mapList}`);
-
-      for (const mapKey in mapList) {
-        if (!{}.hasOwnProperty.call(mapList, mapKey)) continue;
-        const mapData = mapList[mapKey];
-        if (processedList.includes(mapData.type)) {
-          continue;
-        }
-        const sourceClassHeader = `
+  const sourceClassHeader = `
 // ------------------------------------------------------------------------
 // ${mapData.type}
 // ------------------------------------------------------------------------
@@ -608,13 +703,13 @@ void ${mapData.type}::CollectFieldName() {
   }
   cfd::core::CLASS_FUNCTION_TABLE<${mapData.type}> func_table;  // NOLINT
 `;
-        result.push(sourceClassHeader);
+  result.push(sourceClassHeader);
 
-        for (const childKey in mapData.childList) {
-          if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-          const childData = mapData.childList[childKey];
-          // start
-          const addJsonMapperComment = `\
+  for (const childKey in mapData.childList) {
+    if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+    const childData = mapData.childList[childKey];
+    // start
+    const addJsonMapperComment = `\
   func_table = {
     ${mapData.type}::Get${childData.methodName}String,
     ${mapData.type}::Set${childData.methodName}String,
@@ -623,56 +718,92 @@ void ${mapData.type}::CollectFieldName() {
   json_mapper.emplace("${childData.name}", func_table);
   item_list.push_back("${childData.name}");\
 `;
-          // end
-          result.push(addJsonMapperComment);
+    // end
+    result.push(addJsonMapperComment);
+  }
+  result.push('}');
+
+  if (mapData.isOutputStruct) {
+    result.push('');
+    result.push(`void ${mapData.type}::ConvertFromStruct(`);
+    result.push(`    const ${mapData.structType}& data) {`);
+    for (const childKey in mapData.childList) {
+      if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+      const childData = mapData.childList[childKey];
+      if (childData.isObject || childData.isArray) {
+        const str = `  ${childData.variableName}_.ConvertFromStruct(data.${childData.variableName});`;
+        if (str.length > 80) {
+          result.push(`  ${childData.variableName}_.ConvertFromStruct(`);
+          result.push(`      data.${childData.variableName});`);
+        } else {
+          result.push(`  ${childData.variableName}_.ConvertFromStruct(data.${childData.variableName});`);
         }
-        result.push('}');
+      } else {
+        result.push(`  ${childData.variableName}_ = data.${childData.variableName};`);
+      }
+    }
+    result.push(`  ignore_items = data.ignore_items;`);
+    result.push('}');
 
-        if (mapData.isOutputStruct) {
-          result.push('');
-          result.push(`void ${mapData.type}::ConvertFromStruct(`);
-          result.push(`    const ${mapData.structType}& data) {`);
-          for (const childKey in mapData.childList) {
-            if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-            const childData = mapData.childList[childKey];
-            if (childData.isObject || childData.isArray) {
-              const str = `  ${childData.variableName}_.ConvertFromStruct(data.${childData.variableName});`;
-              if (str.length > 80) {
-                result.push(`  ${childData.variableName}_.ConvertFromStruct(`);
-                result.push(`      data.${childData.variableName});`);
-              } else {
-                result.push(`  ${childData.variableName}_.ConvertFromStruct(data.${childData.variableName});`);
-              }
-            } else {
-              result.push(`  ${childData.variableName}_ = data.${childData.variableName};`);
-            }
-          }
-          result.push(`  ignore_items = data.ignore_items;`);
-          result.push('}');
-
-          result.push('');
-          result.push(`${mapData.structType} ${mapData.type}::ConvertToStruct() const {  // NOLINT`);
-          result.push(`  ${mapData.structType} result;`);
-          for (const childKey in mapData.childList) {
-            if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-            const childData = mapData.childList[childKey];
-            if (childData.isObject || childData.isArray) {
-              const str = `  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();`;
-              if (str.length > 80) {
-                result.push(`  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();  // NOLINT`);
-              } else {
-                result.push(`  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();`);
-              }
-            } else {
-              result.push(`  result.${childData.variableName} = ${childData.variableName}_;`);
-            }
-          }
-          result.push(`  result.ignore_items = ignore_items;`);
-          result.push('  return result;');
-          result.push('}');
+    result.push('');
+    result.push(`${mapData.structType} ${mapData.type}::ConvertToStruct() const {  // NOLINT`);
+    result.push(`  ${mapData.structType} result;`);
+    for (const childKey in mapData.childList) {
+      if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+      const childData = mapData.childList[childKey];
+      if (childData.isObject || childData.isArray) {
+        const str = `  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();`;
+        if (str.length > 80) {
+          result.push(`  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();  // NOLINT`);
+        } else {
+          result.push(`  result.${childData.variableName} = ${childData.variableName}_.ConvertToStruct();`);
         }
+      } else {
+        result.push(`  result.${childData.variableName} = ${childData.variableName}_;`);
+      }
+    }
+    result.push(`  result.ignore_items = ignore_items;`);
+    result.push('  return result;');
+    result.push('}');
+  }
 
-        processedList.push(mapData.type);
+  if (responseList) {
+    for (const str of result) {
+      responseList.push(str);
+    }
+  }
+  return result.join('\n');
+}
+
+
+// ----------------------------------------------------------------------------
+// generate cpp class source function
+// ----------------------------------------------------------------------------
+function generateClassSource(req: JsonMappingData | null | undefined,
+    res: JsonMappingData | null | undefined,
+    outputList: Set<string>) {
+  const result: string[] = [];
+
+  if (req || res) {
+    const list: JsonMappingData[] = [];
+    if (req) list.push(req);
+    if (res) list.push(res);
+    for (const data of list) {
+      if (!data) continue;
+      // sort by class name
+      // for child elements
+      const mapList: JsonMappingData[] = [];
+      getChildClasses(data, mapList);
+      debugLog(`mapList = ${mapList}`);
+
+      for (const mapKey in mapList) {
+        if (!{}.hasOwnProperty.call(mapList, mapKey)) continue;
+        const mapData = mapList[mapKey];
+        if (outputList.has(mapData.type)) continue;
+
+        generateClassSourceDirect(mapData, result);
+
+        outputList.add(mapData.type);
       }
     }
   }
@@ -684,8 +815,8 @@ void ${mapData.type}::CollectFieldName() {
 // ----------------------------------------------------------------------------
 // generate class header function
 // ----------------------------------------------------------------------------
-const generateClassHeaderData = (mapData: JsonMappingData,
-    exportDefine: string) => {
+function generateClassHeaderData(mapData: JsonMappingData,
+    exportDefine: string) {
   const classHeader = `
 // ------------------------------------------------------------------------
 // ${mapData.type}
@@ -714,8 +845,8 @@ class ${exportDefine}${mapData.type}
 // ----------------------------------------------------------------------------
 // generate object function by header
 // ----------------------------------------------------------------------------
-const generateObjectFunctionByHeader = (mapData: JsonMappingData,
-    childData: JsonMappingData) => {
+function generateObjectFunctionByHeader(mapData: JsonMappingData,
+    childData: JsonMappingData) {
   // Rename method name because equals windows macro's function.
   const methodName = (childData.methodName === 'KValue') ?
       'K_Value' : childData.methodName;
@@ -771,8 +902,8 @@ const generateObjectFunctionByHeader = (mapData: JsonMappingData,
 // ----------------------------------------------------------------------------
 // generate value function by header
 // ----------------------------------------------------------------------------
-const generateValueFunctionByHeader = (mapData: JsonMappingData,
-    childData: JsonMappingData) => {
+function generateValueFunctionByHeader(mapData: JsonMappingData,
+    childData: JsonMappingData) {
   // Rename method name because equals windows macro's function.
   const methodName = (childData.methodName === 'KValue') ?
       'K_Value' : childData.methodName;
@@ -827,7 +958,7 @@ const generateValueFunctionByHeader = (mapData: JsonMappingData,
 // ----------------------------------------------------------------------------
 // generate class field by header
 // ----------------------------------------------------------------------------
-const generateClassFieldByHeader = (mapData: JsonMappingData) => {
+function generateClassFieldByHeader(mapData: JsonMappingData) {
   let structConvertFunction = '';
   if (mapData.isOutputStruct) {
     structConvertFunction = `\
@@ -881,7 +1012,7 @@ ${structConvertFunction}
     return item_list;
   }
   /**
-   * @brief Get ignore item lists of JSON mnapping.
+   * @brief Get ignore item lists of JSON mapping.
    * Ignore the target variable at Serialize.
    * @return Item list of JSON mapping.
    * @see cfd::core::JsonClassBase::GetIgnoreItem()
@@ -910,8 +1041,9 @@ ${structConvertFunction}
 // ----------------------------------------------------------------------------
 // generate header function
 // ----------------------------------------------------------------------------
-const generateFileHeader = (filename: string, dirname: string, classList: any[],
-    jsonSetting: JsonObjectCommonType | undefined, appendHeaderName = '') => {
+function generateFileHeader(copyright: string, filename: string,
+    dirname: string, classList: any[],
+    jsonSetting: JsonObjectCommonType | undefined, appendHeaderName = '') {
   const result = [];
 
   const namespace = (!jsonSetting) ? '' : jsonSetting.namespace;
@@ -949,7 +1081,7 @@ const generateFileHeader = (filename: string, dirname: string, classList: any[],
   const includeHeader2 = (appendHeaderName.length > 0) ? `#include "${appendHeaderName}"\n` : '';
 
   // header
-  const headerFileHeader = `// Copyright 2019 CryptoGarage
+  const headerFileHeader = `// ${copyright}
 /**
  * @file ${filename}
  *
@@ -1014,13 +1146,68 @@ using cfd::core::JsonVector;
 };
 
 // ----------------------------------------------------------------------------
+// generate class header direct function
+// ----------------------------------------------------------------------------
+function generateClassHeaderDirect(
+    mapData: JsonMappingData,
+    jsonSetting: { export: any },
+    responseList: string[] | undefined) {
+  const result = [];
+  const exportDefine = (jsonSetting && jsonSetting.export) ? `${jsonSetting.export} ` : '';
+  const classHeader = generateClassHeaderData(mapData, exportDefine);
+  result.push(classHeader);
+
+  for (const childKey in mapData.childList) {
+    if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+    const childData = mapData.childList[childKey];
+    if (childData.isObject || childData.isArray) {
+      const objectFunctions = generateObjectFunctionByHeader(
+          mapData, childData);
+      result.push(`${objectFunctions}`);
+    } else {
+      const valueFunctions = generateValueFunctionByHeader(
+          mapData, childData);
+      result.push(valueFunctions);
+    }
+  }
+  const commonFields = generateClassFieldByHeader(mapData);
+  result.push(commonFields);
+
+  for (const childKey in mapData.childList) {
+    if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+    const childData = mapData.childList[childKey];
+    const objectFields = `\
+  /**
+   * @brief JsonAPI(${childData.name}) value
+   */`;
+    result.push(objectFields);
+    if (childData.isObject || childData.isArray) {
+      result.push(`  ${childData.type} ${childData.variableName}_;  // NOLINT`);
+    } else if (childData.type == 'std::string') {
+      // string
+      result.push(`  ${childData.type} ${childData.variableName}_ = "${childData.initValue}";`);
+    } else {
+      result.push(`  ${childData.type} ${childData.variableName}_ = ${childData.initValue};`);
+    }
+  }
+
+  result.push('};');
+  if (responseList) {
+    for (const str of result) {
+      responseList.push(str);
+    }
+  }
+  return result.join('\n');
+}
+
+// ----------------------------------------------------------------------------
 // generate class header function
 // ----------------------------------------------------------------------------
-const generateClassHeader = (req: JsonMappingData | null | undefined,
-    res: JsonMappingData | null | undefined, jsonSetting: { export: any }) => {
-  const result = [];
-  const processedList: any[] = [];
-  const exportDefine = (jsonSetting.export) ? `${jsonSetting.export} ` : '';
+function generateClassHeader(req: JsonMappingData | null | undefined,
+    res: JsonMappingData | null | undefined,
+    jsonSetting: { export: any },
+    outputList: Set<string>) {
+  const result: string[] = [];
 
   // header
   if (req || res) {
@@ -1038,49 +1225,11 @@ const generateClassHeader = (req: JsonMappingData | null | undefined,
       for (const mapKey in mapList) {
         if (!{}.hasOwnProperty.call(mapList, mapKey)) continue;
         const mapData = mapList[mapKey];
-        if (processedList.includes(mapData.type)) {
-          continue;
-        }
-        const classHeader = generateClassHeaderData(mapData, exportDefine);
-        result.push(classHeader);
+        if (outputList.has(mapData.type)) continue;
 
-        for (const childKey in mapData.childList) {
-          if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-          const childData = mapData.childList[childKey];
-          if (childData.isObject || childData.isArray) {
-            const objectFunctions = generateObjectFunctionByHeader(
-                mapData, childData);
-            result.push(`${objectFunctions}`);
-          } else {
-            const valueFunctions = generateValueFunctionByHeader(
-                mapData, childData);
-            result.push(valueFunctions);
-          }
-        }
-        const commonFields = generateClassFieldByHeader(mapData);
-        result.push(commonFields);
+        generateClassHeaderDirect(mapData, jsonSetting, result);
 
-        for (const childKey in mapData.childList) {
-          if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-          const childData = mapData.childList[childKey];
-          const objectFields = `\
-  /**
-   * @brief JsonAPI(${childData.name}) value
-   */`;
-          result.push(objectFields);
-          if (childData.isObject || childData.isArray) {
-            result.push(`  ${childData.type} ${childData.variableName}_;  // NOLINT`);
-          } else if (childData.type == 'std::string') {
-            // string
-            result.push(`  ${childData.type} ${childData.variableName}_ = "${childData.initValue}";`);
-          } else {
-            result.push(`  ${childData.type} ${childData.variableName}_ = ${childData.initValue};`);
-          }
-        }
-
-        result.push('};');
-
-        processedList.push(mapData.type);
+        outputList.add(mapData.type);
       }
     }
   }
@@ -1088,11 +1237,134 @@ const generateClassHeader = (req: JsonMappingData | null | undefined,
   return result.join('\n');
 };
 
+// ----------------------------------------------------------------------------
+// generate reference class list function
+// ----------------------------------------------------------------------------
+function generateReferenceClassList(
+    jsonClassMap: ClassMapType,
+    rootFuncList: TsAppendFunctionData[],
+    referenceSet: Set<string>) {
+  const refList: Map<string, ReferenceClassInfo> = new Map();
+  const list: ReferenceClassInfo[] = [];
+  for (const key in jsonClassMap) {
+    if (jsonClassMap[key]) {
+      const data = jsonClassMap[key];
+      if (data.data.isObject) {
+        for (const cKey of data.parentList) {
+          if (!cKey) {
+            // do nothing
+          } else if (jsonClassMap[cKey]) {
+            if (refList.has(key)) {
+              // add ref list
+              const obj = refList.get(key);
+              if (obj) {
+                obj.references.add(cKey);
+                refList.set(key, obj);
+              }
+            } else {
+              const obj: ReferenceClassInfo = {
+                name: key,
+                references: new Set(),
+                weight: 1,
+              };
+              obj.references.add(cKey);
+              refList.set(key, obj);
+              referenceSet.add(key);
+            }
+          } else if (cKey == 'ErrorResponseBase') {
+            // do nothing
+          } else {
+            console.log(`unknown key: ${cKey}`);
+          }
+        }
+      }
+    }
+  }
+
+  /*
+  for (const func of rootFuncList) {
+    if (!func) continue;
+    if (func.parameters.length > 0 &&
+      refList.has(func.parameters[0].type)) {
+      const obj = refList.get(func.parameters[0].type);
+      if (obj && obj.references.keys.length > 1) {
+        obj.weight += 1;
+        refList.set(func.parameters[0].type, obj);
+      }
+    }
+    if (func.returnType && refList.has(func.returnType)) {
+      const obj = refList.get(func.returnType);
+      if (obj && obj.references.keys.length > 1) {
+        obj.weight += 1;
+        refList.set(func.returnType, obj);
+      }
+    }
+  }
+  */
+
+  let changeWeight = true;
+  let refKeyList: string[] = [];
+  while (changeWeight) {
+    changeWeight = false;
+    const newRefKeyList = [];
+    if (refKeyList.length == 0) {
+      for (const [key] of refList) {
+        if (key) refKeyList.push(key);
+      }
+    }
+    for (const key of refKeyList) {
+      if (refList.get(key)) {
+        const src = refList.get(key);
+        let targetCount = 0;
+        if (src) {
+          for (const ref of src.references) {
+            if (key == ref) continue;
+            if (refList.get(ref)) {
+              const dst = refList.get(ref);
+              if (dst && (dst.references.size > 1) &&
+                  dst.weight >= src.weight) {
+                src.weight = dst.weight + 1;
+                changeWeight = true;
+                targetCount += 1;
+                console.log(`update weight: ${key} weight=${src.weight}`);
+              }
+            }
+          }
+          if (targetCount > 0) {
+            refList.set(key, src);
+            newRefKeyList.push(key);
+          }
+        }
+      }
+    }
+    refKeyList = newRefKeyList;
+  }
+
+  for (const [key, value] of refList) {
+    if (value) {
+      if ((value.references.size > 1) || (value.weight > 1)) {
+        list.push(value);
+        console.log('multiple reference type:', key);
+      }
+    }
+  }
+
+  list.sort((a, b) => {
+    if (a.weight == b.weight) {
+      return a.name.localeCompare(b.name);
+    }
+    return (a.weight > b.weight) ? -1 : 1;
+  });
+
+  // console.log(list);
+  return list;
+};
+
 
 // ----------------------------------------------------------------------------
 // generate struct header function
 // ----------------------------------------------------------------------------
-const generateStructHeaderArea = (mapData: { structType: any }) => {
+function generateStructHeaderArea(mapData: { structType: any }) {
   const structHeader = `
 // ------------------------------------------------------------------------
 // ${mapData.structType}
@@ -1102,28 +1374,105 @@ const generateStructHeaderArea = (mapData: { structType: any }) => {
  */
 struct ${mapData.structType} {`;
   return structHeader;
-};
+}
+
 
 // ----------------------------------------------------------------------------
 // generate struct item data function
 // ----------------------------------------------------------------------------
-const generateStructItemData = (textArray: string[],
+function generateStructItemDataDirect(textArray: string[],
+    mapData: JsonMappingData, hasErrorOutput: boolean,
+    namespace: string, libNamespace: string,
+    responseTypeSet: Set<string>) {
+  const structHeader = generateStructHeaderArea(mapData);
+  textArray.push(structHeader);
+
+  let nameLengthMax = 0;
+  for (const childKey in mapData.childList) {
+    if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+    const childData = mapData.childList[childKey];
+    let nameLength = childData.type.length +
+      childData.variableName.length;
+    if (childData.isObject || childData.isArray) {
+      nameLength = childData.structType.length +
+        childData.variableName.length;
+    } else if (childData.type == 'std::string') {
+      if (typeof childData.initValue === 'string') {
+        nameLength += childData.initValue.length + 5;
+      }
+    } else {
+      const stringText = `${childData.initValue}`;
+      nameLength += stringText.length + 3;
+    }
+    if (nameLengthMax < nameLength) nameLengthMax = nameLength;
+  }
+
+  for (const childKey in mapData.childList) {
+    if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
+    const childData = mapData.childList[childKey];
+    let nameLength = childData.type.length +
+      childData.variableName.length;
+    if (childData.isObject || childData.isArray) {
+      nameLength = childData.structType.length +
+        childData.variableName.length;
+    } else if (childData.type == 'std::string') {
+      if (typeof childData.initValue === 'string') {
+        nameLength += childData.initValue.length + 5;
+      }
+    } else {
+      const stringText = `${childData.initValue}`;
+      nameLength += stringText.length + 3;
+    }
+    let space = '';
+    if (nameLengthMax > nameLength) {
+      nameLength = nameLengthMax - nameLength;
+      for (let i = 0; i < nameLength; ++i) space += ' ';
+    }
+    const comment = `${space}//!< ${childData.variableName}  // NOLINT`;
+
+    if (childData.isObject || childData.isArray) {
+      textArray.push(`  ${childData.structType} ${childData.variableName};  ${comment}`);
+    } else if (childData.type == 'std::string') {
+      // string
+      textArray.push(`  ${childData.type} ${childData.variableName} = "${childData.initValue}";  ${comment}`);
+    } else {
+      textArray.push(`  ${childData.type} ${childData.variableName} = ${childData.initValue};  ${comment}`);
+    }
+  }
+
+  if (hasErrorOutput && responseTypeSet.has(mapData.type)) {
+    if (namespace == libNamespace) {
+      textArray.push(`  InnerErrorResponseStruct error;       //!< error information`);
+    } else {
+      textArray.push(`  ${libNamespace}::InnerErrorResponseStruct error;   //!< error information`);
+    }
+  }
+  textArray.push(`  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.`);
+  textArray.push('};');
+}
+
+
+// ----------------------------------------------------------------------------
+// generate struct item data function
+// ----------------------------------------------------------------------------
+function generateStructItemData(textArray: string[],
     req: JsonMappingData | null | undefined,
     res: JsonMappingData | null | undefined,
-    tjsonData: { namespace: string | string[] },
+    inputJsonData: { namespace: string | string[] },
     lastNamespaces: string | any[], hasErrorOutput: boolean,
-    processedList: any[], libNamespace: string) => {
+    processedList: Set<string>, libNamespace: string,
+    responseTypeSet: Set<string>) {
   if (req || res) {
     let namespace = '';
     let lastNamespace = '';
-    if (typeof tjsonData.namespace === 'string') {
-      namespace = tjsonData.namespace;
+    if (typeof inputJsonData.namespace === 'string') {
+      namespace = inputJsonData.namespace;
     } else {
-      for (let idx = 0; idx < tjsonData.namespace.length; ++idx) {
+      for (let idx = 0; idx < inputJsonData.namespace.length; ++idx) {
         if (namespace.length > 0) {
-          namespace += '::' + tjsonData.namespace[idx];
+          namespace += '::' + inputJsonData.namespace[idx];
         } else {
-          namespace = tjsonData.namespace[idx];
+          namespace = inputJsonData.namespace[idx];
         }
       }
     }
@@ -1154,10 +1503,10 @@ const generateStructItemData = (textArray: string[],
         textArray.push('');
       }
 
-      if (typeof tjsonData.namespace !== 'string') {
-        for (let idx = 0; idx < tjsonData.namespace.length; ++idx) {
-          if (tjsonData.namespace[idx] != 'json') {
-            textArray.push(`namespace ${tjsonData.namespace[idx]} {`);
+      if (typeof inputJsonData.namespace !== 'string') {
+        for (let idx = 0; idx < inputJsonData.namespace.length; ++idx) {
+          if (inputJsonData.namespace[idx] != 'json') {
+            textArray.push(`namespace ${inputJsonData.namespace[idx]} {`);
           }
         }
       } else {
@@ -1176,90 +1525,32 @@ const generateStructItemData = (textArray: string[],
       for (const mapKey in mapList) {
         if (!{}.hasOwnProperty.call(mapList, mapKey)) continue;
         const mapData = mapList[mapKey];
-        if (!mapData.isOutputStruct ||
-            processedList.includes(mapData.structType)) {
+        if (!mapData.isOutputStruct) {
           console.log(`skip output struct: ${mapData.structType}`);
           continue;
         }
-        const structHeader = generateStructHeaderArea(mapData);
-        textArray.push(structHeader);
-
-        let nameLengthMax = 0;
-        for (const childKey in mapData.childList) {
-          if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-          const childData = mapData.childList[childKey];
-          let nameLength = childData.type.length +
-            childData.variableName.length;
-          if (childData.isObject || childData.isArray) {
-            nameLength = childData.structType.length +
-              childData.variableName.length;
-          } else if (childData.type == 'std::string') {
-            if (typeof childData.initValue === 'string') {
-              nameLength += childData.initValue.length + 5;
-            }
-          } else {
-            const stringText = `${childData.initValue}`;
-            nameLength += stringText.length + 3;
-          }
-          if (nameLengthMax < nameLength) nameLengthMax = nameLength;
+        if (processedList.has(mapData.structType)) {
+          continue;
         }
+        generateStructItemDataDirect(textArray,
+            mapData, hasErrorOutput, namespace, libNamespace,
+            responseTypeSet);
 
-        for (const childKey in mapData.childList) {
-          if (!{}.hasOwnProperty.call(mapData.childList, childKey)) continue;
-          const childData = mapData.childList[childKey];
-          let nameLength = childData.type.length +
-            childData.variableName.length;
-          if (childData.isObject || childData.isArray) {
-            nameLength = childData.structType.length +
-              childData.variableName.length;
-          } else if (childData.type == 'std::string') {
-            if (typeof childData.initValue === 'string') {
-              nameLength += childData.initValue.length + 5;
-            }
-          } else {
-            const stringText = `${childData.initValue}`;
-            nameLength += stringText.length + 3;
-          }
-          let space = '';
-          if (nameLengthMax > nameLength) {
-            nameLength = nameLengthMax - nameLength;
-            for (let i = 0; i < nameLength; ++i) space += ' ';
-          }
-          const comment = `${space}//!< ${childData.variableName}  // NOLINT`;
-
-          if (childData.isObject || childData.isArray) {
-            textArray.push(`  ${childData.structType} ${childData.variableName};  ${comment}`);
-          } else if (childData.type == 'std::string') {
-            // string
-            textArray.push(`  ${childData.type} ${childData.variableName} = "${childData.initValue}";  ${comment}`);
-          } else {
-            textArray.push(`  ${childData.type} ${childData.variableName} = ${childData.initValue};  ${comment}`);
-          }
-        }
-
-        if (hasErrorOutput && (mapData.structType.indexOf('ResponseStruct') >= 0)) {
-          if (namespace == libNamespace) {
-            textArray.push(`  InnerErrorResponseStruct error;       //!< error information`);
-          } else {
-            textArray.push(`  ${libNamespace}::InnerErrorResponseStruct error;   //!< error information`);
-          }
-        }
-        textArray.push(`  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.`);
-        textArray.push('};');
-
-        processedList.push(mapData.structType);
+        processedList.add(mapData.structType);
       }
     }
   }
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate struct header function
 // ----------------------------------------------------------------------------
-const generateStructHeader = (dirname: string, filename: string,
-    jsonList: any[], libNamespace: string) => {
+function generateStructHeader(copyright: string, dirname: string,
+    filename: string, jsonList: any[], libNamespace: string,
+    referenceList: ReferenceClassInfo[], jsonClassMap: ClassMapType,
+    responseTypeSet: Set<string>) {
   const result = [];
-  const processedStructTypes: never[] = [];
+  const processedStructTypes: Set<string> = new Set();
 
   let path = `${dirname}/${filename}_`;
   if (path.startsWith(__dirname)) {
@@ -1292,7 +1583,7 @@ const generateStructHeader = (dirname: string, filename: string,
   const defName = path.toUpperCase();
 
   // header
-  const headerFileHeader = `// Copyright 2019 CryptoGarage
+  const headerFileHeader = `// ${copyright}
 /**
  * @file ${filename}
  *
@@ -1320,30 +1611,40 @@ const generateStructHeader = (dirname: string, filename: string,
   let lastNamespace = '';
   for (const jsonDataIndex in jsonList) {
     if (!{}.hasOwnProperty.call(jsonList, jsonDataIndex)) continue;
-    if (('priority' in jsonList[jsonDataIndex].tjsonData) &&
-      (jsonList[jsonDataIndex].tjsonData['priority'] == 'high')) {
+    if (('priority' in jsonList[jsonDataIndex].inputJsonData) &&
+      (jsonList[jsonDataIndex].inputJsonData['priority'] == 'high')) {
       const req = jsonList[jsonDataIndex].requestData;
       const res = jsonList[jsonDataIndex].responseData;
       generateStructItemData(result, req, res,
-          jsonList[jsonDataIndex].tjsonData, lastNamespace, false,
-          processedStructTypes, libNamespace);
-      lastNamespace = jsonList[jsonDataIndex].tjsonData.namespace;
+          jsonList[jsonDataIndex].inputJsonData, lastNamespace, false,
+          processedStructTypes, libNamespace, responseTypeSet);
+      lastNamespace = jsonList[jsonDataIndex].inputJsonData.namespace;
+    }
+  }
+
+  // multiple reference target list
+  for (const refData of referenceList) {
+    if (refData && jsonClassMap[refData.name]) {
+      generateStructItemDataDirect(result,
+          jsonClassMap[refData.name].data, true,
+          lastNamespace, libNamespace, responseTypeSet);
+      processedStructTypes.add(jsonClassMap[refData.name].data.structType);
     }
   }
 
   for (const jsonDataIndex in jsonList) {
     if (!{}.hasOwnProperty.call(jsonList, jsonDataIndex)) continue;
-    if (('priority' in jsonList[jsonDataIndex].tjsonData) &&
-      (jsonList[jsonDataIndex].tjsonData['priority'] == 'high')) {
+    if (('priority' in jsonList[jsonDataIndex].inputJsonData) &&
+      (jsonList[jsonDataIndex].inputJsonData['priority'] == 'high')) {
       // do nothing
     } else {
       const req = jsonList[jsonDataIndex].requestData;
       const res = jsonList[jsonDataIndex].responseData;
       generateStructItemData(result, req, res,
-          jsonList[jsonDataIndex].tjsonData, lastNamespace, true,
-          processedStructTypes, libNamespace);
-      // const tjsonData = jsonList[jsonDataIndex].tjsonData;
-      lastNamespace = jsonList[jsonDataIndex].tjsonData.namespace;
+          jsonList[jsonDataIndex].inputJsonData, lastNamespace, true,
+          processedStructTypes, libNamespace, responseTypeSet);
+      // const inputJsonData = jsonList[jsonDataIndex].inputJsonData;
+      lastNamespace = jsonList[jsonDataIndex].inputJsonData.namespace;
     }
   }
   result.push('');
@@ -1365,13 +1666,13 @@ const generateStructHeader = (dirname: string, filename: string,
 // ----------------------------------------------------------------------------
 // generate typescript data file function
 // ----------------------------------------------------------------------------
-const generateTsData = (dirname: string, filename: string,
+function generateTsData(dirname: string, filename: string,
     jsonClassMap: ClassMapType, jsonTypeList: ClassParameterType[],
-    functionList: string | any[], loadCfdjsIndexFile: fs.PathLike,
+    functionList: TsAppendFunctionData[], loadCfdjsIndexFile: fs.PathLike,
     promiseMode: boolean, tsClassName: string,
     insertFunctions: TsAppendFunctionData[],
-    insertErrorFunctions: TsAppendFunctionData[],
-    functionCommentMap: ClassCommentMapType) => {
+    errorClassName: string,
+    insertErrorFunctions: TsAppendFunctionData[]) {
   let outPath = `${dirname}/${filename}`;
   if (outPath.startsWith(__dirname)) {
     outPath = outPath.substr(__dirname.length);
@@ -1386,6 +1687,8 @@ const generateTsData = (dirname: string, filename: string,
   for (const typeData of jsonTypeList) {
     classCommentMap[typeData.name] = typeData.comment;
   }
+  jsonTypeList.sort((a, b) => a.name.localeCompare(b.name));
+  functionList.sort((a, b) => a.name.localeCompare(b.name));
 
   // initialize
   const project = new Project({
@@ -1418,24 +1721,30 @@ const generateTsData = (dirname: string, filename: string,
   for (let i = 0; i < jsonTypeList.length; ++i) {
     const clsName = jsonTypeList[i].name;
     const comment = jsonTypeList[i].comment || classCommentMap[clsName];
-    const props: ParameterType[] = jsonClassMap[clsName];
+    const props: DetailParameterType[] = jsonClassMap[clsName].childList;
+    const properties = [];
     const tags = [];
+    const docs = [];
     for (const prop of props) {
-      if (prop && prop.comment) {
-        const type = prop.type;
-        const name = prop.name;
-        tags.push({tagName: 'property', text: `\{${type}\} ${name} - ${prop.comment}`});
+      if (prop && prop.param.comment) {
+        const type = prop.param.type;
+        const name = prop.param.name;
+        tags.push({tagName: 'property', text: `\{${type}\} ${name} - ${prop.param.comment}`});
       }
+      properties.push(prop.param);
     }
     debugLog(`${clsName} = `, props);
+    if ((tags.length > 0) || comment) {
+      docs.push({
+        description: comment,
+        tags,
+      });
+    }
     file.addInterface({
       name: clsName,
       isExported: true,
-      properties: props,
-      docs: [{
-        description: comment,
-        tags,
-      }],
+      properties,
+      docs,
     });
   }
 
@@ -1452,38 +1761,40 @@ const generateTsData = (dirname: string, filename: string,
 
   for (let i = 0; i < functionList.length; ++i) {
     // manipulate
-    const funcName = functionList[i];
-    const funcComment = functionCommentMap[funcName] || '';
-    const reqName = `${funcName}Request`;
-    const resName = `${funcName}Response`;
+    const funcName = functionList[i].name;
+    const funcComment = functionList[i].comment || '';
+    const params = functionList[i].parameters;
+    const reqType = (params.length > 0) ? params[0].type : '';
+    const reqName = (params.length > 0) ? params[0].name : '';
+    const resName = functionList[i].returnType;
     const resDataName = (promiseMode) ? `Promise<${resName}>` : resName;
-    const params = (reqName in jsonClassMap) ? [{name: 'jsonObject', type: reqName}] : [];
     const retType = (resName in jsonClassMap) ? resDataName : undefined;
-    const inputDoc = {tagName: 'param', text: `\{${reqName}\} - request data.`};
+    const inputDoc = {tagName: 'param', text: `\{${reqType}\} ${reqName} - request data.`};
     const returnDoc = {tagName: 'return', text: `\{${retType}\} - response data.`};
     const tags = [];
-    if (reqName in jsonClassMap) tags.push(inputDoc);
+    const docs = [];
+    if (params.length > 0) tags.push(inputDoc);
     if (resName in jsonClassMap) tags.push(returnDoc);
+    if ((tags.length > 0) || funcComment) {
+      docs.push({
+        description: funcComment,
+        tags,
+      });
+    }
     if (classObj === undefined) {
       file.addFunction({
         name: funcName,
         isExported: true,
         parameters: params,
         returnType: retType,
-        docs: [{
-          description: funcComment,
-          tags,
-        }],
+        docs,
       });
     } else {
       classObj.addMethod({
         name: funcName,
         parameters: params,
         returnType: retType,
-        docs: [{
-          description: funcComment,
-          tags,
-        }],
+        docs,
       });
     }
   }
@@ -1494,6 +1805,7 @@ const generateTsData = (dirname: string, filename: string,
     const retType = insertFunctions[i].returnType;
     const comment = insertFunctions[i].comment;
     const tags = [];
+    const docs = [];
     for (const prop of params) {
       if (prop && prop.comment) {
         const type = prop.type;
@@ -1501,61 +1813,76 @@ const generateTsData = (dirname: string, filename: string,
         tags.push({tagName: 'param', text: `\{${type}\} ${name} - ${prop.comment}`});
       }
     }
+    if (retType && retType != 'void') {
+      tags.push({tagName: 'return', text: `\{${retType}\} - ${retType} data.`});
+    }
+    if ((tags.length > 0) || comment) {
+      docs.push({
+        description: comment,
+        tags,
+      });
+    }
     file.addFunction({
       name: funcName,
       isExported: true,
       parameters: params,
       returnType: retType,
-      docs: [{
-        description: comment,
-        tags,
-      }],
+      docs,
     });
   }
 
-  const errorClassObj = file.addClass({
-    name: 'CfdError',
-    isExported: true,
-    docs: [{
-      description: 'error class.',
-    }],
-  });
-  errorClassObj.setExtends('Error');
-  for (let i = 0; i < insertErrorFunctions.length; ++i) {
-    const funcName = insertErrorFunctions[i].name;
-    const params = insertErrorFunctions[i].parameters;
-    const retType = insertErrorFunctions[i].returnType;
-    const comment = insertErrorFunctions[i].comment;
-    const tags = [];
-    for (const prop of params) {
-      if (prop) {
-        const type = prop.type;
-        const name = prop.name;
-        tags.push({tagName: 'param', text: `\{${type}\} ${name} - ${prop.comment}`});
+  if (errorClassName) {
+    const errorClassObj = file.addClass({
+      name: errorClassName,
+      isExported: true,
+      docs: [{
+        description: 'error class.',
+      }],
+    });
+    errorClassObj.setExtends('Error');
+    for (let i = 0; i < insertErrorFunctions.length; ++i) {
+      const funcName = insertErrorFunctions[i].name;
+      const params = insertErrorFunctions[i].parameters;
+      const retType = insertErrorFunctions[i].returnType;
+      const comment = insertErrorFunctions[i].comment;
+      const tags = [];
+      const docs = [];
+      for (const prop of params) {
+        if (prop) {
+          const type = prop.type;
+          const name = prop.name;
+          tags.push({tagName: 'param', text: `\{${type}\} ${name} - ${prop.comment}`});
+        }
       }
-    }
-    if (funcName == 'constructor') {
-      errorClassObj.addConstructor({
-        parameters: params,
-        returnType: retType,
-        docs: [{
-          description: 'constructor.',
-          tags,
-        }],
-      });
-    } else {
-      if (retType) {
-        tags.push({tagName: 'return', text: `\{${retType}\} - ${retType} data.`});
+      if (funcName == 'constructor') {
+        if ((tags.length > 0) || comment) {
+          docs.push({
+            description: 'constructor.',
+            tags,
+          });
+        }
+        errorClassObj.addConstructor({
+          parameters: params,
+          returnType: retType,
+          docs,
+        });
+      } else {
+        if (retType) {
+          tags.push({tagName: 'return', text: `\{${retType}\} - ${retType} data.`});
+        }
+        if ((tags.length > 0) || comment) {
+          docs.push({
+            description: comment,
+            tags,
+          });
+        }
+        errorClassObj.addMethod({
+          name: funcName,
+          parameters: params,
+          returnType: retType,
+          docs,
+        });
       }
-      errorClassObj.addMethod({
-        name: funcName,
-        parameters: params,
-        returnType: retType,
-        docs: [{
-          description: comment,
-          tags,
-        }],
-      });
     }
   }
 
@@ -1567,31 +1894,40 @@ const generateTsData = (dirname: string, filename: string,
 // ----------------------------------------------------------------------------
 // search file
 // ----------------------------------------------------------------------------
-function convertFile() {
+async function convertFile() {
+  // const today = new Date();
+  // const year = today.getFullYear();
+  const year = 2020;
+  const copyright = `Copyright ${year} CryptoGarage`;
+
   // const fileList = [];
   let cfdBaseDir: string;
-  const libname = 'cfd-js';
+  requireOptionFunc = function(requireInfo: string) {
+    return requireInfo === 'require';
+  };
+  const libraryName = 'cfd-js';
   const libPrefix = 'cfdjs';
   const libNamespace = 'cfd::js::api';
-  const cfdPath = `${__dirname}/../external/${libname}/`;
-  const cfdPath2 = `${__dirname}/../../${libname}/`;
+  const errorClassName = 'CfdError';
+  const cfdPath = `${__dirname}/../external/${libraryName}/`;
+  const cfdPath2 = `${__dirname}/../../${libraryName}/`;
   let folderPath = `src/input_json_format/`;
-  const outJsonSourceFolderPath = `${__dirname}/../../${libname}/src/autogen/`;
-  const outJsonHeaderFolderPath = `${__dirname}/../../${libname}/src/autogen/`;
+  const outJsonSourceFolderPath = `${__dirname}/../../${libraryName}/src/autogen/`;
+  const outJsonHeaderFolderPath = `${__dirname}/../../${libraryName}/src/autogen/`;
   let outStructDirPath = `include/${libPrefix}/`;
   const loadCfdjsIndexFile = '';
   let outTsFolderPath = ``;
   const outStructFileName = `${libPrefix}_struct.h`;
   const outTsFileName = `index.d.ts`;
+  const promiseMode = false;
+  const tsClassName = '';
   const classHeaderList: string[] = [];
   const classSourceList: string[] = [];
   const jsonDataList: JsonData[] = [];
-  let jsonClassMap: ClassMapType = {};
-  let jsonTypeList: ClassParameterType[] = [];
-  const functionList: string[] = [];
-  const functionCommentMap: ClassCommentMapType = {};
-  const promiseMode = false;
-  const tsClassName = '';
+  const jsonClassMap: ClassMapType = {};
+  const jsonTypeList: ClassParameterType[] = [];
+  const functionList: TsAppendFunctionData[] = [];
+  const responseTypeSet: Set<string> = new Set();
   const insertFunctions: TsAppendFunctionData[] = [];
   const insertErrorFunctions: TsAppendFunctionData[] = [{
     name: 'constructor',
@@ -1640,109 +1976,172 @@ function convertFile() {
   }
 
   let jsonObjectCommon: JsonObjectCommonType | undefined = undefined;
-  fs.readdir(folderPath, (err, files) => {
-    if (err) throw err;
-    files.filter(function(file) {
-      // filter
-      return fs.statSync(`${folderPath}${file}`).isFile() && /.*\.json$/.test(file);
-    }).forEach(function(file) {
-      console.log(`file = ${file}`);
-      const inFile = `${folderPath}${file}`;
-      // const outFile = file.replace(/\.json$/i, '_json');
-      // const outHeaderFile = `${outFile}.h`;
-      // const outSourceFile = `${outFile}.cpp`;
+  const fileList: string[] = [];
+  const fsAsync = fs.promises;
 
-      // read json
-      const jsonObject = JSON.parse(fs.readFileSync(inFile, 'utf8'));
-      const reqData = (jsonObject.request) ? analyzeJson(jsonObject.request, 'root') : null;
-      const resData = (jsonObject.response) ? analyzeJson(jsonObject.response, 'root') : null;
-      let funcName = '';
-      if (reqData != null) {
-        const ret = reqData.collectMapData(jsonClassMap, jsonTypeList, true);
-        jsonClassMap = ret['map'];
-        jsonTypeList = ret['list'];
-        funcName = reqData.getFunctionName();
-      }
-      if (resData != null) {
-        const ret = resData.collectMapData(jsonClassMap, jsonTypeList, false);
-        jsonClassMap = ret['map'];
-        jsonTypeList = ret['list'];
-        if (funcName === '') funcName = resData.getFunctionName();
-      }
-      if (funcName !== '') {
-        functionList.push(funcName);
-        if (jsonObject.comment) {
-          functionCommentMap[funcName] = jsonObject.comment;
+  const searchFunc = async function(dirPath: string) {
+    const tempDirList = await fsAsync.readdir(dirPath);
+    for (const target of tempDirList) {
+      if (target) {
+        const curPath = path.join(dirPath, target);
+        const statInfo = fs.statSync(curPath);
+        if (statInfo.isDirectory()) {
+          if ((target != '.') && (target != '..')) {
+            await searchFunc(curPath);
+          }
+        } else if (statInfo.isFile() && /.*\.json$/.test(target)) {
+          fileList.push(curPath);
         }
       }
-      debugLog(`reqData = ${reqData}`);
-      debugLog(`resData = ${resData}`);
-      jsonDataList.push(new JsonData(jsonObject, reqData, resData));
-
-      const headerStr = generateClassHeader(reqData, resData, jsonObject);
-      classHeaderList.push(headerStr);
-      const srcStr = generateClassSource(reqData, resData);
-      classSourceList.push(srcStr);
-      if (jsonObjectCommon === undefined) {
-        jsonObjectCommon = jsonObject;
-      } else {
-        if (jsonObject.namespace && jsonObject.namespace.length > 0) {
-          jsonObjectCommon['namespace'] = jsonObject.namespace;
-        }
-        if (jsonObject.commonHeader && jsonObject.commonHeader.length > 0) {
-          jsonObjectCommon['commonHeader'] = jsonObject.commonHeader;
-        }
-      }
-    });
-
-    {
-      let srnamespaceName = '';
-      const namespace = (jsonObjectCommon) ? jsonObjectCommon.namespace : '';
-      if (typeof namespace !== 'string') {
-        for (let idx = 0; idx < namespace.length; ++idx) {
-          if (idx !== 0) srnamespaceName += '_';
-          srnamespaceName += namespace[idx];
-        }
-      } else {
-        srnamespaceName += namespace;
-      }
-
-      if (outStructFileName !== '') {
-        const outHeaderFile = `${srnamespaceName}_autogen.h`;
-        const outSourceFile = `${srnamespaceName}_autogen.cpp`;
-        const headerStr = generateFileHeader(outHeaderFile,
-            outJsonHeaderFolderPath,
-            classHeaderList, jsonObjectCommon, `${libPrefix}/${outStructFileName}`);
-        fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, headerStr);
-        const srcStr = generateFileSource(outSourceFile,
-            outHeaderFile, classSourceList, jsonObjectCommon);
-        fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, srcStr);
-      }
-    };
-
-    if ((jsonDataList.length > 0) && (outStructFileName !== '')) {
-      const headerStr = generateStructHeader(outStructDirPath,
-          outStructFileName, jsonDataList, libNamespace);
-      fs.writeFileSync(path.resolve(`${outStructDirPath}${outStructFileName}`), headerStr);
-      console.log(`output: ${outStructFileName}`);
     }
+  };
+  await searchFunc(folderPath);
 
-    if (jsonTypeList.length > 0) {
+  for (const file of fileList) {
+    if (file) {
       try {
-        fs.unlinkSync(path.resolve(`${cfdBaseDir}${outTsFileName}`));
-      } catch (err) {
-        // do nothing
+        console.log(`file = ${file}`);
+        const inFile = file;
+        // const outFile = file.replace(/\.json$/i, '_json');
+        // const outHeaderFile = `${outFile}.h`;
+        // const outSourceFile = `${outFile}.cpp`;
+
+        // read json
+        const jsonObject = JSON.parse(fs.readFileSync(inFile, 'utf8'));
+        const reqData = (jsonObject.request) ? analyzeJson(jsonObject.request, 'root') : null;
+        const resData = (jsonObject.response) ? analyzeJson(jsonObject.response, 'root') : null;
+        let funcName = (jsonObject.functionName) ? jsonObject.functionName : '';
+        let reqType = '';
+        let resType = '';
+        if (reqData != null) {
+          reqData.collectMapData(jsonClassMap, jsonTypeList, true, reqData);
+          if (funcName == '') funcName = reqData.getFunctionName();
+          reqType = reqData.type;
+        }
+        if (resData != null) {
+          resData.collectMapData(jsonClassMap, jsonTypeList, false, resData);
+          resType = resData.type;
+          responseTypeSet.add(resData.type);
+          if (funcName == '') funcName = resData.getFunctionName();
+        }
+        if (funcName != '') {
+          const comm = jsonObject.comment || '';
+          const param = [];
+          if (reqType) {
+            param.push({
+              name: 'jsonObject',
+              type: reqType,
+              comment: '',
+            });
+          }
+          functionList.push({
+            name: funcName,
+            comment: comm,
+            returnType: resType,
+            parameters: param,
+          });
+        } else if (file.indexOf('error_base.json') == -1) {
+          console.log(`---- empty function name: ${file}`);
+        }
+        debugLog(`reqData = ${reqData}`);
+        debugLog(`resData = ${resData}`);
+        jsonDataList.push(new JsonData(file, jsonObject, reqData, resData));
+
+        if (jsonObjectCommon === undefined) {
+          jsonObjectCommon = jsonObject;
+        } else {
+          if (jsonObject.namespace && jsonObject.namespace.length > 0) {
+            jsonObjectCommon['namespace'] = jsonObject.namespace;
+          }
+          if (jsonObject.commonHeader && jsonObject.commonHeader.length > 0) {
+            jsonObjectCommon['commonHeader'] = jsonObject.commonHeader;
+          }
+        }
+      } catch (e) {
+        console.log('Exception: ' + path.basename(file));
+        throw e;
       }
-      generateTsData(outTsFolderPath, outTsFileName, jsonClassMap,
-          jsonTypeList, functionList, loadCfdjsIndexFile, promiseMode,
-          tsClassName, insertFunctions, insertErrorFunctions,
-          functionCommentMap);
     }
-  });
+  }
+
+  const referenceSet: Set<string> = new Set();
+  const referenceList = generateReferenceClassList(
+      jsonClassMap, functionList, referenceSet);
+  if (jsonDataList.length > 0) {
+    jsonDataList.sort((a, b) => a.filename.localeCompare(b.filename));
+    const classHeaderSet: Set<string> = new Set();
+    const classSourceSet: Set<string> = new Set();
+    const dummyJson = {export: ''};
+    for (const refData of referenceList) {
+      if (jsonClassMap[refData.name]) {
+        const headerStr = generateClassHeaderDirect(
+            jsonClassMap[refData.name].data, dummyJson, undefined);
+        classHeaderList.push(headerStr);
+        const srcStr = generateClassSourceDirect(
+            jsonClassMap[refData.name].data, undefined);
+        classSourceList.push(srcStr);
+        classHeaderSet.add(refData.name);
+        classSourceSet.add(refData.name);
+      }
+    }
+    for (const data of jsonDataList) {
+      const headerStr = generateClassHeader(
+          data.requestData, data.responseData, data.inputJsonData,
+          classHeaderSet);
+      classHeaderList.push(headerStr);
+      const srcStr = generateClassSource(
+          data.requestData, data.responseData, classSourceSet);
+      classSourceList.push(srcStr);
+    }
+  }
+
+  {
+    let namespaceName = '';
+    const namespace = (jsonObjectCommon) ? jsonObjectCommon.namespace || '' : '';
+    if (typeof namespace !== 'string') {
+      for (let idx = 0; idx < namespace.length; ++idx) {
+        if (idx !== 0) namespaceName += '_';
+        namespaceName += namespace[idx];
+      }
+    } else {
+      namespaceName += namespace;
+    }
+
+    if (outStructFileName !== '') {
+      const outHeaderFile = `${namespaceName}_autogen.h`;
+      const outSourceFile = `${namespaceName}_autogen.cpp`;
+      const headerStr = generateFileHeader(copyright, outHeaderFile,
+          outJsonHeaderFolderPath,
+          classHeaderList, jsonObjectCommon, `${libPrefix}/${outStructFileName}`);
+      fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, headerStr);
+      const srcStr = generateFileSource(copyright, outSourceFile,
+          outHeaderFile, classSourceList, jsonObjectCommon);
+      fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, srcStr);
+    }
+  };
+
+  if ((jsonDataList.length > 0) && (outStructFileName !== '')) {
+    const headerStr = generateStructHeader(copyright, outStructDirPath,
+        outStructFileName, jsonDataList, libNamespace,
+        referenceList, jsonClassMap, responseTypeSet);
+    fs.writeFileSync(path.resolve(`${outStructDirPath}${outStructFileName}`), headerStr);
+    console.log(`output: ${outStructFileName}`);
+  }
+
+  if (jsonTypeList.length > 0) {
+    try {
+      fs.unlinkSync(path.resolve(`${cfdBaseDir}${outTsFileName}`));
+    } catch (err) {
+      // do nothing
+    }
+    generateTsData(outTsFolderPath, outTsFileName, jsonClassMap,
+        jsonTypeList, functionList, loadCfdjsIndexFile, promiseMode,
+        tsClassName, insertFunctions, errorClassName, insertErrorFunctions);
+  }
 };
 
 
-const main = function() {
+const main = async function() {
   for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i]) {
       if (process.argv[i] === 'mode=debug') {
@@ -1770,6 +2169,6 @@ const main = function() {
     }
   }
 
-  convertFile();
+  await convertFile();
 };
 main();

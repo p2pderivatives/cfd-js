@@ -87,10 +87,10 @@
     "minimumBits:comment": "minimum bits of rangeproof."
   },
   "response": {
-    ":class": "BlindRawTransactionResponse",
-    ":class:comment": "The data containing blinded transaction.",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
     "hex": "",
     "hex:require": "require",
-    "hex:comment": "blinded transaction hex."
+    "hex:comment": "transaction hex."
   }
 }

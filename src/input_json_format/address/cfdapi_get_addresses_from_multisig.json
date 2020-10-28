@@ -1,0 +1,36 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get addresses from multisig script.",
+  "request": {
+    ":class": "GetAddressesFromMultisigRequest",
+    ":class:comment": "Request for get addresses from multisig script.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "redeemScript": "",
+    "redeemScript:require": "require",
+    "redeemScript:comment": "redeem script on multisig",
+    "network": "mainnet",
+    "network:require": "optional",
+    "network:comment": "network type",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "hashType": "p2wpkh",
+    "hashType:require": "optional",
+    "hashType:comment": "hash type.",
+    "hashType:hint": "p2wpkh, p2pkh, p2sh-p2wpkh"
+  },
+  "response": {
+    ":class": "GetAddressesFromMultisigResponse",
+    ":class:comment": "Response of get addresses from multisig script.",
+    "addresses": [""],
+    "addresses:require": "require",
+    "addresses:comment": "address list",
+    "pubkeys": [""],
+    "pubkeys:require": "require",
+    "pubkeys:comment": "pubkey list",
+    "requireNum": 0,
+    "requireNum:require": "require",
+    "requireNum:comment": "multisig script's require signature num.",
+    "requireNum:type": "uint32_t"
+  }
+}

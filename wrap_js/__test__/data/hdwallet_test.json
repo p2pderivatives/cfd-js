@@ -1,0 +1,1309 @@
+[
+    {
+        "name": "HDWallet.GetMnemonicWordList",
+        "cases": [
+            {
+                "case": "lang:en",
+                "request": {
+                    "language": "en"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_en.json"
+                }
+            },
+            {
+                "case": "lang:es",
+                "request": {
+                    "language": "es"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_es.json"
+                }
+            },
+            {
+                "case": "lang:fr",
+                "request": {
+                    "language": "fr"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_fr.json"
+                }
+            },
+            {
+                "case": "lang:it",
+                "request": {
+                    "language": "it"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_it.json"
+                }
+            },
+            {
+                "case": "lang:jp",
+                "request": {
+                    "language": "jp"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_jp.json"
+                }
+            },
+            {
+                "case": "lang:zhs",
+                "request": {
+                    "language": "zhs"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_zhs.json"
+                }
+            },
+            {
+                "case": "lang:zht",
+                "request": {
+                    "language": "zht"
+                },
+                "expect": {
+                    "file": "bip39/wordlist_zht.json"
+                }
+            },
+            {
+                "case": "lang:zzz",
+                "request": {
+                    "language": "zzz"
+                },
+                "error": {
+                    "python": "Error: Invalid lang.",
+                    "json": "Failed to ConvertMnemonicToSeed. Not support language passed."
+                }
+            },
+            {
+                "case": "lang:empty",
+                "request": {
+                    "language": ""
+                },
+                "error": {
+                    "python": "Error: Invalid lang.",
+                    "json": "Failed to ConvertMnemonicToSeed. Not support language passed."
+                }
+            }
+        ]
+    },
+    {
+        "name": "HDWallet.GetEntropyFromMnemonic",
+        "cases": [
+            {
+                "case": "lang:en",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                }
+            },
+            {
+                "case": "lang:jp",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                }
+            }
+        ]
+    },
+    {
+        "name": "HDWallet.GetMnemonicFromEntropy",
+        "cases": [
+            {
+                "case": "lang:en",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                }
+            },
+            {
+                "case": "lang:jp",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                }
+            },
+            {
+                "case": "empty entropy",
+                "request": {
+                    "entropy": "",
+                    "language": "en"
+                },
+                "error": {
+                    "capi": "Failed to parameter. entropy is null or empty.",
+                    "json": "Failed to ConvertEntropyToMnemonic. Convert entropy to mnemonic error."
+                }
+            },
+            {
+                "case": "invalid entropy length",
+                "request": {
+                    "entropy": "00",
+                    "language": "en"
+                },
+                "error": {
+                    "cfd": "Failed to ConvertEntropyToMnemonic. Convert entropy to mnemonic error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "HDWallet.GetMnemonicToSeed",
+        "cases": [
+            {
+                "case": "lang:en",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                }
+            },
+            {
+                "case": "lang:jp",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                }
+            },
+            {
+                "case": "strict check error",
+                "request": {
+                    "mnemonic": [
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "aa",
+                        "abort"
+                    ],
+                    "passphrase": "TREZOR",
+                    "language": "en",
+                    "strict_check": true
+                },
+                "error": {
+                    "cfd": "Failed to ConvertMnemonicToSeed. Mnemonic strict check error."
+                }
+            },
+            {
+                "case": "invalid language",
+                "request": {
+                    "mnemonic": [
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "about"
+                    ],
+                    "passphrase": "TREZOR",
+                    "language": "zz"
+                },
+                "error": {
+                    "python": "Error: Invalid lang.",
+                    "json": "Failed to ConvertMnemonicToSeed. Not support language passed."
+                }
+            },
+            {
+                "case": "mnemonic and language unmatch error",
+                "request": {
+                    "mnemonic": [
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "abandon",
+                        "about"
+                    ],
+                    "passphrase": "TREZOR",
+                    "language": "zhs",
+                    "strict_check": false
+                },
+                "error": {
+                    "cfd": "Failed to ConvertMnemonicToSeed. Convert mnemonic to entropy error.",
+                    "json": "Failed to ConvertMnemonicToSeed. Not support language passed."
+                }
+            }
+        ]
+    },
+    {
+        "name": "HDWallet.GetExtPrivkeyFromSeed",
+        "cases": [
+            {
+                "case": "lang:en",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "en"
+                }
+            },
+            {
+                "case": "lang:jp",
+                "request": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                },
+                "expect": {
+                    "file": "bip39/test_vector.json",
+                    "language": "jp"
+                }
+            },
+            {
+                "case": "empty seed bytes",
+                "request": {
+                    "seed": "",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey"
+                },
+                "error": {
+                    "capi": "Failed to parameter. seed is null or empty.",
+                    "json": "ExtPrivkey Seed length error."
+                }
+            },
+            {
+                "case": "invalid seed length",
+                "request": {
+                    "seed": "00",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey"
+                },
+                "error": {
+                    "capi": "ExtPrivkey Seed length error.",
+                    "json": "ExtPrivkey Seed length error."
+                }
+            },
+            {
+                "case": "invalid network type",
+                "request": {
+                    "seed": "000102030405060708090a0b0c0d0e0f",
+                    "network": "elementsnet",
+                    "extkeyType": "extPrivkey"
+                },
+                "error": {
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                }
+            },
+            {
+                "case": "invalid extkeyType",
+                "request": {
+                    "seed": "000102030405060708090a0b0c0d0e0f",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey"
+                },
+                "expect": {
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extkey.GetExtPubkey",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "file": "bip32/test_vector.json"
+                },
+                "expect": {
+                    "file": "bip32/test_vector.json"
+                }
+            },
+            {
+                "case": "empty key data",
+                "request": {
+                    "extkey": "",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "ExtPrivkey base58 decode error."
+                }
+            },
+            {
+                "case": "invalid key data",
+                "request": {
+                    "extkey": "xprivdummydata",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "cfd": "ExtPrivkey base58 decode error.",
+                    "python": "ExtPubkey base58 decode error."
+                },
+                "memo": "Different APIs are called, which is why the error messages are different."
+            },
+            {
+                "case": "not match network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "testnet"
+                },
+                "error": {
+                    "cfd": "extkey networkType unmatch."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "not match network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "elementsnet"
+                },
+                "error": {
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extkey.DerivePrivkeyFromSeed",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "file": "bip32/test_vector.json"
+                },
+                "expect": {
+                    "file": "bip32/test_vector.json"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.DerivePubkeyFromSeed",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "file": "bip32/test_vector.json"
+                },
+                "expect": {
+                    "file": "bip32/test_vector.json"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.CreateExtkeyFromParent",
+        "cases": [
+            {
+                "case": "number: lower limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R"
+                }
+            },
+            {
+                "case": "number: upper limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 4294967295,
+                    "hardened": false
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg"
+                }
+            },
+            {
+                "case": "empty key data",
+                "request": {
+                    "extkey": "",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "Illegal extkey. base58 decode error."
+                }
+            },
+            {
+                "case": "invalid key data",
+                "request": {
+                    "extkey": "xprivdummydata",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "error": {
+                    "python": "ExtPubkey base58 decode error.",
+                    "cfd": "ExtPubkey base58 decode error.",
+                    "json": "Illegal extkey. base58 decode error."
+                }
+            },
+            {
+                "case": "not match network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "testnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "error": {
+                    "cfd": "extkey networkType unmatch."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "elementsnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "error": {
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "cannot derive privkey from pubkey",
+                "request": {
+                    "extkey": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "childNumber": 0,
+                    "hardened": true
+                },
+                "error": {
+                    "cfd": "Illegal child_number. Hardened is privkey only."
+                }
+            },
+            {
+                "case": "cannot derive hardend key from pubkey",
+                "request": {
+                    "extkey": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "childNumber": 0,
+                    "hardened": true
+                },
+                "error": {
+                    "cfd": "Illegal child_number. Hardened is privkey only."
+                }
+            },
+            {
+                "case": "invalid childNumber over lower limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": -1,
+                    "hardened": false
+                },
+                "error": {
+                    "python": "Error: Invalid number range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            },
+            {
+                "case": "invalid childNumber over upper limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumber": 4294967296,
+                    "hardened": false
+                },
+                "error": {
+                    "python": "Error: Invalid number range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.CreateExtkeyFromParentPath",
+        "cases": [
+            {
+                "case": "lower limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R"
+                }
+            },
+            {
+                "case": "upper limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        4294967295
+                    ]
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg"
+                }
+            },
+            {
+                "case": "lower limit string",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "path": "0"
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhbkedL37eZEnyrNsQPFZYRAvjy5rt6M1nbEkLSo378x1CQQLo2xxBvREwiK6kqf7GRNvsNEchwibzXaV6i5GcsgyjBeRguXhKsi4R"
+                }
+            },
+            {
+                "case": "upper limit string",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "path": "4294967295"
+                },
+                "expect": {
+                    "extkey": "xprv9uHRZZhtRyhGLP92ctqeXTtBmRkH9KRCfDewcgmunsc1NbRuYpghum5VhzkQBtRXtm4JGXD6SaZHMXBduaHXWFpCVU5UkEKouXdP6zTzxrg"
+                }
+            },
+            {
+                "case": "hardend string",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "path": "44h/0h/0"
+                },
+                "expect": {
+                    "extkey": "xprv9yDtBMDPdgrF3NAXShMSiP3GJHhXbmTLHT5G2m2DPpxNLiby4CVATryRo1jWa2jkAd37h4HuH4DNhP8ZViCWVAEsGXJEoZ6YomvjpYuCayC"
+                }
+            },
+            {
+                "case": "upper limit string for ExtPubkey",
+                "request": {
+                    "extkey": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "path": "0/1/2"
+                },
+                "expect": {
+                    "extkey": "xpub6BqyndF6rhZqmgktFCBcapkwubGxPqoAZtQaYewJHXVKZcLdnqBVC8N6f6FSHWUghjuTLeubWyQWfJdk2G3tGgvgj3qngo4vLTnnSjAZckv"
+                }
+            },
+            {
+                "case": "empty key data",
+                "request": {
+                    "extkey": "",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "Illegal extkey. base58 decode error."
+                }
+            },
+            {
+                "case": "invalid key data",
+                "request": {
+                    "extkey": "xprivdummydata",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "error": {
+                    "python": "ExtPubkey base58 decode error.",
+                    "cfd": "Illegal extkey. base58 decode error."
+                }
+            },
+            {
+                "case": "not match network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "testnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "error": {
+                    "json": "extkey networkType unmatch."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "invalid network type",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "elementsnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "error": {
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "cannot derive privkey from pubkey",
+                "request": {
+                    "extkey": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        0
+                    ]
+                },
+                "error": {
+                    "python": "Error: Invalid ext privkey.",
+                    "cfd": "Illegal output_key_type. Cannot create privkey from pubkey."
+                }
+            },
+            {
+                "case": "cannot derive hardened key from pubkey",
+                "request": {
+                    "extkey": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "childNumberArray": [
+                        2147483648
+                    ]
+                },
+                "error": {
+                    "cfd": "Illegal child_number. Hardened is privkey only."
+                }
+            },
+            {
+                "case": "invalid childNumber over lower limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        -1
+                    ]
+                },
+                "error": {
+                    "python": "Error: Invalid number_list item range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            },
+            {
+                "case": "invalid childNumber over upper limit",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": [
+                        4294967296
+                    ]
+                },
+                "error": {
+                    "python": "Error: Invalid number_list item range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            },
+            {
+                "case": "empty childNumberArray",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "childNumberArray": []
+                },
+                "error": {
+                    "cfd": "child_number_list empty."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extkey.GetExtkeyInfo",
+        "cases": [
+            {
+                "case": "GetExtkeyInfo pubkey mainnet",
+                "request": {
+                    "extkey": "xpub6EXtjFtcPwmae296sZGckBgbfCHnodfjWujbGK7hhzRybmWJhmgeusFbiiZyG1iSeiBcQ7diPeUC9vtP9wLS44bWpqH4kuQQD5N4gA3LaFE"
+                },
+                "expect": {
+                    "network": "mainnet",
+                    "version": "0488b21e",
+                    "depth": 4,
+                    "fingerprint": "8806118d",
+                    "childNumber": 2,
+                    "chainCode": "a3d58c40ac9c588529edb6cf9576241a6c2c919843bd97c3c26b35538d91a292"
+                }
+            },
+            {
+                "case": "GetExtkeyInfo pubkey testnet",
+                "request": {
+                    "extkey": "tpubDDudHyBca1UuRQF1hCYpqehyvUvWqB1xn1B7empRhh8EscXWArp5FxHAEAt1aDtTSZDXE9S9F3Jr9pkmL5KrwgKC8SkYashWB7TLw7yaT76"
+                },
+                "expect": {
+                    "network": "testnet",
+                    "version": "043587cf",
+                    "depth": 4,
+                    "fingerprint": "00378ea0",
+                    "childNumber": 1,
+                    "chainCode": "928804713b7d865e18f8d9d8ee345145a0bff865b03e5ac75c893edb6b0a7d4f"
+                }
+            },
+            {
+                "case": "GetExtkeyInfo privkey mainnet",
+                "request": {
+                    "extkey": "xprv9zYeNDq32My9w7yh8z2jGbRt3KzNSKo3s9fDVqMfoSqNFXXeZ6ejZiHr8tyyZsnRjxQMG96e7spC7s8PHd1AiMRPK8n2VfjC3HQ1k34DzPv"
+                },
+                "expect": {
+                    "network": "mainnet",
+                    "version": "0488ade4",
+                    "depth": 4,
+                    "fingerprint": "00378ea0",
+                    "childNumber": 1,
+                    "chainCode": "928804713b7d865e18f8d9d8ee345145a0bff865b03e5ac75c893edb6b0a7d4f"
+                }
+            },
+            {
+                "case": "GetExtkeyInfo privkey testnet",
+                "request": {
+                    "extkey": "tprv8hDb9Z9NRdoEZo2c1nj6BnSbtSFpDXq2uL8jdJRtbEppED39Xjjf4exUaGae8cHbeUUgefshUxBX17dZXDyUvfDQ5wMwyvMg6nUgq1Dru49"
+                },
+                "expect": {
+                    "network": "testnet",
+                    "version": "04358394",
+                    "depth": 4,
+                    "fingerprint": "00378ea0",
+                    "childNumber": 2,
+                    "chainCode": "4d3e59df124f789eabee7bbb7348b8dc64ff64093bd304214b1a8b0e75af8faf"
+                }
+            },
+            {
+                "case": "GetExtkeyInfo empty extkey.",
+                "request": {
+                    "extkey": ""
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "ExtPubkey base58 decode error."
+                }
+            },
+            {
+                "case": "GetExtkeyInfo invalid extkey.",
+                "request": {
+                    "extkey": "Ltpv78nmdb9RW2JVn6dGat5MR1edEbTEXKUPH8gmTKk6o6RTGLJXRjRHvYzW6fWzSbRcf4ydLekAGxWr7NFTgjz9MTnjGhjCocnDqg1uoSyMkKV"
+                },
+                "error": {
+                    "cfd": "ExtPubkey unserialize error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.CreateExtkey",
+        "cases": [
+            {
+                "case": "mainnet pubkey hardened",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "expect": {
+                    "extkey": "xpub6K5yLn79392k4jGgvQKLiSU8gXkbQegM5PHQbRn78QngQHMEaYfYyaF1T2DeUUjyAaYJeZ2GN8QULp8SMi3reqyjzVJiQNyGtW7QXrw3MJq"
+                }
+            },
+            {
+                "case": "mainnet pubkey",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": false
+                },
+                "expect": {
+                    "extkey": "xpub6K5yLn6zhUVmtSyv1xBT1FMma6JKDZGnCizXfwtRjABG6NgN9BSRE9yEZi7mTwuX7v5MBrj6WqWYFC1Z7Jo3CE4mdnt8g9VwysFzeftGZzC"
+                }
+            },
+            {
+                "case": "mainnet privkey",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPrivkey",
+                    "parentFingerprint": "2da711a5",
+                    "key": "73a2361673d25f998d1e9d94aabdeba8ac1ddd4628bc4f55341397d263bd560c",
+                    "depth": 4,
+                    "chainCode": "28009126a24557d32ff2c5da21850dd06529f34faed53b4a3552b5ed4bda35d5",
+                    "childNumber": 0,
+                    "hardened": false
+                },
+                "expect": {
+                    "extkey": "xprv9zt1onyw8BdEf7SQ6wUVH3bQQdGD9iy9QzXveQQRhX7i5iUN7jZgLbqFEe491LfjozztYa6bJAGZ65GmDCNcbjMdjZcgmdisPJwVjcfcDhV"
+                }
+            },
+            {
+                "case": "testnet pubkey",
+                "request": {
+                    "network": "testnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "3650cca8",
+                    "key": "02bfe3dc801e070c84719a143ba3895f2599d0a446b3d247fe1bc6e5602c96cb31",
+                    "depth": 3,
+                    "chainCode": "bf95d571bedf144ac599aae6b4c895710d39764c5b8b5e40bef045860388f7d9",
+                    "childNumber": 2147483648,
+                    "hardened": false
+                },
+                "expect": {
+                    "extkey": "tpubDCRZ5TD42GJHftpcoNsKq1ThY1bcbyvCAqpXriTooZS2udxqwAYMb4JmiAshV7q5WzfhKQz11xVhfC9G8U9SMyvuV97xU73x5vQ6hGTpHEr"
+                }
+            },
+            {
+                "case": "empty key data",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "error": {
+                    "capi": "Failed to parameter. key is null or empty.",
+                    "cfd": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "invalid key data",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "aaxxaabbbb",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "error": {
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "invalid fingerprint data",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "xxyy",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "error": {
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "invalid chainCode data",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "xxtt",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "error": {
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "unknown network type",
+                "request": {
+                    "network": "ddddnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 2,
+                    "hardened": true
+                },
+                "error": {
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                }
+            },
+            {
+                "case": "invalid childNumber over lower limit",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": -1,
+                    "hardened": true
+                },
+                "error": {
+                    "python": "Error: Invalid number range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            },
+            {
+                "case": "invalid childNumber over upper limit",
+                "request": {
+                    "network": "mainnet",
+                    "extkeyType": "extPubkey",
+                    "parentFingerprint": "f37a28c1",
+                    "key": "021c3ffc02d3ad3035e35de2881861113513606e80199f809663f46cad126acedc",
+                    "depth": 6,
+                    "chainCode": "9649214ce8e5d1b325820fa8b1b32abe92b9a56ce5128a00119cfb054e084436",
+                    "childNumber": 4294967296,
+                    "hardened": true
+                },
+                "error": {
+                    "python": "Error: Invalid number range.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.GetExtkeyPathData",
+        "cases": [
+            {
+                "case": "privkey: m/0h/1/2h/2/1000000000",
+                "request": {
+                    "extkey": "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
+                    "extkeyType": "extPrivkey",
+                    "bip32": "m/0h/1/2h/2/1000000000"
+                },
+                "expect": {
+                    "extkey": "xprvA41z7zogVVwxVSgdKUHDy1SKmdb533PjDz7J6N6mV6uS3ze1ai8FHa8kmHScGpWmj4WggLyQjgPie1rFSruoUihUZREPSL39UNdE3BBDu76",
+                    "path": "[00000000/0h/1/2h/2/1000000000]"
+                }
+            },
+            {
+                "case": "privkey: 1/2h/2",
+                "request": {
+                    "extkey": "xprv9uHRZZhk6KAJC1avXpDAp4MDc3sQKNxDiPvvkX8Br5ngLNv1TxvUxt4cV1rGL5hj6KCesnDYUhd7oWgT11eZG7XnxHrnYeSvkzY7d2bhkJ7",
+                    "extkeyType": "extPrivkey",
+                    "bip32": "1/2h/2"
+                },
+                "expect": {
+                    "extkey": "xprvA2JDeKCSNNZky6uBCviVfJSKyQ1mDYahRjijr5idH2WwLsEd4Hsb2Tyh8RfQMuPh7f7RtyzTtdrbdqqsunu5Mm3wDvUAKRHSC34sJ7in334",
+                    "path": "[3442193e/1/2h/2]"
+                }
+            },
+            {
+                "case": "pubkey: 2/1000000000",
+                "request": {
+                    "extkey": "xpub6D4BDPcP2GT577Vvch3R8wDkScZWzQzMMUm3PWbmWvVJrZwQY4VUNgqFJPMM3No2dFDFGTsxxpG5uJh7n7epu4trkrX7x7DogT5Uv6fcLW5",
+                    "extkeyType": "extPubkey",
+                    "bip32": "2/1000000000"
+                },
+                "expect": {
+                    "extkey": "xpub6H1LXWLaKsWFhvm6RVpEL9P4KfRZSW7abD2ttkWP3SSQvnyA8FSVqNTEcYFgJS2UaFcxupHiYkro49S8yGasTvXEYBVPamhGW6cFJodrTHy",
+                    "path": "[bef5a2f9/2/1000000000]"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Extkey.GetPrivkeyFromExtkey",
+        "cases": [
+            {
+                "case": "mainnet",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "mainnet",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "expect": {
+                    "privkey": "KxBKppNkbysiCv8xELG2cCFwaKWJ1wc9xBQW6UJzsdg6d6aVgimc"
+                }
+            },
+            {
+                "case": "testnet",
+                "request": {
+                    "extkey": "tprv8jDG3g2yc8vh71x9ejCDSfMz4AuQRx7MMNBXXvpD4jh7CkDuB3ZmnLVcEM99jgg5MaSp7gYNpnKS5dvkGqq7ad8X63tE7yFaMGTfp6gD54p",
+                    "network": "testnet",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "expect": {
+                    "privkey": "cNYKHjNc33ZyNMcDck59yWm1CYohgPhr2DYyCtmWNkL6sqb5L1rH"
+                }
+            },
+            {
+                "case": "mainnet wif false",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "mainnet",
+                    "wif": false,
+                    "isCompressed": true
+                },
+                "expect": {
+                    "privkey": "1c9c3636830860edfe1cc70649417f33b0799959ea7197a4e75a5ba2a326ddd3"
+                }
+            },
+            {
+                "case": "mainnet isCompressed false",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "mainnet",
+                    "wif": true,
+                    "isCompressed": false
+                },
+                "expect": {
+                    "privkey": "5J2tPcf1N4pjsH7nbHbft2C67eGhZPLkGDnCaQrquhwAtGFz91H"
+                }
+            },
+            {
+                "case": "empty extkey.",
+                "request": {
+                    "extkey": "",
+                    "network": "mainnet",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "ExtPrivkey base58 decode error."
+                }
+            },
+            {
+                "case": "invalid extkey.",
+                "request": {
+                    "extkey": "Ltpv78nmdb9RW2JVn6dGat5MR1edEbTEXKUPH8gmTKk6o6RTGLJXRjRHvYzW6fWzSbRcf4ydLekAGxWr7NFTgjz9MTnjGhjCocnDqg1uoSyMkKV",
+                    "network": "regtest",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "error": {
+                    "python": "ExtPubkey unserialize error.",
+                    "cfd": "ExtPrivkey unserialize error."
+                }
+            },
+            {
+                "case": "pubkey extkey.",
+                "request": {
+                    "extkey": "tpubDFuJC65DkWcMzUywYNror526dCRLbHJFvfnJpSrWV1VW3EUfoSPMxq7UQVo1tnYCsUSyF3ezv4FvNA2d74MujFPotW858M2ZZ6RqFJffc9A",
+                    "network": "testnet",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "error": {
+                    "python": "Error: Invalid ext privkey.",
+                    "cfd": "ExtPrivkey keytype error."
+                }
+            },
+            {
+                "case": "invalid network.",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "liquidv1",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "error": {
+                    "cfd": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "unmatch network.",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "testnet",
+                    "wif": true,
+                    "isCompressed": true
+                },
+                "error": {
+                    "cfd": "extkey networkType unmatch."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Extkey.GetPubkeyFromExtkey",
+        "cases": [
+            {
+                "case": "pubkey mainnet",
+                "request": {
+                    "extkey": "xpub6JnG41cGHQN4KkdnweRpBMGL16ivPrfny9EdpxW9a286urUVUm1Yv13R457q7gnZtgSzAn9RyyhGZx562umiJwGbexHpcaXjiCZt8ShgULr",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "pubkey": "03ed4b211b961ffe639b7e6cb2b0340d3240eafd60e8fefac709a7375c80846432"
+                }
+            },
+            {
+                "case": "privkey mainnet",
+                "request": {
+                    "extkey": "xprvA5nueW5NT2om7GZKqctopDKbT4tRzPwwbvK32a6Y1gb8349LwDhJNCiwCmYDPZVQynTjqD5cVu1Dbuf73ksDq51U4pd1RiCYPorQfBAXeVP",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "pubkey": "03ed4b211b961ffe639b7e6cb2b0340d3240eafd60e8fefac709a7375c80846432"
+                }
+            },
+            {
+                "case": "pubkey testnet",
+                "request": {
+                    "extkey": "tpubDFuJC65DkWcN2t7PE7rzWXHawPKamXtn8sTA3EwBWBakCzU74g3Wb5Ud1Nnjb639Cj75kG5pBwq7efR2tjiKqZY8oghzS9aeMZVVT3QxF9i",
+                    "network": "testnet"
+                },
+                "expect": {
+                    "pubkey": "0276978a448f5352e30c149724ef2ef922e85cc014e067b3ec7fc4e699c3ede3d3"
+                }
+            },
+            {
+                "case": "privkey testnet",
+                "request": {
+                    "extkey": "tprv8jDG3g2yc8vh9R5bLUCQ77dUNMoecChsZZrNkitt5unMNWDLSHDvQarkqGCBzpYrodu2WGYTRJ6VRYsHFzKzEh7gqtAFMbTzXf3eP1AkLsQ",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "pubkey": "0276978a448f5352e30c149724ef2ef922e85cc014e067b3ec7fc4e699c3ede3d3"
+                }
+            },
+            {
+                "case": "empty extkey.",
+                "request": {
+                    "extkey": "",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "capi": "Failed to get parameter. parent extkey is null or empty.",
+                    "cfd": "Illegal extkey. base58 decode error."
+                }
+            },
+            {
+                "case": "invalid extkey.",
+                "request": {
+                    "extkey": "Ltpv78nmdb9RW2JVn6dGat5MR1edEbTEXKUPH8gmTKk6o6RTGLJXRjRHvYzW6fWzSbRcf4ydLekAGxWr7NFTgjz9MTnjGhjCocnDqg1uoSyMkKV",
+                    "network": "regtest"
+                },
+                "error": {
+                    "python": "ExtPubkey unserialize error.",
+                    "cfd": "ExtPrivkey unserialize error."
+                }
+            },
+            {
+                "case": "invalid network.",
+                "request": {
+                    "extkey": "xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU",
+                    "network": "liquidv1"
+                },
+                "error": {
+                    "cfd": "Invalid network_type passed. network_type must be \\\"mainnet\\\" or \\\"testnet\\\" or \\\"regtest\\\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    }
+]

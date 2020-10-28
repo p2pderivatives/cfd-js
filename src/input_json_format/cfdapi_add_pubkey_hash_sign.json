@@ -25,8 +25,8 @@
       "signParam:require": "require",
       "signParam:comment": "sign parameter.",
       "signParam": {
-        ":class": "PubkeyHashSignData",
-        ":class:comment": "pubkey hash signature data",
+        ":class": "PubkeySignData",
+        ":class:comment": "pubkey signature data.",
         "hex": "",
         "hex:require": "require",
         "hex:comment": "signature hex.",
@@ -55,10 +55,10 @@
     }
   },
   "response": {
-    ":class": "AddPubkeyHashSignResponse",
-    ":class:comment": "The output data with signature added.",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
     "hex": "",
     "hex:require": "require",
-    "hex:comment": "signed transaction hex."
+    "hex:comment": "transaction hex."
   }
 }

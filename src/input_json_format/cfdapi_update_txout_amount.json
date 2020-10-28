@@ -1,31 +1,42 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Update txout amount.",
   "request": {
     ":class": "UpdateTxOutAmountRequest",
+    ":class:comment": "Request for update txout amount.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "isElements": false,
     "isElements:require": "optional",
-    "txouts:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "txouts:require": "require",
+    "txouts:comment": "target txout list",
     "txouts": [
       {
         ":class": "UpdateTxOutAmountData",
+        ":class:comment": "target txout",
         "amount": 0,
         "amount:require": "require",
+        "amount:comment": "satoshi amount",
         "index": 0,
         "index:require": "optional",
+        "index:comment": "txout index",
         "index:type": "uint32_t",
         "address": "",
         "address:require": "optional",
+        "address:comment": "target address (top only)",
         "directLockingScript": "",
-        "directLockingScript:require": "optional"
+        "directLockingScript:require": "optional",
+        "directLockingScript:comment": "target locking script (top only)"
       }
     ]
   },
   "response": {
-    ":class": "UpdateTxOutAmountResponse",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
   }
 }

@@ -322,6 +322,33 @@ Value GetPrivkeyWif(const CallbackInfo &information) {
 }
 
 /**
+  * @brief The JSON parameter function of TweakAddPrivkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakAddPrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::TweakAddPrivkey);
+}
+
+/**
+  * @brief The JSON parameter function of TweakMulPrivkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakMulPrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::TweakMulPrivkey);
+}
+
+/**
+  * @brief The JSON parameter function of NegatePrivkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value NegatePrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::NegatePrivkey);
+}
+
+/**
  * @brief GetPubkeyFromPrivkeyのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -337,6 +364,51 @@ Value GetPubkeyFromPrivkey(const CallbackInfo &information) {
  */
 Value GetCompressedPubkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::GetCompressedPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of GetUncompressedPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value GetUncompressedPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetUncompressedPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of CombinePubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value CombinePubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::CombinePubkey);
+}
+
+/**
+  * @brief The JSON parameter function of TweakAddPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakAddPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::TweakAddPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of TweakMulPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakMulPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::TweakMulPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of NegatePubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value NegatePubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::NegatePubkey);
 }
 
 /**
@@ -556,6 +628,121 @@ Value FundRawTransaction(const CallbackInfo &information) {
  */
 Value UpdateTxOutAmount(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::UpdateTxOutAmount);
+}
+
+/**
+ * @brief GetSchnorrPubkeyFromPrivkeyのJSON API関数(request, response).
+ * @param[in] information     node addon apiのコールバック情報
+ * @return 戻り値(JSON文字列)
+ */
+Value GetSchnorrPubkeyFromPrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::GetSchnorrPubkeyFromPrivkey);
+}
+
+/**
+  * @brief The JSON parameter function of GetSchnorrPubkeyFromPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value GetSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::GetSchnorrPubkeyFromPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPrivkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakAddSchnorrPubkeyFromPrivkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::TweakAddSchnorrPubkeyFromPrivkey);
+}
+
+/**
+  * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value TweakAddSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::TweakAddSchnorrPubkeyFromPubkey);
+}
+
+/**
+  * @brief The JSON parameter function of CheckTweakedSchnorrPubkey.
+ * @param[in] information   node add on api callback information
+  * @return json string
+ */
+Value CheckTweakedSchnorrPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::CheckTweakedSchnorrPubkey);
+}
+
+/**
+ * @brief The JSON parameter function of SchnorrSign.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value SchnorrSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SchnorrSign);
+}
+
+/**
+ * @brief The JSON parameter function of SchnorrVerifyのJSON.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value SchnorrVerify(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SchnorrVerify);
+}
+
+/**
+ * @brief The JSON parameter function of ComputeSigPointSchnorrPubkey.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value ComputeSigPointSchnorrPubkey(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::ComputeSigPointSchnorrPubkey);
+}
+
+/**
+ * @brief The JSON parameter function of SignEcdsaAdaptor.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value SignEcdsaAdaptor(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SignEcdsaAdaptor);
+}
+
+/**
+ * @brief The JSON parameter function of VerifyEcdsaAdaptor.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value VerifyEcdsaAdaptor(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::VerifyEcdsaAdaptor);
+}
+
+/**
+ * @brief The JSON parameter function of AdaptEcdsaAdaptor.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value AdaptEcdsaAdaptor(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AdaptEcdsaAdaptor);
+}
+
+/**
+ * @brief The JSON parameter function of ExtractSecretEcdsaAdaptor.
+ * @param[in] information   node add on api callback information
+ * @return json string
+ */
+Value ExtractSecretEcdsaAdaptor(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::ExtractSecretEcdsaAdaptor);
 }
 
 #ifndef CFD_DISABLE_ELEMENTS
@@ -824,11 +1011,30 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "GetPrivkeyWif"), Function::New(env, GetPrivkeyWif));
   exports->Set(
+      String::New(env, "TweakAddPrivkey"),
+      Function::New(env, TweakAddPrivkey));
+  exports->Set(
+      String::New(env, "TweakMulPrivkey"),
+      Function::New(env, TweakMulPrivkey));
+  exports->Set(
+      String::New(env, "NegatePrivkey"), Function::New(env, NegatePrivkey));
+  exports->Set(
       String::New(env, "GetPubkeyFromPrivkey"),
       Function::New(env, GetPubkeyFromPrivkey));
   exports->Set(
       String::New(env, "GetCompressedPubkey"),
       Function::New(env, GetCompressedPubkey));
+  exports->Set(
+      String::New(env, "GetUncompressedPubkey"),
+      Function::New(env, GetUncompressedPubkey));
+  exports->Set(
+      String::New(env, "CombinePubkey"), Function::New(env, CombinePubkey));
+  exports->Set(
+      String::New(env, "TweakAddPubkey"), Function::New(env, TweakAddPubkey));
+  exports->Set(
+      String::New(env, "TweakMulPubkey"), Function::New(env, TweakMulPubkey));
+  exports->Set(
+      String::New(env, "NegatePubkey"), Function::New(env, NegatePubkey));
   exports->Set(
       String::New(env, "CreateExtkeyFromSeed"),
       Function::New(env, CreateExtkeyFromSeed));
@@ -868,6 +1074,40 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "UpdateTxOutAmount"),
       Function::New(env, UpdateTxOutAmount));
+  exports->Set(
+      String::New(env, "GetSchnorrPubkeyFromPrivkey"),
+      Function::New(env, GetSchnorrPubkeyFromPrivkey));
+  exports->Set(
+      String::New(env, "GetSchnorrPubkeyFromPubkey"),
+      Function::New(env, GetSchnorrPubkeyFromPubkey));
+  exports->Set(
+      String::New(env, "TweakAddSchnorrPubkeyFromPrivkey"),
+      Function::New(env, TweakAddSchnorrPubkeyFromPrivkey));
+  exports->Set(
+      String::New(env, "TweakAddSchnorrPubkeyFromPubkey"),
+      Function::New(env, TweakAddSchnorrPubkeyFromPubkey));
+  exports->Set(
+      String::New(env, "CheckTweakedSchnorrPubkey"),
+      Function::New(env, CheckTweakedSchnorrPubkey));
+  exports->Set(
+      String::New(env, "SchnorrSign"), Function::New(env, SchnorrSign));
+  exports->Set(
+      String::New(env, "SchnorrVerify"), Function::New(env, SchnorrVerify));
+  exports->Set(
+      String::New(env, "ComputeSigPointSchnorrPubkey"),
+      Function::New(env, ComputeSigPointSchnorrPubkey));
+  exports->Set(
+      String::New(env, "SignEcdsaAdaptor"),
+      Function::New(env, SignEcdsaAdaptor));
+  exports->Set(
+      String::New(env, "VerifyEcdsaAdaptor"),
+      Function::New(env, VerifyEcdsaAdaptor));
+  exports->Set(
+      String::New(env, "AdaptEcdsaAdaptor"),
+      Function::New(env, AdaptEcdsaAdaptor));
+  exports->Set(
+      String::New(env, "ExtractSecretEcdsaAdaptor"),
+      Function::New(env, ExtractSecretEcdsaAdaptor));
 #ifndef CFD_DISABLE_ELEMENTS
   exports->Set(
       String::New(env, "GetConfidentialAddress"),

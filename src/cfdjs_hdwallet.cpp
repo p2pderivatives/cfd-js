@@ -120,11 +120,11 @@ HDWalletStructApi::ConvertEntropyToMnemonic(
   return result;
 }
 
-CreateExtkeyFromSeedResponseStruct HDWalletStructApi::CreateExtkeyFromSeed(
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkeyFromSeed(
     const CreateExtkeyFromSeedRequestStruct& request) {
   auto call_func = [](const CreateExtkeyFromSeedRequestStruct& request)
-      -> CreateExtkeyFromSeedResponseStruct {
-    CreateExtkeyFromSeedResponseStruct response;
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
     ByteData seed(request.seed);
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
@@ -136,18 +136,18 @@ CreateExtkeyFromSeedResponseStruct HDWalletStructApi::CreateExtkeyFromSeed(
     return response;
   };
 
-  CreateExtkeyFromSeedResponseStruct result;
+  CreateExtkeyResponseStruct result;
   result = ExecuteStructApi<
-      CreateExtkeyFromSeedRequestStruct, CreateExtkeyFromSeedResponseStruct>(
+      CreateExtkeyFromSeedRequestStruct, CreateExtkeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateExtkeyFromParentResponseStruct HDWalletStructApi::CreateExtkeyFromParent(
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkeyFromParent(
     const CreateExtkeyFromParentRequestStruct& request) {
   auto call_func = [](const CreateExtkeyFromParentRequestStruct& request)
-      -> CreateExtkeyFromParentResponseStruct {
-    CreateExtkeyFromParentResponseStruct response;
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
     HDWalletApi api;
@@ -159,20 +159,18 @@ CreateExtkeyFromParentResponseStruct HDWalletStructApi::CreateExtkeyFromParent(
     return response;
   };
 
-  CreateExtkeyFromParentResponseStruct result;
+  CreateExtkeyResponseStruct result;
   result = ExecuteStructApi<
-      CreateExtkeyFromParentRequestStruct,
-      CreateExtkeyFromParentResponseStruct>(
+      CreateExtkeyFromParentRequestStruct, CreateExtkeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateExtkeyFromParentPathResponseStruct
-HDWalletStructApi::CreateExtkeyFromParentPath(
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkeyFromParentPath(
     const CreateExtkeyFromParentPathRequestStruct& request) {
   auto call_func = [](const CreateExtkeyFromParentPathRequestStruct& request)
-      -> CreateExtkeyFromParentPathResponseStruct {
-    CreateExtkeyFromParentPathResponseStruct response;
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
     HDWalletApi api;
@@ -187,20 +185,18 @@ HDWalletStructApi::CreateExtkeyFromParentPath(
     return response;
   };
 
-  CreateExtkeyFromParentPathResponseStruct result;
+  CreateExtkeyResponseStruct result;
   result = ExecuteStructApi<
-      CreateExtkeyFromParentPathRequestStruct,
-      CreateExtkeyFromParentPathResponseStruct>(
+      CreateExtkeyFromParentPathRequestStruct, CreateExtkeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateExtkeyFromParentKeyResponseStruct
-HDWalletStructApi::CreateExtkeyFromParentKey(
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkeyFromParentKey(
     const CreateExtkeyFromParentKeyRequestStruct& request) {
   auto call_func = [](const CreateExtkeyFromParentKeyRequestStruct& request)
-      -> CreateExtkeyFromParentKeyResponseStruct {
-    CreateExtkeyFromParentKeyResponseStruct response;
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
     ExtKeyType key_type = ConvertExtKeyType(request.extkey_type);
     uint32_t child_num = request.child_number;
@@ -228,10 +224,9 @@ HDWalletStructApi::CreateExtkeyFromParentKey(
     return response;
   };
 
-  CreateExtkeyFromParentKeyResponseStruct result;
+  CreateExtkeyResponseStruct result;
   result = ExecuteStructApi<
-      CreateExtkeyFromParentKeyRequestStruct,
-      CreateExtkeyFromParentKeyResponseStruct>(
+      CreateExtkeyFromParentKeyRequestStruct, CreateExtkeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -295,11 +290,11 @@ CreateExtkeyResponseStruct HDWalletStructApi::CreateExtkey(
   return result;
 }
 
-CreateExtPubkeyResponseStruct HDWalletStructApi::CreateExtPubkey(
+CreateExtkeyResponseStruct HDWalletStructApi::CreateExtPubkey(
     const CreateExtPubkeyRequestStruct& request) {
   auto call_func = [](const CreateExtPubkeyRequestStruct& request)
-      -> CreateExtPubkeyResponseStruct {
-    CreateExtPubkeyResponseStruct response;
+      -> CreateExtkeyResponseStruct {
+    CreateExtkeyResponseStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
 
     HDWalletApi api;
@@ -309,9 +304,9 @@ CreateExtPubkeyResponseStruct HDWalletStructApi::CreateExtPubkey(
     return response;
   };
 
-  CreateExtPubkeyResponseStruct result;
+  CreateExtkeyResponseStruct result;
   result = ExecuteStructApi<
-      CreateExtPubkeyRequestStruct, CreateExtPubkeyResponseStruct>(
+      CreateExtPubkeyRequestStruct, CreateExtkeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -374,11 +369,11 @@ GetPrivkeyFromExtkeyResponseStruct HDWalletStructApi::GetPrivkeyFromExtkey(
   return result;
 }
 
-GetPubkeyFromExtkeyResponseStruct HDWalletStructApi::GetPubkeyFromExtkey(
+PubkeyDataStruct HDWalletStructApi::GetPubkeyFromExtkey(
     const GetPubkeyFromExtkeyRequestStruct& request) {
-  auto call_func = [](const GetPubkeyFromExtkeyRequestStruct& request)
-      -> GetPubkeyFromExtkeyResponseStruct {
-    GetPubkeyFromExtkeyResponseStruct response;
+  auto call_func =
+      [](const GetPubkeyFromExtkeyRequestStruct& request) -> PubkeyDataStruct {
+    PubkeyDataStruct response;
     const NetType net_type = AddressStructApi::ConvertNetType(request.network);
 
     HDWalletApi api;
@@ -386,10 +381,10 @@ GetPubkeyFromExtkeyResponseStruct HDWalletStructApi::GetPubkeyFromExtkey(
     return response;
   };
 
-  GetPubkeyFromExtkeyResponseStruct result;
-  result = ExecuteStructApi<
-      GetPubkeyFromExtkeyRequestStruct, GetPubkeyFromExtkeyResponseStruct>(
-      request, call_func, std::string(__FUNCTION__));
+  PubkeyDataStruct result;
+  result =
+      ExecuteStructApi<GetPubkeyFromExtkeyRequestStruct, PubkeyDataStruct>(
+          request, call_func, std::string(__FUNCTION__));
   return result;
 }
 

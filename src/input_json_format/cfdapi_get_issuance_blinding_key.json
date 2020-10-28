@@ -1,18 +1,25 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Get issuance blinding key.",
   "request": {
     ":class": "GetIssuanceBlindingKeyRequest",
+    ":class:comment": "Request for get issuance blinding key.",
     "masterBlindingKey": "",
     "masterBlindingKey:require": "require",
+    "masterBlindingKey:comment": "master blinding key",
     "txid": "",
     "txid:require": "require",
+    "txid:comment": "utxo txid",
     "vout": 0,
     "vout:type": "uint32_t",
-    "vout:require": "require"
+    "vout:require": "require",
+    "vout:comment": "utxo vout"
   },
   "response": {
-    ":class": "GetIssuanceBlindingKeyResponse",
+    ":class": "BlindingKeyResponse",
+    ":class:comment": "Response of blinding key.",
     "blindingKey": "",
-    "blindingKey:require": "require"
+    "blindingKey:require": "require",
+    "blindingKey:comment": "blinding key"
   }
 }

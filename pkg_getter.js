@@ -223,7 +223,11 @@ const main = async function() {
             if (isWindows) {
               path = path.replace('/', separator);
             }
-            entry.pipe(fs.createWriteStream(path));
+            if (path.indexOf('..') == -1) {
+              entry.pipe(fs.createWriteStream(path));
+            } else {
+              console.log('skipping bad path:', path);
+            }
           } else {
             entry.autodrain();
           }

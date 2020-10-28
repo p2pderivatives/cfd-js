@@ -301,11 +301,11 @@ ParseDescriptorResponseStruct AddressStructApi::ParseDescriptor(
   return result;
 }
 
-CreateDescriptorResponseStruct AddressStructApi::CreateDescriptor(
+OutputDescriptorResponseStruct AddressStructApi::CreateDescriptor(
     const CreateDescriptorRequestStruct& request) {
   auto call_func = [](const CreateDescriptorRequestStruct& request)
-      -> CreateDescriptorResponseStruct {  // NOLINT
-    CreateDescriptorResponseStruct response;
+      -> OutputDescriptorResponseStruct {  // NOLINT
+    OutputDescriptorResponseStruct response;
 
     std::vector<std::string> types =
         StringUtil::Split(request.script_type, "-");
@@ -360,19 +360,18 @@ CreateDescriptorResponseStruct AddressStructApi::CreateDescriptor(
     return response;
   };
 
-  CreateDescriptorResponseStruct result;
+  OutputDescriptorResponseStruct result;
   result = ExecuteStructApi<
-      CreateDescriptorRequestStruct, CreateDescriptorResponseStruct>(
+      CreateDescriptorRequestStruct, OutputDescriptorResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-AppendDescriptorChecksumResponseStruct
-AddressStructApi::AppendDescriptorChecksum(
+OutputDescriptorResponseStruct AddressStructApi::AppendDescriptorChecksum(
     const AppendDescriptorChecksumRequestStruct& request) {
   auto call_func = [](const AppendDescriptorChecksumRequestStruct& request)
-      -> AppendDescriptorChecksumResponseStruct {  // NOLINT
-    AppendDescriptorChecksumResponseStruct response;
+      -> OutputDescriptorResponseStruct {  // NOLINT
+    OutputDescriptorResponseStruct response;
 
     Descriptor descriptor = Descriptor::Parse(request.descriptor);
 
@@ -381,10 +380,9 @@ AddressStructApi::AppendDescriptorChecksum(
     return response;
   };
 
-  AppendDescriptorChecksumResponseStruct result;
+  OutputDescriptorResponseStruct result;
   result = ExecuteStructApi<
-      AppendDescriptorChecksumRequestStruct,
-      AppendDescriptorChecksumResponseStruct>(
+      AppendDescriptorChecksumRequestStruct, OutputDescriptorResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

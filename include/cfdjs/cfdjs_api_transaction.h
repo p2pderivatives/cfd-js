@@ -30,7 +30,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static CreateRawTransactionResponseStruct CreateRawTransaction(
+  static RawTransactionResponseStruct CreateRawTransaction(
       const CreateRawTransactionRequestStruct& request);
 
   /**
@@ -38,7 +38,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionを構築するパラメータの構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddRawTransactionResponseStruct AddRawTransaction(
+  static RawTransactionResponseStruct AddRawTransaction(
       const AddRawTransactionRequestStruct& request);
 
   /**
@@ -62,14 +62,15 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddSignResponseStruct AddSign(const AddSignRequestStruct& request);
+  static RawTransactionResponseStruct AddSign(
+      const AddSignRequestStruct& request);
 
   /**
    * @brief JSONパラメータの情報を元に、WitnessStackの情報を更新する.
    * @param[in] request TransactionとWitnessStack追加情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static UpdateWitnessStackResponseStruct UpdateWitnessStack(
+  static RawTransactionResponseStruct UpdateWitnessStack(
       const UpdateWitnessStackRequestStruct& request);
 
   /**
@@ -82,7 +83,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request TransactionとSegwitのMultisig署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddMultisigSignResponseStruct AddMultisigSign(
+  static RawTransactionResponseStruct AddMultisigSign(
       const AddMultisigSignRequestStruct& request);
 
   /**
@@ -90,7 +91,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static SignWithPrivkeyResponseStruct SignWithPrivkey(
+  static RawTransactionResponseStruct SignWithPrivkey(
       const SignWithPrivkeyRequestStruct& request);
 
   /**
@@ -98,7 +99,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddPubkeyHashSignResponseStruct AddPubkeyHashSign(
+  static RawTransactionResponseStruct AddPubkeyHashSign(
       const AddPubkeyHashSignRequestStruct& request);
 
   /**
@@ -106,7 +107,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request Transactionと署名情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static AddScriptHashSignResponseStruct AddScriptHashSign(
+  static RawTransactionResponseStruct AddScriptHashSign(
       const AddScriptHashSignRequestStruct& request);
 
   /**
@@ -138,7 +139,7 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    * @param[in] request   transaction and changing amount data struct.
    * @return Updating transaction struct.
    */
-  static UpdateTxOutAmountResponseStruct UpdateTxOutAmount(
+  static RawTransactionResponseStruct UpdateTxOutAmount(
       const UpdateTxOutAmountRequestStruct& request);
 
  private:

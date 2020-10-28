@@ -51,7 +51,7 @@ let createMultisigResult: cfdjs.CreateMultisigResponse;
   console.log('\n*** Response ***\n', createMultisigResult, '\n');
 }
 
-let createRawTransactionResult: cfdjs.CreateRawTransactionResponse;
+let createRawTransactionResult: cfdjs.RawTransactionResponse;
 {
   const fundTxAmt = 5000000000n + (8000n * 2n);
   const txInAmtAlice = 3000000000n; // dummy txin amount
@@ -93,7 +93,7 @@ let createRawTransactionResult: cfdjs.CreateRawTransactionResponse;
   console.log('\n*** Decode ***\n', JSON.stringify(decodeResult, null, '  '), '\n');
 }
 
-let multisigRet: cfdjs.AddMultisigSignResponse;
+let multisigRet: cfdjs.RawTransactionResponse;
 {
   multisigRet = cfdjsUtil.SetMultisigScriptSig('0100000001aca6c902e9569c99e172c22182f943e4ab15f28602ab248f65c864874a9ddc860000000000ffffffff01005ed0b20000000017a914e88eaee55e16b83e1bea4ecfd9e2045f73e6c1198700000000', '86dc9d4a8764c8658f24ab0286f215abe443f98221c272e1999c56e902c9a6ac', 0, '00100000000000000000000000000000000010111111111111111111111111111111114752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae', 'p2sh-p2wsh', false);
   console.log('*** SetMultisigScriptSig ***\n', multisigRet);

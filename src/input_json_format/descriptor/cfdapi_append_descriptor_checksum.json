@@ -1,0 +1,21 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get output descriptor added checksum.",
+  "request": {
+    ":class": "AppendDescriptorChecksumRequest",
+    ":class:comment": "The output descriptor request data.",
+    "descriptor": "",
+    "descriptor:require": "require",
+    "descriptor:comment": "output descriptor.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag."
+  },
+  "response": {
+    ":class": "OutputDescriptorResponse",
+    ":class:comment": "The data containing output descriptor.",
+    "descriptor": "",
+    "descriptor:require": "require",
+    "descriptor:comment": "output descriptor."
+  }
+}

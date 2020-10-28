@@ -1,0 +1,37 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get address information.",
+  "request": {
+    ":class": "GetAddressInfoRequest",
+    ":class:comment": "Request for get address information.",
+    "address": "",
+    "address:require": "require",
+    "address:comment": "address text",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag."
+  },
+  "response": {
+    ":class": "GetAddressInfoResponse",
+    ":class:comment": "Response of get address information.",
+    "lockingScript": "",
+    "lockingScript:require": "require",
+    "lockingScript:comment": "locking script",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "hashType": "p2pkh",
+    "hashType:require": "require",
+    "hashType:comment": "hash type",
+    "hashType:hint": "p2wpkh, p2pkh, p2wsh, p2sh(contain p2sh-segwit)",
+    "witnessVersion": 0,
+    "witnessVersion:require": "optional",
+    "witnessVersion:comment": "witness version.",
+    "witnessVersion:hint": "none:field empty, versionX:X(0 - 16)",
+    "witnessVersion:type": "int32_t",
+    "hash": "",
+    "hash:require": "optional",
+    "hash:comment": "pubkey-hash or script-hash. p2wsh:32byte, other:20byte"
+  }
+}

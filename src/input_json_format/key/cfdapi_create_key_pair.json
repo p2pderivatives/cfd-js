@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create keypair.",
+  "request": {
+    ":class": "CreateKeyPairRequest",
+    ":class:comment": "Request data for creating keypair.",
+    "wif": true,
+    "wif:require": "require",
+    "wif:comment": "Set the privkey format to wif.",
+    "network": "mainnet",
+    "network:require": "optional",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest",
+    "isCompressed": true,
+    "isCompressed:require": "optional",
+    "isCompressed:comment": "pubkey compressed flag"
+  },
+  "response": {
+    ":class": "CreateKeyPairResponse",
+    ":class:comment": "Response data of creating keypair.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey"
+  }
+}

@@ -1,0 +1,1459 @@
+[
+    {
+        "name": "Descriptor.Parse",
+        "cases": [
+            {
+                "case": "pkh mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "1cMh228HTCiwS8ZsaakH8A8wze1JR5ZsP",
+                    "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
+                            "address": "1cMh228HTCiwS8ZsaakH8A8wze1JR5ZsP",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "pkh testnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)",
+                    "network": "testnet"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "mg8Jz5776UdyiYcBb9Z873NTozEiADRW5H",
+                    "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
+                            "address": "mg8Jz5776UdyiYcBb9Z873NTozEiADRW5H",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "pk mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pk(0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "pk",
+                    "address": "1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH",
+                    "lockingScript": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                            "address": "1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH",
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "wpkh mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wpkh(02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "wpkh",
+                    "address": "bc1q0ht9tyks4vh7p5p904t340cr9nvahy7u3re7zg",
+                    "lockingScript": "00147dd65592d0ab2fe0d0257d571abf032cd9db93dc",
+                    "hashType": "p2wpkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "00147dd65592d0ab2fe0d0257d571abf032cd9db93dc",
+                            "address": "bc1q0ht9tyks4vh7p5p904t340cr9nvahy7u3re7zg",
+                            "hashType": "p2wpkh",
+                            "keyType": "pubkey",
+                            "key": "02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "sh-wpkh mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(wpkh(03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "3LKyvRN6SmYXGBNn8fcQvYxW9MGKtwcinN",
+                    "lockingScript": "a914cc6ffbc0bf31af759451068f90ba7a0272b6b33287",
+                    "hashType": "p2sh-p2wpkh",
+                    "redeemScript": "00147fda9cf020c16cacf529c87d8de89bfc70b8c9cb",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914cc6ffbc0bf31af759451068f90ba7a0272b6b33287",
+                            "address": "3LKyvRN6SmYXGBNn8fcQvYxW9MGKtwcinN",
+                            "hashType": "p2sh-p2wpkh",
+                            "redeemScript": "00147fda9cf020c16cacf529c87d8de89bfc70b8c9cb"
+                        },
+                        {
+                            "depth": 1,
+                            "lockingScript": "00147fda9cf020c16cacf529c87d8de89bfc70b8c9cb",
+                            "address": "bc1q0ldfeupqc9k2eaffep7cm6yml3ct3jwtwzqt7k",
+                            "hashType": "p2wpkh",
+                            "keyType": "pubkey",
+                            "key": "03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "combo mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "combo(0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "combo",
+                    "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+                    "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6",
+                    "hashType": "p2wpkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6",
+                            "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+                            "hashType": "p2wpkh",
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        },
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914bcfeb728b584253d5f3f70bcb780e9ef218a68f487",
+                            "address": "3JvL6Ymt8MVWiCNHC7oWU6nLeHNJKLZGLN",
+                            "hashType": "p2sh-p2wpkh",
+                            "redeemScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6"
+                        },
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a914751e76e8199196d454941c45d1b3a323f1433bd688ac",
+                            "address": "1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        },
+                        {
+                            "depth": 0,
+                            "lockingScript": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                            "address": "1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH",
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "sh-wsh(+pkh) mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(wsh(pkh(02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13)))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "39XGHYpYmJV9sGFoGHZeU2rLkY6r1MJ6C1",
+                    "lockingScript": "a91455e8d5e8ee4f3604aba23c71c2684fa0a56a3a1287",
+                    "hashType": "p2sh-p2wsh",
+                    "redeemScript": "0020fc5acc302aab97f821f9a61e1cc572e7968a603551e95d4ba12b51df6581482f",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a91455e8d5e8ee4f3604aba23c71c2684fa0a56a3a1287",
+                            "address": "39XGHYpYmJV9sGFoGHZeU2rLkY6r1MJ6C1",
+                            "hashType": "p2sh-p2wsh",
+                            "redeemScript": "0020fc5acc302aab97f821f9a61e1cc572e7968a603551e95d4ba12b51df6581482f"
+                        },
+                        {
+                            "depth": 1,
+                            "lockingScript": "0020fc5acc302aab97f821f9a61e1cc572e7968a603551e95d4ba12b51df6581482f",
+                            "address": "bc1ql3dvcvp24wtlsg0e5c0pe3tju7tg5cp428546jap9dga7evpfqhsncqcl0",
+                            "hashType": "p2wsh",
+                            "redeemScript": "76a914c42e7ef92fdb603af844d064faad95db9bcdfd3d88ac"
+                        },
+                        {
+                            "depth": 2,
+                            "lockingScript": "76a914c42e7ef92fdb603af844d064faad95db9bcdfd3d88ac",
+                            "address": "1JtK9CQw1syfWj1WtFMWomrYdV3W2tWBF9",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "multi mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "multi(1,022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4,025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "multi",
+                    "address": "17Vu7st1U1KwymUKU4jJheHHGRVNqrcfLD",
+                    "lockingScript": "5121022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe421025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc52ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "5121022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe421025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc52ae",
+                            "address": "17Vu7st1U1KwymUKU4jJheHHGRVNqrcfLD",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc"
+                                }
+                            ],
+                            "reqNum": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "sh(multi) mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(multi(2,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "3GtEB3yg3r5de2cDJG48SkQwxfxJumKQdN",
+                    "lockingScript": "a914a6a8b030a38762f4c1f5cbe387b61a3c5da5cd2687",
+                    "hashType": "p2sh",
+                    "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914a6a8b030a38762f4c1f5cbe387b61a3c5da5cd2687",
+                            "address": "3GtEB3yg3r5de2cDJG48SkQwxfxJumKQdN",
+                            "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                                }
+                            ],
+                            "reqNum": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "sh(sortedmulti) mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(sortedmulti(2,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "3GtEB3yg3r5de2cDJG48SkQwxfxJumKQdN",
+                    "lockingScript": "a914a6a8b030a38762f4c1f5cbe387b61a3c5da5cd2687",
+                    "hashType": "p2sh",
+                    "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914a6a8b030a38762f4c1f5cbe387b61a3c5da5cd2687",
+                            "address": "3GtEB3yg3r5de2cDJG48SkQwxfxJumKQdN",
+                            "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                                }
+                            ],
+                            "reqNum": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "wsh(multi) mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "wsh",
+                    "address": "bc1qwu7hp9vckakyuw6htsy244qxtztrlyez4l7qlrpg68v6drgvj39qn4zazc",
+                    "lockingScript": "0020773d709598b76c4e3b575c08aad40658963f9322affc0f8c28d1d9a68d0c944a",
+                    "hashType": "p2wsh",
+                    "redeemScript": "522103a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c72103774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb2103d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a53ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "0020773d709598b76c4e3b575c08aad40658963f9322affc0f8c28d1d9a68d0c944a",
+                            "address": "bc1qwu7hp9vckakyuw6htsy244qxtztrlyez4l7qlrpg68v6drgvj39qn4zazc",
+                            "hashType": "p2wsh",
+                            "redeemScript": "522103a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c72103774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb2103d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a53ae",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a"
+                                }
+                            ],
+                            "reqNum": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "sh-wsh(multi) mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "3Hd7YQStg9gYpEt6hgK14ZHUABxSURzeuQ",
+                    "lockingScript": "a914aec509e284f909f769bb7dda299a717c87cc97ac87",
+                    "hashType": "p2sh-p2wsh",
+                    "redeemScript": "0020ef8110fa7ddefb3e2d02b2c1b1480389b4bc93f606281570cfc20dba18066aee",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914aec509e284f909f769bb7dda299a717c87cc97ac87",
+                            "address": "3Hd7YQStg9gYpEt6hgK14ZHUABxSURzeuQ",
+                            "hashType": "p2sh-p2wsh",
+                            "redeemScript": "0020ef8110fa7ddefb3e2d02b2c1b1480389b4bc93f606281570cfc20dba18066aee"
+                        },
+                        {
+                            "depth": 1,
+                            "lockingScript": "0020ef8110fa7ddefb3e2d02b2c1b1480389b4bc93f606281570cfc20dba18066aee",
+                            "address": "bc1qa7q3p7nammanutgzktqmzjqr3x6teylkqc5p2ux0cgxm5xqxdthq02yr5g",
+                            "hashType": "p2wsh",
+                            "redeemScript": "512103f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa82103499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e42102d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e53ae",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e"
+                                }
+                            ],
+                            "reqNum": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "pk hdkey mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pk(xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "pk",
+                    "address": "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma",
+                    "lockingScript": "210339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2ac",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "210339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2ac",
+                            "address": "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma",
+                            "keyType": "extPubkey",
+                            "key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "pkh hdkey mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh(xprvA2YKGLieCs6cWCiczALiH1jzk3VCCS5M1pGQfWPkamCdR9UpBgE2Gb8AKAyVjKHkz8v37avcfRjdcnP19dVAmZrvZQfvTcXXSAiFNQ6tTtU/1h/2)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "1HH6H4km128m4NsJMNVN2qqCHukbEhgU3V",
+                    "lockingScript": "76a914b28d12ab72a51b10114b17ce76b536265194e1fb88ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a914b28d12ab72a51b10114b17ce76b536265194e1fb88ac",
+                            "address": "1HH6H4km128m4NsJMNVN2qqCHukbEhgU3V",
+                            "hashType": "p2pkh",
+                            "keyType": "extPrivkey",
+                            "key": "xprvA6Px9oYCqViqTHwPBpmnQoQoVKREy1PwgbsNHg46ZD4NdQwCV7zxfCHJzF7r49LoPaVZ9m5DDRm7UbEzrtNXppy4GfiPELJ6BQmAgt1UZSJ"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "pkh hdkey-derive mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh([d34db33f/44\"/0\"/0\"]xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
+                    "network": "mainnet",
+                    "bip32DerivationPath": "0/44"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "1JuR7uD8NgGjK3x9hrir1bTGxS3jTT1ZWt",
+                    "lockingScript": "76a914c463e6dedb2b780434e60fcee3f2d0a0fbcbbc9088ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a914c463e6dedb2b780434e60fcee3f2d0a0fbcbbc9088ac",
+                            "address": "1JuR7uD8NgGjK3x9hrir1bTGxS3jTT1ZWt",
+                            "hashType": "p2pkh",
+                            "keyType": "extPubkey",
+                            "key": "xpub6KVE2fr7hNDB8jMhwbwe9f1ynwAP362XwHDVmxcYirGYcaTzYwYdPtWnzc7h6rdgMcrCzp56qDwRUcDEJ35vshPQcQASkV2cFaDkPZEQcyk"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "wsh(multi) hdkey-derive mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(multi(1,xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*,xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*))",
+                    "network": "mainnet",
+                    "bip32DerivationPath": "10"
+                },
+                "expect": {
+                    "type": "wsh",
+                    "address": "bc1q7yzadku3kxs855wgjxnyr2nk3e44ed75p07lzhnj53ynpczg78nq0leae5",
+                    "lockingScript": "0020f105d6db91b1a07a51c891a641aa768e6b5cb7d40bfdf15e72a44930e048f1e6",
+                    "hashType": "p2wsh",
+                    "redeemScript": "512102c7d7595371a9a01c6f7e34ee46ecfa54aef9c8fa3021b1892c0cad4b1af443f22102f129cf00a0daa7f4a046908e27e5faf783ebc57c4a34467daea67094ce77581352ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "0020f105d6db91b1a07a51c891a641aa768e6b5cb7d40bfdf15e72a44930e048f1e6",
+                            "address": "bc1q7yzadku3kxs855wgjxnyr2nk3e44ed75p07lzhnj53ynpczg78nq0leae5",
+                            "hashType": "p2wsh",
+                            "redeemScript": "512102c7d7595371a9a01c6f7e34ee46ecfa54aef9c8fa3021b1892c0cad4b1af443f22102f129cf00a0daa7f4a046908e27e5faf783ebc57c4a34467daea67094ce77581352ae",
+                            "keys": [
+                                {
+                                    "keyType": "extPubkey",
+                                    "key": "xpub6BgWskLoyHmAu7ZPbBVoZW5RJZ9tk27v7mjgMApM9chxYC26bJkgENT3FPqYp8mCBcVr2bjMezjdqQT68z93R14DcJyXzeWu49nN1sLPC1y"
+                                },
+                                {
+                                    "keyType": "extPubkey",
+                                    "key": "xpub6EKMC2gSMfKgpKxeMAZB4aKYTjyDKWmkw5uTaac5UU8SyzXpu21vNcu575tjtJWo2jUpr3KXmoT5jNGRss1JVoQhiNjLsyyaMXrXZD9qnJF"
+                                }
+                            ],
+                            "reqNum": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "wsh(sortedmulti) hdkey-derive mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(sortedmulti(1,xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*,xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*))",
+                    "network": "mainnet",
+                    "bip32DerivationPath": "20"
+                },
+                "expect": {
+                    "type": "wsh",
+                    "address": "bc1qust3eqzh2vuxv78vcq7mrec2jpk33vvw4kmfffpmmd7lplsmnc3snfs96z",
+                    "lockingScript": "0020e4171c805753386678ecc03db1e70a906d18b18eadb694a43bdb7df0fe1b9e23",
+                    "hashType": "p2wsh",
+                    "redeemScript": "512102c57aa6e9aede38183a74ab6c30846b75b41670f4b23eee9c119bcb2138a6898f21038d0eb17ca501b8584994d65ff13a524522fdcfd3feb4f87f35e70f49a2720a2c52ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "0020e4171c805753386678ecc03db1e70a906d18b18eadb694a43bdb7df0fe1b9e23",
+                            "address": "bc1qust3eqzh2vuxv78vcq7mrec2jpk33vvw4kmfffpmmd7lplsmnc3snfs96z",
+                            "hashType": "p2wsh",
+                            "redeemScript": "512102c57aa6e9aede38183a74ab6c30846b75b41670f4b23eee9c119bcb2138a6898f21038d0eb17ca501b8584994d65ff13a524522fdcfd3feb4f87f35e70f49a2720a2c52ae",
+                            "keys": [
+                                {
+                                    "keyType": "extPubkey",
+                                    "key": "xpub6BgWskLoyHmBLsxHAE2qLXnRxr5wf1PfTBAjhFMSp4LRmhghARTxrote35kSLcWDZVsGeh35tDdTXUEzBWGSrpriZgL49P2p4i4kS5B474W"
+                                },
+                                {
+                                    "keyType": "extPubkey",
+                                    "key": "xpub6EKMC2gSMfKhGnLRmKzvpVVpaCJ16CinBPGtiDTwUMXiVPopMEFYD6KdNQ8QZY5zNB3HfAJLN9fZrpLk17mGnXKa3gaHv5uAQsqCmPwLU2x"
+                                }
+                            ],
+                            "reqNum": 1
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "addr mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "addr(bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "addr",
+                    "address": "bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3",
+                    "lockingScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262",
+                    "hashType": "p2wsh",
+                    "includeMultisig": false
+                }
+            },
+            {
+                "case": "raw checksum mainnet",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "raw(6a4c4f54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e)#zf2avljj",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "raw",
+                    "lockingScript": "6a4c4f54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e",
+                    "includeMultisig": false
+                }
+            },
+            {
+                "case": "p2sh miniscript",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(or_d(sha256(38df1c1f64a24a77b23393bca50dff872e31edc4f3b5aa3b90ad0b82f4f089b6},and_n(un:after(499999999},older(4194305))))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "38WFPv9fne2UeFxVkGMhLkamMadH8j6s1c",
+                    "lockingScript": "a9144abf8cfc94ae837bf59965e0c74d02a611ec132987",
+                    "hashType": "p2sh",
+                    "redeemScript": "82012088a82038df1c1f64a24a77b23393bca50dff872e31edc4f3b5aa3b90ad0b82f4f089b68773646304ff64cd1db19267006864006703010040b26868",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a9144abf8cfc94ae837bf59965e0c74d02a611ec132987",
+                            "address": "38WFPv9fne2UeFxVkGMhLkamMadH8j6s1c",
+                            "redeemScript": "82012088a82038df1c1f64a24a77b23393bca50dff872e31edc4f3b5aa3b90ad0b82f4f089b68773646304ff64cd1db19267006864006703010040b26868"
+                        }
+                    ]
+                },
+                "exclude": [
+                    "python"
+                ],
+                "todo": "check current test case."
+            },
+            {
+                "case": "p2wsh miniscript",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(thresh(2,multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a00},a:multi(1,036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a00},ac:pk_k(022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01)))",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "wsh",
+                    "address": "bc1qdfky9a3dh8atpy0l47fsuz5ywergnrfztcddjnl5xgnwyqvqh8gschn2ch",
+                    "lockingScript": "00206a6c42f62db9fab091ffaf930e0a847646898d225e1ad94ff43226e20180b9d1",
+                    "hashType": "p2wsh",
+                    "redeemScript": "522103a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c721036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a0052ae6b5121036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a0051ae6c936b21022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01ac6c935287",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "00206a6c42f62db9fab091ffaf930e0a847646898d225e1ad94ff43226e20180b9d1",
+                            "address": "bc1qdfky9a3dh8atpy0l47fsuz5ywergnrfztcddjnl5xgnwyqvqh8gschn2ch",
+                            "hashType": "p2wsh",
+                            "redeemScript": "522103a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c721036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a0052ae6b5121036d2b085e9e382ed10b69fc311a03f8641ccfff21574de0927513a49d9a688a0051ae6c936b21022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01ac6c935287"
+                        }
+                    ]
+                },
+                "exclude": [
+                    "python"
+                ],
+                "todo": "check current test case."
+            },
+            {
+                "case": "p2sh-p2wsh miniscript",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "sh(wsh(c:or_i(andor(c:pk_h(xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB/1/0/*},pk_h(xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*},pk_h(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)},pk_k(02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e))))",
+                    "bip32DerivationPath": "44",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "3GyYN9WnJBoMn8M5tuqVcFJq1BvbAcdPAt",
+                    "lockingScript": "a914a7a9f411001e3e3db96d7f02fc9ab1d0dc6aa69187",
+                    "hashType": "p2sh-p2wsh",
+                    "redeemScript": "0020e29b7f3e543d581c99c92b59d45218b008b82c2d406bba3c7384d52e568124aa",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a914a7a9f411001e3e3db96d7f02fc9ab1d0dc6aa69187",
+                            "address": "3GyYN9WnJBoMn8M5tuqVcFJq1BvbAcdPAt",
+                            "hashType": "p2sh-p2wsh",
+                            "redeemScript": "0020e29b7f3e543d581c99c92b59d45218b008b82c2d406bba3c7384d52e568124aa"
+                        },
+                        {
+                            "depth": 1,
+                            "lockingScript": "0020e29b7f3e543d581c99c92b59d45218b008b82c2d406bba3c7384d52e568124aa",
+                            "address": "bc1qu2dh70j584vpexwf9dvag5sckqytstpdgp4m50rnsn2ju45pyj4qudazmh",
+                            "hashType": "p2wsh",
+                            "redeemScript": "6376a914520e6e72bcd5b616bc744092139bd759c31d6bbe88ac6476a91406afd46bcdfd22ef94ac122aa11f241244a37ecc886776a9145ab62f0be26fe9d6205a155403f33e2ad2d31efe8868672102d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e68ac"
+                        }
+                    ]
+                },
+                "exclude": [
+                    "python"
+                ],
+                "todo": "check current test case."
+            },
+            {
+                "case": "Elements pkh liquidv1",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "pkh(02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce)",
+                    "network": "liquidv1"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "QKXGAM4Cvd1fvLEz5tbq4YwNRzTjdMWi2q",
+                    "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
+                            "address": "QKXGAM4Cvd1fvLEz5tbq4YwNRzTjdMWi2q",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "Elements pkh regtest",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "pkh(02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce)",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "pkh",
+                    "address": "2dwgdRg7VJjVdVV4QSZtZNsPQTnKeGMg97s",
+                    "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
+                    "hashType": "p2pkh",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
+                            "address": "2dwgdRg7VJjVdVV4QSZtZNsPQTnKeGMg97s",
+                            "hashType": "p2pkh",
+                            "keyType": "pubkey",
+                            "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "Elements sh(multi) regtest",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "sh(multi(2,02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce,03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4))",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "XF6tjJihbLuQPuVUVfYZDdiHFqJg3Ft6pP",
+                    "lockingScript": "a9142929e2d6a4f0831654672d330a0aa745d7aab26a87",
+                    "hashType": "p2sh",
+                    "redeemScript": "522102054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce2103ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d9272103499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e453ae",
+                    "includeMultisig": true,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a9142929e2d6a4f0831654672d330a0aa745d7aab26a87",
+                            "address": "XF6tjJihbLuQPuVUVfYZDdiHFqJg3Ft6pP",
+                            "redeemScript": "522102054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce2103ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d9272103499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e453ae",
+                            "keys": [
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927"
+                                },
+                                {
+                                    "keyType": "pubkey",
+                                    "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                                }
+                            ],
+                            "reqNum": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "Elements addr regtest",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "addr(ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq)",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "addr",
+                    "address": "ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq",
+                    "lockingScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6",
+                    "hashType": "p2wsh",
+                    "includeMultisig": false
+                }
+            },
+            {
+                "case": "Elements utxo sh-wpkh regtest",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "sh(wpkh([0a6b2302/0'/1'/223']03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927))#svdwefzy",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "sh",
+                    "address": "XCEs4H1JSJ7ezGVRmkLeptqgvzPQpwLYHZ",
+                    "lockingScript": "a91409c370a0373e00cf7e3dc6bb2f37f9fb881baff487",
+                    "hashType": "p2sh-p2wpkh",
+                    "redeemScript": "0014d1495dfca98f5d205b683a4eea1b10c7e29c1c92",
+                    "includeMultisig": false,
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "a91409c370a0373e00cf7e3dc6bb2f37f9fb881baff487",
+                            "address": "XCEs4H1JSJ7ezGVRmkLeptqgvzPQpwLYHZ",
+                            "hashType": "p2sh-p2wpkh",
+                            "redeemScript": "0014d1495dfca98f5d205b683a4eea1b10c7e29c1c92"
+                        },
+                        {
+                            "depth": 1,
+                            "lockingScript": "0014d1495dfca98f5d205b683a4eea1b10c7e29c1c92",
+                            "address": "ert1q69y4ml9f3awjqkmg8f8w5xcscl3fc8yjtt05y5",
+                            "hashType": "p2wpkh",
+                            "keyType": "pubkey",
+                            "key": "03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "Error(network is invalid)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)",
+                    "network": "mainnetttt"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Error(descriptor is invalid)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkdh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to analyze descriptor."
+                }
+            },
+            {
+                "case": "Error(addr prefix is invalid)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "addr(ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq)",
+                    "network": "regtest"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Base58 decode error."
+                }
+            },
+            {
+                "case": "Error(addr network is unmatch)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "addr(bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3)",
+                    "network": "testnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "unmatch address nettype."
+                }
+            },
+            {
+                "case": "Error(descriptor is illegal(wsh in wsh))",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(wsh(pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)))",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to wsh parent. only top or sh."
+                }
+            },
+            {
+                "case": "Error(descriptor is illegal(key in wsh))",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to check script type. child is script only."
+                }
+            },
+            {
+                "case": "Error(descriptor is illegal(wsh in wpkh))",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wpkh(wsh(pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)))",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to check key-hash type. child is key only."
+                }
+            },
+            {
+                "case": "Error(descriptor is illegal(wpkh in wsh))",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(wpkh(pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)))",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to check wpkh. wpkh cannot be a child of wsh."
+                }
+            },
+            {
+                "case": "Error(descriptor is illegal(sh position fail))",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "wsh(sh(pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)))",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to analyse descriptor. The target can only exist at the top."
+                }
+            },
+            {
+                "case": "Error(checksum fail)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "raw(6a4c4f54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e)#z02avljj",
+                    "network": "mainnet"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Unmatch checksum."
+                }
+            },
+            {
+                "case": "Error(extpubkey hardened derive fail)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "pkh([d34db33f/44\"/0\"/0\"]xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
+                    "network": "mainnet",
+                    "bip32DerivationPath": "0h/44"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "ExtPubkey hardened derive error."
+                }
+            },
+            {
+                "case": "Error(network is invalid)",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "pkh(02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce)",
+                    "network": "liquidv0"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid elements_network_type passed. elements_network_type must be \"liquidv1\" or \"liquidregtest\" or \"elementsregtest\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Error(addr prefix is invalid)",
+                "request": {
+                    "isElements": true,
+                    "descriptor": "addr(ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq)",
+                    "network": "liquidv1"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "unmatch address nettype."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Descriptor.Checksum",
+        "cases": [
+            {
+                "case": "pk",
+                "request": {
+                    "descriptor": "pk(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)"
+                },
+                "expect": {
+                    "descriptor": "pk(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)#3dt5nkzl"
+                }
+            },
+            {
+                "case": "pkh",
+                "request": {
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)"
+                },
+                "expect": {
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)#8fhd9pwu"
+                }
+            },
+            {
+                "case": "wpkh",
+                "request": {
+                    "descriptor": "wpkh(02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9)"
+                },
+                "expect": {
+                    "descriptor": "wpkh(02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9)#8zl0zxma"
+                }
+            },
+            {
+                "case": "sh-wpkh",
+                "request": {
+                    "descriptor": "sh(wpkh(03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556))"
+                },
+                "expect": {
+                    "descriptor": "sh(wpkh(03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556))#qkrrc7je"
+                }
+            },
+            {
+                "case": "combo",
+                "request": {
+                    "descriptor": "combo(0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798)"
+                },
+                "expect": {
+                    "descriptor": "combo(0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798)#lq9sf04s"
+                }
+            },
+            {
+                "case": "sh-wsh(+pkh)",
+                "request": {
+                    "descriptor": "sh(wsh(pkh(02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13)))"
+                },
+                "expect": {
+                    "descriptor": "sh(wsh(pkh(02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13)))#2wtr0ej5"
+                }
+            },
+            {
+                "case": "multi",
+                "request": {
+                    "descriptor": "multi(1,022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4,025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc)"
+                },
+                "expect": {
+                    "descriptor": "multi(1,022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4,025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc)#hzhjw406"
+                }
+            },
+            {
+                "case": "sh(multi)",
+                "request": {
+                    "descriptor": "sh(multi(2,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe))"
+                },
+                "expect": {
+                    "descriptor": "sh(multi(2,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe))#y9zthqta"
+                }
+            },
+            {
+                "case": "sh(sortedmulti)",
+                "request": {
+                    "descriptor": "sh(sortedmulti(2,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01))"
+                },
+                "expect": {
+                    "descriptor": "sh(sortedmulti(2,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01))#qwx6n9lh"
+                }
+            },
+            {
+                "case": "wsh(multi)",
+                "request": {
+                    "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))"
+                },
+                "expect": {
+                    "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))#en3tu306"
+                }
+            },
+            {
+                "case": "sh-wsh(multi)",
+                "request": {
+                    "descriptor": "sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))"
+                },
+                "expect": {
+                    "descriptor": "sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))#ks05yr6p"
+                }
+            },
+            {
+                "case": "pkh hdkey-derive",
+                "request": {
+                    "descriptor": "pkh([d34db33f/44'/0'/0']xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "descriptor": "pkh([d34db33f/44'/0'/0']xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)#ml40v0wf"
+                }
+            },
+            {
+                "case": "raw checksum mainnet",
+                "request": {
+                    "descriptor": "raw(6a4c4f54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e)#zf2avljj"
+                },
+                "expect": {
+                    "descriptor": "raw(6a4c4f54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e)#zf2avljj"
+                }
+            },
+            {
+                "case": "bitcoin address",
+                "request": {
+                    "descriptor": "addr(bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4)",
+                    "isElements": false
+                },
+                "expect": {
+                    "descriptor": "addr(bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4)#uyjndxcw"
+                }
+            },
+            {
+                "case": "elements address",
+                "request": {
+                    "descriptor": "addr(ert1q57etrknhl75e64jmqrvl0vwzu39xjpagaw9ynw)",
+                    "isElements": true,
+                    "network": "regtest"
+                },
+                "expect": {
+                    "descriptor": "addr(ert1q57etrknhl75e64jmqrvl0vwzu39xjpagaw9ynw)#87kymh3n"
+                }
+            },
+            {
+                "case": "invalid checksum.",
+                "request": {
+                    "descriptor": "sh(wpkh([ef57314e/0\"/0\"/4\"]03d3f817091de0bbe51e19b53303b12e463f664894d49cb5bf5bb19c88fbc54d8d))#eeerft8t"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Unmatch checksum."
+                }
+            },
+            {
+                "case": "invalid bitcoin address.",
+                "request": {
+                    "descriptor": "addr(ert1q57etrknhl75e64jmqrvl0vwzu39xjpagaw9ynw)",
+                    "isElements": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Base58 decode error."
+                }
+            },
+            {
+                "case": "invalid elements address.",
+                "request": {
+                    "descriptor": "addr(bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4)",
+                    "isElements": true
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Base58 decode error."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Descriptor.Create",
+        "cases": [
+            {
+                "case": "pk",
+                "request": {
+                    "scriptType": "p2pk",
+                    "keyInfoList": [
+                        {
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "pk(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)#3dt5nkzl"
+                }
+            },
+            {
+                "case": "pkh",
+                "request": {
+                    "scriptType": "p2pkh",
+                    "keyInfoList": [
+                        {
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "pkh(02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5)#8fhd9pwu"
+                }
+            },
+            {
+                "case": "wpkh",
+                "request": {
+                    "scriptType": "p2wpkh",
+                    "keyInfoList": [
+                        {
+                            "key": "02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "wpkh(02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9)#8zl0zxma"
+                }
+            },
+            {
+                "case": "sh-wpkh",
+                "request": {
+                    "scriptType": "p2sh-p2wpkh",
+                    "keyInfoList": [
+                        {
+                            "key": "03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "sh(wpkh(03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556))#qkrrc7je"
+                }
+            },
+            {
+                "case": "combo",
+                "request": {
+                    "scriptType": "combo",
+                    "keyInfoList": [
+                        {
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "combo(0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798)#lq9sf04s"
+                }
+            },
+            {
+                "case": "sh-wsh(+pkh)",
+                "request": {
+                    "scriptType": "p2sh-p2wsh-p2pkh",
+                    "keyInfoList": [
+                        {
+                            "key": "02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13"
+                        }
+                    ]
+                },
+                "expect": {
+                    "descriptor": "sh(wsh(pkh(02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13)))#2wtr0ej5"
+                }
+            },
+            {
+                "case": "multi",
+                "request": {
+                    "scriptType": "multi",
+                    "keyInfoList": [
+                        {
+                            "key": "022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4"
+                        },
+                        {
+                            "key": "025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc"
+                        }
+                    ],
+                    "requireNum": 1
+                },
+                "expect": {
+                    "descriptor": "multi(1,022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4,025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc)#hzhjw406"
+                }
+            },
+            {
+                "case": "sh(multi)",
+                "request": {
+                    "scriptType": "p2sh-multi",
+                    "keyInfoList": [
+                        {
+                            "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                        },
+                        {
+                            "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                        }
+                    ],
+                    "requireNum": 2
+                },
+                "expect": {
+                    "descriptor": "sh(multi(2,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe))#y9zthqta"
+                }
+            },
+            {
+                "case": "sh(sortedmulti)",
+                "request": {
+                    "scriptType": "p2sh-sortedmulti",
+                    "keyInfoList": [
+                        {
+                            "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                        },
+                        {
+                            "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                        }
+                    ],
+                    "requireNum": 2
+                },
+                "expect": {
+                    "descriptor": "sh(sortedmulti(2,03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe,022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01))#qwx6n9lh"
+                }
+            },
+            {
+                "case": "wsh(multi)",
+                "request": {
+                    "scriptType": "p2wsh-multi",
+                    "keyInfoList": [
+                        {
+                            "key": "03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7"
+                        },
+                        {
+                            "key": "03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb"
+                        },
+                        {
+                            "key": "03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a"
+                        }
+                    ],
+                    "requireNum": 2
+                },
+                "expect": {
+                    "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))#en3tu306"
+                }
+            },
+            {
+                "case": "sh-wsh(multi)",
+                "request": {
+                    "scriptType": "p2sh-p2wsh-multi",
+                    "keyInfoList": [
+                        {
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        },
+                        {
+                            "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                        },
+                        {
+                            "key": "02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e"
+                        }
+                    ],
+                    "requireNum": 1
+                },
+                "expect": {
+                    "descriptor": "sh(wsh(multi(1,03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8,03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4,02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e)))#ks05yr6p"
+                }
+            },
+            {
+                "case": "pkh hdkey-derive",
+                "request": {
+                    "scriptType": "p2pkh",
+                    "keyInfoList": [
+                        {
+                            "parentExtkey": "tprv8ZgxMBicQKsPfFfgL33JxxEMtuXMCaUxXqetSSSVcsFcbsYzrDAw5SUG8UStm8G86cxBUANpv2kpEsB4GMEG6NfLVRZGzZCRLQrr8deFcfZ",
+                            "keyPathFromParent": "0\"/1\"",
+                            "key": "tpubDBa2ey4mzydY8ZLZx3LR96vdTdVgnMXGDwQ8PDjkQNeRq82JRXGY8JLyiAKbidjJPLUXmSbJkcTWrPf89MkCGvhCYf8vUpJLPfmx3hyqC15/1/*"
+                        }
+                    ],
+                    "requireNum": 0
+                },
+                "expect": {
+                    "descriptor": "pkh([00000000/0\"/1\"]tpubDBa2ey4mzydY8ZLZx3LR96vdTdVgnMXGDwQ8PDjkQNeRq82JRXGY8JLyiAKbidjJPLUXmSbJkcTWrPf89MkCGvhCYf8vUpJLPfmx3hyqC15/1/*)#y3xv4kyv"
+                }
+            },
+            {
+                "case": "empty script type.",
+                "request": {
+                    "scriptType": "",
+                    "keyInfoList": [
+                        {
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        }
+                    ],
+                    "requireNum": 0
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to type list. list is empty."
+                }
+            },
+            {
+                "case": "invalid script type.",
+                "request": {
+                    "scriptType": "p2sh",
+                    "keyInfoList": [
+                        {
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        }
+                    ],
+                    "requireNum": 0
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to script hash type. this type is unsupported of key."
+                }
+            },
+            {
+                "case": "empty key.",
+                "request": {
+                    "scriptType": "p2sh-p2pkh",
+                    "requireNum": 0
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to createDescriptor. key list is empty."
+                }
+            },
+            {
+                "case": "invalid key list num.",
+                "request": {
+                    "scriptType": "p2sh-p2pkh",
+                    "keyInfoList": [
+                        {
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        },
+                        {
+                            "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                        }
+                    ]
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to createDescriptor. multiple key is multisig only."
+                }
+            },
+            {
+                "case": "invalid require num.",
+                "request": {
+                    "scriptType": "p2sh-multi",
+                    "keyInfoList": [
+                        {
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        }
+                    ],
+                    "requireNum": 30
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to multisig require num."
+                }
+            }
+        ]
+    }
+]

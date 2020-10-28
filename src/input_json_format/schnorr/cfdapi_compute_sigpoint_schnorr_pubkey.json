@@ -1,0 +1,29 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "ComputeSigPointSchnorrPubkey",
+  "comment": "compute sigpoint on schnorr pubkey.",
+  "request": {
+    ":class": "ComputeSigPointRequest",
+    ":class:comment": "Request for compute sigpoint on schnorr",
+    "message": "",
+    "message:require": "require",
+    "message:comment": "message data.",
+    "message:hint": "32-byte hash, or text message.",
+    "isHashed": true,
+    "isHashed:require": "optional",
+    "isHashed:comment": "is 32-byte hashed message.",
+    "nonce": "",
+    "nonce:require": "require",
+    "nonce:comment": "32-byte nonce data.",
+    "schnorrPubkey": "",
+    "schnorrPubkey:require": "require",
+    "schnorrPubkey:comment": "xonly public key."
+  },
+  "response": {
+    ":class": "PubkeyData",
+    ":class:comment": "Response pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey"
+  }
+}

@@ -1,7 +1,9 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "encode base58",
   "request": {
     ":class": "EncodeBase58Request",
+    ":class:comment": "Request for encode base58",
     "hex": "",
     "hex:require": "require",
     "hex:comment": "base58 target byte hex",
@@ -11,6 +13,7 @@
   },
   "response": {
     ":class": "EncodeBase58Response",
+    ":class:comment": "Response of encode base58",
     "data": "",
     "data:require": "require",
     "data:comment": "encoded data"

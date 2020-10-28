@@ -1,0 +1,41 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create extkey from parent's key.",
+  "request": {
+    ":class": "CreateExtkeyFromParentKeyRequest",
+    ":class:comment": "Request data for creating extkey from parent's key.",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "extPubkey",
+    "extkeyType:require": "optional",
+    "extkeyType:comment": "extkey type",
+    "extkeyType:hint": "extPrivkey or extPubkey",
+    "parentKey": "",
+    "parentKey:require": "require",
+    "parentKey:comment": "parent key",
+    "parentKey:hint": "pubkey or privkey",
+    "parentDepth": 0,
+    "parentDepth:require": "require",
+    "parentDepth:type": "uint8_t",
+    "parentDepth:comment": "parent depth",
+    "parentChainCode": "",
+    "parentChainCode:require": "require",
+    "parentChainCode:comment": "parent chain code",
+    "childNumber": 0,
+    "childNumber:require": "require",
+    "childNumber:type": "uint32_t",
+    "childNumber:comment": "bip32 child number.",
+    "hardened": false,
+    "hardened:require": "optional",
+    "hardened:comment": "hardened flag.",
+    "hardened:hint": "true is extPrivkey only."
+  },
+  "response": {
+    ":class": "CreateExtkeyResponse",
+    ":class:comment": "Response of creating extkey.",
+    "extkey": "",
+    "extkey:require": "require"
+  }
+}
