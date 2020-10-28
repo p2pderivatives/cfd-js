@@ -25,6 +25,7 @@
 #include "cfdjs_coin.h"                       // NOLINT
 #include "cfdjs_json_elements_transaction.h"  // NOLINT
 #include "cfdjs_json_transaction.h"           // NOLINT
+#include "cfdjs_schnorr.h"                    // NOLINT
 
 // using
 using cfd::js::api::AddressStructApi;
@@ -305,19 +306,17 @@ std::string JsonMappingApi::CreateRawTransaction(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::CreateRawTransactionRequest,
-      api::json::CreateRawTransactionResponse,
+      api::json::RawTransactionResponse,
       api::CreateRawTransactionRequestStruct,
-      api::CreateRawTransactionResponseStruct>(
+      api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::CreateRawTransaction);
 }
 
 std::string JsonMappingApi::AddRawTransaction(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::AddRawTransactionRequest,
-      api::json::AddRawTransactionResponse,
-      api::AddRawTransactionRequestStruct,
-      api::AddRawTransactionResponseStruct>(
+      api::json::AddRawTransactionRequest, api::json::RawTransactionResponse,
+      api::AddRawTransactionRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::AddRawTransaction);
 }
 
@@ -420,8 +419,8 @@ std::string JsonMappingApi::ParseDescriptor(
 std::string JsonMappingApi::CreateDescriptor(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateDescriptorRequest, api::json::CreateDescriptorResponse,
-      api::CreateDescriptorRequestStruct, api::CreateDescriptorResponseStruct>(
+      api::json::CreateDescriptorRequest, api::json::OutputDescriptorResponse,
+      api::CreateDescriptorRequestStruct, api::OutputDescriptorResponseStruct>(
       request_message, AddressStructApi::CreateDescriptor);
 }
 
@@ -429,9 +428,9 @@ std::string JsonMappingApi::AppendDescriptorChecksum(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
       api::json::AppendDescriptorChecksumRequest,
-      api::json::AppendDescriptorChecksumResponse,
+      api::json::OutputDescriptorResponse,
       api::AppendDescriptorChecksumRequestStruct,
-      api::AppendDescriptorChecksumResponseStruct>(
+      api::OutputDescriptorResponseStruct>(
       request_message, AddressStructApi::AppendDescriptorChecksum,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsAddressStructApi::AppendDescriptorChecksum);
@@ -485,9 +484,9 @@ std::string JsonMappingApi::DecodeDerSignatureToRaw(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::DecodeDerSignatureToRawRequest,
-      api::json::DecodeDerSignatureToRawResponse,
+      api::json::SignatureDataResponse,
       api::DecodeDerSignatureToRawRequestStruct,
-      api::DecodeDerSignatureToRawResponseStruct>(
+      api::SignatureDataResponseStruct>(
       request_message, UtilStructApi::DecodeDerSignatureToRaw);
 }
 
@@ -521,57 +520,107 @@ std::string JsonMappingApi::GetPrivkeyFromExtkey(
 std::string JsonMappingApi::GetPubkeyFromExtkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetPubkeyFromExtkeyRequest,
-      api::json::GetPubkeyFromExtkeyResponse,
-      api::GetPubkeyFromExtkeyRequestStruct,
-      api::GetPubkeyFromExtkeyResponseStruct>(
+      api::json::GetPubkeyFromExtkeyRequest, api::json::PubkeyData,
+      api::GetPubkeyFromExtkeyRequestStruct, api::PubkeyDataStruct>(
       request_message, HDWalletStructApi::GetPubkeyFromExtkey);
 }
 
 std::string JsonMappingApi::GetPrivkeyFromWif(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetPrivkeyFromWifRequest,
-      api::json::GetPrivkeyFromWifResponse,
-      api::GetPrivkeyFromWifRequestStruct,
-      api::GetPrivkeyFromWifResponseStruct>(
+      api::json::PrivkeyWifData, api::json::PrivkeyHexData,
+      api::PrivkeyWifDataStruct, api::PrivkeyHexDataStruct>(
       request_message, KeyStructApi::GetPrivkeyFromWif);
 }
 
 std::string JsonMappingApi::GetPrivkeyWif(const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetPrivkeyWifRequest, api::json::GetPrivkeyWifResponse,
-      api::GetPrivkeyWifRequestStruct, api::GetPrivkeyWifResponseStruct>(
+      api::json::PrivkeyHexData, api::json::PrivkeyWifData,
+      api::PrivkeyHexDataStruct, api::PrivkeyWifDataStruct>(
       request_message, KeyStructApi::GetPrivkeyWif);
+}
+
+std::string JsonMappingApi::TweakAddPrivkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::TweakPrivkeyData, api::json::OutputPrivkeyData,
+      api::TweakPrivkeyDataStruct, api::OutputPrivkeyDataStruct>(
+      request_message, KeyStructApi::TweakAddPrivkey);
+}
+
+std::string JsonMappingApi::TweakMulPrivkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::TweakPrivkeyData, api::json::OutputPrivkeyData,
+      api::TweakPrivkeyDataStruct, api::OutputPrivkeyDataStruct>(
+      request_message, KeyStructApi::TweakMulPrivkey);
+}
+
+std::string JsonMappingApi::NegatePrivkey(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::PrivkeyData, api::json::OutputPrivkeyData,
+      api::PrivkeyDataStruct, api::OutputPrivkeyDataStruct>(
+      request_message, KeyStructApi::NegatePrivkey);
 }
 
 std::string JsonMappingApi::GetPubkeyFromPrivkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetPubkeyFromPrivkeyRequest,
-      api::json::GetPubkeyFromPrivkeyResponse,
-      api::GetPubkeyFromPrivkeyRequestStruct,
-      api::GetPubkeyFromPrivkeyResponseStruct>(
+      api::json::GetPubkeyFromPrivkeyRequest, api::json::PubkeyData,
+      api::GetPubkeyFromPrivkeyRequestStruct, api::PubkeyDataStruct>(
       request_message, KeyStructApi::GetPubkeyFromPrivkey);
 }
 
 std::string JsonMappingApi::GetCompressedPubkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetCompressedPubkeyRequest,
-      api::json::GetCompressedPubkeyResponse,
-      api::GetCompressedPubkeyRequestStruct,
-      api::GetCompressedPubkeyResponseStruct>(
+      api::json::PubkeyData, api::json::PubkeyData, api::PubkeyDataStruct,
+      api::PubkeyDataStruct>(
       request_message, KeyStructApi::GetCompressedPubkey);
+}
+
+std::string JsonMappingApi::GetUncompressedPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::PubkeyData, api::json::PubkeyData, api::PubkeyDataStruct,
+      api::PubkeyDataStruct>(
+      request_message, KeyStructApi::GetUncompressedPubkey);
+}
+
+std::string JsonMappingApi::CombinePubkey(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::PubkeyListData, api::json::PubkeyData,
+      api::PubkeyListDataStruct, api::PubkeyDataStruct>(
+      request_message, KeyStructApi::CombinePubkey);
+}
+
+std::string JsonMappingApi::TweakAddPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::TweakPubkeyData, api::json::PubkeyData,
+      api::TweakPubkeyDataStruct, api::PubkeyDataStruct>(
+      request_message, KeyStructApi::TweakAddPubkey);
+}
+
+std::string JsonMappingApi::TweakMulPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::TweakPubkeyData, api::json::PubkeyData,
+      api::TweakPubkeyDataStruct, api::PubkeyDataStruct>(
+      request_message, KeyStructApi::TweakMulPubkey);
+}
+
+std::string JsonMappingApi::NegatePubkey(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::PubkeyData, api::json::PubkeyData, api::PubkeyDataStruct,
+      api::PubkeyDataStruct>(request_message, KeyStructApi::NegatePubkey);
 }
 
 std::string JsonMappingApi::CreateExtkeyFromSeed(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateExtkeyFromSeedRequest,
-      api::json::CreateExtkeyFromSeedResponse,
-      api::CreateExtkeyFromSeedRequestStruct,
-      api::CreateExtkeyFromSeedResponseStruct>(
+      api::json::CreateExtkeyFromSeedRequest, api::json::CreateExtkeyResponse,
+      api::CreateExtkeyFromSeedRequestStruct, api::CreateExtkeyResponseStruct>(
       request_message, HDWalletStructApi::CreateExtkeyFromSeed);
 }
 
@@ -579,9 +628,9 @@ std::string JsonMappingApi::CreateExtkeyFromParent(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::CreateExtkeyFromParentRequest,
-      api::json::CreateExtkeyFromParentResponse,
+      api::json::CreateExtkeyResponse,
       api::CreateExtkeyFromParentRequestStruct,
-      api::CreateExtkeyFromParentResponseStruct>(
+      api::CreateExtkeyResponseStruct>(
       request_message, HDWalletStructApi::CreateExtkeyFromParent);
 }
 
@@ -589,9 +638,9 @@ std::string JsonMappingApi::CreateExtkeyFromParentPath(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::CreateExtkeyFromParentPathRequest,
-      api::json::CreateExtkeyFromParentPathResponse,
+      api::json::CreateExtkeyResponse,
       api::CreateExtkeyFromParentPathRequestStruct,
-      api::CreateExtkeyFromParentPathResponseStruct>(
+      api::CreateExtkeyResponseStruct>(
       request_message, HDWalletStructApi::CreateExtkeyFromParentPath);
 }
 
@@ -599,9 +648,9 @@ std::string JsonMappingApi::CreateExtkeyFromParentKey(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::CreateExtkeyFromParentKeyRequest,
-      api::json::CreateExtkeyFromParentKeyResponse,
+      api::json::CreateExtkeyResponse,
       api::CreateExtkeyFromParentKeyRequestStruct,
-      api::CreateExtkeyFromParentKeyResponseStruct>(
+      api::CreateExtkeyResponseStruct>(
       request_message, HDWalletStructApi::CreateExtkeyFromParentKey);
 }
 
@@ -615,8 +664,8 @@ std::string JsonMappingApi::CreateExtkey(const std::string &request_message) {
 std::string JsonMappingApi::CreateExtPubkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateExtPubkeyRequest, api::json::CreateExtPubkeyResponse,
-      api::CreateExtPubkeyRequestStruct, api::CreateExtPubkeyResponseStruct>(
+      api::json::CreateExtPubkeyRequest, api::json::CreateExtkeyResponse,
+      api::CreateExtPubkeyRequestStruct, api::CreateExtkeyResponseStruct>(
       request_message, HDWalletStructApi::CreateExtPubkey);
 }
 
@@ -636,35 +685,33 @@ std::string JsonMappingApi::ParseScript(const std::string &request_message) {
 
 std::string JsonMappingApi::CreateScript(const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateScriptRequest, api::json::CreateScriptResponse,
-      api::CreateScriptRequestStruct, api::CreateScriptResponseStruct>(
+      api::json::CreateScriptRequest, api::json::ScriptDataResponse,
+      api::CreateScriptRequestStruct, api::ScriptDataResponseStruct>(
       request_message, ScriptStructApi::CreateScript);
 }
 
 std::string JsonMappingApi::CreateMultisigScriptSig(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateMultisigScriptSigRequest,
-      api::json::CreateMultisigScriptSigResponse,
+      api::json::CreateMultisigScriptSigRequest, api::json::ScriptDataResponse,
       api::CreateMultisigScriptSigRequestStruct,
-      api::CreateMultisigScriptSigResponseStruct>(
+      api::ScriptDataResponseStruct>(
       request_message, ScriptStructApi::CreateMultisigScriptSig);
 }
 
 std::string JsonMappingApi::CalculateEcSignature(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CalculateEcSignatureRequest,
-      api::json::CalculateEcSignatureResponse,
+      api::json::CalculateEcSignatureRequest, api::json::SignatureDataResponse,
       api::CalculateEcSignatureRequestStruct,
-      api::CalculateEcSignatureResponseStruct>(
+      api::SignatureDataResponseStruct>(
       request_message, KeyStructApi::CalculateEcSignature);
 }
 
 std::string JsonMappingApi::AddSign(const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::AddSignRequest, api::json::AddSignResponse,
-      api::AddSignRequestStruct, api::AddSignResponseStruct>(
+      api::json::AddSignRequest, api::json::RawTransactionResponse,
+      api::AddSignRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::AddSign,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::AddSign);
@@ -676,10 +723,8 @@ std::string JsonMappingApi::AddSign(const std::string &request_message) {
 std::string JsonMappingApi::AddPubkeyHashSign(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::AddPubkeyHashSignRequest,
-      api::json::AddPubkeyHashSignResponse,
-      api::AddPubkeyHashSignRequestStruct,
-      api::AddPubkeyHashSignResponseStruct>(
+      api::json::AddPubkeyHashSignRequest, api::json::RawTransactionResponse,
+      api::AddPubkeyHashSignRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::AddPubkeyHashSign,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::AddPubkeyHashSign);
@@ -691,8 +736,8 @@ std::string JsonMappingApi::AddPubkeyHashSign(
 std::string JsonMappingApi::SignWithPrivkey(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::SignWithPrivkeyRequest, api::json::SignWithPrivkeyResponse,
-      api::SignWithPrivkeyRequestStruct, api::SignWithPrivkeyResponseStruct>(
+      api::json::SignWithPrivkeyRequest, api::json::RawTransactionResponse,
+      api::SignWithPrivkeyRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::SignWithPrivkey,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::SignWithPrivkey);
@@ -704,10 +749,8 @@ std::string JsonMappingApi::SignWithPrivkey(
 std::string JsonMappingApi::AddScriptHashSign(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::AddScriptHashSignRequest,
-      api::json::AddScriptHashSignResponse,
-      api::AddScriptHashSignRequestStruct,
-      api::AddScriptHashSignResponseStruct>(
+      api::json::AddScriptHashSignRequest, api::json::RawTransactionResponse,
+      api::AddScriptHashSignRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::AddScriptHashSign,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::AddScriptHashSign);
@@ -719,10 +762,8 @@ std::string JsonMappingApi::AddScriptHashSign(
 std::string JsonMappingApi::UpdateWitnessStack(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::UpdateWitnessStackRequest,
-      api::json::UpdateWitnessStackResponse,
-      api::UpdateWitnessStackRequestStruct,
-      api::UpdateWitnessStackResponseStruct>(
+      api::json::UpdateWitnessStackRequest, api::json::RawTransactionResponse,
+      api::UpdateWitnessStackRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::UpdateWitnessStack,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::UpdateWitnessStack);
@@ -749,8 +790,8 @@ std::string JsonMappingApi::GetWitnessStackNum(
 std::string JsonMappingApi::AddMultisigSign(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::AddMultisigSignRequest, api::json::AddMultisigSignResponse,
-      api::AddMultisigSignRequestStruct, api::AddMultisigSignResponseStruct>(
+      api::json::AddMultisigSignRequest, api::json::RawTransactionResponse,
+      api::AddMultisigSignRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::AddMultisigSign,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::AddMultisigSign);
@@ -817,16 +858,106 @@ std::string JsonMappingApi::FundRawTransaction(
 std::string JsonMappingApi::UpdateTxOutAmount(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
-      api::json::UpdateTxOutAmountRequest,
-      api::json::UpdateTxOutAmountResponse,
-      api::UpdateTxOutAmountRequestStruct,
-      api::UpdateTxOutAmountResponseStruct>(
+      api::json::UpdateTxOutAmountRequest, api::json::RawTransactionResponse,
+      api::UpdateTxOutAmountRequestStruct, api::RawTransactionResponseStruct>(
       request_message, TransactionStructApi::UpdateTxOutAmount,
 #ifndef CFD_DISABLE_ELEMENTS
       ElementsTransactionStructApi::UpdateTxOutAmount);
 #else
       TransactionStructApi::UpdateTxOutAmount);
 #endif
+}
+
+std::string JsonMappingApi::GetSchnorrPubkeyFromPrivkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      GetSchnorrPubkeyFromPrivkeyRequest, SchnorrPubkeyData,
+      GetSchnorrPubkeyFromPrivkeyRequestStruct, SchnorrPubkeyDataStruct>(
+      request_message, SchnorrApi::GetSchnorrPubkeyFromPrivkey);
+}
+
+std::string JsonMappingApi::GetSchnorrPubkeyFromPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      PubkeyData, SchnorrPubkeyData, PubkeyDataStruct,
+      SchnorrPubkeyDataStruct>(
+      request_message, SchnorrApi::GetSchnorrPubkeyFromPubkey);
+}
+
+std::string JsonMappingApi::TweakAddSchnorrPubkeyFromPrivkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      TweakPrivkeyData, SchnorrKeyPairData, TweakPrivkeyDataStruct,
+      SchnorrKeyPairDataStruct>(
+      request_message, SchnorrApi::TweakAddSchnorrPubkeyFromPrivkey);
+}
+
+std::string JsonMappingApi::TweakAddSchnorrPubkeyFromPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      TweakPubkeyData, SchnorrPubkeyData, TweakPubkeyDataStruct,
+      SchnorrPubkeyDataStruct>(
+      request_message, SchnorrApi::TweakAddSchnorrPubkeyFromPubkey);
+}
+
+std::string JsonMappingApi::CheckTweakedSchnorrPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      CheckTweakedSchnorrPubkeyRequest, VerifySignatureResponse,
+      CheckTweakedSchnorrPubkeyRequestStruct, VerifySignatureResponseStruct>(
+      request_message, SchnorrApi::CheckTweakedSchnorrPubkey);
+}
+
+std::string JsonMappingApi::SchnorrSign(const std::string &request_message) {
+  return ExecuteJsonApi<
+      SchnorrSignRequest, SchnorrSignResponse, SchnorrSignRequestStruct,
+      SchnorrSignResponseStruct>(request_message, SchnorrApi::SchnorrSign);
+}
+
+std::string JsonMappingApi::SchnorrVerify(const std::string &request_message) {
+  return ExecuteJsonApi<
+      SchnorrVerifyRequest, SchnorrVerifyResponse, SchnorrVerifyRequestStruct,
+      SchnorrVerifyResponseStruct>(request_message, SchnorrApi::SchnorrVerify);
+}
+
+std::string JsonMappingApi::ComputeSigPointSchnorrPubkey(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      ComputeSigPointRequest, PubkeyData, ComputeSigPointRequestStruct,
+      PubkeyDataStruct>(
+      request_message, SchnorrApi::ComputeSigPointSchnorrPubkey);
+}
+
+std::string JsonMappingApi::SignEcdsaAdaptor(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      SignEcdsaAdaptorRequest, SignEcdsaAdaptorResponse,
+      SignEcdsaAdaptorRequestStruct, SignEcdsaAdaptorResponseStruct>(
+      request_message, SchnorrApi::SignEcdsaAdaptor);
+}
+
+std::string JsonMappingApi::VerifyEcdsaAdaptor(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      VerifyEcdsaAdaptorRequest, VerifySignatureResponse,
+      VerifyEcdsaAdaptorRequestStruct, VerifySignatureResponseStruct>(
+      request_message, SchnorrApi::VerifyEcdsaAdaptor);
+}
+
+std::string JsonMappingApi::AdaptEcdsaAdaptor(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      AdaptEcdsaAdaptorRequest, SignatureDataResponse,
+      AdaptEcdsaAdaptorRequestStruct, SignatureDataResponseStruct>(
+      request_message, SchnorrApi::AdaptEcdsaAdaptor);
+}
+
+std::string JsonMappingApi::ExtractSecretEcdsaAdaptor(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      ExtractSecretEcdsaAdaptorRequest, SecretData,
+      ExtractSecretEcdsaAdaptorRequestStruct, SecretDataStruct>(
+      request_message, SchnorrApi::ExtractSecretEcdsaAdaptor);
 }
 
 #ifndef CFD_DISABLE_ELEMENTS
@@ -865,9 +996,9 @@ std::string JsonMappingApi::ElementsCreateRawTransaction(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::ElementsCreateRawTransactionRequest,
-      api::json::ElementsCreateRawTransactionResponse,
+      api::json::RawTransactionResponse,
       api::ElementsCreateRawTransactionRequestStruct,
-      api::ElementsCreateRawTransactionResponseStruct>(
+      api::RawTransactionResponseStruct>(
       request_message, ElementsTransactionStructApi::CreateRawTransaction);
 }
 
@@ -894,10 +1025,9 @@ std::string JsonMappingApi::ElementsDecodeRawTransaction(
 std::string JsonMappingApi::BlindRawTransaction(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::BlindRawTransactionRequest,
-      api::json::BlindRawTransactionResponse,
+      api::json::BlindRawTransactionRequest, api::json::RawTransactionResponse,
       api::BlindRawTransactionRequestStruct,
-      api::BlindRawTransactionResponseStruct>(
+      api::RawTransactionResponseStruct>(
       request_message,
       ElementsTransactionStructApi::BlindTransaction);  // NOLINT
 }
@@ -934,17 +1064,17 @@ std::string JsonMappingApi::CreateElementsSignatureHash(
     const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::CreateElementsSignatureHashRequest,
-      api::json::CreateElementsSignatureHashResponse,
+      api::json::CreateSignatureHashResponse,
       api::CreateElementsSignatureHashRequestStruct,
-      api::CreateElementsSignatureHashResponseStruct>(
+      api::CreateSignatureHashResponseStruct>(
       request_message, ElementsTransactionStructApi::CreateSignatureHash);
 }
 
 std::string JsonMappingApi::CreateRawPegin(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateRawPeginRequest, api::json::CreateRawPeginResponse,
-      api::CreateRawPeginRequestStruct, api::CreateRawPeginResponseStruct>(
+      api::json::CreateRawPeginRequest, api::json::RawTransactionResponse,
+      api::CreateRawPeginRequestStruct, api::RawTransactionResponseStruct>(
       request_message,
       ElementsTransactionStructApi::CreateRawPeginTransaction);
 }
@@ -961,30 +1091,26 @@ std::string JsonMappingApi::CreateRawPegout(
 std::string JsonMappingApi::GetIssuanceBlindingKey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetIssuanceBlindingKeyRequest,
-      api::json::GetIssuanceBlindingKeyResponse,
+      api::json::GetIssuanceBlindingKeyRequest, api::json::BlindingKeyResponse,
       api::GetIssuanceBlindingKeyRequestStruct,
-      api::GetIssuanceBlindingKeyResponseStruct>(
+      api::BlindingKeyResponseStruct>(
       request_message, ElementsTransactionStructApi::GetIssuanceBlindingKey);
 }
 
 std::string JsonMappingApi::GetDefaultBlindingKey(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::GetDefaultBlindingKeyRequest,
-      api::json::GetDefaultBlindingKeyResponse,
-      api::GetDefaultBlindingKeyRequestStruct,
-      api::GetDefaultBlindingKeyResponseStruct>(
+      api::json::GetDefaultBlindingKeyRequest, api::json::BlindingKeyResponse,
+      api::GetDefaultBlindingKeyRequestStruct, api::BlindingKeyResponseStruct>(
       request_message, ElementsTransactionStructApi::GetDefaultBlindingKey);
 }
 
 std::string JsonMappingApi::CreateDestroyAmount(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::CreateDestroyAmountRequest,
-      api::json::CreateDestroyAmountResponse,
+      api::json::CreateDestroyAmountRequest, api::json::RawTransactionResponse,
       api::CreateDestroyAmountRequestStruct,
-      api::CreateDestroyAmountResponseStruct>(
+      api::RawTransactionResponseStruct>(
       request_message,
       ElementsTransactionStructApi::CreateDestroyAmountTransaction);
 }
@@ -1068,10 +1194,19 @@ void JsonMappingApi::LoadFunctions(
     request_map->emplace(
         "GetPrivkeyFromWif", JsonMappingApi::GetPrivkeyFromWif);
     request_map->emplace("GetPrivkeyWif", JsonMappingApi::GetPrivkeyWif);
+    request_map->emplace("TweakAddPrivkey", JsonMappingApi::TweakAddPrivkey);
+    request_map->emplace("TweakMulPrivkey", JsonMappingApi::TweakMulPrivkey);
+    request_map->emplace("NegatePrivkey", JsonMappingApi::NegatePrivkey);
     request_map->emplace(
         "GetPubkeyFromPrivkey", JsonMappingApi::GetPubkeyFromPrivkey);
     request_map->emplace(
         "GetCompressedPubkey", JsonMappingApi::GetCompressedPubkey);
+    request_map->emplace(
+        "GetUncompressedPubkey", JsonMappingApi::GetUncompressedPubkey);
+    request_map->emplace("CombinePubkey", JsonMappingApi::CombinePubkey);
+    request_map->emplace("TweakAddPubkey", JsonMappingApi::TweakAddPubkey);
+    request_map->emplace("TweakMulPubkey", JsonMappingApi::TweakMulPubkey);
+    request_map->emplace("NegatePubkey", JsonMappingApi::NegatePubkey);
     request_map->emplace(
         "CreateExtkeyFromSeed", JsonMappingApi::CreateExtkeyFromSeed);
     request_map->emplace(
@@ -1097,6 +1232,34 @@ void JsonMappingApi::LoadFunctions(
         "FundRawTransaction", JsonMappingApi::FundRawTransaction);
     request_map->emplace(
         "UpdateTxOutAmount", JsonMappingApi::UpdateTxOutAmount);
+    request_map->emplace(
+        "GetSchnorrPubkeyFromPrivkey",
+        JsonMappingApi::GetSchnorrPubkeyFromPrivkey);
+    request_map->emplace(
+        "GetSchnorrPubkeyFromPubkey",
+        JsonMappingApi::GetSchnorrPubkeyFromPubkey);
+    request_map->emplace(
+        "TweakAddSchnorrPubkeyFromPrivkey",
+        JsonMappingApi::TweakAddSchnorrPubkeyFromPrivkey);
+    request_map->emplace(
+        "TweakAddSchnorrPubkeyFromPubkey",
+        JsonMappingApi::TweakAddSchnorrPubkeyFromPubkey);
+    request_map->emplace(
+        "CheckTweakedSchnorrPubkey",
+        JsonMappingApi::CheckTweakedSchnorrPubkey);
+    request_map->emplace("SchnorrSign", JsonMappingApi::SchnorrSign);
+    request_map->emplace("SchnorrVerify", JsonMappingApi::SchnorrVerify);
+    request_map->emplace(
+        "ComputeSigPointSchnorrPubkey",
+        JsonMappingApi::ComputeSigPointSchnorrPubkey);
+    request_map->emplace("SignEcdsaAdaptor", JsonMappingApi::SignEcdsaAdaptor);
+    request_map->emplace(
+        "VerifyEcdsaAdaptor", JsonMappingApi::VerifyEcdsaAdaptor);
+    request_map->emplace(
+        "AdaptEcdsaAdaptor", JsonMappingApi::AdaptEcdsaAdaptor);
+    request_map->emplace(
+        "ExtractSecretEcdsaAdaptor",
+        JsonMappingApi::ExtractSecretEcdsaAdaptor);
 #ifndef CFD_DISABLE_ELEMENTS
     request_map->emplace(
         "GetConfidentialAddress", JsonMappingApi::GetConfidentialAddress);

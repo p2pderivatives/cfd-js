@@ -1,0 +1,640 @@
+[
+    {
+        "name": "Elements.CoinSelection",
+        "cases": [
+            {
+                "case": "ElementsSelectCoinsTest01",
+                "request": {
+                    "utxoFile": "elements_utxo_1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 0.0,
+                        "longTermFeeRate": 0.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [],
+                    "selectedAmounts": [],
+                    "feeAmount": 0,
+                    "utxoFeeAmount": 0
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest02",
+                "request": {
+                    "utxoFile": "elements_utxo_1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 39060180
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 20.0,
+                        "longTermFeeRate": 20.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 78125000
+                        }
+                    ],
+                    "feeAmount": 3320,
+                    "utxoFeeAmount": 1820
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "ElementsSelectCoinsTest03",
+                "request": {
+                    "utxoFile": "elements_utxo_1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 220000000
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 20.0,
+                        "longTermFeeRate": 20.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "4d97d0119b90421818bff4ec9033e5199199b53358f56390cb20f8148e76f40a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 234375000
+                        }
+                    ],
+                    "feeAmount": 5140,
+                    "utxoFeeAmount": 3640
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest11",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 99998500
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 2.0,
+                        "longTermFeeRate": 2.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "b9720ed2265a4ced42425bffdb4ef90a473b4106811a802fce53f7c57487fa0b",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 100001090
+                        }
+                    ],
+                    "feeAmount": 1864,
+                    "utxoFeeAmount": 364
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest12",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 155060800
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 2.0,
+                        "longTermFeeRate": 2.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "7ca81dd22c934747f4f5ab7844178445fe931fb248e0704c062b8f4fbd3d500a",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 155062500
+                        }
+                    ],
+                    "feeAmount": 1682,
+                    "utxoFeeAmount": 182
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest13",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 114040000
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 1.0,
+                        "longTermFeeRate": 1.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "8f4af7ee42e62a3d32f25ca56f618fb2f5df3d4c3a9c59e2c3646c5535a3d40a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "9e1ead91c432889cb478237da974dd1e9009c9e22694fd1e3999c40a1ef59b0a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "b9720ed2265a4ced42425bffdb4ef90a473b4106811a802fce53f7c57487fa0b",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 115063590
+                        }
+                    ],
+                    "feeAmount": 1773,
+                    "utxoFeeAmount": 273
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest21",
+                "request": {
+                    "utxoFile": "elements_utxo_1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 39060180
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 25000000
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 20.0,
+                        "longTermFeeRate": 20.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b01",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 78125000
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 26918400
+                        }
+                    ],
+                    "feeAmount": 5140,
+                    "utxoFeeAmount": 3640
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest22",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 99997900
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 346495050
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 2.0,
+                        "longTermFeeRate": 2.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b03",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b02",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "30f71f39d210f7ee291b0969c6935debf11395b0935dca84d30c810a75339a0a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "b9720ed2265a4ced42425bffdb4ef90a473b4106811a802fce53f7c57487fa0b",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 100001090
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 347180050
+                        }
+                    ],
+                    "feeAmount": 2228,
+                    "utxoFeeAmount": 728
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest23",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 99997900
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 346495050
+                        },
+                        {
+                            "asset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 2.0,
+                        "longTermFeeRate": 2.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "7ca81dd22c934747f4f5ab7844178445fe931fb248e0704c062b8f4fbd3d500a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b03",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b02",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000c01",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 155062500
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 347180050
+                        },
+                        {
+                            "asset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 37654200
+                        }
+                    ],
+                    "feeAmount": 2228,
+                    "utxoFeeAmount": 728
+                }
+            },
+            {
+                "case": "ElementsSelectCoinsTest24",
+                "request": {
+                    "utxoFile": "elements_utxo_2",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 115800000
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 19226350
+                        },
+                        {
+                            "asset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 99060000
+                        }
+                    ],
+                    "feeInfo": {
+                        "txFeeAmount": 1500,
+                        "feeRate": 0.0,
+                        "longTermFeeRate": 0.0,
+                        "knapsackMinChange": -1,
+                        "feeAsset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "utxos": [
+                        {
+                            "txid": "8f4af7ee42e62a3d32f25ca56f618fb2f5df3d4c3a9c59e2c3646c5535a3d40a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "9e1ead91c432889cb478237da974dd1e9009c9e22694fd1e3999c40a1ef59b0a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "4d97d0119b90421818bff4ec9033e5199199b53358f56390cb20f8148e76f40a",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b04",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000b02",
+                            "vout": 0
+                        },
+                        {
+                            "txid": "0000000000000000000000000000000000000000000000000000000000000c02",
+                            "vout": 0
+                        }
+                    ],
+                    "selectedAmounts": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 115800000
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 19226350
+                        },
+                        {
+                            "asset": "cc00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 127030000
+                        }
+                    ],
+                    "feeAmount": 1500,
+                    "utxoFeeAmount": 0
+                }
+            }
+        ]
+    },
+    {
+        "name": "Elements.EstimateFee",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "selectUtxos": [
+                        {
+                            "txid": "57a15002d066ce52573d674df925c9bc0f1164849420705f2cfad8a68111230f",
+                            "vout": 0,
+                            "amount": 999637680,
+                            "asset": "186c7f955149a5274b39e24b6a50d1d6479f552f6522d91f3a97d771f1c18179",
+                            "redeemScript": "",
+                            "descriptor": "sh(wpkh([ef735203/0'/0'/7']022c2409fbf657ba25d97bb3dab5426d20677b774d4fc7bd3bfac27ff96ada3dd1))#4z2vy08x",
+                            "scriptSigTemplate": "",
+                            "isIssuance": false,
+                            "isBlindIssuance": false,
+                            "isPegin": false,
+                            "peginBtcTxSize": 0,
+                            "fedpegScript": "",
+                            "assetBlindFactor": "a10ecbe1be7a5f883d5d45d966e30dbc1beff5f21c55cec76cc21a2229116a9f",
+                            "blindFactor": "ae0f46d1940f297c2dc3bbd82bf8ef6931a2431fbb05b3d3bc5df41af86ae808",
+                            "keyData": {
+                                "privkey": "",
+                                "blindingKey": ""
+                            }
+                        },
+                        {
+                            "txid": "57a15002d066ce52573d674df925c9bc0f1164849420705f2cfad8a68111230f",
+                            "vout": 1,
+                            "amount": 700000000,
+                            "asset": "ed6927df918c89b5e3d8b5062acab2c749a3291bb7451d4267c7daaf1b52ad0b",
+                            "redeemScript": "",
+                            "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))",
+                            "scriptSigTemplate": "",
+                            "isIssuance": false,
+                            "isBlindIssuance": false,
+                            "isPegin": false,
+                            "peginBtcTxSize": 0,
+                            "fedpegScript": "",
+                            "assetBlindFactor": "0b8954757234fd3ec9cf0dd6ef0a89d825ec56a9532e7da4b6cb90c51be3bbd8",
+                            "blindFactor": "62e36e1f0fa4916b031648a6b6903083069fa587572a88b729250cde528cfd3b",
+                            "keyData": {
+                                "privkey": "",
+                                "blindingKey": ""
+                            }
+                        }
+                    ],
+                    "feeRate": 0.15,
+                    "tx": "0200000000020f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570000000000ffffffff0f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c346000004017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c1801000000003b947f6002200d8510dfcf8e2330c0795c771d1e6064daab2f274ac32a6e2708df9bfa893d17a914ef3e40882e17d6e477082fcafeb0f09dc32d377b87010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b9270002cc645552109331726c0ffadccab21620dd7a5a33260c6ac7bd1c78b98cb1e35a1976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac017981c1f171d7973a1fd922652f559f47d6d1506a4be2394b27a54951957f6c1801000000000000c350000001cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c3460003ce4c4eac09fe317f365e45c00ffcf2e9639bc0fd792c10f72cdc173c4e5ed8791976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac00000000",
+                    "isBlind": true,
+                    "feeAsset": "186c7f955149a5274b39e24b6a50d1d6479f552f6522d91f3a97d771f1c18179",
+                    "exponent": 0,
+                    "minimumBits": 52
+                },
+                "expect": {
+                    "feeAmount": 755,
+                    "txoutFeeAmount": 549,
+                    "utxoFeeAmount": 206
+                }
+            }
+        ]
+    },
+    {
+        "name": "Elements.FundTransaction",
+        "cases": [
+            {
+                "case": "Cs:FundRawTransactionTest",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [],
+                    "tx": "020000000000020100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "hex": "0200000000020bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff050100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa0100000000000001ff00000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b595f0016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "usedAddresses": [
+                        "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q",
+                        "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                    ],
+                    "feeAmount": 511
+                }
+            },
+            {
+                "case": "Cs:FundRawTransactionExistTxInTest",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [
+                        {
+                            "memo": "Issuance token UTXO for reissuance",
+                            "txid": "57a15002d066ce52573d674df925c9bc0f1164849420705f2cfad8a68111230f",
+                            "vout": 1,
+                            "amount": 700000000,
+                            "asset": "ed6927df918c89b5e3d8b5062acab2c749a3291bb7451d4267c7daaf1b52ad0b",
+                            "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))",
+                            "isBlindIssuance": true,
+                            "assetBlindFactor": "0b8954757234fd3ec9cf0dd6ef0a89d825ec56a9532e7da4b6cb90c51be3bbd8",
+                            "blindFactor": "62e36e1f0fa4916b031648a6b6903083069fa587572a88b729250cde528cfd3b"
+                        }
+                    ],
+                    "tx": "0200000000010f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c346000004010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "hex": "0200000000030f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c34600000bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff07010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa01000000000000037300000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b57eb0016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "usedAddresses": [
+                        "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q",
+                        "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                    ],
+                    "feeAmount": 883
+                }
+            }
+        ]
+    }
+]

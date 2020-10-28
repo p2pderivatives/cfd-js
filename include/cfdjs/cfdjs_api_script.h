@@ -37,7 +37,7 @@ class CFD_JS_API_EXPORT ScriptStructApi {
    * @param[in] request   script 要素を含むパラメータ
    * @return 構築された Script Hex を含む構造体
    */
-  static CreateScriptResponseStruct CreateScript(
+  static ScriptDataResponseStruct CreateScript(
       const CreateScriptRequestStruct& request);
 
   /**
@@ -45,7 +45,7 @@ class CFD_JS_API_EXPORT ScriptStructApi {
    * @param[in] request   Multisig の署名要素を含むパラメータ
    * @return 構築された ScriptSig Hex を含む構造体
    */
-  static CreateMultisigScriptSigResponseStruct CreateMultisigScriptSig(
+  static ScriptDataResponseStruct CreateMultisigScriptSig(
       const CreateMultisigScriptSigRequestStruct& request);
 
  private:

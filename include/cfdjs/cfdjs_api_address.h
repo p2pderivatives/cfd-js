@@ -80,7 +80,7 @@ class CFD_JS_API_EXPORT AddressStructApi {
    * @param[in] request Descriptorを構築するパラメータ
    * @return Descriptorを格納した構造体
    */
-  static CreateDescriptorResponseStruct CreateDescriptor(
+  static OutputDescriptorResponseStruct CreateDescriptor(
       const CreateDescriptorRequestStruct& request);
 
   /**
@@ -88,7 +88,7 @@ class CFD_JS_API_EXPORT AddressStructApi {
    * @param[in] request Descriptorを構築するパラメータ
    * @return Descriptor解析結果を格納した構造体
    */
-  static AppendDescriptorChecksumResponseStruct AppendDescriptorChecksum(
+  static OutputDescriptorResponseStruct AppendDescriptorChecksum(
       const AppendDescriptorChecksumRequestStruct& request);
 
   /**

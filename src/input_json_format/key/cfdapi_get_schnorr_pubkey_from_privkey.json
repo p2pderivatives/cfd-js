@@ -1,0 +1,22 @@
+{
+  "namespace": ["cfd", "js", "api", "json"],
+  "functionName": "GetSchnorrPubkeyFromPrivkey",
+  "comment": "Get a Schnorr pubkey from a privkey.",
+  "request": {
+    ":class": "GetSchnorrPubkeyFromPrivkeyRequest",
+    ":class:comment": "Request to get a Schnorr pubkey from privkey.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey (wif or hex)"
+  },
+  "response": {
+    ":class": "SchnorrPubkeyData",
+    ":class:comment": "Schnorr pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "schnorr public key",
+    "parity": false,
+    "parity:require": "require",
+    "parity:comment": "y-parity flag"
+  }
+}

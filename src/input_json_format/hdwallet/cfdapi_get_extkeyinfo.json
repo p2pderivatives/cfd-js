@@ -1,0 +1,35 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get extkey information.",
+  "request": {
+    ":class": "GetExtkeyInfoRequest",
+    ":class:comment": "Request extkey.",
+    "extkey": "",
+    "extkey:require": "require",
+    "extkey:comment": "extkey"
+  },
+  "response": {
+    ":class": "GetExtkeyInfoResponse",
+    ":class:comment": "Response of get extkey information.",
+    "network": "",
+    "network:require": "require",
+    "network:comment": "network type",
+    "version": "",
+    "version:require": "require",
+    "version:comment": "version information",
+    "depth": 0,
+    "depth:type": "uint8_t",
+    "depth:require": "require",
+    "depth:comment": "depth",
+    "fingerprint": "",
+    "fingerprint:require": "require",
+    "fingerprint:comment": "fingerprint",
+    "childNumber": 0,
+    "childNumber:type": "uint32_t",
+    "childNumber:require": "require",
+    "childNumber:comment": "bip32 child number",
+    "chainCode": "",
+    "chainCode:require": "require",
+    "chainCode:comment": "chain code"
+  }
+}

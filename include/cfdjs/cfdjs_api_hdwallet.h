@@ -59,7 +59,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体
    */
-  static CreateExtkeyFromSeedResponseStruct CreateExtkeyFromSeed(
+  static CreateExtkeyResponseStruct CreateExtkeyFromSeed(
       const CreateExtkeyFromSeedRequestStruct& request);
 
   /**
@@ -67,7 +67,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体
    */
-  static CreateExtkeyFromParentResponseStruct CreateExtkeyFromParent(
+  static CreateExtkeyResponseStruct CreateExtkeyFromParent(
       const CreateExtkeyFromParentRequestStruct& request);
 
   /**
@@ -75,7 +75,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体
    */
-  static CreateExtkeyFromParentPathResponseStruct CreateExtkeyFromParentPath(
+  static CreateExtkeyResponseStruct CreateExtkeyFromParentPath(
       const CreateExtkeyFromParentPathRequestStruct& request);
 
   /**
@@ -83,7 +83,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体
    */
-  static CreateExtkeyFromParentKeyResponseStruct CreateExtkeyFromParentKey(
+  static CreateExtkeyResponseStruct CreateExtkeyFromParentKey(
       const CreateExtkeyFromParentKeyRequestStruct& request);
 
   /**
@@ -99,7 +99,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return extkeyを含むレスポンス構造体
    */
-  static CreateExtPubkeyResponseStruct CreateExtPubkey(
+  static CreateExtkeyResponseStruct CreateExtPubkey(
       const CreateExtPubkeyRequestStruct& request);
 
   /**
@@ -123,7 +123,7 @@ class CFD_JS_API_EXPORT HDWalletStructApi {
    * @param[in] request リクエスト構造体
    * @return pubkeyを含むレスポンス構造体
    */
-  static GetPubkeyFromExtkeyResponseStruct GetPubkeyFromExtkey(
+  static PubkeyDataStruct GetPubkeyFromExtkey(
       const GetPubkeyFromExtkeyRequestStruct& request);
 
   /**

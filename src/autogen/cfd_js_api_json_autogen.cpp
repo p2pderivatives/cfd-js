@@ -1,4 +1,4 @@
-// Copyright 2019 CryptoGarage
+// Copyright 2020 CryptoGarage
 /**
  * @file cfd_js_api_json_autogen.cpp
  *
@@ -23,64 +23,747 @@ using cfd::core::JsonVector;
 // @formatter:off
 
 // ------------------------------------------------------------------------
-// MultisigSignData
+// ElementsAddPeginWitness
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<MultisigSignData>
-  MultisigSignData::json_mapper;
-std::vector<std::string> MultisigSignData::item_list;
+cfd::core::JsonTableMap<ElementsAddPeginWitness>
+  ElementsAddPeginWitness::json_mapper;
+std::vector<std::string> ElementsAddPeginWitness::item_list;
 
-void MultisigSignData::CollectFieldName() {
+void ElementsAddPeginWitness::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<MultisigSignData> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddPeginWitness> func_table;  // NOLINT
 
   func_table = {
-    MultisigSignData::GetHexString,
-    MultisigSignData::SetHexString,
-    MultisigSignData::GetHexFieldType,
+    ElementsAddPeginWitness::GetAmountString,
+    ElementsAddPeginWitness::SetAmountString,
+    ElementsAddPeginWitness::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    ElementsAddPeginWitness::GetAssetString,
+    ElementsAddPeginWitness::SetAssetString,
+    ElementsAddPeginWitness::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    ElementsAddPeginWitness::GetMainchainGenesisBlockHashString,
+    ElementsAddPeginWitness::SetMainchainGenesisBlockHashString,
+    ElementsAddPeginWitness::GetMainchainGenesisBlockHashFieldType,
+  };
+  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
+  item_list.push_back("mainchainGenesisBlockHash");
+  func_table = {
+    ElementsAddPeginWitness::GetClaimScriptString,
+    ElementsAddPeginWitness::SetClaimScriptString,
+    ElementsAddPeginWitness::GetClaimScriptFieldType,
+  };
+  json_mapper.emplace("claimScript", func_table);
+  item_list.push_back("claimScript");
+  func_table = {
+    ElementsAddPeginWitness::GetMainchainRawTransactionString,
+    ElementsAddPeginWitness::SetMainchainRawTransactionString,
+    ElementsAddPeginWitness::GetMainchainRawTransactionFieldType,
+  };
+  json_mapper.emplace("mainchainRawTransaction", func_table);
+  item_list.push_back("mainchainRawTransaction");
+  func_table = {
+    ElementsAddPeginWitness::GetMainchainTxoutproofString,
+    ElementsAddPeginWitness::SetMainchainTxoutproofString,
+    ElementsAddPeginWitness::GetMainchainTxoutproofFieldType,
+  };
+  json_mapper.emplace("mainchainTxoutproof", func_table);
+  item_list.push_back("mainchainTxoutproof");
+}
+
+void ElementsAddPeginWitness::ConvertFromStruct(
+    const ElementsAddPeginWitnessStruct& data) {
+  amount_ = data.amount;
+  asset_ = data.asset;
+  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
+  claim_script_ = data.claim_script;
+  mainchain_raw_transaction_ = data.mainchain_raw_transaction;
+  mainchain_txoutproof_ = data.mainchain_txoutproof;
+  ignore_items = data.ignore_items;
+}
+
+ElementsAddPeginWitnessStruct ElementsAddPeginWitness::ConvertToStruct() const {  // NOLINT
+  ElementsAddPeginWitnessStruct result;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
+  result.claim_script = claim_script_;
+  result.mainchain_raw_transaction = mainchain_raw_transaction_;
+  result.mainchain_txoutproof = mainchain_txoutproof_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// DecodeUnlockingScript
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<DecodeUnlockingScript>
+  DecodeUnlockingScript::json_mapper;
+std::vector<std::string> DecodeUnlockingScript::item_list;
+
+void DecodeUnlockingScript::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<DecodeUnlockingScript> func_table;  // NOLINT
+
+  func_table = {
+    DecodeUnlockingScript::GetAsmString,
+    DecodeUnlockingScript::SetAsmString,
+    DecodeUnlockingScript::GetAsmFieldType,
+  };
+  json_mapper.emplace("asm", func_table);
+  item_list.push_back("asm");
+  func_table = {
+    DecodeUnlockingScript::GetHexString,
+    DecodeUnlockingScript::SetHexString,
+    DecodeUnlockingScript::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+}
+
+void DecodeUnlockingScript::ConvertFromStruct(
+    const DecodeUnlockingScriptStruct& data) {
+  asm__ = data.asm_;
+  hex_ = data.hex;
+  ignore_items = data.ignore_items;
+}
+
+DecodeUnlockingScriptStruct DecodeUnlockingScript::ConvertToStruct() const {  // NOLINT
+  DecodeUnlockingScriptStruct result;
+  result.asm_ = asm__;
+  result.hex = hex_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ElementsDestroyAmount
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ElementsDestroyAmount>
+  ElementsDestroyAmount::json_mapper;
+std::vector<std::string> ElementsDestroyAmount::item_list;
+
+void ElementsDestroyAmount::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsDestroyAmount> func_table;  // NOLINT
+
+  func_table = {
+    ElementsDestroyAmount::GetAmountString,
+    ElementsDestroyAmount::SetAmountString,
+    ElementsDestroyAmount::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    ElementsDestroyAmount::GetAssetString,
+    ElementsDestroyAmount::SetAssetString,
+    ElementsDestroyAmount::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    ElementsDestroyAmount::GetDirectNonceString,
+    ElementsDestroyAmount::SetDirectNonceString,
+    ElementsDestroyAmount::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+}
+
+void ElementsDestroyAmount::ConvertFromStruct(
+    const ElementsDestroyAmountStruct& data) {
+  amount_ = data.amount;
+  asset_ = data.asset;
+  direct_nonce_ = data.direct_nonce;
+  ignore_items = data.ignore_items;
+}
+
+ElementsDestroyAmountStruct ElementsDestroyAmount::ConvertToStruct() const {  // NOLINT
+  ElementsDestroyAmountStruct result;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.direct_nonce = direct_nonce_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ElementsPeginTxIn
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ElementsPeginTxIn>
+  ElementsPeginTxIn::json_mapper;
+std::vector<std::string> ElementsPeginTxIn::item_list;
+
+void ElementsPeginTxIn::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsPeginTxIn> func_table;  // NOLINT
+
+  func_table = {
+    ElementsPeginTxIn::GetIsPeginString,
+    ElementsPeginTxIn::SetIsPeginString,
+    ElementsPeginTxIn::GetIsPeginFieldType,
+  };
+  json_mapper.emplace("isPegin", func_table);
+  item_list.push_back("isPegin");
+  func_table = {
+    ElementsPeginTxIn::GetTxidString,
+    ElementsPeginTxIn::SetTxidString,
+    ElementsPeginTxIn::GetTxidFieldType,
+  };
+  json_mapper.emplace("txid", func_table);
+  item_list.push_back("txid");
+  func_table = {
+    ElementsPeginTxIn::GetVoutString,
+    ElementsPeginTxIn::SetVoutString,
+    ElementsPeginTxIn::GetVoutFieldType,
+  };
+  json_mapper.emplace("vout", func_table);
+  item_list.push_back("vout");
+  func_table = {
+    ElementsPeginTxIn::GetSequenceString,
+    ElementsPeginTxIn::SetSequenceString,
+    ElementsPeginTxIn::GetSequenceFieldType,
+  };
+  json_mapper.emplace("sequence", func_table);
+  item_list.push_back("sequence");
+  func_table = {
+    ElementsPeginTxIn::GetPeginwitnessString,
+    ElementsPeginTxIn::SetPeginwitnessString,
+    ElementsPeginTxIn::GetPeginwitnessFieldType,
+  };
+  json_mapper.emplace("peginwitness", func_table);
+  item_list.push_back("peginwitness");
+  func_table = {
+    ElementsPeginTxIn::GetIsRemoveMainchainTxWitnessString,
+    ElementsPeginTxIn::SetIsRemoveMainchainTxWitnessString,
+    ElementsPeginTxIn::GetIsRemoveMainchainTxWitnessFieldType,
+  };
+  json_mapper.emplace("isRemoveMainchainTxWitness", func_table);
+  item_list.push_back("isRemoveMainchainTxWitness");
+}
+
+void ElementsPeginTxIn::ConvertFromStruct(
+    const ElementsPeginTxInStruct& data) {
+  is_pegin_ = data.is_pegin;
+  txid_ = data.txid;
+  vout_ = data.vout;
+  sequence_ = data.sequence;
+  peginwitness_.ConvertFromStruct(data.peginwitness);
+  is_remove_mainchain_tx_witness_ = data.is_remove_mainchain_tx_witness;
+  ignore_items = data.ignore_items;
+}
+
+ElementsPeginTxInStruct ElementsPeginTxIn::ConvertToStruct() const {  // NOLINT
+  ElementsPeginTxInStruct result;
+  result.is_pegin = is_pegin_;
+  result.txid = txid_;
+  result.vout = vout_;
+  result.sequence = sequence_;
+  result.peginwitness = peginwitness_.ConvertToStruct();
+  result.is_remove_mainchain_tx_witness = is_remove_mainchain_tx_witness_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ElementsPegoutTxOut
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ElementsPegoutTxOut>
+  ElementsPegoutTxOut::json_mapper;
+std::vector<std::string> ElementsPegoutTxOut::item_list;
+
+void ElementsPegoutTxOut::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsPegoutTxOut> func_table;  // NOLINT
+
+  func_table = {
+    ElementsPegoutTxOut::GetAmountString,
+    ElementsPegoutTxOut::SetAmountString,
+    ElementsPegoutTxOut::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    ElementsPegoutTxOut::GetAssetString,
+    ElementsPegoutTxOut::SetAssetString,
+    ElementsPegoutTxOut::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    ElementsPegoutTxOut::GetNetworkString,
+    ElementsPegoutTxOut::SetNetworkString,
+    ElementsPegoutTxOut::GetNetworkFieldType,
+  };
+  json_mapper.emplace("network", func_table);
+  item_list.push_back("network");
+  func_table = {
+    ElementsPegoutTxOut::GetElementsNetworkString,
+    ElementsPegoutTxOut::SetElementsNetworkString,
+    ElementsPegoutTxOut::GetElementsNetworkFieldType,
+  };
+  json_mapper.emplace("elementsNetwork", func_table);
+  item_list.push_back("elementsNetwork");
+  func_table = {
+    ElementsPegoutTxOut::GetMainchainGenesisBlockHashString,
+    ElementsPegoutTxOut::SetMainchainGenesisBlockHashString,
+    ElementsPegoutTxOut::GetMainchainGenesisBlockHashFieldType,
+  };
+  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
+  item_list.push_back("mainchainGenesisBlockHash");
+  func_table = {
+    ElementsPegoutTxOut::GetBtcAddressString,
+    ElementsPegoutTxOut::SetBtcAddressString,
+    ElementsPegoutTxOut::GetBtcAddressFieldType,
+  };
+  json_mapper.emplace("btcAddress", func_table);
+  item_list.push_back("btcAddress");
+  func_table = {
+    ElementsPegoutTxOut::GetOnlinePubkeyString,
+    ElementsPegoutTxOut::SetOnlinePubkeyString,
+    ElementsPegoutTxOut::GetOnlinePubkeyFieldType,
+  };
+  json_mapper.emplace("onlinePubkey", func_table);
+  item_list.push_back("onlinePubkey");
+  func_table = {
+    ElementsPegoutTxOut::GetMasterOnlineKeyString,
+    ElementsPegoutTxOut::SetMasterOnlineKeyString,
+    ElementsPegoutTxOut::GetMasterOnlineKeyFieldType,
+  };
+  json_mapper.emplace("masterOnlineKey", func_table);
+  item_list.push_back("masterOnlineKey");
+  func_table = {
+    ElementsPegoutTxOut::GetBitcoinDescriptorString,
+    ElementsPegoutTxOut::SetBitcoinDescriptorString,
+    ElementsPegoutTxOut::GetBitcoinDescriptorFieldType,
+  };
+  json_mapper.emplace("bitcoinDescriptor", func_table);
+  item_list.push_back("bitcoinDescriptor");
+  func_table = {
+    ElementsPegoutTxOut::GetBip32CounterString,
+    ElementsPegoutTxOut::SetBip32CounterString,
+    ElementsPegoutTxOut::GetBip32CounterFieldType,
+  };
+  json_mapper.emplace("bip32Counter", func_table);
+  item_list.push_back("bip32Counter");
+  func_table = {
+    ElementsPegoutTxOut::GetWhitelistString,
+    ElementsPegoutTxOut::SetWhitelistString,
+    ElementsPegoutTxOut::GetWhitelistFieldType,
+  };
+  json_mapper.emplace("whitelist", func_table);
+  item_list.push_back("whitelist");
+}
+
+void ElementsPegoutTxOut::ConvertFromStruct(
+    const ElementsPegoutTxOutStruct& data) {
+  amount_ = data.amount;
+  asset_ = data.asset;
+  network_ = data.network;
+  elements_network_ = data.elements_network;
+  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
+  btc_address_ = data.btc_address;
+  online_pubkey_ = data.online_pubkey;
+  master_online_key_ = data.master_online_key;
+  bitcoin_descriptor_ = data.bitcoin_descriptor;
+  bip32_counter_ = data.bip32_counter;
+  whitelist_ = data.whitelist;
+  ignore_items = data.ignore_items;
+}
+
+ElementsPegoutTxOutStruct ElementsPegoutTxOut::ConvertToStruct() const {  // NOLINT
+  ElementsPegoutTxOutStruct result;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.network = network_;
+  result.elements_network = elements_network_;
+  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
+  result.btc_address = btc_address_;
+  result.online_pubkey = online_pubkey_;
+  result.master_online_key = master_online_key_;
+  result.bitcoin_descriptor = bitcoin_descriptor_;
+  result.bip32_counter = bip32_counter_;
+  result.whitelist = whitelist_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ElementsTxOut
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ElementsTxOut>
+  ElementsTxOut::json_mapper;
+std::vector<std::string> ElementsTxOut::item_list;
+
+void ElementsTxOut::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsTxOut> func_table;  // NOLINT
+
+  func_table = {
+    ElementsTxOut::GetAddressString,
+    ElementsTxOut::SetAddressString,
+    ElementsTxOut::GetAddressFieldType,
+  };
+  json_mapper.emplace("address", func_table);
+  item_list.push_back("address");
+  func_table = {
+    ElementsTxOut::GetAmountString,
+    ElementsTxOut::SetAmountString,
+    ElementsTxOut::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    ElementsTxOut::GetAssetString,
+    ElementsTxOut::SetAssetString,
+    ElementsTxOut::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    ElementsTxOut::GetDirectLockingScriptString,
+    ElementsTxOut::SetDirectLockingScriptString,
+    ElementsTxOut::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+  func_table = {
+    ElementsTxOut::GetDirectNonceString,
+    ElementsTxOut::SetDirectNonceString,
+    ElementsTxOut::GetDirectNonceFieldType,
+  };
+  json_mapper.emplace("directNonce", func_table);
+  item_list.push_back("directNonce");
+  func_table = {
+    ElementsTxOut::GetIsRemoveNonceString,
+    ElementsTxOut::SetIsRemoveNonceString,
+    ElementsTxOut::GetIsRemoveNonceFieldType,
+  };
+  json_mapper.emplace("isRemoveNonce", func_table);
+  item_list.push_back("isRemoveNonce");
+}
+
+void ElementsTxOut::ConvertFromStruct(
+    const ElementsTxOutStruct& data) {
+  address_ = data.address;
+  amount_ = data.amount;
+  asset_ = data.asset;
+  direct_locking_script_ = data.direct_locking_script;
+  direct_nonce_ = data.direct_nonce;
+  is_remove_nonce_ = data.is_remove_nonce;
+  ignore_items = data.ignore_items;
+}
+
+ElementsTxOutStruct ElementsTxOut::ConvertToStruct() const {  // NOLINT
+  ElementsTxOutStruct result;
+  result.address = address_;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.direct_locking_script = direct_locking_script_;
+  result.direct_nonce = direct_nonce_;
+  result.is_remove_nonce = is_remove_nonce_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ElementsTxOutFee
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ElementsTxOutFee>
+  ElementsTxOutFee::json_mapper;
+std::vector<std::string> ElementsTxOutFee::item_list;
+
+void ElementsTxOutFee::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ElementsTxOutFee> func_table;  // NOLINT
+
+  func_table = {
+    ElementsTxOutFee::GetAmountString,
+    ElementsTxOutFee::SetAmountString,
+    ElementsTxOutFee::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    ElementsTxOutFee::GetAssetString,
+    ElementsTxOutFee::SetAssetString,
+    ElementsTxOutFee::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+}
+
+void ElementsTxOutFee::ConvertFromStruct(
+    const ElementsTxOutFeeStruct& data) {
+  amount_ = data.amount;
+  asset_ = data.asset;
+  ignore_items = data.ignore_items;
+}
+
+ElementsTxOutFeeStruct ElementsTxOutFee::ConvertToStruct() const {  // NOLINT
+  ElementsTxOutFeeStruct result;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// HashKeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<HashKeyData>
+  HashKeyData::json_mapper;
+std::vector<std::string> HashKeyData::item_list;
+
+void HashKeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<HashKeyData> func_table;  // NOLINT
+
+  func_table = {
+    HashKeyData::GetHexString,
+    HashKeyData::SetHexString,
+    HashKeyData::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
   func_table = {
-    MultisigSignData::GetTypeString,
-    MultisigSignData::SetTypeString,
-    MultisigSignData::GetTypeFieldType,
+    HashKeyData::GetTypeString,
+    HashKeyData::SetTypeString,
+    HashKeyData::GetTypeFieldType,
+  };
+  json_mapper.emplace("type", func_table);
+  item_list.push_back("type");
+}
+
+void HashKeyData::ConvertFromStruct(
+    const HashKeyDataStruct& data) {
+  hex_ = data.hex;
+  type_ = data.type;
+  ignore_items = data.ignore_items;
+}
+
+HashKeyDataStruct HashKeyData::ConvertToStruct() const {  // NOLINT
+  HashKeyDataStruct result;
+  result.hex = hex_;
+  result.type = type_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// IssuanceDataResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<IssuanceDataResponse>
+  IssuanceDataResponse::json_mapper;
+std::vector<std::string> IssuanceDataResponse::item_list;
+
+void IssuanceDataResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<IssuanceDataResponse> func_table;  // NOLINT
+
+  func_table = {
+    IssuanceDataResponse::GetTxidString,
+    IssuanceDataResponse::SetTxidString,
+    IssuanceDataResponse::GetTxidFieldType,
+  };
+  json_mapper.emplace("txid", func_table);
+  item_list.push_back("txid");
+  func_table = {
+    IssuanceDataResponse::GetVoutString,
+    IssuanceDataResponse::SetVoutString,
+    IssuanceDataResponse::GetVoutFieldType,
+  };
+  json_mapper.emplace("vout", func_table);
+  item_list.push_back("vout");
+  func_table = {
+    IssuanceDataResponse::GetAssetString,
+    IssuanceDataResponse::SetAssetString,
+    IssuanceDataResponse::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    IssuanceDataResponse::GetEntropyString,
+    IssuanceDataResponse::SetEntropyString,
+    IssuanceDataResponse::GetEntropyFieldType,
+  };
+  json_mapper.emplace("entropy", func_table);
+  item_list.push_back("entropy");
+  func_table = {
+    IssuanceDataResponse::GetTokenString,
+    IssuanceDataResponse::SetTokenString,
+    IssuanceDataResponse::GetTokenFieldType,
+  };
+  json_mapper.emplace("token", func_table);
+  item_list.push_back("token");
+}
+
+void IssuanceDataResponse::ConvertFromStruct(
+    const IssuanceDataResponseStruct& data) {
+  txid_ = data.txid;
+  vout_ = data.vout;
+  asset_ = data.asset;
+  entropy_ = data.entropy;
+  token_ = data.token;
+  ignore_items = data.ignore_items;
+}
+
+IssuanceDataResponseStruct IssuanceDataResponse::ConvertToStruct() const {  // NOLINT
+  IssuanceDataResponseStruct result;
+  result.txid = txid_;
+  result.vout = vout_;
+  result.asset = asset_;
+  result.entropy = entropy_;
+  result.token = token_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// PrivkeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<PrivkeyData>
+  PrivkeyData::json_mapper;
+std::vector<std::string> PrivkeyData::item_list;
+
+void PrivkeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<PrivkeyData> func_table;  // NOLINT
+
+  func_table = {
+    PrivkeyData::GetPrivkeyString,
+    PrivkeyData::SetPrivkeyString,
+    PrivkeyData::GetPrivkeyFieldType,
+  };
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+  func_table = {
+    PrivkeyData::GetWifString,
+    PrivkeyData::SetWifString,
+    PrivkeyData::GetWifFieldType,
+  };
+  json_mapper.emplace("wif", func_table);
+  item_list.push_back("wif");
+  func_table = {
+    PrivkeyData::GetNetworkString,
+    PrivkeyData::SetNetworkString,
+    PrivkeyData::GetNetworkFieldType,
+  };
+  json_mapper.emplace("network", func_table);
+  item_list.push_back("network");
+  func_table = {
+    PrivkeyData::GetIsCompressedString,
+    PrivkeyData::SetIsCompressedString,
+    PrivkeyData::GetIsCompressedFieldType,
+  };
+  json_mapper.emplace("isCompressed", func_table);
+  item_list.push_back("isCompressed");
+}
+
+void PrivkeyData::ConvertFromStruct(
+    const PrivkeyDataStruct& data) {
+  privkey_ = data.privkey;
+  wif_ = data.wif;
+  network_ = data.network;
+  is_compressed_ = data.is_compressed;
+  ignore_items = data.ignore_items;
+}
+
+PrivkeyDataStruct PrivkeyData::ConvertToStruct() const {  // NOLINT
+  PrivkeyDataStruct result;
+  result.privkey = privkey_;
+  result.wif = wif_;
+  result.network = network_;
+  result.is_compressed = is_compressed_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// PubkeySignData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<PubkeySignData>
+  PubkeySignData::json_mapper;
+std::vector<std::string> PubkeySignData::item_list;
+
+void PubkeySignData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<PubkeySignData> func_table;  // NOLINT
+
+  func_table = {
+    PubkeySignData::GetHexString,
+    PubkeySignData::SetHexString,
+    PubkeySignData::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+  func_table = {
+    PubkeySignData::GetTypeString,
+    PubkeySignData::SetTypeString,
+    PubkeySignData::GetTypeFieldType,
   };
   json_mapper.emplace("type", func_table);
   item_list.push_back("type");
   func_table = {
-    MultisigSignData::GetDerEncodeString,
-    MultisigSignData::SetDerEncodeString,
-    MultisigSignData::GetDerEncodeFieldType,
+    PubkeySignData::GetDerEncodeString,
+    PubkeySignData::SetDerEncodeString,
+    PubkeySignData::GetDerEncodeFieldType,
   };
   json_mapper.emplace("derEncode", func_table);
   item_list.push_back("derEncode");
   func_table = {
-    MultisigSignData::GetSighashTypeString,
-    MultisigSignData::SetSighashTypeString,
-    MultisigSignData::GetSighashTypeFieldType,
+    PubkeySignData::GetSighashTypeString,
+    PubkeySignData::SetSighashTypeString,
+    PubkeySignData::GetSighashTypeFieldType,
   };
   json_mapper.emplace("sighashType", func_table);
   item_list.push_back("sighashType");
   func_table = {
-    MultisigSignData::GetSighashAnyoneCanPayString,
-    MultisigSignData::SetSighashAnyoneCanPayString,
-    MultisigSignData::GetSighashAnyoneCanPayFieldType,
+    PubkeySignData::GetSighashAnyoneCanPayString,
+    PubkeySignData::SetSighashAnyoneCanPayString,
+    PubkeySignData::GetSighashAnyoneCanPayFieldType,
   };
   json_mapper.emplace("sighashAnyoneCanPay", func_table);
   item_list.push_back("sighashAnyoneCanPay");
   func_table = {
-    MultisigSignData::GetRelatedPubkeyString,
-    MultisigSignData::SetRelatedPubkeyString,
-    MultisigSignData::GetRelatedPubkeyFieldType,
+    PubkeySignData::GetRelatedPubkeyString,
+    PubkeySignData::SetRelatedPubkeyString,
+    PubkeySignData::GetRelatedPubkeyFieldType,
   };
   json_mapper.emplace("relatedPubkey", func_table);
   item_list.push_back("relatedPubkey");
 }
 
-void MultisigSignData::ConvertFromStruct(
-    const MultisigSignDataStruct& data) {
+void PubkeySignData::ConvertFromStruct(
+    const PubkeySignDataStruct& data) {
   hex_ = data.hex;
   type_ = data.type;
   der_encode_ = data.der_encode;
@@ -90,14 +773,394 @@ void MultisigSignData::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-MultisigSignDataStruct MultisigSignData::ConvertToStruct() const {  // NOLINT
-  MultisigSignDataStruct result;
+PubkeySignDataStruct PubkeySignData::ConvertToStruct() const {  // NOLINT
+  PubkeySignDataStruct result;
   result.hex = hex_;
   result.type = type_;
   result.der_encode = der_encode_;
   result.sighash_type = sighash_type_;
   result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
   result.related_pubkey = related_pubkey_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SignData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SignData>
+  SignData::json_mapper;
+std::vector<std::string> SignData::item_list;
+
+void SignData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SignData> func_table;  // NOLINT
+
+  func_table = {
+    SignData::GetHexString,
+    SignData::SetHexString,
+    SignData::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+  func_table = {
+    SignData::GetTypeString,
+    SignData::SetTypeString,
+    SignData::GetTypeFieldType,
+  };
+  json_mapper.emplace("type", func_table);
+  item_list.push_back("type");
+  func_table = {
+    SignData::GetDerEncodeString,
+    SignData::SetDerEncodeString,
+    SignData::GetDerEncodeFieldType,
+  };
+  json_mapper.emplace("derEncode", func_table);
+  item_list.push_back("derEncode");
+  func_table = {
+    SignData::GetSighashTypeString,
+    SignData::SetSighashTypeString,
+    SignData::GetSighashTypeFieldType,
+  };
+  json_mapper.emplace("sighashType", func_table);
+  item_list.push_back("sighashType");
+  func_table = {
+    SignData::GetSighashAnyoneCanPayString,
+    SignData::SetSighashAnyoneCanPayString,
+    SignData::GetSighashAnyoneCanPayFieldType,
+  };
+  json_mapper.emplace("sighashAnyoneCanPay", func_table);
+  item_list.push_back("sighashAnyoneCanPay");
+}
+
+void SignData::ConvertFromStruct(
+    const SignDataStruct& data) {
+  hex_ = data.hex;
+  type_ = data.type;
+  der_encode_ = data.der_encode;
+  sighash_type_ = data.sighash_type;
+  sighash_anyone_can_pay_ = data.sighash_anyone_can_pay;
+  ignore_items = data.ignore_items;
+}
+
+SignDataStruct SignData::ConvertToStruct() const {  // NOLINT
+  SignDataStruct result;
+  result.hex = hex_;
+  result.type = type_;
+  result.der_encode = der_encode_;
+  result.sighash_type = sighash_type_;
+  result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// TargetAmountMapData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<TargetAmountMapData>
+  TargetAmountMapData::json_mapper;
+std::vector<std::string> TargetAmountMapData::item_list;
+
+void TargetAmountMapData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<TargetAmountMapData> func_table;  // NOLINT
+
+  func_table = {
+    TargetAmountMapData::GetAssetString,
+    TargetAmountMapData::SetAssetString,
+    TargetAmountMapData::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    TargetAmountMapData::GetAmountString,
+    TargetAmountMapData::SetAmountString,
+    TargetAmountMapData::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+}
+
+void TargetAmountMapData::ConvertFromStruct(
+    const TargetAmountMapDataStruct& data) {
+  asset_ = data.asset;
+  amount_ = data.amount;
+  ignore_items = data.ignore_items;
+}
+
+TargetAmountMapDataStruct TargetAmountMapData::ConvertToStruct() const {  // NOLINT
+  TargetAmountMapDataStruct result;
+  result.asset = asset_;
+  result.amount = amount_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// TxInRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<TxInRequest>
+  TxInRequest::json_mapper;
+std::vector<std::string> TxInRequest::item_list;
+
+void TxInRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<TxInRequest> func_table;  // NOLINT
+
+  func_table = {
+    TxInRequest::GetTxidString,
+    TxInRequest::SetTxidString,
+    TxInRequest::GetTxidFieldType,
+  };
+  json_mapper.emplace("txid", func_table);
+  item_list.push_back("txid");
+  func_table = {
+    TxInRequest::GetVoutString,
+    TxInRequest::SetVoutString,
+    TxInRequest::GetVoutFieldType,
+  };
+  json_mapper.emplace("vout", func_table);
+  item_list.push_back("vout");
+  func_table = {
+    TxInRequest::GetSequenceString,
+    TxInRequest::SetSequenceString,
+    TxInRequest::GetSequenceFieldType,
+  };
+  json_mapper.emplace("sequence", func_table);
+  item_list.push_back("sequence");
+}
+
+void TxInRequest::ConvertFromStruct(
+    const TxInRequestStruct& data) {
+  txid_ = data.txid;
+  vout_ = data.vout;
+  sequence_ = data.sequence;
+  ignore_items = data.ignore_items;
+}
+
+TxInRequestStruct TxInRequest::ConvertToStruct() const {  // NOLINT
+  TxInRequestStruct result;
+  result.txid = txid_;
+  result.vout = vout_;
+  result.sequence = sequence_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// TxOutRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<TxOutRequest>
+  TxOutRequest::json_mapper;
+std::vector<std::string> TxOutRequest::item_list;
+
+void TxOutRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<TxOutRequest> func_table;  // NOLINT
+
+  func_table = {
+    TxOutRequest::GetAddressString,
+    TxOutRequest::SetAddressString,
+    TxOutRequest::GetAddressFieldType,
+  };
+  json_mapper.emplace("address", func_table);
+  item_list.push_back("address");
+  func_table = {
+    TxOutRequest::GetAmountString,
+    TxOutRequest::SetAmountString,
+    TxOutRequest::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    TxOutRequest::GetDirectLockingScriptString,
+    TxOutRequest::SetDirectLockingScriptString,
+    TxOutRequest::GetDirectLockingScriptFieldType,
+  };
+  json_mapper.emplace("directLockingScript", func_table);
+  item_list.push_back("directLockingScript");
+}
+
+void TxOutRequest::ConvertFromStruct(
+    const TxOutRequestStruct& data) {
+  address_ = data.address;
+  amount_ = data.amount;
+  direct_locking_script_ = data.direct_locking_script;
+  ignore_items = data.ignore_items;
+}
+
+TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
+  TxOutRequestStruct result;
+  result.address = address_;
+  result.amount = amount_;
+  result.direct_locking_script = direct_locking_script_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// UtxoJsonData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UtxoJsonData>
+  UtxoJsonData::json_mapper;
+std::vector<std::string> UtxoJsonData::item_list;
+
+void UtxoJsonData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UtxoJsonData> func_table;  // NOLINT
+
+  func_table = {
+    UtxoJsonData::GetTxidString,
+    UtxoJsonData::SetTxidString,
+    UtxoJsonData::GetTxidFieldType,
+  };
+  json_mapper.emplace("txid", func_table);
+  item_list.push_back("txid");
+  func_table = {
+    UtxoJsonData::GetVoutString,
+    UtxoJsonData::SetVoutString,
+    UtxoJsonData::GetVoutFieldType,
+  };
+  json_mapper.emplace("vout", func_table);
+  item_list.push_back("vout");
+  func_table = {
+    UtxoJsonData::GetAmountString,
+    UtxoJsonData::SetAmountString,
+    UtxoJsonData::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    UtxoJsonData::GetAssetString,
+    UtxoJsonData::SetAssetString,
+    UtxoJsonData::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    UtxoJsonData::GetDescriptorString,
+    UtxoJsonData::SetDescriptorString,
+    UtxoJsonData::GetDescriptorFieldType,
+  };
+  json_mapper.emplace("descriptor", func_table);
+  item_list.push_back("descriptor");
+  func_table = {
+    UtxoJsonData::GetScriptSigTemplateString,
+    UtxoJsonData::SetScriptSigTemplateString,
+    UtxoJsonData::GetScriptSigTemplateFieldType,
+  };
+  json_mapper.emplace("scriptSigTemplate", func_table);
+  item_list.push_back("scriptSigTemplate");
+}
+
+void UtxoJsonData::ConvertFromStruct(
+    const UtxoJsonDataStruct& data) {
+  txid_ = data.txid;
+  vout_ = data.vout;
+  amount_ = data.amount;
+  asset_ = data.asset;
+  descriptor_ = data.descriptor;
+  script_sig_template_ = data.script_sig_template;
+  ignore_items = data.ignore_items;
+}
+
+UtxoJsonDataStruct UtxoJsonData::ConvertToStruct() const {  // NOLINT
+  UtxoJsonDataStruct result;
+  result.txid = txid_;
+  result.vout = vout_;
+  result.amount = amount_;
+  result.asset = asset_;
+  result.descriptor = descriptor_;
+  result.script_sig_template = script_sig_template_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// AdaptEcdsaAdaptorRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<AdaptEcdsaAdaptorRequest>
+  AdaptEcdsaAdaptorRequest::json_mapper;
+std::vector<std::string> AdaptEcdsaAdaptorRequest::item_list;
+
+void AdaptEcdsaAdaptorRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<AdaptEcdsaAdaptorRequest> func_table;  // NOLINT
+
+  func_table = {
+    AdaptEcdsaAdaptorRequest::GetAdaptorSignatureString,
+    AdaptEcdsaAdaptorRequest::SetAdaptorSignatureString,
+    AdaptEcdsaAdaptorRequest::GetAdaptorSignatureFieldType,
+  };
+  json_mapper.emplace("adaptorSignature", func_table);
+  item_list.push_back("adaptorSignature");
+  func_table = {
+    AdaptEcdsaAdaptorRequest::GetSecretString,
+    AdaptEcdsaAdaptorRequest::SetSecretString,
+    AdaptEcdsaAdaptorRequest::GetSecretFieldType,
+  };
+  json_mapper.emplace("secret", func_table);
+  item_list.push_back("secret");
+}
+
+void AdaptEcdsaAdaptorRequest::ConvertFromStruct(
+    const AdaptEcdsaAdaptorRequestStruct& data) {
+  adaptor_signature_ = data.adaptor_signature;
+  secret_ = data.secret;
+  ignore_items = data.ignore_items;
+}
+
+AdaptEcdsaAdaptorRequestStruct AdaptEcdsaAdaptorRequest::ConvertToStruct() const {  // NOLINT
+  AdaptEcdsaAdaptorRequestStruct result;
+  result.adaptor_signature = adaptor_signature_;
+  result.secret = secret_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SignatureDataResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SignatureDataResponse>
+  SignatureDataResponse::json_mapper;
+std::vector<std::string> SignatureDataResponse::item_list;
+
+void SignatureDataResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SignatureDataResponse> func_table;  // NOLINT
+
+  func_table = {
+    SignatureDataResponse::GetSignatureString,
+    SignatureDataResponse::SetSignatureString,
+    SignatureDataResponse::GetSignatureFieldType,
+  };
+  json_mapper.emplace("signature", func_table);
+  item_list.push_back("signature");
+}
+
+void SignatureDataResponse::ConvertFromStruct(
+    const SignatureDataResponseStruct& data) {
+  signature_ = data.signature;
+  ignore_items = data.ignore_items;
+}
+
+SignatureDataResponseStruct SignatureDataResponse::ConvertToStruct() const {  // NOLINT
+  SignatureDataResponseStruct result;
+  result.signature = signature_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -245,107 +1308,36 @@ AddMultisigSignRequestStruct AddMultisigSignRequest::ConvertToStruct() const {  
 }
 
 // ------------------------------------------------------------------------
-// AddMultisigSignResponse
+// RawTransactionResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddMultisigSignResponse>
-  AddMultisigSignResponse::json_mapper;
-std::vector<std::string> AddMultisigSignResponse::item_list;
+cfd::core::JsonTableMap<RawTransactionResponse>
+  RawTransactionResponse::json_mapper;
+std::vector<std::string> RawTransactionResponse::item_list;
 
-void AddMultisigSignResponse::CollectFieldName() {
+void RawTransactionResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<AddMultisigSignResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<RawTransactionResponse> func_table;  // NOLINT
 
   func_table = {
-    AddMultisigSignResponse::GetHexString,
-    AddMultisigSignResponse::SetHexString,
-    AddMultisigSignResponse::GetHexFieldType,
+    RawTransactionResponse::GetHexString,
+    RawTransactionResponse::SetHexString,
+    RawTransactionResponse::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
 }
 
-void AddMultisigSignResponse::ConvertFromStruct(
-    const AddMultisigSignResponseStruct& data) {
+void RawTransactionResponse::ConvertFromStruct(
+    const RawTransactionResponseStruct& data) {
   hex_ = data.hex;
   ignore_items = data.ignore_items;
 }
 
-AddMultisigSignResponseStruct AddMultisigSignResponse::ConvertToStruct() const {  // NOLINT
-  AddMultisigSignResponseStruct result;
+RawTransactionResponseStruct RawTransactionResponse::ConvertToStruct() const {  // NOLINT
+  RawTransactionResponseStruct result;
   result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// PubkeyHashSignData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<PubkeyHashSignData>
-  PubkeyHashSignData::json_mapper;
-std::vector<std::string> PubkeyHashSignData::item_list;
-
-void PubkeyHashSignData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<PubkeyHashSignData> func_table;  // NOLINT
-
-  func_table = {
-    PubkeyHashSignData::GetHexString,
-    PubkeyHashSignData::SetHexString,
-    PubkeyHashSignData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    PubkeyHashSignData::GetTypeString,
-    PubkeyHashSignData::SetTypeString,
-    PubkeyHashSignData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-  func_table = {
-    PubkeyHashSignData::GetDerEncodeString,
-    PubkeyHashSignData::SetDerEncodeString,
-    PubkeyHashSignData::GetDerEncodeFieldType,
-  };
-  json_mapper.emplace("derEncode", func_table);
-  item_list.push_back("derEncode");
-  func_table = {
-    PubkeyHashSignData::GetSighashTypeString,
-    PubkeyHashSignData::SetSighashTypeString,
-    PubkeyHashSignData::GetSighashTypeFieldType,
-  };
-  json_mapper.emplace("sighashType", func_table);
-  item_list.push_back("sighashType");
-  func_table = {
-    PubkeyHashSignData::GetSighashAnyoneCanPayString,
-    PubkeyHashSignData::SetSighashAnyoneCanPayString,
-    PubkeyHashSignData::GetSighashAnyoneCanPayFieldType,
-  };
-  json_mapper.emplace("sighashAnyoneCanPay", func_table);
-  item_list.push_back("sighashAnyoneCanPay");
-}
-
-void PubkeyHashSignData::ConvertFromStruct(
-    const PubkeyHashSignDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  der_encode_ = data.der_encode;
-  sighash_type_ = data.sighash_type;
-  sighash_anyone_can_pay_ = data.sighash_anyone_can_pay;
-  ignore_items = data.ignore_items;
-}
-
-PubkeyHashSignDataStruct PubkeyHashSignData::ConvertToStruct() const {  // NOLINT
-  PubkeyHashSignDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.der_encode = der_encode_;
-  result.sighash_type = sighash_type_;
-  result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -475,147 +1467,6 @@ AddPubkeyHashSignRequestStruct AddPubkeyHashSignRequest::ConvertToStruct() const
 }
 
 // ------------------------------------------------------------------------
-// AddPubkeyHashSignResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddPubkeyHashSignResponse>
-  AddPubkeyHashSignResponse::json_mapper;
-std::vector<std::string> AddPubkeyHashSignResponse::item_list;
-
-void AddPubkeyHashSignResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddPubkeyHashSignResponse> func_table;  // NOLINT
-
-  func_table = {
-    AddPubkeyHashSignResponse::GetHexString,
-    AddPubkeyHashSignResponse::SetHexString,
-    AddPubkeyHashSignResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void AddPubkeyHashSignResponse::ConvertFromStruct(
-    const AddPubkeyHashSignResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-AddPubkeyHashSignResponseStruct AddPubkeyHashSignResponse::ConvertToStruct() const {  // NOLINT
-  AddPubkeyHashSignResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// AddTxIn
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddTxIn>
-  AddTxIn::json_mapper;
-std::vector<std::string> AddTxIn::item_list;
-
-void AddTxIn::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddTxIn> func_table;  // NOLINT
-
-  func_table = {
-    AddTxIn::GetTxidString,
-    AddTxIn::SetTxidString,
-    AddTxIn::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    AddTxIn::GetVoutString,
-    AddTxIn::SetVoutString,
-    AddTxIn::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    AddTxIn::GetSequenceString,
-    AddTxIn::SetSequenceString,
-    AddTxIn::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void AddTxIn::ConvertFromStruct(
-    const AddTxInStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-AddTxInStruct AddTxIn::ConvertToStruct() const {  // NOLINT
-  AddTxInStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// AddTxOut
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddTxOut>
-  AddTxOut::json_mapper;
-std::vector<std::string> AddTxOut::item_list;
-
-void AddTxOut::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddTxOut> func_table;  // NOLINT
-
-  func_table = {
-    AddTxOut::GetAddressString,
-    AddTxOut::SetAddressString,
-    AddTxOut::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    AddTxOut::GetAmountString,
-    AddTxOut::SetAmountString,
-    AddTxOut::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    AddTxOut::GetDirectLockingScriptString,
-    AddTxOut::SetDirectLockingScriptString,
-    AddTxOut::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-}
-
-void AddTxOut::ConvertFromStruct(
-    const AddTxOutStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  direct_locking_script_ = data.direct_locking_script;
-  ignore_items = data.ignore_items;
-}
-
-AddTxOutStruct AddTxOut::ConvertToStruct() const {  // NOLINT
-  AddTxOutStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.direct_locking_script = direct_locking_script_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // AddRawTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<AddRawTransactionRequest>
@@ -664,112 +1515,6 @@ AddRawTransactionRequestStruct AddRawTransactionRequest::ConvertToStruct() const
   result.tx = tx_;
   result.txins = txins_.ConvertToStruct();
   result.txouts = txouts_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// AddRawTransactionResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddRawTransactionResponse>
-  AddRawTransactionResponse::json_mapper;
-std::vector<std::string> AddRawTransactionResponse::item_list;
-
-void AddRawTransactionResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddRawTransactionResponse> func_table;  // NOLINT
-
-  func_table = {
-    AddRawTransactionResponse::GetHexString,
-    AddRawTransactionResponse::SetHexString,
-    AddRawTransactionResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void AddRawTransactionResponse::ConvertFromStruct(
-    const AddRawTransactionResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-AddRawTransactionResponseStruct AddRawTransactionResponse::ConvertToStruct() const {  // NOLINT
-  AddRawTransactionResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ScriptHashSignData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ScriptHashSignData>
-  ScriptHashSignData::json_mapper;
-std::vector<std::string> ScriptHashSignData::item_list;
-
-void ScriptHashSignData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ScriptHashSignData> func_table;  // NOLINT
-
-  func_table = {
-    ScriptHashSignData::GetHexString,
-    ScriptHashSignData::SetHexString,
-    ScriptHashSignData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    ScriptHashSignData::GetTypeString,
-    ScriptHashSignData::SetTypeString,
-    ScriptHashSignData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-  func_table = {
-    ScriptHashSignData::GetDerEncodeString,
-    ScriptHashSignData::SetDerEncodeString,
-    ScriptHashSignData::GetDerEncodeFieldType,
-  };
-  json_mapper.emplace("derEncode", func_table);
-  item_list.push_back("derEncode");
-  func_table = {
-    ScriptHashSignData::GetSighashTypeString,
-    ScriptHashSignData::SetSighashTypeString,
-    ScriptHashSignData::GetSighashTypeFieldType,
-  };
-  json_mapper.emplace("sighashType", func_table);
-  item_list.push_back("sighashType");
-  func_table = {
-    ScriptHashSignData::GetSighashAnyoneCanPayString,
-    ScriptHashSignData::SetSighashAnyoneCanPayString,
-    ScriptHashSignData::GetSighashAnyoneCanPayFieldType,
-  };
-  json_mapper.emplace("sighashAnyoneCanPay", func_table);
-  item_list.push_back("sighashAnyoneCanPay");
-}
-
-void ScriptHashSignData::ConvertFromStruct(
-    const ScriptHashSignDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  der_encode_ = data.der_encode;
-  sighash_type_ = data.sighash_type;
-  sighash_anyone_can_pay_ = data.sighash_anyone_can_pay;
-  ignore_items = data.ignore_items;
-}
-
-ScriptHashSignDataStruct ScriptHashSignData::ConvertToStruct() const {  // NOLINT
-  ScriptHashSignDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.der_encode = der_encode_;
-  result.sighash_type = sighash_type_;
-  result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -899,112 +1644,6 @@ AddScriptHashSignRequestStruct AddScriptHashSignRequest::ConvertToStruct() const
 }
 
 // ------------------------------------------------------------------------
-// AddScriptHashSignResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddScriptHashSignResponse>
-  AddScriptHashSignResponse::json_mapper;
-std::vector<std::string> AddScriptHashSignResponse::item_list;
-
-void AddScriptHashSignResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddScriptHashSignResponse> func_table;  // NOLINT
-
-  func_table = {
-    AddScriptHashSignResponse::GetHexString,
-    AddScriptHashSignResponse::SetHexString,
-    AddScriptHashSignResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void AddScriptHashSignResponse::ConvertFromStruct(
-    const AddScriptHashSignResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-AddScriptHashSignResponseStruct AddScriptHashSignResponse::ConvertToStruct() const {  // NOLINT
-  AddScriptHashSignResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// SignData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<SignData>
-  SignData::json_mapper;
-std::vector<std::string> SignData::item_list;
-
-void SignData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<SignData> func_table;  // NOLINT
-
-  func_table = {
-    SignData::GetHexString,
-    SignData::SetHexString,
-    SignData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    SignData::GetTypeString,
-    SignData::SetTypeString,
-    SignData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-  func_table = {
-    SignData::GetDerEncodeString,
-    SignData::SetDerEncodeString,
-    SignData::GetDerEncodeFieldType,
-  };
-  json_mapper.emplace("derEncode", func_table);
-  item_list.push_back("derEncode");
-  func_table = {
-    SignData::GetSighashTypeString,
-    SignData::SetSighashTypeString,
-    SignData::GetSighashTypeFieldType,
-  };
-  json_mapper.emplace("sighashType", func_table);
-  item_list.push_back("sighashType");
-  func_table = {
-    SignData::GetSighashAnyoneCanPayString,
-    SignData::SetSighashAnyoneCanPayString,
-    SignData::GetSighashAnyoneCanPayFieldType,
-  };
-  json_mapper.emplace("sighashAnyoneCanPay", func_table);
-  item_list.push_back("sighashAnyoneCanPay");
-}
-
-void SignData::ConvertFromStruct(
-    const SignDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  der_encode_ = data.der_encode;
-  sighash_type_ = data.sighash_type;
-  sighash_anyone_can_pay_ = data.sighash_anyone_can_pay;
-  ignore_items = data.ignore_items;
-}
-
-SignDataStruct SignData::ConvertToStruct() const {  // NOLINT
-  SignDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.der_encode = der_encode_;
-  result.sighash_type = sighash_type_;
-  result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // AddSignTxInRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<AddSignTxInRequest>
@@ -1129,41 +1768,6 @@ AddSignRequestStruct AddSignRequest::ConvertToStruct() const {  // NOLINT
 }
 
 // ------------------------------------------------------------------------
-// AddSignResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AddSignResponse>
-  AddSignResponse::json_mapper;
-std::vector<std::string> AddSignResponse::item_list;
-
-void AddSignResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<AddSignResponse> func_table;  // NOLINT
-
-  func_table = {
-    AddSignResponse::GetHexString,
-    AddSignResponse::SetHexString,
-    AddSignResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void AddSignResponse::ConvertFromStruct(
-    const AddSignResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-AddSignResponseStruct AddSignResponse::ConvertToStruct() const {  // NOLINT
-  AddSignResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // AppendDescriptorChecksumRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<AppendDescriptorChecksumRequest>
@@ -1208,35 +1812,35 @@ AppendDescriptorChecksumRequestStruct AppendDescriptorChecksumRequest::ConvertTo
 }
 
 // ------------------------------------------------------------------------
-// AppendDescriptorChecksumResponse
+// OutputDescriptorResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<AppendDescriptorChecksumResponse>
-  AppendDescriptorChecksumResponse::json_mapper;
-std::vector<std::string> AppendDescriptorChecksumResponse::item_list;
+cfd::core::JsonTableMap<OutputDescriptorResponse>
+  OutputDescriptorResponse::json_mapper;
+std::vector<std::string> OutputDescriptorResponse::item_list;
 
-void AppendDescriptorChecksumResponse::CollectFieldName() {
+void OutputDescriptorResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<AppendDescriptorChecksumResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<OutputDescriptorResponse> func_table;  // NOLINT
 
   func_table = {
-    AppendDescriptorChecksumResponse::GetDescriptorString,
-    AppendDescriptorChecksumResponse::SetDescriptorString,
-    AppendDescriptorChecksumResponse::GetDescriptorFieldType,
+    OutputDescriptorResponse::GetDescriptorString,
+    OutputDescriptorResponse::SetDescriptorString,
+    OutputDescriptorResponse::GetDescriptorFieldType,
   };
   json_mapper.emplace("descriptor", func_table);
   item_list.push_back("descriptor");
 }
 
-void AppendDescriptorChecksumResponse::ConvertFromStruct(
-    const AppendDescriptorChecksumResponseStruct& data) {
+void OutputDescriptorResponse::ConvertFromStruct(
+    const OutputDescriptorResponseStruct& data) {
   descriptor_ = data.descriptor;
   ignore_items = data.ignore_items;
 }
 
-AppendDescriptorChecksumResponseStruct AppendDescriptorChecksumResponse::ConvertToStruct() const {  // NOLINT
-  AppendDescriptorChecksumResponseStruct result;
+OutputDescriptorResponseStruct OutputDescriptorResponse::ConvertToStruct() const {  // NOLINT
+  OutputDescriptorResponseStruct result;
   result.descriptor = descriptor_;
   result.ignore_items = ignore_items;
   return result;
@@ -1537,103 +2141,6 @@ BlindRawTransactionRequestStruct BlindRawTransactionRequest::ConvertToStruct() c
 }
 
 // ------------------------------------------------------------------------
-// BlindRawTransactionResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<BlindRawTransactionResponse>
-  BlindRawTransactionResponse::json_mapper;
-std::vector<std::string> BlindRawTransactionResponse::item_list;
-
-void BlindRawTransactionResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<BlindRawTransactionResponse> func_table;  // NOLINT
-
-  func_table = {
-    BlindRawTransactionResponse::GetHexString,
-    BlindRawTransactionResponse::SetHexString,
-    BlindRawTransactionResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void BlindRawTransactionResponse::ConvertFromStruct(
-    const BlindRawTransactionResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-BlindRawTransactionResponseStruct BlindRawTransactionResponse::ConvertToStruct() const {  // NOLINT
-  BlindRawTransactionResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// PrivkeyData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<PrivkeyData>
-  PrivkeyData::json_mapper;
-std::vector<std::string> PrivkeyData::item_list;
-
-void PrivkeyData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<PrivkeyData> func_table;  // NOLINT
-
-  func_table = {
-    PrivkeyData::GetPrivkeyString,
-    PrivkeyData::SetPrivkeyString,
-    PrivkeyData::GetPrivkeyFieldType,
-  };
-  json_mapper.emplace("privkey", func_table);
-  item_list.push_back("privkey");
-  func_table = {
-    PrivkeyData::GetWifString,
-    PrivkeyData::SetWifString,
-    PrivkeyData::GetWifFieldType,
-  };
-  json_mapper.emplace("wif", func_table);
-  item_list.push_back("wif");
-  func_table = {
-    PrivkeyData::GetNetworkString,
-    PrivkeyData::SetNetworkString,
-    PrivkeyData::GetNetworkFieldType,
-  };
-  json_mapper.emplace("network", func_table);
-  item_list.push_back("network");
-  func_table = {
-    PrivkeyData::GetIsCompressedString,
-    PrivkeyData::SetIsCompressedString,
-    PrivkeyData::GetIsCompressedFieldType,
-  };
-  json_mapper.emplace("isCompressed", func_table);
-  item_list.push_back("isCompressed");
-}
-
-void PrivkeyData::ConvertFromStruct(
-    const PrivkeyDataStruct& data) {
-  privkey_ = data.privkey;
-  wif_ = data.wif;
-  network_ = data.network;
-  is_compressed_ = data.is_compressed;
-  ignore_items = data.ignore_items;
-}
-
-PrivkeyDataStruct PrivkeyData::ConvertToStruct() const {  // NOLINT
-  PrivkeyDataStruct result;
-  result.privkey = privkey_;
-  result.wif = wif_;
-  result.network = network_;
-  result.is_compressed = is_compressed_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CalculateEcSignatureRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CalculateEcSignatureRequest>
@@ -1687,36 +2194,230 @@ CalculateEcSignatureRequestStruct CalculateEcSignatureRequest::ConvertToStruct()
 }
 
 // ------------------------------------------------------------------------
-// CalculateEcSignatureResponse
+// CheckTweakedSchnorrPubkeyRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CalculateEcSignatureResponse>
-  CalculateEcSignatureResponse::json_mapper;
-std::vector<std::string> CalculateEcSignatureResponse::item_list;
+cfd::core::JsonTableMap<CheckTweakedSchnorrPubkeyRequest>
+  CheckTweakedSchnorrPubkeyRequest::json_mapper;
+std::vector<std::string> CheckTweakedSchnorrPubkeyRequest::item_list;
 
-void CalculateEcSignatureResponse::CollectFieldName() {
+void CheckTweakedSchnorrPubkeyRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<CalculateEcSignatureResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<CheckTweakedSchnorrPubkeyRequest> func_table;  // NOLINT
 
   func_table = {
-    CalculateEcSignatureResponse::GetSignatureString,
-    CalculateEcSignatureResponse::SetSignatureString,
-    CalculateEcSignatureResponse::GetSignatureFieldType,
+    CheckTweakedSchnorrPubkeyRequest::GetPubkeyString,
+    CheckTweakedSchnorrPubkeyRequest::SetPubkeyString,
+    CheckTweakedSchnorrPubkeyRequest::GetPubkeyFieldType,
   };
-  json_mapper.emplace("signature", func_table);
-  item_list.push_back("signature");
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
+  func_table = {
+    CheckTweakedSchnorrPubkeyRequest::GetParityString,
+    CheckTweakedSchnorrPubkeyRequest::SetParityString,
+    CheckTweakedSchnorrPubkeyRequest::GetParityFieldType,
+  };
+  json_mapper.emplace("parity", func_table);
+  item_list.push_back("parity");
+  func_table = {
+    CheckTweakedSchnorrPubkeyRequest::GetBasePubkeyString,
+    CheckTweakedSchnorrPubkeyRequest::SetBasePubkeyString,
+    CheckTweakedSchnorrPubkeyRequest::GetBasePubkeyFieldType,
+  };
+  json_mapper.emplace("basePubkey", func_table);
+  item_list.push_back("basePubkey");
+  func_table = {
+    CheckTweakedSchnorrPubkeyRequest::GetTweakString,
+    CheckTweakedSchnorrPubkeyRequest::SetTweakString,
+    CheckTweakedSchnorrPubkeyRequest::GetTweakFieldType,
+  };
+  json_mapper.emplace("tweak", func_table);
+  item_list.push_back("tweak");
 }
 
-void CalculateEcSignatureResponse::ConvertFromStruct(
-    const CalculateEcSignatureResponseStruct& data) {
-  signature_ = data.signature;
+void CheckTweakedSchnorrPubkeyRequest::ConvertFromStruct(
+    const CheckTweakedSchnorrPubkeyRequestStruct& data) {
+  pubkey_ = data.pubkey;
+  parity_ = data.parity;
+  base_pubkey_ = data.base_pubkey;
+  tweak_ = data.tweak;
   ignore_items = data.ignore_items;
 }
 
-CalculateEcSignatureResponseStruct CalculateEcSignatureResponse::ConvertToStruct() const {  // NOLINT
-  CalculateEcSignatureResponseStruct result;
-  result.signature = signature_;
+CheckTweakedSchnorrPubkeyRequestStruct CheckTweakedSchnorrPubkeyRequest::ConvertToStruct() const {  // NOLINT
+  CheckTweakedSchnorrPubkeyRequestStruct result;
+  result.pubkey = pubkey_;
+  result.parity = parity_;
+  result.base_pubkey = base_pubkey_;
+  result.tweak = tweak_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// VerifySignatureResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<VerifySignatureResponse>
+  VerifySignatureResponse::json_mapper;
+std::vector<std::string> VerifySignatureResponse::item_list;
+
+void VerifySignatureResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<VerifySignatureResponse> func_table;  // NOLINT
+
+  func_table = {
+    VerifySignatureResponse::GetSuccessString,
+    VerifySignatureResponse::SetSuccessString,
+    VerifySignatureResponse::GetSuccessFieldType,
+  };
+  json_mapper.emplace("success", func_table);
+  item_list.push_back("success");
+}
+
+void VerifySignatureResponse::ConvertFromStruct(
+    const VerifySignatureResponseStruct& data) {
+  success_ = data.success;
+  ignore_items = data.ignore_items;
+}
+
+VerifySignatureResponseStruct VerifySignatureResponse::ConvertToStruct() const {  // NOLINT
+  VerifySignatureResponseStruct result;
+  result.success = success_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// PubkeyListData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<PubkeyListData>
+  PubkeyListData::json_mapper;
+std::vector<std::string> PubkeyListData::item_list;
+
+void PubkeyListData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<PubkeyListData> func_table;  // NOLINT
+
+  func_table = {
+    PubkeyListData::GetPubkeysString,
+    PubkeyListData::SetPubkeysString,
+    PubkeyListData::GetPubkeysFieldType,
+  };
+  json_mapper.emplace("pubkeys", func_table);
+  item_list.push_back("pubkeys");
+}
+
+void PubkeyListData::ConvertFromStruct(
+    const PubkeyListDataStruct& data) {
+  pubkeys_.ConvertFromStruct(data.pubkeys);
+  ignore_items = data.ignore_items;
+}
+
+PubkeyListDataStruct PubkeyListData::ConvertToStruct() const {  // NOLINT
+  PubkeyListDataStruct result;
+  result.pubkeys = pubkeys_.ConvertToStruct();
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// PubkeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<PubkeyData>
+  PubkeyData::json_mapper;
+std::vector<std::string> PubkeyData::item_list;
+
+void PubkeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<PubkeyData> func_table;  // NOLINT
+
+  func_table = {
+    PubkeyData::GetPubkeyString,
+    PubkeyData::SetPubkeyString,
+    PubkeyData::GetPubkeyFieldType,
+  };
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
+}
+
+void PubkeyData::ConvertFromStruct(
+    const PubkeyDataStruct& data) {
+  pubkey_ = data.pubkey;
+  ignore_items = data.ignore_items;
+}
+
+PubkeyDataStruct PubkeyData::ConvertToStruct() const {  // NOLINT
+  PubkeyDataStruct result;
+  result.pubkey = pubkey_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// ComputeSigPointRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ComputeSigPointRequest>
+  ComputeSigPointRequest::json_mapper;
+std::vector<std::string> ComputeSigPointRequest::item_list;
+
+void ComputeSigPointRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ComputeSigPointRequest> func_table;  // NOLINT
+
+  func_table = {
+    ComputeSigPointRequest::GetMessageString,
+    ComputeSigPointRequest::SetMessageString,
+    ComputeSigPointRequest::GetMessageFieldType,
+  };
+  json_mapper.emplace("message", func_table);
+  item_list.push_back("message");
+  func_table = {
+    ComputeSigPointRequest::GetIsHashedString,
+    ComputeSigPointRequest::SetIsHashedString,
+    ComputeSigPointRequest::GetIsHashedFieldType,
+  };
+  json_mapper.emplace("isHashed", func_table);
+  item_list.push_back("isHashed");
+  func_table = {
+    ComputeSigPointRequest::GetNonceString,
+    ComputeSigPointRequest::SetNonceString,
+    ComputeSigPointRequest::GetNonceFieldType,
+  };
+  json_mapper.emplace("nonce", func_table);
+  item_list.push_back("nonce");
+  func_table = {
+    ComputeSigPointRequest::GetSchnorrPubkeyString,
+    ComputeSigPointRequest::SetSchnorrPubkeyString,
+    ComputeSigPointRequest::GetSchnorrPubkeyFieldType,
+  };
+  json_mapper.emplace("schnorrPubkey", func_table);
+  item_list.push_back("schnorrPubkey");
+}
+
+void ComputeSigPointRequest::ConvertFromStruct(
+    const ComputeSigPointRequestStruct& data) {
+  message_ = data.message;
+  is_hashed_ = data.is_hashed;
+  nonce_ = data.nonce;
+  schnorr_pubkey_ = data.schnorr_pubkey;
+  ignore_items = data.ignore_items;
+}
+
+ComputeSigPointRequestStruct ComputeSigPointRequest::ConvertToStruct() const {  // NOLINT
+  ComputeSigPointRequestStruct result;
+  result.message = message_;
+  result.is_hashed = is_hashed_;
+  result.nonce = nonce_;
+  result.schnorr_pubkey = schnorr_pubkey_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -2022,50 +2723,6 @@ ConvertMnemonicToSeedResponseStruct ConvertMnemonicToSeedResponse::ConvertToStru
 }
 
 // ------------------------------------------------------------------------
-// CreateAddressKeyData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateAddressKeyData>
-  CreateAddressKeyData::json_mapper;
-std::vector<std::string> CreateAddressKeyData::item_list;
-
-void CreateAddressKeyData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateAddressKeyData> func_table;  // NOLINT
-
-  func_table = {
-    CreateAddressKeyData::GetHexString,
-    CreateAddressKeyData::SetHexString,
-    CreateAddressKeyData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    CreateAddressKeyData::GetTypeString,
-    CreateAddressKeyData::SetTypeString,
-    CreateAddressKeyData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-}
-
-void CreateAddressKeyData::ConvertFromStruct(
-    const CreateAddressKeyDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  ignore_items = data.ignore_items;
-}
-
-CreateAddressKeyDataStruct CreateAddressKeyData::ConvertToStruct() const {  // NOLINT
-  CreateAddressKeyDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateAddressRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateAddressRequest>
@@ -2287,41 +2944,6 @@ CreateDescriptorRequestStruct CreateDescriptorRequest::ConvertToStruct() const {
 }
 
 // ------------------------------------------------------------------------
-// CreateDescriptorResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateDescriptorResponse>
-  CreateDescriptorResponse::json_mapper;
-std::vector<std::string> CreateDescriptorResponse::item_list;
-
-void CreateDescriptorResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateDescriptorResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateDescriptorResponse::GetDescriptorString,
-    CreateDescriptorResponse::SetDescriptorString,
-    CreateDescriptorResponse::GetDescriptorFieldType,
-  };
-  json_mapper.emplace("descriptor", func_table);
-  item_list.push_back("descriptor");
-}
-
-void CreateDescriptorResponse::ConvertFromStruct(
-    const CreateDescriptorResponseStruct& data) {
-  descriptor_ = data.descriptor;
-  ignore_items = data.ignore_items;
-}
-
-CreateDescriptorResponseStruct CreateDescriptorResponse::ConvertToStruct() const {  // NOLINT
-  CreateDescriptorResponseStruct result;
-  result.descriptor = descriptor_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateExtkeyRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateExtkeyRequest>
@@ -2535,41 +3157,6 @@ CreateExtkeyFromParentRequestStruct CreateExtkeyFromParentRequest::ConvertToStru
 }
 
 // ------------------------------------------------------------------------
-// CreateExtkeyFromParentResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateExtkeyFromParentResponse>
-  CreateExtkeyFromParentResponse::json_mapper;
-std::vector<std::string> CreateExtkeyFromParentResponse::item_list;
-
-void CreateExtkeyFromParentResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateExtkeyFromParentResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateExtkeyFromParentResponse::GetExtkeyString,
-    CreateExtkeyFromParentResponse::SetExtkeyString,
-    CreateExtkeyFromParentResponse::GetExtkeyFieldType,
-  };
-  json_mapper.emplace("extkey", func_table);
-  item_list.push_back("extkey");
-}
-
-void CreateExtkeyFromParentResponse::ConvertFromStruct(
-    const CreateExtkeyFromParentResponseStruct& data) {
-  extkey_ = data.extkey;
-  ignore_items = data.ignore_items;
-}
-
-CreateExtkeyFromParentResponseStruct CreateExtkeyFromParentResponse::ConvertToStruct() const {  // NOLINT
-  CreateExtkeyFromParentResponseStruct result;
-  result.extkey = extkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateExtkeyFromParentKeyRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateExtkeyFromParentKeyRequest>
@@ -2659,41 +3246,6 @@ CreateExtkeyFromParentKeyRequestStruct CreateExtkeyFromParentKeyRequest::Convert
 }
 
 // ------------------------------------------------------------------------
-// CreateExtkeyFromParentKeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateExtkeyFromParentKeyResponse>
-  CreateExtkeyFromParentKeyResponse::json_mapper;
-std::vector<std::string> CreateExtkeyFromParentKeyResponse::item_list;
-
-void CreateExtkeyFromParentKeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateExtkeyFromParentKeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateExtkeyFromParentKeyResponse::GetExtkeyString,
-    CreateExtkeyFromParentKeyResponse::SetExtkeyString,
-    CreateExtkeyFromParentKeyResponse::GetExtkeyFieldType,
-  };
-  json_mapper.emplace("extkey", func_table);
-  item_list.push_back("extkey");
-}
-
-void CreateExtkeyFromParentKeyResponse::ConvertFromStruct(
-    const CreateExtkeyFromParentKeyResponseStruct& data) {
-  extkey_ = data.extkey;
-  ignore_items = data.ignore_items;
-}
-
-CreateExtkeyFromParentKeyResponseStruct CreateExtkeyFromParentKeyResponse::ConvertToStruct() const {  // NOLINT
-  CreateExtkeyFromParentKeyResponseStruct result;
-  result.extkey = extkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateExtkeyFromParentPathRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateExtkeyFromParentPathRequest>
@@ -2765,41 +3317,6 @@ CreateExtkeyFromParentPathRequestStruct CreateExtkeyFromParentPathRequest::Conve
 }
 
 // ------------------------------------------------------------------------
-// CreateExtkeyFromParentPathResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateExtkeyFromParentPathResponse>
-  CreateExtkeyFromParentPathResponse::json_mapper;
-std::vector<std::string> CreateExtkeyFromParentPathResponse::item_list;
-
-void CreateExtkeyFromParentPathResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateExtkeyFromParentPathResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateExtkeyFromParentPathResponse::GetExtkeyString,
-    CreateExtkeyFromParentPathResponse::SetExtkeyString,
-    CreateExtkeyFromParentPathResponse::GetExtkeyFieldType,
-  };
-  json_mapper.emplace("extkey", func_table);
-  item_list.push_back("extkey");
-}
-
-void CreateExtkeyFromParentPathResponse::ConvertFromStruct(
-    const CreateExtkeyFromParentPathResponseStruct& data) {
-  extkey_ = data.extkey;
-  ignore_items = data.ignore_items;
-}
-
-CreateExtkeyFromParentPathResponseStruct CreateExtkeyFromParentPathResponse::ConvertToStruct() const {  // NOLINT
-  CreateExtkeyFromParentPathResponseStruct result;
-  result.extkey = extkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateExtkeyFromSeedRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateExtkeyFromSeedRequest>
@@ -2853,41 +3370,6 @@ CreateExtkeyFromSeedRequestStruct CreateExtkeyFromSeedRequest::ConvertToStruct()
 }
 
 // ------------------------------------------------------------------------
-// CreateExtkeyFromSeedResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateExtkeyFromSeedResponse>
-  CreateExtkeyFromSeedResponse::json_mapper;
-std::vector<std::string> CreateExtkeyFromSeedResponse::item_list;
-
-void CreateExtkeyFromSeedResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateExtkeyFromSeedResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateExtkeyFromSeedResponse::GetExtkeyString,
-    CreateExtkeyFromSeedResponse::SetExtkeyString,
-    CreateExtkeyFromSeedResponse::GetExtkeyFieldType,
-  };
-  json_mapper.emplace("extkey", func_table);
-  item_list.push_back("extkey");
-}
-
-void CreateExtkeyFromSeedResponse::ConvertFromStruct(
-    const CreateExtkeyFromSeedResponseStruct& data) {
-  extkey_ = data.extkey;
-  ignore_items = data.ignore_items;
-}
-
-CreateExtkeyFromSeedResponseStruct CreateExtkeyFromSeedResponse::ConvertToStruct() const {  // NOLINT
-  CreateExtkeyFromSeedResponseStruct result;
-  result.extkey = extkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateExtPubkeyRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateExtPubkeyRequest>
@@ -2927,41 +3409,6 @@ CreateExtPubkeyRequestStruct CreateExtPubkeyRequest::ConvertToStruct() const {  
   CreateExtPubkeyRequestStruct result;
   result.extkey = extkey_;
   result.network = network_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// CreateExtPubkeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateExtPubkeyResponse>
-  CreateExtPubkeyResponse::json_mapper;
-std::vector<std::string> CreateExtPubkeyResponse::item_list;
-
-void CreateExtPubkeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateExtPubkeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateExtPubkeyResponse::GetExtkeyString,
-    CreateExtPubkeyResponse::SetExtkeyString,
-    CreateExtPubkeyResponse::GetExtkeyFieldType,
-  };
-  json_mapper.emplace("extkey", func_table);
-  item_list.push_back("extkey");
-}
-
-void CreateExtPubkeyResponse::ConvertFromStruct(
-    const CreateExtPubkeyResponseStruct& data) {
-  extkey_ = data.extkey;
-  ignore_items = data.ignore_items;
-}
-
-CreateExtPubkeyResponseStruct CreateExtPubkeyResponse::ConvertToStruct() const {  // NOLINT
-  CreateExtPubkeyResponseStruct result;
-  result.extkey = extkey_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -3064,86 +3511,6 @@ CreateKeyPairResponseStruct CreateKeyPairResponse::ConvertToStruct() const {  //
 }
 
 // ------------------------------------------------------------------------
-// MultisigScriptSigData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<MultisigScriptSigData>
-  MultisigScriptSigData::json_mapper;
-std::vector<std::string> MultisigScriptSigData::item_list;
-
-void MultisigScriptSigData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<MultisigScriptSigData> func_table;  // NOLINT
-
-  func_table = {
-    MultisigScriptSigData::GetHexString,
-    MultisigScriptSigData::SetHexString,
-    MultisigScriptSigData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    MultisigScriptSigData::GetTypeString,
-    MultisigScriptSigData::SetTypeString,
-    MultisigScriptSigData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-  func_table = {
-    MultisigScriptSigData::GetDerEncodeString,
-    MultisigScriptSigData::SetDerEncodeString,
-    MultisigScriptSigData::GetDerEncodeFieldType,
-  };
-  json_mapper.emplace("derEncode", func_table);
-  item_list.push_back("derEncode");
-  func_table = {
-    MultisigScriptSigData::GetSighashTypeString,
-    MultisigScriptSigData::SetSighashTypeString,
-    MultisigScriptSigData::GetSighashTypeFieldType,
-  };
-  json_mapper.emplace("sighashType", func_table);
-  item_list.push_back("sighashType");
-  func_table = {
-    MultisigScriptSigData::GetSighashAnyoneCanPayString,
-    MultisigScriptSigData::SetSighashAnyoneCanPayString,
-    MultisigScriptSigData::GetSighashAnyoneCanPayFieldType,
-  };
-  json_mapper.emplace("sighashAnyoneCanPay", func_table);
-  item_list.push_back("sighashAnyoneCanPay");
-  func_table = {
-    MultisigScriptSigData::GetRelatedPubkeyString,
-    MultisigScriptSigData::SetRelatedPubkeyString,
-    MultisigScriptSigData::GetRelatedPubkeyFieldType,
-  };
-  json_mapper.emplace("relatedPubkey", func_table);
-  item_list.push_back("relatedPubkey");
-}
-
-void MultisigScriptSigData::ConvertFromStruct(
-    const MultisigScriptSigDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  der_encode_ = data.der_encode;
-  sighash_type_ = data.sighash_type;
-  sighash_anyone_can_pay_ = data.sighash_anyone_can_pay;
-  related_pubkey_ = data.related_pubkey;
-  ignore_items = data.ignore_items;
-}
-
-MultisigScriptSigDataStruct MultisigScriptSigData::ConvertToStruct() const {  // NOLINT
-  MultisigScriptSigDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.der_encode = der_encode_;
-  result.sighash_type = sighash_type_;
-  result.sighash_anyone_can_pay = sighash_anyone_can_pay_;
-  result.related_pubkey = related_pubkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateMultisigScriptSigRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateMultisigScriptSigRequest>
@@ -3188,35 +3555,35 @@ CreateMultisigScriptSigRequestStruct CreateMultisigScriptSigRequest::ConvertToSt
 }
 
 // ------------------------------------------------------------------------
-// CreateMultisigScriptSigResponse
+// ScriptDataResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateMultisigScriptSigResponse>
-  CreateMultisigScriptSigResponse::json_mapper;
-std::vector<std::string> CreateMultisigScriptSigResponse::item_list;
+cfd::core::JsonTableMap<ScriptDataResponse>
+  ScriptDataResponse::json_mapper;
+std::vector<std::string> ScriptDataResponse::item_list;
 
-void CreateMultisigScriptSigResponse::CollectFieldName() {
+void ScriptDataResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateMultisigScriptSigResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<ScriptDataResponse> func_table;  // NOLINT
 
   func_table = {
-    CreateMultisigScriptSigResponse::GetHexString,
-    CreateMultisigScriptSigResponse::SetHexString,
-    CreateMultisigScriptSigResponse::GetHexFieldType,
+    ScriptDataResponse::GetHexString,
+    ScriptDataResponse::SetHexString,
+    ScriptDataResponse::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
 }
 
-void CreateMultisigScriptSigResponse::ConvertFromStruct(
-    const CreateMultisigScriptSigResponseStruct& data) {
+void ScriptDataResponse::ConvertFromStruct(
+    const ScriptDataResponseStruct& data) {
   hex_ = data.hex;
   ignore_items = data.ignore_items;
 }
 
-CreateMultisigScriptSigResponseStruct CreateMultisigScriptSigResponse::ConvertToStruct() const {  // NOLINT
-  CreateMultisigScriptSigResponseStruct result;
+ScriptDataResponseStruct ScriptDataResponse::ConvertToStruct() const {  // NOLINT
+  ScriptDataResponseStruct result;
   result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
@@ -3253,41 +3620,6 @@ void CreateScriptRequest::ConvertFromStruct(
 CreateScriptRequestStruct CreateScriptRequest::ConvertToStruct() const {  // NOLINT
   CreateScriptRequestStruct result;
   result.items = items_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// CreateScriptResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateScriptResponse>
-  CreateScriptResponse::json_mapper;
-std::vector<std::string> CreateScriptResponse::item_list;
-
-void CreateScriptResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateScriptResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateScriptResponse::GetHexString,
-    CreateScriptResponse::SetHexString,
-    CreateScriptResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void CreateScriptResponse::ConvertFromStruct(
-    const CreateScriptResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-CreateScriptResponseStruct CreateScriptResponse::ConvertToStruct() const {  // NOLINT
-  CreateScriptResponseStruct result;
-  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -3407,41 +3739,6 @@ DecodeDerSignatureToRawRequestStruct DecodeDerSignatureToRawRequest::ConvertToSt
 }
 
 // ------------------------------------------------------------------------
-// DecodeDerSignatureToRawResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<DecodeDerSignatureToRawResponse>
-  DecodeDerSignatureToRawResponse::json_mapper;
-std::vector<std::string> DecodeDerSignatureToRawResponse::item_list;
-
-void DecodeDerSignatureToRawResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<DecodeDerSignatureToRawResponse> func_table;  // NOLINT
-
-  func_table = {
-    DecodeDerSignatureToRawResponse::GetSignatureString,
-    DecodeDerSignatureToRawResponse::SetSignatureString,
-    DecodeDerSignatureToRawResponse::GetSignatureFieldType,
-  };
-  json_mapper.emplace("signature", func_table);
-  item_list.push_back("signature");
-}
-
-void DecodeDerSignatureToRawResponse::ConvertFromStruct(
-    const DecodeDerSignatureToRawResponseStruct& data) {
-  signature_ = data.signature;
-  ignore_items = data.ignore_items;
-}
-
-DecodeDerSignatureToRawResponseStruct DecodeDerSignatureToRawResponse::ConvertToStruct() const {  // NOLINT
-  DecodeDerSignatureToRawResponseStruct result;
-  result.signature = signature_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // DecodeRawTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<DecodeRawTransactionRequest>
@@ -3490,50 +3787,6 @@ DecodeRawTransactionRequestStruct DecodeRawTransactionRequest::ConvertToStruct()
   result.hex = hex_;
   result.network = network_;
   result.iswitness = iswitness_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// DecodeUnlockingScript
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<DecodeUnlockingScript>
-  DecodeUnlockingScript::json_mapper;
-std::vector<std::string> DecodeUnlockingScript::item_list;
-
-void DecodeUnlockingScript::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<DecodeUnlockingScript> func_table;  // NOLINT
-
-  func_table = {
-    DecodeUnlockingScript::GetAsmString,
-    DecodeUnlockingScript::SetAsmString,
-    DecodeUnlockingScript::GetAsmFieldType,
-  };
-  json_mapper.emplace("asm", func_table);
-  item_list.push_back("asm");
-  func_table = {
-    DecodeUnlockingScript::GetHexString,
-    DecodeUnlockingScript::SetHexString,
-    DecodeUnlockingScript::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void DecodeUnlockingScript::ConvertFromStruct(
-    const DecodeUnlockingScriptStruct& data) {
-  asm__ = data.asm_;
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-DecodeUnlockingScriptStruct DecodeUnlockingScript::ConvertToStruct() const {  // NOLINT
-  DecodeUnlockingScriptStruct result;
-  result.asm_ = asm__;
-  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -3850,512 +4103,6 @@ DecodeRawTransactionResponseStruct DecodeRawTransactionResponse::ConvertToStruct
 }
 
 // ------------------------------------------------------------------------
-// ElementsAddTxInRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddTxInRequest>
-  ElementsAddTxInRequest::json_mapper;
-std::vector<std::string> ElementsAddTxInRequest::item_list;
-
-void ElementsAddTxInRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddTxInRequest> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddTxInRequest::GetTxidString,
-    ElementsAddTxInRequest::SetTxidString,
-    ElementsAddTxInRequest::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsAddTxInRequest::GetVoutString,
-    ElementsAddTxInRequest::SetVoutString,
-    ElementsAddTxInRequest::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsAddTxInRequest::GetSequenceString,
-    ElementsAddTxInRequest::SetSequenceString,
-    ElementsAddTxInRequest::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void ElementsAddTxInRequest::ConvertFromStruct(
-    const ElementsAddTxInRequestStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddTxInRequestStruct ElementsAddTxInRequest::ConvertToStruct() const {  // NOLINT
-  ElementsAddTxInRequestStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddPeginWitness
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddPeginWitness>
-  ElementsAddPeginWitness::json_mapper;
-std::vector<std::string> ElementsAddPeginWitness::item_list;
-
-void ElementsAddPeginWitness::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddPeginWitness> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddPeginWitness::GetAmountString,
-    ElementsAddPeginWitness::SetAmountString,
-    ElementsAddPeginWitness::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsAddPeginWitness::GetAssetString,
-    ElementsAddPeginWitness::SetAssetString,
-    ElementsAddPeginWitness::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsAddPeginWitness::GetMainchainGenesisBlockHashString,
-    ElementsAddPeginWitness::SetMainchainGenesisBlockHashString,
-    ElementsAddPeginWitness::GetMainchainGenesisBlockHashFieldType,
-  };
-  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
-  item_list.push_back("mainchainGenesisBlockHash");
-  func_table = {
-    ElementsAddPeginWitness::GetClaimScriptString,
-    ElementsAddPeginWitness::SetClaimScriptString,
-    ElementsAddPeginWitness::GetClaimScriptFieldType,
-  };
-  json_mapper.emplace("claimScript", func_table);
-  item_list.push_back("claimScript");
-  func_table = {
-    ElementsAddPeginWitness::GetMainchainRawTransactionString,
-    ElementsAddPeginWitness::SetMainchainRawTransactionString,
-    ElementsAddPeginWitness::GetMainchainRawTransactionFieldType,
-  };
-  json_mapper.emplace("mainchainRawTransaction", func_table);
-  item_list.push_back("mainchainRawTransaction");
-  func_table = {
-    ElementsAddPeginWitness::GetMainchainTxoutproofString,
-    ElementsAddPeginWitness::SetMainchainTxoutproofString,
-    ElementsAddPeginWitness::GetMainchainTxoutproofFieldType,
-  };
-  json_mapper.emplace("mainchainTxoutproof", func_table);
-  item_list.push_back("mainchainTxoutproof");
-}
-
-void ElementsAddPeginWitness::ConvertFromStruct(
-    const ElementsAddPeginWitnessStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
-  claim_script_ = data.claim_script;
-  mainchain_raw_transaction_ = data.mainchain_raw_transaction;
-  mainchain_txoutproof_ = data.mainchain_txoutproof;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddPeginWitnessStruct ElementsAddPeginWitness::ConvertToStruct() const {  // NOLINT
-  ElementsAddPeginWitnessStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
-  result.claim_script = claim_script_;
-  result.mainchain_raw_transaction = mainchain_raw_transaction_;
-  result.mainchain_txoutproof = mainchain_txoutproof_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddPeginTxIn
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddPeginTxIn>
-  ElementsAddPeginTxIn::json_mapper;
-std::vector<std::string> ElementsAddPeginTxIn::item_list;
-
-void ElementsAddPeginTxIn::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddPeginTxIn> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddPeginTxIn::GetTxidString,
-    ElementsAddPeginTxIn::SetTxidString,
-    ElementsAddPeginTxIn::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsAddPeginTxIn::GetVoutString,
-    ElementsAddPeginTxIn::SetVoutString,
-    ElementsAddPeginTxIn::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsAddPeginTxIn::GetSequenceString,
-    ElementsAddPeginTxIn::SetSequenceString,
-    ElementsAddPeginTxIn::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-  func_table = {
-    ElementsAddPeginTxIn::GetPeginwitnessString,
-    ElementsAddPeginTxIn::SetPeginwitnessString,
-    ElementsAddPeginTxIn::GetPeginwitnessFieldType,
-  };
-  json_mapper.emplace("peginwitness", func_table);
-  item_list.push_back("peginwitness");
-  func_table = {
-    ElementsAddPeginTxIn::GetIsRemoveMainchainTxWitnessString,
-    ElementsAddPeginTxIn::SetIsRemoveMainchainTxWitnessString,
-    ElementsAddPeginTxIn::GetIsRemoveMainchainTxWitnessFieldType,
-  };
-  json_mapper.emplace("isRemoveMainchainTxWitness", func_table);
-  item_list.push_back("isRemoveMainchainTxWitness");
-}
-
-void ElementsAddPeginTxIn::ConvertFromStruct(
-    const ElementsAddPeginTxInStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  peginwitness_.ConvertFromStruct(data.peginwitness);
-  is_remove_mainchain_tx_witness_ = data.is_remove_mainchain_tx_witness;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddPeginTxInStruct ElementsAddPeginTxIn::ConvertToStruct() const {  // NOLINT
-  ElementsAddPeginTxInStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.peginwitness = peginwitness_.ConvertToStruct();
-  result.is_remove_mainchain_tx_witness = is_remove_mainchain_tx_witness_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddTxOut
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddTxOut>
-  ElementsAddTxOut::json_mapper;
-std::vector<std::string> ElementsAddTxOut::item_list;
-
-void ElementsAddTxOut::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddTxOut> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddTxOut::GetAddressString,
-    ElementsAddTxOut::SetAddressString,
-    ElementsAddTxOut::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    ElementsAddTxOut::GetAmountString,
-    ElementsAddTxOut::SetAmountString,
-    ElementsAddTxOut::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsAddTxOut::GetAssetString,
-    ElementsAddTxOut::SetAssetString,
-    ElementsAddTxOut::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsAddTxOut::GetDirectLockingScriptString,
-    ElementsAddTxOut::SetDirectLockingScriptString,
-    ElementsAddTxOut::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-  func_table = {
-    ElementsAddTxOut::GetDirectNonceString,
-    ElementsAddTxOut::SetDirectNonceString,
-    ElementsAddTxOut::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-  func_table = {
-    ElementsAddTxOut::GetIsRemoveNonceString,
-    ElementsAddTxOut::SetIsRemoveNonceString,
-    ElementsAddTxOut::GetIsRemoveNonceFieldType,
-  };
-  json_mapper.emplace("isRemoveNonce", func_table);
-  item_list.push_back("isRemoveNonce");
-}
-
-void ElementsAddTxOut::ConvertFromStruct(
-    const ElementsAddTxOutStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_locking_script_ = data.direct_locking_script;
-  direct_nonce_ = data.direct_nonce;
-  is_remove_nonce_ = data.is_remove_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddTxOutStruct ElementsAddTxOut::ConvertToStruct() const {  // NOLINT
-  ElementsAddTxOutStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_locking_script = direct_locking_script_;
-  result.direct_nonce = direct_nonce_;
-  result.is_remove_nonce = is_remove_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddDestroyAmount
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddDestroyAmount>
-  ElementsAddDestroyAmount::json_mapper;
-std::vector<std::string> ElementsAddDestroyAmount::item_list;
-
-void ElementsAddDestroyAmount::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddDestroyAmount> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddDestroyAmount::GetAmountString,
-    ElementsAddDestroyAmount::SetAmountString,
-    ElementsAddDestroyAmount::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsAddDestroyAmount::GetAssetString,
-    ElementsAddDestroyAmount::SetAssetString,
-    ElementsAddDestroyAmount::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsAddDestroyAmount::GetDirectNonceString,
-    ElementsAddDestroyAmount::SetDirectNonceString,
-    ElementsAddDestroyAmount::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-}
-
-void ElementsAddDestroyAmount::ConvertFromStruct(
-    const ElementsAddDestroyAmountStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_nonce_ = data.direct_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddDestroyAmountStruct ElementsAddDestroyAmount::ConvertToStruct() const {  // NOLINT
-  ElementsAddDestroyAmountStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_nonce = direct_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddPegout
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddPegout>
-  ElementsAddPegout::json_mapper;
-std::vector<std::string> ElementsAddPegout::item_list;
-
-void ElementsAddPegout::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddPegout> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddPegout::GetAmountString,
-    ElementsAddPegout::SetAmountString,
-    ElementsAddPegout::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsAddPegout::GetAssetString,
-    ElementsAddPegout::SetAssetString,
-    ElementsAddPegout::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsAddPegout::GetNetworkString,
-    ElementsAddPegout::SetNetworkString,
-    ElementsAddPegout::GetNetworkFieldType,
-  };
-  json_mapper.emplace("network", func_table);
-  item_list.push_back("network");
-  func_table = {
-    ElementsAddPegout::GetElementsNetworkString,
-    ElementsAddPegout::SetElementsNetworkString,
-    ElementsAddPegout::GetElementsNetworkFieldType,
-  };
-  json_mapper.emplace("elementsNetwork", func_table);
-  item_list.push_back("elementsNetwork");
-  func_table = {
-    ElementsAddPegout::GetMainchainGenesisBlockHashString,
-    ElementsAddPegout::SetMainchainGenesisBlockHashString,
-    ElementsAddPegout::GetMainchainGenesisBlockHashFieldType,
-  };
-  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
-  item_list.push_back("mainchainGenesisBlockHash");
-  func_table = {
-    ElementsAddPegout::GetBtcAddressString,
-    ElementsAddPegout::SetBtcAddressString,
-    ElementsAddPegout::GetBtcAddressFieldType,
-  };
-  json_mapper.emplace("btcAddress", func_table);
-  item_list.push_back("btcAddress");
-  func_table = {
-    ElementsAddPegout::GetOnlinePubkeyString,
-    ElementsAddPegout::SetOnlinePubkeyString,
-    ElementsAddPegout::GetOnlinePubkeyFieldType,
-  };
-  json_mapper.emplace("onlinePubkey", func_table);
-  item_list.push_back("onlinePubkey");
-  func_table = {
-    ElementsAddPegout::GetMasterOnlineKeyString,
-    ElementsAddPegout::SetMasterOnlineKeyString,
-    ElementsAddPegout::GetMasterOnlineKeyFieldType,
-  };
-  json_mapper.emplace("masterOnlineKey", func_table);
-  item_list.push_back("masterOnlineKey");
-  func_table = {
-    ElementsAddPegout::GetBitcoinDescriptorString,
-    ElementsAddPegout::SetBitcoinDescriptorString,
-    ElementsAddPegout::GetBitcoinDescriptorFieldType,
-  };
-  json_mapper.emplace("bitcoinDescriptor", func_table);
-  item_list.push_back("bitcoinDescriptor");
-  func_table = {
-    ElementsAddPegout::GetBip32CounterString,
-    ElementsAddPegout::SetBip32CounterString,
-    ElementsAddPegout::GetBip32CounterFieldType,
-  };
-  json_mapper.emplace("bip32Counter", func_table);
-  item_list.push_back("bip32Counter");
-  func_table = {
-    ElementsAddPegout::GetWhitelistString,
-    ElementsAddPegout::SetWhitelistString,
-    ElementsAddPegout::GetWhitelistFieldType,
-  };
-  json_mapper.emplace("whitelist", func_table);
-  item_list.push_back("whitelist");
-}
-
-void ElementsAddPegout::ConvertFromStruct(
-    const ElementsAddPegoutStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  network_ = data.network;
-  elements_network_ = data.elements_network;
-  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
-  btc_address_ = data.btc_address;
-  online_pubkey_ = data.online_pubkey;
-  master_online_key_ = data.master_online_key;
-  bitcoin_descriptor_ = data.bitcoin_descriptor;
-  bip32_counter_ = data.bip32_counter;
-  whitelist_ = data.whitelist;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddPegoutStruct ElementsAddPegout::ConvertToStruct() const {  // NOLINT
-  ElementsAddPegoutStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.network = network_;
-  result.elements_network = elements_network_;
-  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
-  result.btc_address = btc_address_;
-  result.online_pubkey = online_pubkey_;
-  result.master_online_key = master_online_key_;
-  result.bitcoin_descriptor = bitcoin_descriptor_;
-  result.bip32_counter = bip32_counter_;
-  result.whitelist = whitelist_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsAddTxOutFee
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsAddTxOutFee>
-  ElementsAddTxOutFee::json_mapper;
-std::vector<std::string> ElementsAddTxOutFee::item_list;
-
-void ElementsAddTxOutFee::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsAddTxOutFee> func_table;  // NOLINT
-
-  func_table = {
-    ElementsAddTxOutFee::GetAmountString,
-    ElementsAddTxOutFee::SetAmountString,
-    ElementsAddTxOutFee::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsAddTxOutFee::GetAssetString,
-    ElementsAddTxOutFee::SetAssetString,
-    ElementsAddTxOutFee::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-}
-
-void ElementsAddTxOutFee::ConvertFromStruct(
-    const ElementsAddTxOutFeeStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  ignore_items = data.ignore_items;
-}
-
-ElementsAddTxOutFeeStruct ElementsAddTxOutFee::ConvertToStruct() const {  // NOLINT
-  ElementsAddTxOutFeeStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // ElementsAddRawTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<ElementsAddRawTransactionRequest>
@@ -4498,236 +4245,6 @@ ElementsAddRawTransactionResponseStruct ElementsAddRawTransactionResponse::Conve
 }
 
 // ------------------------------------------------------------------------
-// ElementsDestroyAmountTxIn
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsDestroyAmountTxIn>
-  ElementsDestroyAmountTxIn::json_mapper;
-std::vector<std::string> ElementsDestroyAmountTxIn::item_list;
-
-void ElementsDestroyAmountTxIn::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsDestroyAmountTxIn> func_table;  // NOLINT
-
-  func_table = {
-    ElementsDestroyAmountTxIn::GetTxidString,
-    ElementsDestroyAmountTxIn::SetTxidString,
-    ElementsDestroyAmountTxIn::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsDestroyAmountTxIn::GetVoutString,
-    ElementsDestroyAmountTxIn::SetVoutString,
-    ElementsDestroyAmountTxIn::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsDestroyAmountTxIn::GetSequenceString,
-    ElementsDestroyAmountTxIn::SetSequenceString,
-    ElementsDestroyAmountTxIn::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void ElementsDestroyAmountTxIn::ConvertFromStruct(
-    const ElementsDestroyAmountTxInStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-ElementsDestroyAmountTxInStruct ElementsDestroyAmountTxIn::ConvertToStruct() const {  // NOLINT
-  ElementsDestroyAmountTxInStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsDestroyAmountTxOut
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsDestroyAmountTxOut>
-  ElementsDestroyAmountTxOut::json_mapper;
-std::vector<std::string> ElementsDestroyAmountTxOut::item_list;
-
-void ElementsDestroyAmountTxOut::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsDestroyAmountTxOut> func_table;  // NOLINT
-
-  func_table = {
-    ElementsDestroyAmountTxOut::GetAddressString,
-    ElementsDestroyAmountTxOut::SetAddressString,
-    ElementsDestroyAmountTxOut::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    ElementsDestroyAmountTxOut::GetAmountString,
-    ElementsDestroyAmountTxOut::SetAmountString,
-    ElementsDestroyAmountTxOut::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsDestroyAmountTxOut::GetAssetString,
-    ElementsDestroyAmountTxOut::SetAssetString,
-    ElementsDestroyAmountTxOut::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsDestroyAmountTxOut::GetDirectLockingScriptString,
-    ElementsDestroyAmountTxOut::SetDirectLockingScriptString,
-    ElementsDestroyAmountTxOut::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-  func_table = {
-    ElementsDestroyAmountTxOut::GetDirectNonceString,
-    ElementsDestroyAmountTxOut::SetDirectNonceString,
-    ElementsDestroyAmountTxOut::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-  func_table = {
-    ElementsDestroyAmountTxOut::GetIsRemoveNonceString,
-    ElementsDestroyAmountTxOut::SetIsRemoveNonceString,
-    ElementsDestroyAmountTxOut::GetIsRemoveNonceFieldType,
-  };
-  json_mapper.emplace("isRemoveNonce", func_table);
-  item_list.push_back("isRemoveNonce");
-}
-
-void ElementsDestroyAmountTxOut::ConvertFromStruct(
-    const ElementsDestroyAmountTxOutStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_locking_script_ = data.direct_locking_script;
-  direct_nonce_ = data.direct_nonce;
-  is_remove_nonce_ = data.is_remove_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsDestroyAmountTxOutStruct ElementsDestroyAmountTxOut::ConvertToStruct() const {  // NOLINT
-  ElementsDestroyAmountTxOutStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_locking_script = direct_locking_script_;
-  result.direct_nonce = direct_nonce_;
-  result.is_remove_nonce = is_remove_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsDestroyAmount
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsDestroyAmount>
-  ElementsDestroyAmount::json_mapper;
-std::vector<std::string> ElementsDestroyAmount::item_list;
-
-void ElementsDestroyAmount::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsDestroyAmount> func_table;  // NOLINT
-
-  func_table = {
-    ElementsDestroyAmount::GetAmountString,
-    ElementsDestroyAmount::SetAmountString,
-    ElementsDestroyAmount::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsDestroyAmount::GetAssetString,
-    ElementsDestroyAmount::SetAssetString,
-    ElementsDestroyAmount::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsDestroyAmount::GetDirectNonceString,
-    ElementsDestroyAmount::SetDirectNonceString,
-    ElementsDestroyAmount::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-}
-
-void ElementsDestroyAmount::ConvertFromStruct(
-    const ElementsDestroyAmountStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_nonce_ = data.direct_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsDestroyAmountStruct ElementsDestroyAmount::ConvertToStruct() const {  // NOLINT
-  ElementsDestroyAmountStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_nonce = direct_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsDestroyAmountFee
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsDestroyAmountFee>
-  ElementsDestroyAmountFee::json_mapper;
-std::vector<std::string> ElementsDestroyAmountFee::item_list;
-
-void ElementsDestroyAmountFee::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsDestroyAmountFee> func_table;  // NOLINT
-
-  func_table = {
-    ElementsDestroyAmountFee::GetAmountString,
-    ElementsDestroyAmountFee::SetAmountString,
-    ElementsDestroyAmountFee::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsDestroyAmountFee::GetAssetString,
-    ElementsDestroyAmountFee::SetAssetString,
-    ElementsDestroyAmountFee::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-}
-
-void ElementsDestroyAmountFee::ConvertFromStruct(
-    const ElementsDestroyAmountFeeStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  ignore_items = data.ignore_items;
-}
-
-ElementsDestroyAmountFeeStruct ElementsDestroyAmountFee::ConvertToStruct() const {  // NOLINT
-  ElementsDestroyAmountFeeStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateDestroyAmountRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateDestroyAmountRequest>
@@ -4803,41 +4320,6 @@ CreateDestroyAmountRequestStruct CreateDestroyAmountRequest::ConvertToStruct() c
   result.txouts = txouts_.ConvertToStruct();
   result.destroy = destroy_.ConvertToStruct();
   result.fee = fee_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// CreateDestroyAmountResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateDestroyAmountResponse>
-  CreateDestroyAmountResponse::json_mapper;
-std::vector<std::string> CreateDestroyAmountResponse::item_list;
-
-void CreateDestroyAmountResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateDestroyAmountResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateDestroyAmountResponse::GetHexString,
-    CreateDestroyAmountResponse::SetHexString,
-    CreateDestroyAmountResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void CreateDestroyAmountResponse::ConvertFromStruct(
-    const CreateDestroyAmountResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-CreateDestroyAmountResponseStruct CreateDestroyAmountResponse::ConvertToStruct() const {  // NOLINT
-  CreateDestroyAmountResponseStruct result;
-  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -4967,290 +4449,6 @@ CreatePegInAddressResponseStruct CreatePegInAddressResponse::ConvertToStruct() c
 }
 
 // ------------------------------------------------------------------------
-// ElementsPeginWitness
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPeginWitness>
-  ElementsPeginWitness::json_mapper;
-std::vector<std::string> ElementsPeginWitness::item_list;
-
-void ElementsPeginWitness::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPeginWitness> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPeginWitness::GetAmountString,
-    ElementsPeginWitness::SetAmountString,
-    ElementsPeginWitness::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPeginWitness::GetAssetString,
-    ElementsPeginWitness::SetAssetString,
-    ElementsPeginWitness::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsPeginWitness::GetMainchainGenesisBlockHashString,
-    ElementsPeginWitness::SetMainchainGenesisBlockHashString,
-    ElementsPeginWitness::GetMainchainGenesisBlockHashFieldType,
-  };
-  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
-  item_list.push_back("mainchainGenesisBlockHash");
-  func_table = {
-    ElementsPeginWitness::GetClaimScriptString,
-    ElementsPeginWitness::SetClaimScriptString,
-    ElementsPeginWitness::GetClaimScriptFieldType,
-  };
-  json_mapper.emplace("claimScript", func_table);
-  item_list.push_back("claimScript");
-  func_table = {
-    ElementsPeginWitness::GetMainchainRawTransactionString,
-    ElementsPeginWitness::SetMainchainRawTransactionString,
-    ElementsPeginWitness::GetMainchainRawTransactionFieldType,
-  };
-  json_mapper.emplace("mainchainRawTransaction", func_table);
-  item_list.push_back("mainchainRawTransaction");
-  func_table = {
-    ElementsPeginWitness::GetMainchainTxoutproofString,
-    ElementsPeginWitness::SetMainchainTxoutproofString,
-    ElementsPeginWitness::GetMainchainTxoutproofFieldType,
-  };
-  json_mapper.emplace("mainchainTxoutproof", func_table);
-  item_list.push_back("mainchainTxoutproof");
-}
-
-void ElementsPeginWitness::ConvertFromStruct(
-    const ElementsPeginWitnessStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
-  claim_script_ = data.claim_script;
-  mainchain_raw_transaction_ = data.mainchain_raw_transaction;
-  mainchain_txoutproof_ = data.mainchain_txoutproof;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPeginWitnessStruct ElementsPeginWitness::ConvertToStruct() const {  // NOLINT
-  ElementsPeginWitnessStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
-  result.claim_script = claim_script_;
-  result.mainchain_raw_transaction = mainchain_raw_transaction_;
-  result.mainchain_txoutproof = mainchain_txoutproof_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPeginTxIn
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPeginTxIn>
-  ElementsPeginTxIn::json_mapper;
-std::vector<std::string> ElementsPeginTxIn::item_list;
-
-void ElementsPeginTxIn::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPeginTxIn> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPeginTxIn::GetIsPeginString,
-    ElementsPeginTxIn::SetIsPeginString,
-    ElementsPeginTxIn::GetIsPeginFieldType,
-  };
-  json_mapper.emplace("isPegin", func_table);
-  item_list.push_back("isPegin");
-  func_table = {
-    ElementsPeginTxIn::GetTxidString,
-    ElementsPeginTxIn::SetTxidString,
-    ElementsPeginTxIn::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsPeginTxIn::GetVoutString,
-    ElementsPeginTxIn::SetVoutString,
-    ElementsPeginTxIn::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsPeginTxIn::GetSequenceString,
-    ElementsPeginTxIn::SetSequenceString,
-    ElementsPeginTxIn::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-  func_table = {
-    ElementsPeginTxIn::GetPeginwitnessString,
-    ElementsPeginTxIn::SetPeginwitnessString,
-    ElementsPeginTxIn::GetPeginwitnessFieldType,
-  };
-  json_mapper.emplace("peginwitness", func_table);
-  item_list.push_back("peginwitness");
-  func_table = {
-    ElementsPeginTxIn::GetIsRemoveMainchainTxWitnessString,
-    ElementsPeginTxIn::SetIsRemoveMainchainTxWitnessString,
-    ElementsPeginTxIn::GetIsRemoveMainchainTxWitnessFieldType,
-  };
-  json_mapper.emplace("isRemoveMainchainTxWitness", func_table);
-  item_list.push_back("isRemoveMainchainTxWitness");
-}
-
-void ElementsPeginTxIn::ConvertFromStruct(
-    const ElementsPeginTxInStruct& data) {
-  is_pegin_ = data.is_pegin;
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  peginwitness_.ConvertFromStruct(data.peginwitness);
-  is_remove_mainchain_tx_witness_ = data.is_remove_mainchain_tx_witness;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPeginTxInStruct ElementsPeginTxIn::ConvertToStruct() const {  // NOLINT
-  ElementsPeginTxInStruct result;
-  result.is_pegin = is_pegin_;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.peginwitness = peginwitness_.ConvertToStruct();
-  result.is_remove_mainchain_tx_witness = is_remove_mainchain_tx_witness_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPeginTxOut
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPeginTxOut>
-  ElementsPeginTxOut::json_mapper;
-std::vector<std::string> ElementsPeginTxOut::item_list;
-
-void ElementsPeginTxOut::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPeginTxOut> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPeginTxOut::GetAddressString,
-    ElementsPeginTxOut::SetAddressString,
-    ElementsPeginTxOut::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    ElementsPeginTxOut::GetAmountString,
-    ElementsPeginTxOut::SetAmountString,
-    ElementsPeginTxOut::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPeginTxOut::GetAssetString,
-    ElementsPeginTxOut::SetAssetString,
-    ElementsPeginTxOut::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsPeginTxOut::GetDirectLockingScriptString,
-    ElementsPeginTxOut::SetDirectLockingScriptString,
-    ElementsPeginTxOut::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-  func_table = {
-    ElementsPeginTxOut::GetDirectNonceString,
-    ElementsPeginTxOut::SetDirectNonceString,
-    ElementsPeginTxOut::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-  func_table = {
-    ElementsPeginTxOut::GetIsRemoveNonceString,
-    ElementsPeginTxOut::SetIsRemoveNonceString,
-    ElementsPeginTxOut::GetIsRemoveNonceFieldType,
-  };
-  json_mapper.emplace("isRemoveNonce", func_table);
-  item_list.push_back("isRemoveNonce");
-}
-
-void ElementsPeginTxOut::ConvertFromStruct(
-    const ElementsPeginTxOutStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_locking_script_ = data.direct_locking_script;
-  direct_nonce_ = data.direct_nonce;
-  is_remove_nonce_ = data.is_remove_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPeginTxOutStruct ElementsPeginTxOut::ConvertToStruct() const {  // NOLINT
-  ElementsPeginTxOutStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_locking_script = direct_locking_script_;
-  result.direct_nonce = direct_nonce_;
-  result.is_remove_nonce = is_remove_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPeginTxOutFee
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPeginTxOutFee>
-  ElementsPeginTxOutFee::json_mapper;
-std::vector<std::string> ElementsPeginTxOutFee::item_list;
-
-void ElementsPeginTxOutFee::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPeginTxOutFee> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPeginTxOutFee::GetAmountString,
-    ElementsPeginTxOutFee::SetAmountString,
-    ElementsPeginTxOutFee::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPeginTxOutFee::GetAssetString,
-    ElementsPeginTxOutFee::SetAssetString,
-    ElementsPeginTxOutFee::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-}
-
-void ElementsPeginTxOutFee::ConvertFromStruct(
-    const ElementsPeginTxOutFeeStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPeginTxOutFeeStruct ElementsPeginTxOutFee::ConvertToStruct() const {  // NOLINT
-  ElementsPeginTxOutFeeStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateRawPeginRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateRawPeginRequest>
@@ -5326,343 +4524,6 @@ CreateRawPeginRequestStruct CreateRawPeginRequest::ConvertToStruct() const {  //
   result.txouts = txouts_.ConvertToStruct();
   result.fee = fee_.ConvertToStruct();
   result.is_random_sort_tx_out = is_random_sort_tx_out_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// CreateRawPeginResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateRawPeginResponse>
-  CreateRawPeginResponse::json_mapper;
-std::vector<std::string> CreateRawPeginResponse::item_list;
-
-void CreateRawPeginResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateRawPeginResponse> func_table;  // NOLINT
-
-  func_table = {
-    CreateRawPeginResponse::GetHexString,
-    CreateRawPeginResponse::SetHexString,
-    CreateRawPeginResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void CreateRawPeginResponse::ConvertFromStruct(
-    const CreateRawPeginResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-CreateRawPeginResponseStruct CreateRawPeginResponse::ConvertToStruct() const {  // NOLINT
-  CreateRawPeginResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPegoutTxIn
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPegoutTxIn>
-  ElementsPegoutTxIn::json_mapper;
-std::vector<std::string> ElementsPegoutTxIn::item_list;
-
-void ElementsPegoutTxIn::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPegoutTxIn> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPegoutTxIn::GetTxidString,
-    ElementsPegoutTxIn::SetTxidString,
-    ElementsPegoutTxIn::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsPegoutTxIn::GetVoutString,
-    ElementsPegoutTxIn::SetVoutString,
-    ElementsPegoutTxIn::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsPegoutTxIn::GetSequenceString,
-    ElementsPegoutTxIn::SetSequenceString,
-    ElementsPegoutTxIn::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void ElementsPegoutTxIn::ConvertFromStruct(
-    const ElementsPegoutTxInStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPegoutTxInStruct ElementsPegoutTxIn::ConvertToStruct() const {  // NOLINT
-  ElementsPegoutTxInStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPegoutTxOut
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPegoutTxOut>
-  ElementsPegoutTxOut::json_mapper;
-std::vector<std::string> ElementsPegoutTxOut::item_list;
-
-void ElementsPegoutTxOut::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPegoutTxOut> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPegoutTxOut::GetAddressString,
-    ElementsPegoutTxOut::SetAddressString,
-    ElementsPegoutTxOut::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    ElementsPegoutTxOut::GetAmountString,
-    ElementsPegoutTxOut::SetAmountString,
-    ElementsPegoutTxOut::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPegoutTxOut::GetAssetString,
-    ElementsPegoutTxOut::SetAssetString,
-    ElementsPegoutTxOut::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsPegoutTxOut::GetDirectLockingScriptString,
-    ElementsPegoutTxOut::SetDirectLockingScriptString,
-    ElementsPegoutTxOut::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-  func_table = {
-    ElementsPegoutTxOut::GetDirectNonceString,
-    ElementsPegoutTxOut::SetDirectNonceString,
-    ElementsPegoutTxOut::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-  func_table = {
-    ElementsPegoutTxOut::GetIsRemoveNonceString,
-    ElementsPegoutTxOut::SetIsRemoveNonceString,
-    ElementsPegoutTxOut::GetIsRemoveNonceFieldType,
-  };
-  json_mapper.emplace("isRemoveNonce", func_table);
-  item_list.push_back("isRemoveNonce");
-}
-
-void ElementsPegoutTxOut::ConvertFromStruct(
-    const ElementsPegoutTxOutStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_locking_script_ = data.direct_locking_script;
-  direct_nonce_ = data.direct_nonce;
-  is_remove_nonce_ = data.is_remove_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPegoutTxOutStruct ElementsPegoutTxOut::ConvertToStruct() const {  // NOLINT
-  ElementsPegoutTxOutStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_locking_script = direct_locking_script_;
-  result.direct_nonce = direct_nonce_;
-  result.is_remove_nonce = is_remove_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPegout
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPegout>
-  ElementsPegout::json_mapper;
-std::vector<std::string> ElementsPegout::item_list;
-
-void ElementsPegout::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPegout> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPegout::GetAmountString,
-    ElementsPegout::SetAmountString,
-    ElementsPegout::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPegout::GetAssetString,
-    ElementsPegout::SetAssetString,
-    ElementsPegout::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsPegout::GetNetworkString,
-    ElementsPegout::SetNetworkString,
-    ElementsPegout::GetNetworkFieldType,
-  };
-  json_mapper.emplace("network", func_table);
-  item_list.push_back("network");
-  func_table = {
-    ElementsPegout::GetElementsNetworkString,
-    ElementsPegout::SetElementsNetworkString,
-    ElementsPegout::GetElementsNetworkFieldType,
-  };
-  json_mapper.emplace("elementsNetwork", func_table);
-  item_list.push_back("elementsNetwork");
-  func_table = {
-    ElementsPegout::GetMainchainGenesisBlockHashString,
-    ElementsPegout::SetMainchainGenesisBlockHashString,
-    ElementsPegout::GetMainchainGenesisBlockHashFieldType,
-  };
-  json_mapper.emplace("mainchainGenesisBlockHash", func_table);
-  item_list.push_back("mainchainGenesisBlockHash");
-  func_table = {
-    ElementsPegout::GetBtcAddressString,
-    ElementsPegout::SetBtcAddressString,
-    ElementsPegout::GetBtcAddressFieldType,
-  };
-  json_mapper.emplace("btcAddress", func_table);
-  item_list.push_back("btcAddress");
-  func_table = {
-    ElementsPegout::GetOnlinePubkeyString,
-    ElementsPegout::SetOnlinePubkeyString,
-    ElementsPegout::GetOnlinePubkeyFieldType,
-  };
-  json_mapper.emplace("onlinePubkey", func_table);
-  item_list.push_back("onlinePubkey");
-  func_table = {
-    ElementsPegout::GetMasterOnlineKeyString,
-    ElementsPegout::SetMasterOnlineKeyString,
-    ElementsPegout::GetMasterOnlineKeyFieldType,
-  };
-  json_mapper.emplace("masterOnlineKey", func_table);
-  item_list.push_back("masterOnlineKey");
-  func_table = {
-    ElementsPegout::GetBitcoinDescriptorString,
-    ElementsPegout::SetBitcoinDescriptorString,
-    ElementsPegout::GetBitcoinDescriptorFieldType,
-  };
-  json_mapper.emplace("bitcoinDescriptor", func_table);
-  item_list.push_back("bitcoinDescriptor");
-  func_table = {
-    ElementsPegout::GetBip32CounterString,
-    ElementsPegout::SetBip32CounterString,
-    ElementsPegout::GetBip32CounterFieldType,
-  };
-  json_mapper.emplace("bip32Counter", func_table);
-  item_list.push_back("bip32Counter");
-  func_table = {
-    ElementsPegout::GetWhitelistString,
-    ElementsPegout::SetWhitelistString,
-    ElementsPegout::GetWhitelistFieldType,
-  };
-  json_mapper.emplace("whitelist", func_table);
-  item_list.push_back("whitelist");
-}
-
-void ElementsPegout::ConvertFromStruct(
-    const ElementsPegoutStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  network_ = data.network;
-  elements_network_ = data.elements_network;
-  mainchain_genesis_block_hash_ = data.mainchain_genesis_block_hash;
-  btc_address_ = data.btc_address;
-  online_pubkey_ = data.online_pubkey;
-  master_online_key_ = data.master_online_key;
-  bitcoin_descriptor_ = data.bitcoin_descriptor;
-  bip32_counter_ = data.bip32_counter;
-  whitelist_ = data.whitelist;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPegoutStruct ElementsPegout::ConvertToStruct() const {  // NOLINT
-  ElementsPegoutStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.network = network_;
-  result.elements_network = elements_network_;
-  result.mainchain_genesis_block_hash = mainchain_genesis_block_hash_;
-  result.btc_address = btc_address_;
-  result.online_pubkey = online_pubkey_;
-  result.master_online_key = master_online_key_;
-  result.bitcoin_descriptor = bitcoin_descriptor_;
-  result.bip32_counter = bip32_counter_;
-  result.whitelist = whitelist_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsPegoutTxOutFee
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsPegoutTxOutFee>
-  ElementsPegoutTxOutFee::json_mapper;
-std::vector<std::string> ElementsPegoutTxOutFee::item_list;
-
-void ElementsPegoutTxOutFee::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsPegoutTxOutFee> func_table;  // NOLINT
-
-  func_table = {
-    ElementsPegoutTxOutFee::GetAmountString,
-    ElementsPegoutTxOutFee::SetAmountString,
-    ElementsPegoutTxOutFee::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsPegoutTxOutFee::GetAssetString,
-    ElementsPegoutTxOutFee::SetAssetString,
-    ElementsPegoutTxOutFee::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-}
-
-void ElementsPegoutTxOutFee::ConvertFromStruct(
-    const ElementsPegoutTxOutFeeStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  ignore_items = data.ignore_items;
-}
-
-ElementsPegoutTxOutFeeStruct ElementsPegoutTxOutFee::ConvertToStruct() const {  // NOLINT
-  ElementsPegoutTxOutFeeStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -5792,183 +4653,6 @@ CreateRawPegoutResponseStruct CreateRawPegoutResponse::ConvertToStruct() const {
 }
 
 // ------------------------------------------------------------------------
-// ElementsTxInRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsTxInRequest>
-  ElementsTxInRequest::json_mapper;
-std::vector<std::string> ElementsTxInRequest::item_list;
-
-void ElementsTxInRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsTxInRequest> func_table;  // NOLINT
-
-  func_table = {
-    ElementsTxInRequest::GetTxidString,
-    ElementsTxInRequest::SetTxidString,
-    ElementsTxInRequest::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ElementsTxInRequest::GetVoutString,
-    ElementsTxInRequest::SetVoutString,
-    ElementsTxInRequest::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ElementsTxInRequest::GetSequenceString,
-    ElementsTxInRequest::SetSequenceString,
-    ElementsTxInRequest::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void ElementsTxInRequest::ConvertFromStruct(
-    const ElementsTxInRequestStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-ElementsTxInRequestStruct ElementsTxInRequest::ConvertToStruct() const {  // NOLINT
-  ElementsTxInRequestStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsTxOutRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsTxOutRequest>
-  ElementsTxOutRequest::json_mapper;
-std::vector<std::string> ElementsTxOutRequest::item_list;
-
-void ElementsTxOutRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsTxOutRequest> func_table;  // NOLINT
-
-  func_table = {
-    ElementsTxOutRequest::GetAddressString,
-    ElementsTxOutRequest::SetAddressString,
-    ElementsTxOutRequest::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    ElementsTxOutRequest::GetAmountString,
-    ElementsTxOutRequest::SetAmountString,
-    ElementsTxOutRequest::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsTxOutRequest::GetAssetString,
-    ElementsTxOutRequest::SetAssetString,
-    ElementsTxOutRequest::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ElementsTxOutRequest::GetDirectLockingScriptString,
-    ElementsTxOutRequest::SetDirectLockingScriptString,
-    ElementsTxOutRequest::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-  func_table = {
-    ElementsTxOutRequest::GetDirectNonceString,
-    ElementsTxOutRequest::SetDirectNonceString,
-    ElementsTxOutRequest::GetDirectNonceFieldType,
-  };
-  json_mapper.emplace("directNonce", func_table);
-  item_list.push_back("directNonce");
-  func_table = {
-    ElementsTxOutRequest::GetIsRemoveNonceString,
-    ElementsTxOutRequest::SetIsRemoveNonceString,
-    ElementsTxOutRequest::GetIsRemoveNonceFieldType,
-  };
-  json_mapper.emplace("isRemoveNonce", func_table);
-  item_list.push_back("isRemoveNonce");
-}
-
-void ElementsTxOutRequest::ConvertFromStruct(
-    const ElementsTxOutRequestStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  direct_locking_script_ = data.direct_locking_script;
-  direct_nonce_ = data.direct_nonce;
-  is_remove_nonce_ = data.is_remove_nonce;
-  ignore_items = data.ignore_items;
-}
-
-ElementsTxOutRequestStruct ElementsTxOutRequest::ConvertToStruct() const {  // NOLINT
-  ElementsTxOutRequestStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.direct_locking_script = direct_locking_script_;
-  result.direct_nonce = direct_nonce_;
-  result.is_remove_nonce = is_remove_nonce_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsTxOutFeeRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsTxOutFeeRequest>
-  ElementsTxOutFeeRequest::json_mapper;
-std::vector<std::string> ElementsTxOutFeeRequest::item_list;
-
-void ElementsTxOutFeeRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsTxOutFeeRequest> func_table;  // NOLINT
-
-  func_table = {
-    ElementsTxOutFeeRequest::GetAmountString,
-    ElementsTxOutFeeRequest::SetAmountString,
-    ElementsTxOutFeeRequest::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    ElementsTxOutFeeRequest::GetAssetString,
-    ElementsTxOutFeeRequest::SetAssetString,
-    ElementsTxOutFeeRequest::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-}
-
-void ElementsTxOutFeeRequest::ConvertFromStruct(
-    const ElementsTxOutFeeRequestStruct& data) {
-  amount_ = data.amount;
-  asset_ = data.asset;
-  ignore_items = data.ignore_items;
-}
-
-ElementsTxOutFeeRequestStruct ElementsTxOutFeeRequest::ConvertToStruct() const {  // NOLINT
-  ElementsTxOutFeeRequestStruct result;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // ElementsCreateRawTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<ElementsCreateRawTransactionRequest>
@@ -6040,41 +4724,6 @@ ElementsCreateRawTransactionRequestStruct ElementsCreateRawTransactionRequest::C
 }
 
 // ------------------------------------------------------------------------
-// ElementsCreateRawTransactionResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsCreateRawTransactionResponse>
-  ElementsCreateRawTransactionResponse::json_mapper;
-std::vector<std::string> ElementsCreateRawTransactionResponse::item_list;
-
-void ElementsCreateRawTransactionResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsCreateRawTransactionResponse> func_table;  // NOLINT
-
-  func_table = {
-    ElementsCreateRawTransactionResponse::GetHexString,
-    ElementsCreateRawTransactionResponse::SetHexString,
-    ElementsCreateRawTransactionResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void ElementsCreateRawTransactionResponse::ConvertFromStruct(
-    const ElementsCreateRawTransactionResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-ElementsCreateRawTransactionResponseStruct ElementsCreateRawTransactionResponse::ConvertToStruct() const {  // NOLINT
-  ElementsCreateRawTransactionResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // ElementsDecodeRawTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<ElementsDecodeRawTransactionRequest>
@@ -6141,50 +4790,6 @@ ElementsDecodeRawTransactionRequestStruct ElementsDecodeRawTransactionRequest::C
   result.mainchain_network = mainchain_network_;
   result.iswitness = iswitness_;
   result.full_dump = full_dump_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ElementsDecodeUnlockingScript
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsDecodeUnlockingScript>
-  ElementsDecodeUnlockingScript::json_mapper;
-std::vector<std::string> ElementsDecodeUnlockingScript::item_list;
-
-void ElementsDecodeUnlockingScript::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsDecodeUnlockingScript> func_table;  // NOLINT
-
-  func_table = {
-    ElementsDecodeUnlockingScript::GetAsmString,
-    ElementsDecodeUnlockingScript::SetAsmString,
-    ElementsDecodeUnlockingScript::GetAsmFieldType,
-  };
-  json_mapper.emplace("asm", func_table);
-  item_list.push_back("asm");
-  func_table = {
-    ElementsDecodeUnlockingScript::GetHexString,
-    ElementsDecodeUnlockingScript::SetHexString,
-    ElementsDecodeUnlockingScript::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void ElementsDecodeUnlockingScript::ConvertFromStruct(
-    const ElementsDecodeUnlockingScriptStruct& data) {
-  asm__ = data.asm_;
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-ElementsDecodeUnlockingScriptStruct ElementsDecodeUnlockingScript::ConvertToStruct() const {  // NOLINT
-  ElementsDecodeUnlockingScriptStruct result;
-  result.asm_ = asm__;
-  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -7151,77 +5756,6 @@ SetRawIssueAssetRequestStruct SetRawIssueAssetRequest::ConvertToStruct() const {
 }
 
 // ------------------------------------------------------------------------
-// IssuanceDataResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<IssuanceDataResponse>
-  IssuanceDataResponse::json_mapper;
-std::vector<std::string> IssuanceDataResponse::item_list;
-
-void IssuanceDataResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<IssuanceDataResponse> func_table;  // NOLINT
-
-  func_table = {
-    IssuanceDataResponse::GetTxidString,
-    IssuanceDataResponse::SetTxidString,
-    IssuanceDataResponse::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    IssuanceDataResponse::GetVoutString,
-    IssuanceDataResponse::SetVoutString,
-    IssuanceDataResponse::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    IssuanceDataResponse::GetAssetString,
-    IssuanceDataResponse::SetAssetString,
-    IssuanceDataResponse::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    IssuanceDataResponse::GetEntropyString,
-    IssuanceDataResponse::SetEntropyString,
-    IssuanceDataResponse::GetEntropyFieldType,
-  };
-  json_mapper.emplace("entropy", func_table);
-  item_list.push_back("entropy");
-  func_table = {
-    IssuanceDataResponse::GetTokenString,
-    IssuanceDataResponse::SetTokenString,
-    IssuanceDataResponse::GetTokenFieldType,
-  };
-  json_mapper.emplace("token", func_table);
-  item_list.push_back("token");
-}
-
-void IssuanceDataResponse::ConvertFromStruct(
-    const IssuanceDataResponseStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  asset_ = data.asset;
-  entropy_ = data.entropy;
-  token_ = data.token;
-  ignore_items = data.ignore_items;
-}
-
-IssuanceDataResponseStruct IssuanceDataResponse::ConvertToStruct() const {  // NOLINT
-  IssuanceDataResponseStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.asset = asset_;
-  result.entropy = entropy_;
-  result.token = token_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // SetRawIssueAssetResponse
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<SetRawIssueAssetResponse>
@@ -7403,68 +5937,6 @@ SetRawReissueAssetRequestStruct SetRawReissueAssetRequest::ConvertToStruct() con
   result.tx = tx_;
   result.is_random_sort_tx_out = is_random_sort_tx_out_;
   result.issuances = issuances_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// ReissuanceDataResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ReissuanceDataResponse>
-  ReissuanceDataResponse::json_mapper;
-std::vector<std::string> ReissuanceDataResponse::item_list;
-
-void ReissuanceDataResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ReissuanceDataResponse> func_table;  // NOLINT
-
-  func_table = {
-    ReissuanceDataResponse::GetTxidString,
-    ReissuanceDataResponse::SetTxidString,
-    ReissuanceDataResponse::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    ReissuanceDataResponse::GetVoutString,
-    ReissuanceDataResponse::SetVoutString,
-    ReissuanceDataResponse::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    ReissuanceDataResponse::GetAssetString,
-    ReissuanceDataResponse::SetAssetString,
-    ReissuanceDataResponse::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    ReissuanceDataResponse::GetEntropyString,
-    ReissuanceDataResponse::SetEntropyString,
-    ReissuanceDataResponse::GetEntropyFieldType,
-  };
-  json_mapper.emplace("entropy", func_table);
-  item_list.push_back("entropy");
-}
-
-void ReissuanceDataResponse::ConvertFromStruct(
-    const ReissuanceDataResponseStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  asset_ = data.asset;
-  entropy_ = data.entropy;
-  ignore_items = data.ignore_items;
-}
-
-ReissuanceDataResponseStruct ReissuanceDataResponse::ConvertToStruct() const {  // NOLINT
-  ReissuanceDataResponseStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.asset = asset_;
-  result.entropy = entropy_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -8404,6 +6876,94 @@ EstimateFeeResponseStruct EstimateFeeResponse::ConvertToStruct() const {  // NOL
 }
 
 // ------------------------------------------------------------------------
+// ExtractSecretEcdsaAdaptorRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<ExtractSecretEcdsaAdaptorRequest>
+  ExtractSecretEcdsaAdaptorRequest::json_mapper;
+std::vector<std::string> ExtractSecretEcdsaAdaptorRequest::item_list;
+
+void ExtractSecretEcdsaAdaptorRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<ExtractSecretEcdsaAdaptorRequest> func_table;  // NOLINT
+
+  func_table = {
+    ExtractSecretEcdsaAdaptorRequest::GetAdaptorSignatureString,
+    ExtractSecretEcdsaAdaptorRequest::SetAdaptorSignatureString,
+    ExtractSecretEcdsaAdaptorRequest::GetAdaptorSignatureFieldType,
+  };
+  json_mapper.emplace("adaptorSignature", func_table);
+  item_list.push_back("adaptorSignature");
+  func_table = {
+    ExtractSecretEcdsaAdaptorRequest::GetSignatureString,
+    ExtractSecretEcdsaAdaptorRequest::SetSignatureString,
+    ExtractSecretEcdsaAdaptorRequest::GetSignatureFieldType,
+  };
+  json_mapper.emplace("signature", func_table);
+  item_list.push_back("signature");
+  func_table = {
+    ExtractSecretEcdsaAdaptorRequest::GetAdaptorString,
+    ExtractSecretEcdsaAdaptorRequest::SetAdaptorString,
+    ExtractSecretEcdsaAdaptorRequest::GetAdaptorFieldType,
+  };
+  json_mapper.emplace("adaptor", func_table);
+  item_list.push_back("adaptor");
+}
+
+void ExtractSecretEcdsaAdaptorRequest::ConvertFromStruct(
+    const ExtractSecretEcdsaAdaptorRequestStruct& data) {
+  adaptor_signature_ = data.adaptor_signature;
+  signature_ = data.signature;
+  adaptor_ = data.adaptor;
+  ignore_items = data.ignore_items;
+}
+
+ExtractSecretEcdsaAdaptorRequestStruct ExtractSecretEcdsaAdaptorRequest::ConvertToStruct() const {  // NOLINT
+  ExtractSecretEcdsaAdaptorRequestStruct result;
+  result.adaptor_signature = adaptor_signature_;
+  result.signature = signature_;
+  result.adaptor = adaptor_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SecretData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SecretData>
+  SecretData::json_mapper;
+std::vector<std::string> SecretData::item_list;
+
+void SecretData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SecretData> func_table;  // NOLINT
+
+  func_table = {
+    SecretData::GetSecretString,
+    SecretData::SetSecretString,
+    SecretData::GetSecretFieldType,
+  };
+  json_mapper.emplace("secret", func_table);
+  item_list.push_back("secret");
+}
+
+void SecretData::ConvertFromStruct(
+    const SecretDataStruct& data) {
+  secret_ = data.secret;
+  ignore_items = data.ignore_items;
+}
+
+SecretDataStruct SecretData::ConvertToStruct() const {  // NOLINT
+  SecretDataStruct result;
+  result.secret = secret_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // FundUtxoJsonData
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<FundUtxoJsonData>
@@ -8689,78 +7249,78 @@ FundAmountMapDataStruct FundAmountMapData::ConvertToStruct() const {  // NOLINT
 }
 
 // ------------------------------------------------------------------------
-// FundFeeInfomation
+// FundFeeInformation
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<FundFeeInfomation>
-  FundFeeInfomation::json_mapper;
-std::vector<std::string> FundFeeInfomation::item_list;
+cfd::core::JsonTableMap<FundFeeInformation>
+  FundFeeInformation::json_mapper;
+std::vector<std::string> FundFeeInformation::item_list;
 
-void FundFeeInfomation::CollectFieldName() {
+void FundFeeInformation::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<FundFeeInfomation> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<FundFeeInformation> func_table;  // NOLINT
 
   func_table = {
-    FundFeeInfomation::GetFeeRateString,
-    FundFeeInfomation::SetFeeRateString,
-    FundFeeInfomation::GetFeeRateFieldType,
+    FundFeeInformation::GetFeeRateString,
+    FundFeeInformation::SetFeeRateString,
+    FundFeeInformation::GetFeeRateFieldType,
   };
   json_mapper.emplace("feeRate", func_table);
   item_list.push_back("feeRate");
   func_table = {
-    FundFeeInfomation::GetLongTermFeeRateString,
-    FundFeeInfomation::SetLongTermFeeRateString,
-    FundFeeInfomation::GetLongTermFeeRateFieldType,
+    FundFeeInformation::GetLongTermFeeRateString,
+    FundFeeInformation::SetLongTermFeeRateString,
+    FundFeeInformation::GetLongTermFeeRateFieldType,
   };
   json_mapper.emplace("longTermFeeRate", func_table);
   item_list.push_back("longTermFeeRate");
   func_table = {
-    FundFeeInfomation::GetKnapsackMinChangeString,
-    FundFeeInfomation::SetKnapsackMinChangeString,
-    FundFeeInfomation::GetKnapsackMinChangeFieldType,
+    FundFeeInformation::GetKnapsackMinChangeString,
+    FundFeeInformation::SetKnapsackMinChangeString,
+    FundFeeInformation::GetKnapsackMinChangeFieldType,
   };
   json_mapper.emplace("knapsackMinChange", func_table);
   item_list.push_back("knapsackMinChange");
   func_table = {
-    FundFeeInfomation::GetDustFeeRateString,
-    FundFeeInfomation::SetDustFeeRateString,
-    FundFeeInfomation::GetDustFeeRateFieldType,
+    FundFeeInformation::GetDustFeeRateString,
+    FundFeeInformation::SetDustFeeRateString,
+    FundFeeInformation::GetDustFeeRateFieldType,
   };
   json_mapper.emplace("dustFeeRate", func_table);
   item_list.push_back("dustFeeRate");
   func_table = {
-    FundFeeInfomation::GetFeeAssetString,
-    FundFeeInfomation::SetFeeAssetString,
-    FundFeeInfomation::GetFeeAssetFieldType,
+    FundFeeInformation::GetFeeAssetString,
+    FundFeeInformation::SetFeeAssetString,
+    FundFeeInformation::GetFeeAssetFieldType,
   };
   json_mapper.emplace("feeAsset", func_table);
   item_list.push_back("feeAsset");
   func_table = {
-    FundFeeInfomation::GetIsBlindEstimateFeeString,
-    FundFeeInfomation::SetIsBlindEstimateFeeString,
-    FundFeeInfomation::GetIsBlindEstimateFeeFieldType,
+    FundFeeInformation::GetIsBlindEstimateFeeString,
+    FundFeeInformation::SetIsBlindEstimateFeeString,
+    FundFeeInformation::GetIsBlindEstimateFeeFieldType,
   };
   json_mapper.emplace("isBlindEstimateFee", func_table);
   item_list.push_back("isBlindEstimateFee");
   func_table = {
-    FundFeeInfomation::GetExponentString,
-    FundFeeInfomation::SetExponentString,
-    FundFeeInfomation::GetExponentFieldType,
+    FundFeeInformation::GetExponentString,
+    FundFeeInformation::SetExponentString,
+    FundFeeInformation::GetExponentFieldType,
   };
   json_mapper.emplace("exponent", func_table);
   item_list.push_back("exponent");
   func_table = {
-    FundFeeInfomation::GetMinimumBitsString,
-    FundFeeInfomation::SetMinimumBitsString,
-    FundFeeInfomation::GetMinimumBitsFieldType,
+    FundFeeInformation::GetMinimumBitsString,
+    FundFeeInformation::SetMinimumBitsString,
+    FundFeeInformation::GetMinimumBitsFieldType,
   };
   json_mapper.emplace("minimumBits", func_table);
   item_list.push_back("minimumBits");
 }
 
-void FundFeeInfomation::ConvertFromStruct(
-    const FundFeeInfomationStruct& data) {
+void FundFeeInformation::ConvertFromStruct(
+    const FundFeeInformationStruct& data) {
   fee_rate_ = data.fee_rate;
   long_term_fee_rate_ = data.long_term_fee_rate;
   knapsack_min_change_ = data.knapsack_min_change;
@@ -8772,8 +7332,8 @@ void FundFeeInfomation::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-FundFeeInfomationStruct FundFeeInfomation::ConvertToStruct() const {  // NOLINT
-  FundFeeInfomationStruct result;
+FundFeeInformationStruct FundFeeInformation::ConvertToStruct() const {  // NOLINT
+  FundFeeInformationStruct result;
   result.fee_rate = fee_rate_;
   result.long_term_fee_rate = long_term_fee_rate_;
   result.knapsack_min_change = knapsack_min_change_;
@@ -8947,121 +7507,6 @@ FundRawTransactionResponseStruct FundRawTransactionResponse::ConvertToStruct() c
 }
 
 // ------------------------------------------------------------------------
-// GetAddressesFromMultisigRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetAddressesFromMultisigRequest>
-  GetAddressesFromMultisigRequest::json_mapper;
-std::vector<std::string> GetAddressesFromMultisigRequest::item_list;
-
-void GetAddressesFromMultisigRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetAddressesFromMultisigRequest> func_table;  // NOLINT
-
-  func_table = {
-    GetAddressesFromMultisigRequest::GetIsElementsString,
-    GetAddressesFromMultisigRequest::SetIsElementsString,
-    GetAddressesFromMultisigRequest::GetIsElementsFieldType,
-  };
-  json_mapper.emplace("isElements", func_table);
-  item_list.push_back("isElements");
-  func_table = {
-    GetAddressesFromMultisigRequest::GetRedeemScriptString,
-    GetAddressesFromMultisigRequest::SetRedeemScriptString,
-    GetAddressesFromMultisigRequest::GetRedeemScriptFieldType,
-  };
-  json_mapper.emplace("redeemScript", func_table);
-  item_list.push_back("redeemScript");
-  func_table = {
-    GetAddressesFromMultisigRequest::GetNetworkString,
-    GetAddressesFromMultisigRequest::SetNetworkString,
-    GetAddressesFromMultisigRequest::GetNetworkFieldType,
-  };
-  json_mapper.emplace("network", func_table);
-  item_list.push_back("network");
-  func_table = {
-    GetAddressesFromMultisigRequest::GetHashTypeString,
-    GetAddressesFromMultisigRequest::SetHashTypeString,
-    GetAddressesFromMultisigRequest::GetHashTypeFieldType,
-  };
-  json_mapper.emplace("hashType", func_table);
-  item_list.push_back("hashType");
-}
-
-void GetAddressesFromMultisigRequest::ConvertFromStruct(
-    const GetAddressesFromMultisigRequestStruct& data) {
-  is_elements_ = data.is_elements;
-  redeem_script_ = data.redeem_script;
-  network_ = data.network;
-  hash_type_ = data.hash_type;
-  ignore_items = data.ignore_items;
-}
-
-GetAddressesFromMultisigRequestStruct GetAddressesFromMultisigRequest::ConvertToStruct() const {  // NOLINT
-  GetAddressesFromMultisigRequestStruct result;
-  result.is_elements = is_elements_;
-  result.redeem_script = redeem_script_;
-  result.network = network_;
-  result.hash_type = hash_type_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// GetAddressesFromMultisigResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetAddressesFromMultisigResponse>
-  GetAddressesFromMultisigResponse::json_mapper;
-std::vector<std::string> GetAddressesFromMultisigResponse::item_list;
-
-void GetAddressesFromMultisigResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetAddressesFromMultisigResponse> func_table;  // NOLINT
-
-  func_table = {
-    GetAddressesFromMultisigResponse::GetAddressesString,
-    GetAddressesFromMultisigResponse::SetAddressesString,
-    GetAddressesFromMultisigResponse::GetAddressesFieldType,
-  };
-  json_mapper.emplace("addresses", func_table);
-  item_list.push_back("addresses");
-  func_table = {
-    GetAddressesFromMultisigResponse::GetPubkeysString,
-    GetAddressesFromMultisigResponse::SetPubkeysString,
-    GetAddressesFromMultisigResponse::GetPubkeysFieldType,
-  };
-  json_mapper.emplace("pubkeys", func_table);
-  item_list.push_back("pubkeys");
-  func_table = {
-    GetAddressesFromMultisigResponse::GetRequireNumString,
-    GetAddressesFromMultisigResponse::SetRequireNumString,
-    GetAddressesFromMultisigResponse::GetRequireNumFieldType,
-  };
-  json_mapper.emplace("requireNum", func_table);
-  item_list.push_back("requireNum");
-}
-
-void GetAddressesFromMultisigResponse::ConvertFromStruct(
-    const GetAddressesFromMultisigResponseStruct& data) {
-  addresses_.ConvertFromStruct(data.addresses);
-  pubkeys_.ConvertFromStruct(data.pubkeys);
-  require_num_ = data.require_num;
-  ignore_items = data.ignore_items;
-}
-
-GetAddressesFromMultisigResponseStruct GetAddressesFromMultisigResponse::ConvertToStruct() const {  // NOLINT
-  GetAddressesFromMultisigResponseStruct result;
-  result.addresses = addresses_.ConvertToStruct();
-  result.pubkeys = pubkeys_.ConvertToStruct();
-  result.require_num = require_num_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // GetAddressInfoRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<GetAddressInfoRequest>
@@ -9177,6 +7622,121 @@ GetAddressInfoResponseStruct GetAddressInfoResponse::ConvertToStruct() const {  
 }
 
 // ------------------------------------------------------------------------
+// GetAddressesFromMultisigRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<GetAddressesFromMultisigRequest>
+  GetAddressesFromMultisigRequest::json_mapper;
+std::vector<std::string> GetAddressesFromMultisigRequest::item_list;
+
+void GetAddressesFromMultisigRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<GetAddressesFromMultisigRequest> func_table;  // NOLINT
+
+  func_table = {
+    GetAddressesFromMultisigRequest::GetIsElementsString,
+    GetAddressesFromMultisigRequest::SetIsElementsString,
+    GetAddressesFromMultisigRequest::GetIsElementsFieldType,
+  };
+  json_mapper.emplace("isElements", func_table);
+  item_list.push_back("isElements");
+  func_table = {
+    GetAddressesFromMultisigRequest::GetRedeemScriptString,
+    GetAddressesFromMultisigRequest::SetRedeemScriptString,
+    GetAddressesFromMultisigRequest::GetRedeemScriptFieldType,
+  };
+  json_mapper.emplace("redeemScript", func_table);
+  item_list.push_back("redeemScript");
+  func_table = {
+    GetAddressesFromMultisigRequest::GetNetworkString,
+    GetAddressesFromMultisigRequest::SetNetworkString,
+    GetAddressesFromMultisigRequest::GetNetworkFieldType,
+  };
+  json_mapper.emplace("network", func_table);
+  item_list.push_back("network");
+  func_table = {
+    GetAddressesFromMultisigRequest::GetHashTypeString,
+    GetAddressesFromMultisigRequest::SetHashTypeString,
+    GetAddressesFromMultisigRequest::GetHashTypeFieldType,
+  };
+  json_mapper.emplace("hashType", func_table);
+  item_list.push_back("hashType");
+}
+
+void GetAddressesFromMultisigRequest::ConvertFromStruct(
+    const GetAddressesFromMultisigRequestStruct& data) {
+  is_elements_ = data.is_elements;
+  redeem_script_ = data.redeem_script;
+  network_ = data.network;
+  hash_type_ = data.hash_type;
+  ignore_items = data.ignore_items;
+}
+
+GetAddressesFromMultisigRequestStruct GetAddressesFromMultisigRequest::ConvertToStruct() const {  // NOLINT
+  GetAddressesFromMultisigRequestStruct result;
+  result.is_elements = is_elements_;
+  result.redeem_script = redeem_script_;
+  result.network = network_;
+  result.hash_type = hash_type_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// GetAddressesFromMultisigResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<GetAddressesFromMultisigResponse>
+  GetAddressesFromMultisigResponse::json_mapper;
+std::vector<std::string> GetAddressesFromMultisigResponse::item_list;
+
+void GetAddressesFromMultisigResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<GetAddressesFromMultisigResponse> func_table;  // NOLINT
+
+  func_table = {
+    GetAddressesFromMultisigResponse::GetAddressesString,
+    GetAddressesFromMultisigResponse::SetAddressesString,
+    GetAddressesFromMultisigResponse::GetAddressesFieldType,
+  };
+  json_mapper.emplace("addresses", func_table);
+  item_list.push_back("addresses");
+  func_table = {
+    GetAddressesFromMultisigResponse::GetPubkeysString,
+    GetAddressesFromMultisigResponse::SetPubkeysString,
+    GetAddressesFromMultisigResponse::GetPubkeysFieldType,
+  };
+  json_mapper.emplace("pubkeys", func_table);
+  item_list.push_back("pubkeys");
+  func_table = {
+    GetAddressesFromMultisigResponse::GetRequireNumString,
+    GetAddressesFromMultisigResponse::SetRequireNumString,
+    GetAddressesFromMultisigResponse::GetRequireNumFieldType,
+  };
+  json_mapper.emplace("requireNum", func_table);
+  item_list.push_back("requireNum");
+}
+
+void GetAddressesFromMultisigResponse::ConvertFromStruct(
+    const GetAddressesFromMultisigResponseStruct& data) {
+  addresses_.ConvertFromStruct(data.addresses);
+  pubkeys_.ConvertFromStruct(data.pubkeys);
+  require_num_ = data.require_num;
+  ignore_items = data.ignore_items;
+}
+
+GetAddressesFromMultisigResponseStruct GetAddressesFromMultisigResponse::ConvertToStruct() const {  // NOLINT
+  GetAddressesFromMultisigResponseStruct result;
+  result.addresses = addresses_.ConvertToStruct();
+  result.pubkeys = pubkeys_.ConvertToStruct();
+  result.require_num = require_num_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // GetCommitmentRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<GetCommitmentRequest>
@@ -9282,75 +7842,6 @@ GetCommitmentResponseStruct GetCommitmentResponse::ConvertToStruct() const {  //
   return result;
 }
 
-// ------------------------------------------------------------------------
-// GetCompressedPubkeyRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetCompressedPubkeyRequest>
-  GetCompressedPubkeyRequest::json_mapper;
-std::vector<std::string> GetCompressedPubkeyRequest::item_list;
-
-void GetCompressedPubkeyRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetCompressedPubkeyRequest> func_table;  // NOLINT
-
-  func_table = {
-    GetCompressedPubkeyRequest::GetPubkeyString,
-    GetCompressedPubkeyRequest::SetPubkeyString,
-    GetCompressedPubkeyRequest::GetPubkeyFieldType,
-  };
-  json_mapper.emplace("pubkey", func_table);
-  item_list.push_back("pubkey");
-}
-
-void GetCompressedPubkeyRequest::ConvertFromStruct(
-    const GetCompressedPubkeyRequestStruct& data) {
-  pubkey_ = data.pubkey;
-  ignore_items = data.ignore_items;
-}
-
-GetCompressedPubkeyRequestStruct GetCompressedPubkeyRequest::ConvertToStruct() const {  // NOLINT
-  GetCompressedPubkeyRequestStruct result;
-  result.pubkey = pubkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// GetCompressedPubkeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetCompressedPubkeyResponse>
-  GetCompressedPubkeyResponse::json_mapper;
-std::vector<std::string> GetCompressedPubkeyResponse::item_list;
-
-void GetCompressedPubkeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetCompressedPubkeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    GetCompressedPubkeyResponse::GetPubkeyString,
-    GetCompressedPubkeyResponse::SetPubkeyString,
-    GetCompressedPubkeyResponse::GetPubkeyFieldType,
-  };
-  json_mapper.emplace("pubkey", func_table);
-  item_list.push_back("pubkey");
-}
-
-void GetCompressedPubkeyResponse::ConvertFromStruct(
-    const GetCompressedPubkeyResponseStruct& data) {
-  pubkey_ = data.pubkey;
-  ignore_items = data.ignore_items;
-}
-
-GetCompressedPubkeyResponseStruct GetCompressedPubkeyResponse::ConvertToStruct() const {  // NOLINT
-  GetCompressedPubkeyResponseStruct result;
-  result.pubkey = pubkey_;
-  result.ignore_items = ignore_items;
-  return result;
-}
 
 // ------------------------------------------------------------------------
 // GetDefaultBlindingKeyRequest
@@ -9406,35 +7897,35 @@ GetDefaultBlindingKeyRequestStruct GetDefaultBlindingKeyRequest::ConvertToStruct
 }
 
 // ------------------------------------------------------------------------
-// GetDefaultBlindingKeyResponse
+// BlindingKeyResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetDefaultBlindingKeyResponse>
-  GetDefaultBlindingKeyResponse::json_mapper;
-std::vector<std::string> GetDefaultBlindingKeyResponse::item_list;
+cfd::core::JsonTableMap<BlindingKeyResponse>
+  BlindingKeyResponse::json_mapper;
+std::vector<std::string> BlindingKeyResponse::item_list;
 
-void GetDefaultBlindingKeyResponse::CollectFieldName() {
+void BlindingKeyResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<GetDefaultBlindingKeyResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<BlindingKeyResponse> func_table;  // NOLINT
 
   func_table = {
-    GetDefaultBlindingKeyResponse::GetBlindingKeyString,
-    GetDefaultBlindingKeyResponse::SetBlindingKeyString,
-    GetDefaultBlindingKeyResponse::GetBlindingKeyFieldType,
+    BlindingKeyResponse::GetBlindingKeyString,
+    BlindingKeyResponse::SetBlindingKeyString,
+    BlindingKeyResponse::GetBlindingKeyFieldType,
   };
   json_mapper.emplace("blindingKey", func_table);
   item_list.push_back("blindingKey");
 }
 
-void GetDefaultBlindingKeyResponse::ConvertFromStruct(
-    const GetDefaultBlindingKeyResponseStruct& data) {
+void BlindingKeyResponse::ConvertFromStruct(
+    const BlindingKeyResponseStruct& data) {
   blinding_key_ = data.blinding_key;
   ignore_items = data.ignore_items;
 }
 
-GetDefaultBlindingKeyResponseStruct GetDefaultBlindingKeyResponse::ConvertToStruct() const {  // NOLINT
-  GetDefaultBlindingKeyResponseStruct result;
+BlindingKeyResponseStruct BlindingKeyResponse::ConvertToStruct() const {  // NOLINT
+  BlindingKeyResponseStruct result;
   result.blinding_key = blinding_key_;
   result.ignore_items = ignore_items;
   return result;
@@ -9609,41 +8100,6 @@ GetIssuanceBlindingKeyRequestStruct GetIssuanceBlindingKeyRequest::ConvertToStru
 }
 
 // ------------------------------------------------------------------------
-// GetIssuanceBlindingKeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetIssuanceBlindingKeyResponse>
-  GetIssuanceBlindingKeyResponse::json_mapper;
-std::vector<std::string> GetIssuanceBlindingKeyResponse::item_list;
-
-void GetIssuanceBlindingKeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetIssuanceBlindingKeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    GetIssuanceBlindingKeyResponse::GetBlindingKeyString,
-    GetIssuanceBlindingKeyResponse::SetBlindingKeyString,
-    GetIssuanceBlindingKeyResponse::GetBlindingKeyFieldType,
-  };
-  json_mapper.emplace("blindingKey", func_table);
-  item_list.push_back("blindingKey");
-}
-
-void GetIssuanceBlindingKeyResponse::ConvertFromStruct(
-    const GetIssuanceBlindingKeyResponseStruct& data) {
-  blinding_key_ = data.blinding_key;
-  ignore_items = data.ignore_items;
-}
-
-GetIssuanceBlindingKeyResponseStruct GetIssuanceBlindingKeyResponse::ConvertToStruct() const {  // NOLINT
-  GetIssuanceBlindingKeyResponseStruct result;
-  result.blinding_key = blinding_key_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // GetMnemonicWordlistRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<GetMnemonicWordlistRequest>
@@ -9811,86 +8267,86 @@ GetPrivkeyFromExtkeyResponseStruct GetPrivkeyFromExtkeyResponse::ConvertToStruct
 }
 
 // ------------------------------------------------------------------------
-// GetPrivkeyFromWifRequest
+// PrivkeyWifData
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPrivkeyFromWifRequest>
-  GetPrivkeyFromWifRequest::json_mapper;
-std::vector<std::string> GetPrivkeyFromWifRequest::item_list;
+cfd::core::JsonTableMap<PrivkeyWifData>
+  PrivkeyWifData::json_mapper;
+std::vector<std::string> PrivkeyWifData::item_list;
 
-void GetPrivkeyFromWifRequest::CollectFieldName() {
+void PrivkeyWifData::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPrivkeyFromWifRequest> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<PrivkeyWifData> func_table;  // NOLINT
 
   func_table = {
-    GetPrivkeyFromWifRequest::GetWifString,
-    GetPrivkeyFromWifRequest::SetWifString,
-    GetPrivkeyFromWifRequest::GetWifFieldType,
+    PrivkeyWifData::GetWifString,
+    PrivkeyWifData::SetWifString,
+    PrivkeyWifData::GetWifFieldType,
   };
   json_mapper.emplace("wif", func_table);
   item_list.push_back("wif");
 }
 
-void GetPrivkeyFromWifRequest::ConvertFromStruct(
-    const GetPrivkeyFromWifRequestStruct& data) {
+void PrivkeyWifData::ConvertFromStruct(
+    const PrivkeyWifDataStruct& data) {
   wif_ = data.wif;
   ignore_items = data.ignore_items;
 }
 
-GetPrivkeyFromWifRequestStruct GetPrivkeyFromWifRequest::ConvertToStruct() const {  // NOLINT
-  GetPrivkeyFromWifRequestStruct result;
+PrivkeyWifDataStruct PrivkeyWifData::ConvertToStruct() const {  // NOLINT
+  PrivkeyWifDataStruct result;
   result.wif = wif_;
   result.ignore_items = ignore_items;
   return result;
 }
 
 // ------------------------------------------------------------------------
-// GetPrivkeyFromWifResponse
+// PrivkeyHexData
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPrivkeyFromWifResponse>
-  GetPrivkeyFromWifResponse::json_mapper;
-std::vector<std::string> GetPrivkeyFromWifResponse::item_list;
+cfd::core::JsonTableMap<PrivkeyHexData>
+  PrivkeyHexData::json_mapper;
+std::vector<std::string> PrivkeyHexData::item_list;
 
-void GetPrivkeyFromWifResponse::CollectFieldName() {
+void PrivkeyHexData::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPrivkeyFromWifResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<PrivkeyHexData> func_table;  // NOLINT
 
   func_table = {
-    GetPrivkeyFromWifResponse::GetHexString,
-    GetPrivkeyFromWifResponse::SetHexString,
-    GetPrivkeyFromWifResponse::GetHexFieldType,
+    PrivkeyHexData::GetHexString,
+    PrivkeyHexData::SetHexString,
+    PrivkeyHexData::GetHexFieldType,
   };
   json_mapper.emplace("hex", func_table);
   item_list.push_back("hex");
   func_table = {
-    GetPrivkeyFromWifResponse::GetNetworkString,
-    GetPrivkeyFromWifResponse::SetNetworkString,
-    GetPrivkeyFromWifResponse::GetNetworkFieldType,
+    PrivkeyHexData::GetNetworkString,
+    PrivkeyHexData::SetNetworkString,
+    PrivkeyHexData::GetNetworkFieldType,
   };
   json_mapper.emplace("network", func_table);
   item_list.push_back("network");
   func_table = {
-    GetPrivkeyFromWifResponse::GetIsCompressedString,
-    GetPrivkeyFromWifResponse::SetIsCompressedString,
-    GetPrivkeyFromWifResponse::GetIsCompressedFieldType,
+    PrivkeyHexData::GetIsCompressedString,
+    PrivkeyHexData::SetIsCompressedString,
+    PrivkeyHexData::GetIsCompressedFieldType,
   };
   json_mapper.emplace("isCompressed", func_table);
   item_list.push_back("isCompressed");
 }
 
-void GetPrivkeyFromWifResponse::ConvertFromStruct(
-    const GetPrivkeyFromWifResponseStruct& data) {
+void PrivkeyHexData::ConvertFromStruct(
+    const PrivkeyHexDataStruct& data) {
   hex_ = data.hex;
   network_ = data.network;
   is_compressed_ = data.is_compressed;
   ignore_items = data.ignore_items;
 }
 
-GetPrivkeyFromWifResponseStruct GetPrivkeyFromWifResponse::ConvertToStruct() const {  // NOLINT
-  GetPrivkeyFromWifResponseStruct result;
+PrivkeyHexDataStruct PrivkeyHexData::ConvertToStruct() const {  // NOLINT
+  PrivkeyHexDataStruct result;
   result.hex = hex_;
   result.network = network_;
   result.is_compressed = is_compressed_;
@@ -9898,93 +8354,6 @@ GetPrivkeyFromWifResponseStruct GetPrivkeyFromWifResponse::ConvertToStruct() con
   return result;
 }
 
-// ------------------------------------------------------------------------
-// GetPrivkeyWifRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPrivkeyWifRequest>
-  GetPrivkeyWifRequest::json_mapper;
-std::vector<std::string> GetPrivkeyWifRequest::item_list;
-
-void GetPrivkeyWifRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPrivkeyWifRequest> func_table;  // NOLINT
-
-  func_table = {
-    GetPrivkeyWifRequest::GetHexString,
-    GetPrivkeyWifRequest::SetHexString,
-    GetPrivkeyWifRequest::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    GetPrivkeyWifRequest::GetNetworkString,
-    GetPrivkeyWifRequest::SetNetworkString,
-    GetPrivkeyWifRequest::GetNetworkFieldType,
-  };
-  json_mapper.emplace("network", func_table);
-  item_list.push_back("network");
-  func_table = {
-    GetPrivkeyWifRequest::GetIsCompressedString,
-    GetPrivkeyWifRequest::SetIsCompressedString,
-    GetPrivkeyWifRequest::GetIsCompressedFieldType,
-  };
-  json_mapper.emplace("isCompressed", func_table);
-  item_list.push_back("isCompressed");
-}
-
-void GetPrivkeyWifRequest::ConvertFromStruct(
-    const GetPrivkeyWifRequestStruct& data) {
-  hex_ = data.hex;
-  network_ = data.network;
-  is_compressed_ = data.is_compressed;
-  ignore_items = data.ignore_items;
-}
-
-GetPrivkeyWifRequestStruct GetPrivkeyWifRequest::ConvertToStruct() const {  // NOLINT
-  GetPrivkeyWifRequestStruct result;
-  result.hex = hex_;
-  result.network = network_;
-  result.is_compressed = is_compressed_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// GetPrivkeyWifResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPrivkeyWifResponse>
-  GetPrivkeyWifResponse::json_mapper;
-std::vector<std::string> GetPrivkeyWifResponse::item_list;
-
-void GetPrivkeyWifResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPrivkeyWifResponse> func_table;  // NOLINT
-
-  func_table = {
-    GetPrivkeyWifResponse::GetWifString,
-    GetPrivkeyWifResponse::SetWifString,
-    GetPrivkeyWifResponse::GetWifFieldType,
-  };
-  json_mapper.emplace("wif", func_table);
-  item_list.push_back("wif");
-}
-
-void GetPrivkeyWifResponse::ConvertFromStruct(
-    const GetPrivkeyWifResponseStruct& data) {
-  wif_ = data.wif;
-  ignore_items = data.ignore_items;
-}
-
-GetPrivkeyWifResponseStruct GetPrivkeyWifResponse::ConvertToStruct() const {  // NOLINT
-  GetPrivkeyWifResponseStruct result;
-  result.wif = wif_;
-  result.ignore_items = ignore_items;
-  return result;
-}
 
 // ------------------------------------------------------------------------
 // GetPubkeyFromExtkeyRequest
@@ -10026,41 +8395,6 @@ GetPubkeyFromExtkeyRequestStruct GetPubkeyFromExtkeyRequest::ConvertToStruct() c
   GetPubkeyFromExtkeyRequestStruct result;
   result.extkey = extkey_;
   result.network = network_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// GetPubkeyFromExtkeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPubkeyFromExtkeyResponse>
-  GetPubkeyFromExtkeyResponse::json_mapper;
-std::vector<std::string> GetPubkeyFromExtkeyResponse::item_list;
-
-void GetPubkeyFromExtkeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPubkeyFromExtkeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    GetPubkeyFromExtkeyResponse::GetPubkeyString,
-    GetPubkeyFromExtkeyResponse::SetPubkeyString,
-    GetPubkeyFromExtkeyResponse::GetPubkeyFieldType,
-  };
-  json_mapper.emplace("pubkey", func_table);
-  item_list.push_back("pubkey");
-}
-
-void GetPubkeyFromExtkeyResponse::ConvertFromStruct(
-    const GetPubkeyFromExtkeyResponseStruct& data) {
-  pubkey_ = data.pubkey;
-  ignore_items = data.ignore_items;
-}
-
-GetPubkeyFromExtkeyResponseStruct GetPubkeyFromExtkeyResponse::ConvertToStruct() const {  // NOLINT
-  GetPubkeyFromExtkeyResponseStruct result;
-  result.pubkey = pubkey_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -10110,83 +8444,85 @@ GetPubkeyFromPrivkeyRequestStruct GetPubkeyFromPrivkeyRequest::ConvertToStruct()
 }
 
 // ------------------------------------------------------------------------
-// GetPubkeyFromPrivkeyResponse
+// GetSchnorrPubkeyFromPrivkeyRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetPubkeyFromPrivkeyResponse>
-  GetPubkeyFromPrivkeyResponse::json_mapper;
-std::vector<std::string> GetPubkeyFromPrivkeyResponse::item_list;
+cfd::core::JsonTableMap<GetSchnorrPubkeyFromPrivkeyRequest>
+  GetSchnorrPubkeyFromPrivkeyRequest::json_mapper;
+std::vector<std::string> GetSchnorrPubkeyFromPrivkeyRequest::item_list;
 
-void GetPubkeyFromPrivkeyResponse::CollectFieldName() {
+void GetSchnorrPubkeyFromPrivkeyRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<GetPubkeyFromPrivkeyResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<GetSchnorrPubkeyFromPrivkeyRequest> func_table;  // NOLINT
 
   func_table = {
-    GetPubkeyFromPrivkeyResponse::GetPubkeyString,
-    GetPubkeyFromPrivkeyResponse::SetPubkeyString,
-    GetPubkeyFromPrivkeyResponse::GetPubkeyFieldType,
+    GetSchnorrPubkeyFromPrivkeyRequest::GetPrivkeyString,
+    GetSchnorrPubkeyFromPrivkeyRequest::SetPrivkeyString,
+    GetSchnorrPubkeyFromPrivkeyRequest::GetPrivkeyFieldType,
+  };
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+}
+
+void GetSchnorrPubkeyFromPrivkeyRequest::ConvertFromStruct(
+    const GetSchnorrPubkeyFromPrivkeyRequestStruct& data) {
+  privkey_ = data.privkey;
+  ignore_items = data.ignore_items;
+}
+
+GetSchnorrPubkeyFromPrivkeyRequestStruct GetSchnorrPubkeyFromPrivkeyRequest::ConvertToStruct() const {  // NOLINT
+  GetSchnorrPubkeyFromPrivkeyRequestStruct result;
+  result.privkey = privkey_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SchnorrPubkeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SchnorrPubkeyData>
+  SchnorrPubkeyData::json_mapper;
+std::vector<std::string> SchnorrPubkeyData::item_list;
+
+void SchnorrPubkeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrPubkeyData> func_table;  // NOLINT
+
+  func_table = {
+    SchnorrPubkeyData::GetPubkeyString,
+    SchnorrPubkeyData::SetPubkeyString,
+    SchnorrPubkeyData::GetPubkeyFieldType,
   };
   json_mapper.emplace("pubkey", func_table);
   item_list.push_back("pubkey");
+  func_table = {
+    SchnorrPubkeyData::GetParityString,
+    SchnorrPubkeyData::SetParityString,
+    SchnorrPubkeyData::GetParityFieldType,
+  };
+  json_mapper.emplace("parity", func_table);
+  item_list.push_back("parity");
 }
 
-void GetPubkeyFromPrivkeyResponse::ConvertFromStruct(
-    const GetPubkeyFromPrivkeyResponseStruct& data) {
+void SchnorrPubkeyData::ConvertFromStruct(
+    const SchnorrPubkeyDataStruct& data) {
   pubkey_ = data.pubkey;
+  parity_ = data.parity;
   ignore_items = data.ignore_items;
 }
 
-GetPubkeyFromPrivkeyResponseStruct GetPubkeyFromPrivkeyResponse::ConvertToStruct() const {  // NOLINT
-  GetPubkeyFromPrivkeyResponseStruct result;
+SchnorrPubkeyDataStruct SchnorrPubkeyData::ConvertToStruct() const {  // NOLINT
+  SchnorrPubkeyDataStruct result;
   result.pubkey = pubkey_;
+  result.parity = parity_;
   result.ignore_items = ignore_items;
   return result;
 }
 
-// ------------------------------------------------------------------------
-// GetWitnessStackNumTxInRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<GetWitnessStackNumTxInRequest>
-  GetWitnessStackNumTxInRequest::json_mapper;
-std::vector<std::string> GetWitnessStackNumTxInRequest::item_list;
 
-void GetWitnessStackNumTxInRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<GetWitnessStackNumTxInRequest> func_table;  // NOLINT
-
-  func_table = {
-    GetWitnessStackNumTxInRequest::GetTxidString,
-    GetWitnessStackNumTxInRequest::SetTxidString,
-    GetWitnessStackNumTxInRequest::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    GetWitnessStackNumTxInRequest::GetVoutString,
-    GetWitnessStackNumTxInRequest::SetVoutString,
-    GetWitnessStackNumTxInRequest::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-}
-
-void GetWitnessStackNumTxInRequest::ConvertFromStruct(
-    const GetWitnessStackNumTxInRequestStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  ignore_items = data.ignore_items;
-}
-
-GetWitnessStackNumTxInRequestStruct GetWitnessStackNumTxInRequest::ConvertToStruct() const {  // NOLINT
-  GetWitnessStackNumTxInRequestStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.ignore_items = ignore_items;
-  return result;
-}
 
 // ------------------------------------------------------------------------
 // GetWitnessStackNumRequest
@@ -10399,6 +8735,42 @@ CreateMultisigResponseStruct CreateMultisigResponse::ConvertToStruct() const {  
   result.ignore_items = ignore_items;
   return result;
 }
+
+// ------------------------------------------------------------------------
+// OutputPrivkeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<OutputPrivkeyData>
+  OutputPrivkeyData::json_mapper;
+std::vector<std::string> OutputPrivkeyData::item_list;
+
+void OutputPrivkeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<OutputPrivkeyData> func_table;  // NOLINT
+
+  func_table = {
+    OutputPrivkeyData::GetPrivkeyString,
+    OutputPrivkeyData::SetPrivkeyString,
+    OutputPrivkeyData::GetPrivkeyFieldType,
+  };
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+}
+
+void OutputPrivkeyData::ConvertFromStruct(
+    const OutputPrivkeyDataStruct& data) {
+  privkey_ = data.privkey;
+  ignore_items = data.ignore_items;
+}
+
+OutputPrivkeyDataStruct OutputPrivkeyData::ConvertToStruct() const {  // NOLINT
+  OutputPrivkeyDataStruct result;
+  result.privkey = privkey_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
 
 // ------------------------------------------------------------------------
 // ParseDescriptorRequest
@@ -10773,195 +9145,274 @@ ParseScriptResponseStruct ParseScriptResponse::ConvertToStruct() const {  // NOL
 }
 
 // ------------------------------------------------------------------------
-// UtxoJsonData
+// SchnorrSignRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<UtxoJsonData>
-  UtxoJsonData::json_mapper;
-std::vector<std::string> UtxoJsonData::item_list;
+cfd::core::JsonTableMap<SchnorrSignRequest>
+  SchnorrSignRequest::json_mapper;
+std::vector<std::string> SchnorrSignRequest::item_list;
 
-void UtxoJsonData::CollectFieldName() {
+void SchnorrSignRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<UtxoJsonData> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrSignRequest> func_table;  // NOLINT
 
   func_table = {
-    UtxoJsonData::GetTxidString,
-    UtxoJsonData::SetTxidString,
-    UtxoJsonData::GetTxidFieldType,
+    SchnorrSignRequest::GetPrivkeyString,
+    SchnorrSignRequest::SetPrivkeyString,
+    SchnorrSignRequest::GetPrivkeyFieldType,
   };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
   func_table = {
-    UtxoJsonData::GetVoutString,
-    UtxoJsonData::SetVoutString,
-    UtxoJsonData::GetVoutFieldType,
+    SchnorrSignRequest::GetMessageString,
+    SchnorrSignRequest::SetMessageString,
+    SchnorrSignRequest::GetMessageFieldType,
   };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
+  json_mapper.emplace("message", func_table);
+  item_list.push_back("message");
   func_table = {
-    UtxoJsonData::GetAmountString,
-    UtxoJsonData::SetAmountString,
-    UtxoJsonData::GetAmountFieldType,
+    SchnorrSignRequest::GetIsHashedString,
+    SchnorrSignRequest::SetIsHashedString,
+    SchnorrSignRequest::GetIsHashedFieldType,
   };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
+  json_mapper.emplace("isHashed", func_table);
+  item_list.push_back("isHashed");
   func_table = {
-    UtxoJsonData::GetAssetString,
-    UtxoJsonData::SetAssetString,
-    UtxoJsonData::GetAssetFieldType,
+    SchnorrSignRequest::GetNonceOrAuxString,
+    SchnorrSignRequest::SetNonceOrAuxString,
+    SchnorrSignRequest::GetNonceOrAuxFieldType,
   };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
+  json_mapper.emplace("nonceOrAux", func_table);
+  item_list.push_back("nonceOrAux");
   func_table = {
-    UtxoJsonData::GetDescriptorString,
-    UtxoJsonData::SetDescriptorString,
-    UtxoJsonData::GetDescriptorFieldType,
+    SchnorrSignRequest::GetIsNonceString,
+    SchnorrSignRequest::SetIsNonceString,
+    SchnorrSignRequest::GetIsNonceFieldType,
   };
-  json_mapper.emplace("descriptor", func_table);
-  item_list.push_back("descriptor");
-  func_table = {
-    UtxoJsonData::GetScriptSigTemplateString,
-    UtxoJsonData::SetScriptSigTemplateString,
-    UtxoJsonData::GetScriptSigTemplateFieldType,
-  };
-  json_mapper.emplace("scriptSigTemplate", func_table);
-  item_list.push_back("scriptSigTemplate");
+  json_mapper.emplace("isNonce", func_table);
+  item_list.push_back("isNonce");
 }
 
-void UtxoJsonData::ConvertFromStruct(
-    const UtxoJsonDataStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  amount_ = data.amount;
-  asset_ = data.asset;
-  descriptor_ = data.descriptor;
-  script_sig_template_ = data.script_sig_template;
+void SchnorrSignRequest::ConvertFromStruct(
+    const SchnorrSignRequestStruct& data) {
+  privkey_ = data.privkey;
+  message_ = data.message;
+  is_hashed_ = data.is_hashed;
+  nonce_or_aux_ = data.nonce_or_aux;
+  is_nonce_ = data.is_nonce;
   ignore_items = data.ignore_items;
 }
 
-UtxoJsonDataStruct UtxoJsonData::ConvertToStruct() const {  // NOLINT
-  UtxoJsonDataStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.amount = amount_;
-  result.asset = asset_;
-  result.descriptor = descriptor_;
-  result.script_sig_template = script_sig_template_;
+SchnorrSignRequestStruct SchnorrSignRequest::ConvertToStruct() const {  // NOLINT
+  SchnorrSignRequestStruct result;
+  result.privkey = privkey_;
+  result.message = message_;
+  result.is_hashed = is_hashed_;
+  result.nonce_or_aux = nonce_or_aux_;
+  result.is_nonce = is_nonce_;
   result.ignore_items = ignore_items;
   return result;
 }
 
 // ------------------------------------------------------------------------
-// TargetAmountMapData
+// SchnorrSignResponse
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<TargetAmountMapData>
-  TargetAmountMapData::json_mapper;
-std::vector<std::string> TargetAmountMapData::item_list;
+cfd::core::JsonTableMap<SchnorrSignResponse>
+  SchnorrSignResponse::json_mapper;
+std::vector<std::string> SchnorrSignResponse::item_list;
 
-void TargetAmountMapData::CollectFieldName() {
+void SchnorrSignResponse::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<TargetAmountMapData> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrSignResponse> func_table;  // NOLINT
 
   func_table = {
-    TargetAmountMapData::GetAssetString,
-    TargetAmountMapData::SetAssetString,
-    TargetAmountMapData::GetAssetFieldType,
+    SchnorrSignResponse::GetHexString,
+    SchnorrSignResponse::SetHexString,
+    SchnorrSignResponse::GetHexFieldType,
   };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    TargetAmountMapData::GetAmountString,
-    TargetAmountMapData::SetAmountString,
-    TargetAmountMapData::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
 }
 
-void TargetAmountMapData::ConvertFromStruct(
-    const TargetAmountMapDataStruct& data) {
-  asset_ = data.asset;
-  amount_ = data.amount;
+void SchnorrSignResponse::ConvertFromStruct(
+    const SchnorrSignResponseStruct& data) {
+  hex_ = data.hex;
   ignore_items = data.ignore_items;
 }
 
-TargetAmountMapDataStruct TargetAmountMapData::ConvertToStruct() const {  // NOLINT
-  TargetAmountMapDataStruct result;
-  result.asset = asset_;
-  result.amount = amount_;
+SchnorrSignResponseStruct SchnorrSignResponse::ConvertToStruct() const {  // NOLINT
+  SchnorrSignResponseStruct result;
+  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
 
 // ------------------------------------------------------------------------
-// CoinSelectionFeeInfomationField
+// SchnorrVerifyRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CoinSelectionFeeInfomationField>
-  CoinSelectionFeeInfomationField::json_mapper;
-std::vector<std::string> CoinSelectionFeeInfomationField::item_list;
+cfd::core::JsonTableMap<SchnorrVerifyRequest>
+  SchnorrVerifyRequest::json_mapper;
+std::vector<std::string> SchnorrVerifyRequest::item_list;
 
-void CoinSelectionFeeInfomationField::CollectFieldName() {
+void SchnorrVerifyRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<CoinSelectionFeeInfomationField> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrVerifyRequest> func_table;  // NOLINT
 
   func_table = {
-    CoinSelectionFeeInfomationField::GetTxFeeAmountString,
-    CoinSelectionFeeInfomationField::SetTxFeeAmountString,
-    CoinSelectionFeeInfomationField::GetTxFeeAmountFieldType,
+    SchnorrVerifyRequest::GetPubkeyString,
+    SchnorrVerifyRequest::SetPubkeyString,
+    SchnorrVerifyRequest::GetPubkeyFieldType,
+  };
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
+  func_table = {
+    SchnorrVerifyRequest::GetMessageString,
+    SchnorrVerifyRequest::SetMessageString,
+    SchnorrVerifyRequest::GetMessageFieldType,
+  };
+  json_mapper.emplace("message", func_table);
+  item_list.push_back("message");
+  func_table = {
+    SchnorrVerifyRequest::GetIsHashedString,
+    SchnorrVerifyRequest::SetIsHashedString,
+    SchnorrVerifyRequest::GetIsHashedFieldType,
+  };
+  json_mapper.emplace("isHashed", func_table);
+  item_list.push_back("isHashed");
+  func_table = {
+    SchnorrVerifyRequest::GetSignatureString,
+    SchnorrVerifyRequest::SetSignatureString,
+    SchnorrVerifyRequest::GetSignatureFieldType,
+  };
+  json_mapper.emplace("signature", func_table);
+  item_list.push_back("signature");
+}
+
+void SchnorrVerifyRequest::ConvertFromStruct(
+    const SchnorrVerifyRequestStruct& data) {
+  pubkey_ = data.pubkey;
+  message_ = data.message;
+  is_hashed_ = data.is_hashed;
+  signature_ = data.signature;
+  ignore_items = data.ignore_items;
+}
+
+SchnorrVerifyRequestStruct SchnorrVerifyRequest::ConvertToStruct() const {  // NOLINT
+  SchnorrVerifyRequestStruct result;
+  result.pubkey = pubkey_;
+  result.message = message_;
+  result.is_hashed = is_hashed_;
+  result.signature = signature_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SchnorrVerifyResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SchnorrVerifyResponse>
+  SchnorrVerifyResponse::json_mapper;
+std::vector<std::string> SchnorrVerifyResponse::item_list;
+
+void SchnorrVerifyResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrVerifyResponse> func_table;  // NOLINT
+
+  func_table = {
+    SchnorrVerifyResponse::GetValidString,
+    SchnorrVerifyResponse::SetValidString,
+    SchnorrVerifyResponse::GetValidFieldType,
+  };
+  json_mapper.emplace("valid", func_table);
+  item_list.push_back("valid");
+}
+
+void SchnorrVerifyResponse::ConvertFromStruct(
+    const SchnorrVerifyResponseStruct& data) {
+  valid_ = data.valid;
+  ignore_items = data.ignore_items;
+}
+
+SchnorrVerifyResponseStruct SchnorrVerifyResponse::ConvertToStruct() const {  // NOLINT
+  SchnorrVerifyResponseStruct result;
+  result.valid = valid_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// CoinSelectionFeeInformationField
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<CoinSelectionFeeInformationField>
+  CoinSelectionFeeInformationField::json_mapper;
+std::vector<std::string> CoinSelectionFeeInformationField::item_list;
+
+void CoinSelectionFeeInformationField::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<CoinSelectionFeeInformationField> func_table;  // NOLINT
+
+  func_table = {
+    CoinSelectionFeeInformationField::GetTxFeeAmountString,
+    CoinSelectionFeeInformationField::SetTxFeeAmountString,
+    CoinSelectionFeeInformationField::GetTxFeeAmountFieldType,
   };
   json_mapper.emplace("txFeeAmount", func_table);
   item_list.push_back("txFeeAmount");
   func_table = {
-    CoinSelectionFeeInfomationField::GetFeeRateString,
-    CoinSelectionFeeInfomationField::SetFeeRateString,
-    CoinSelectionFeeInfomationField::GetFeeRateFieldType,
+    CoinSelectionFeeInformationField::GetFeeRateString,
+    CoinSelectionFeeInformationField::SetFeeRateString,
+    CoinSelectionFeeInformationField::GetFeeRateFieldType,
   };
   json_mapper.emplace("feeRate", func_table);
   item_list.push_back("feeRate");
   func_table = {
-    CoinSelectionFeeInfomationField::GetLongTermFeeRateString,
-    CoinSelectionFeeInfomationField::SetLongTermFeeRateString,
-    CoinSelectionFeeInfomationField::GetLongTermFeeRateFieldType,
+    CoinSelectionFeeInformationField::GetLongTermFeeRateString,
+    CoinSelectionFeeInformationField::SetLongTermFeeRateString,
+    CoinSelectionFeeInformationField::GetLongTermFeeRateFieldType,
   };
   json_mapper.emplace("longTermFeeRate", func_table);
   item_list.push_back("longTermFeeRate");
   func_table = {
-    CoinSelectionFeeInfomationField::GetKnapsackMinChangeString,
-    CoinSelectionFeeInfomationField::SetKnapsackMinChangeString,
-    CoinSelectionFeeInfomationField::GetKnapsackMinChangeFieldType,
+    CoinSelectionFeeInformationField::GetKnapsackMinChangeString,
+    CoinSelectionFeeInformationField::SetKnapsackMinChangeString,
+    CoinSelectionFeeInformationField::GetKnapsackMinChangeFieldType,
   };
   json_mapper.emplace("knapsackMinChange", func_table);
   item_list.push_back("knapsackMinChange");
   func_table = {
-    CoinSelectionFeeInfomationField::GetFeeAssetString,
-    CoinSelectionFeeInfomationField::SetFeeAssetString,
-    CoinSelectionFeeInfomationField::GetFeeAssetFieldType,
+    CoinSelectionFeeInformationField::GetFeeAssetString,
+    CoinSelectionFeeInformationField::SetFeeAssetString,
+    CoinSelectionFeeInformationField::GetFeeAssetFieldType,
   };
   json_mapper.emplace("feeAsset", func_table);
   item_list.push_back("feeAsset");
   func_table = {
-    CoinSelectionFeeInfomationField::GetExponentString,
-    CoinSelectionFeeInfomationField::SetExponentString,
-    CoinSelectionFeeInfomationField::GetExponentFieldType,
+    CoinSelectionFeeInformationField::GetExponentString,
+    CoinSelectionFeeInformationField::SetExponentString,
+    CoinSelectionFeeInformationField::GetExponentFieldType,
   };
   json_mapper.emplace("exponent", func_table);
   item_list.push_back("exponent");
   func_table = {
-    CoinSelectionFeeInfomationField::GetMinimumBitsString,
-    CoinSelectionFeeInfomationField::SetMinimumBitsString,
-    CoinSelectionFeeInfomationField::GetMinimumBitsFieldType,
+    CoinSelectionFeeInformationField::GetMinimumBitsString,
+    CoinSelectionFeeInformationField::SetMinimumBitsString,
+    CoinSelectionFeeInformationField::GetMinimumBitsFieldType,
   };
   json_mapper.emplace("minimumBits", func_table);
   item_list.push_back("minimumBits");
 }
 
-void CoinSelectionFeeInfomationField::ConvertFromStruct(
-    const CoinSelectionFeeInfomationFieldStruct& data) {
+void CoinSelectionFeeInformationField::ConvertFromStruct(
+    const CoinSelectionFeeInformationFieldStruct& data) {
   tx_fee_amount_ = data.tx_fee_amount;
   fee_rate_ = data.fee_rate;
   long_term_fee_rate_ = data.long_term_fee_rate;
@@ -10972,8 +9423,8 @@ void CoinSelectionFeeInfomationField::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-CoinSelectionFeeInfomationFieldStruct CoinSelectionFeeInfomationField::ConvertToStruct() const {  // NOLINT
-  CoinSelectionFeeInfomationFieldStruct result;
+CoinSelectionFeeInformationFieldStruct CoinSelectionFeeInformationField::ConvertToStruct() const {  // NOLINT
+  CoinSelectionFeeInformationFieldStruct result;
   result.tx_fee_amount = tx_fee_amount_;
   result.fee_rate = fee_rate_;
   result.long_term_fee_rate = long_term_fee_rate_;
@@ -11287,50 +9738,6 @@ SerializeLedgerFormatResponseStruct SerializeLedgerFormatResponse::ConvertToStru
 }
 
 // ------------------------------------------------------------------------
-// SignatureHashKeyData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<SignatureHashKeyData>
-  SignatureHashKeyData::json_mapper;
-std::vector<std::string> SignatureHashKeyData::item_list;
-
-void SignatureHashKeyData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<SignatureHashKeyData> func_table;  // NOLINT
-
-  func_table = {
-    SignatureHashKeyData::GetHexString,
-    SignatureHashKeyData::SetHexString,
-    SignatureHashKeyData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    SignatureHashKeyData::GetTypeString,
-    SignatureHashKeyData::SetTypeString,
-    SignatureHashKeyData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-}
-
-void SignatureHashKeyData::ConvertFromStruct(
-    const SignatureHashKeyDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  ignore_items = data.ignore_items;
-}
-
-SignatureHashKeyDataStruct SignatureHashKeyData::ConvertToStruct() const {  // NOLINT
-  SignatureHashKeyDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateSignatureHashTxInRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateSignatureHashTxInRequest>
@@ -11499,50 +9906,6 @@ CreateSignatureHashResponseStruct CreateSignatureHashResponse::ConvertToStruct()
 }
 
 // ------------------------------------------------------------------------
-// ElementsSignatureHashKeyData
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<ElementsSignatureHashKeyData>
-  ElementsSignatureHashKeyData::json_mapper;
-std::vector<std::string> ElementsSignatureHashKeyData::item_list;
-
-void ElementsSignatureHashKeyData::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<ElementsSignatureHashKeyData> func_table;  // NOLINT
-
-  func_table = {
-    ElementsSignatureHashKeyData::GetHexString,
-    ElementsSignatureHashKeyData::SetHexString,
-    ElementsSignatureHashKeyData::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-  func_table = {
-    ElementsSignatureHashKeyData::GetTypeString,
-    ElementsSignatureHashKeyData::SetTypeString,
-    ElementsSignatureHashKeyData::GetTypeFieldType,
-  };
-  json_mapper.emplace("type", func_table);
-  item_list.push_back("type");
-}
-
-void ElementsSignatureHashKeyData::ConvertFromStruct(
-    const ElementsSignatureHashKeyDataStruct& data) {
-  hex_ = data.hex;
-  type_ = data.type;
-  ignore_items = data.ignore_items;
-}
-
-ElementsSignatureHashKeyDataStruct ElementsSignatureHashKeyData::ConvertToStruct() const {  // NOLINT
-  ElementsSignatureHashKeyDataStruct result;
-  result.hex = hex_;
-  result.type = type_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // CreateElementsSignatureHashTxIn
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateElementsSignatureHashTxIn>
@@ -11685,36 +10048,107 @@ CreateElementsSignatureHashRequestStruct CreateElementsSignatureHashRequest::Con
 }
 
 // ------------------------------------------------------------------------
-// CreateElementsSignatureHashResponse
+// SignEcdsaAdaptorRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateElementsSignatureHashResponse>
-  CreateElementsSignatureHashResponse::json_mapper;
-std::vector<std::string> CreateElementsSignatureHashResponse::item_list;
+cfd::core::JsonTableMap<SignEcdsaAdaptorRequest>
+  SignEcdsaAdaptorRequest::json_mapper;
+std::vector<std::string> SignEcdsaAdaptorRequest::item_list;
 
-void CreateElementsSignatureHashResponse::CollectFieldName() {
+void SignEcdsaAdaptorRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateElementsSignatureHashResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<SignEcdsaAdaptorRequest> func_table;  // NOLINT
 
   func_table = {
-    CreateElementsSignatureHashResponse::GetSighashString,
-    CreateElementsSignatureHashResponse::SetSighashString,
-    CreateElementsSignatureHashResponse::GetSighashFieldType,
+    SignEcdsaAdaptorRequest::GetMessageString,
+    SignEcdsaAdaptorRequest::SetMessageString,
+    SignEcdsaAdaptorRequest::GetMessageFieldType,
   };
-  json_mapper.emplace("sighash", func_table);
-  item_list.push_back("sighash");
+  json_mapper.emplace("message", func_table);
+  item_list.push_back("message");
+  func_table = {
+    SignEcdsaAdaptorRequest::GetIsHashedString,
+    SignEcdsaAdaptorRequest::SetIsHashedString,
+    SignEcdsaAdaptorRequest::GetIsHashedFieldType,
+  };
+  json_mapper.emplace("isHashed", func_table);
+  item_list.push_back("isHashed");
+  func_table = {
+    SignEcdsaAdaptorRequest::GetPrivkeyString,
+    SignEcdsaAdaptorRequest::SetPrivkeyString,
+    SignEcdsaAdaptorRequest::GetPrivkeyFieldType,
+  };
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+  func_table = {
+    SignEcdsaAdaptorRequest::GetAdaptorString,
+    SignEcdsaAdaptorRequest::SetAdaptorString,
+    SignEcdsaAdaptorRequest::GetAdaptorFieldType,
+  };
+  json_mapper.emplace("adaptor", func_table);
+  item_list.push_back("adaptor");
 }
 
-void CreateElementsSignatureHashResponse::ConvertFromStruct(
-    const CreateElementsSignatureHashResponseStruct& data) {
-  sighash_ = data.sighash;
+void SignEcdsaAdaptorRequest::ConvertFromStruct(
+    const SignEcdsaAdaptorRequestStruct& data) {
+  message_ = data.message;
+  is_hashed_ = data.is_hashed;
+  privkey_ = data.privkey;
+  adaptor_ = data.adaptor;
   ignore_items = data.ignore_items;
 }
 
-CreateElementsSignatureHashResponseStruct CreateElementsSignatureHashResponse::ConvertToStruct() const {  // NOLINT
-  CreateElementsSignatureHashResponseStruct result;
-  result.sighash = sighash_;
+SignEcdsaAdaptorRequestStruct SignEcdsaAdaptorRequest::ConvertToStruct() const {  // NOLINT
+  SignEcdsaAdaptorRequestStruct result;
+  result.message = message_;
+  result.is_hashed = is_hashed_;
+  result.privkey = privkey_;
+  result.adaptor = adaptor_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SignEcdsaAdaptorResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SignEcdsaAdaptorResponse>
+  SignEcdsaAdaptorResponse::json_mapper;
+std::vector<std::string> SignEcdsaAdaptorResponse::item_list;
+
+void SignEcdsaAdaptorResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SignEcdsaAdaptorResponse> func_table;  // NOLINT
+
+  func_table = {
+    SignEcdsaAdaptorResponse::GetAdaptorSignatureString,
+    SignEcdsaAdaptorResponse::SetAdaptorSignatureString,
+    SignEcdsaAdaptorResponse::GetAdaptorSignatureFieldType,
+  };
+  json_mapper.emplace("adaptorSignature", func_table);
+  item_list.push_back("adaptorSignature");
+  func_table = {
+    SignEcdsaAdaptorResponse::GetProofString,
+    SignEcdsaAdaptorResponse::SetProofString,
+    SignEcdsaAdaptorResponse::GetProofFieldType,
+  };
+  json_mapper.emplace("proof", func_table);
+  item_list.push_back("proof");
+}
+
+void SignEcdsaAdaptorResponse::ConvertFromStruct(
+    const SignEcdsaAdaptorResponseStruct& data) {
+  adaptor_signature_ = data.adaptor_signature;
+  proof_ = data.proof;
+  ignore_items = data.ignore_items;
+}
+
+SignEcdsaAdaptorResponseStruct SignEcdsaAdaptorResponse::ConvertToStruct() const {  // NOLINT
+  SignEcdsaAdaptorResponseStruct result;
+  result.adaptor_signature = adaptor_signature_;
+  result.proof = proof_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -11889,41 +10323,6 @@ SignWithPrivkeyRequestStruct SignWithPrivkeyRequest::ConvertToStruct() const {  
 }
 
 // ------------------------------------------------------------------------
-// SignWithPrivkeyResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<SignWithPrivkeyResponse>
-  SignWithPrivkeyResponse::json_mapper;
-std::vector<std::string> SignWithPrivkeyResponse::item_list;
-
-void SignWithPrivkeyResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<SignWithPrivkeyResponse> func_table;  // NOLINT
-
-  func_table = {
-    SignWithPrivkeyResponse::GetHexString,
-    SignWithPrivkeyResponse::SetHexString,
-    SignWithPrivkeyResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void SignWithPrivkeyResponse::ConvertFromStruct(
-    const SignWithPrivkeyResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-SignWithPrivkeyResponseStruct SignWithPrivkeyResponse::ConvertToStruct() const {  // NOLINT
-  SignWithPrivkeyResponseStruct result;
-  result.hex = hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
 // GetSupportedFunctionResponse
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<GetSupportedFunctionResponse>
@@ -11963,112 +10362,6 @@ GetSupportedFunctionResponseStruct GetSupportedFunctionResponse::ConvertToStruct
   GetSupportedFunctionResponseStruct result;
   result.bitcoin = bitcoin_;
   result.elements = elements_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// TxInRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<TxInRequest>
-  TxInRequest::json_mapper;
-std::vector<std::string> TxInRequest::item_list;
-
-void TxInRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<TxInRequest> func_table;  // NOLINT
-
-  func_table = {
-    TxInRequest::GetTxidString,
-    TxInRequest::SetTxidString,
-    TxInRequest::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    TxInRequest::GetVoutString,
-    TxInRequest::SetVoutString,
-    TxInRequest::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    TxInRequest::GetSequenceString,
-    TxInRequest::SetSequenceString,
-    TxInRequest::GetSequenceFieldType,
-  };
-  json_mapper.emplace("sequence", func_table);
-  item_list.push_back("sequence");
-}
-
-void TxInRequest::ConvertFromStruct(
-    const TxInRequestStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  sequence_ = data.sequence;
-  ignore_items = data.ignore_items;
-}
-
-TxInRequestStruct TxInRequest::ConvertToStruct() const {  // NOLINT
-  TxInRequestStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.sequence = sequence_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// TxOutRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<TxOutRequest>
-  TxOutRequest::json_mapper;
-std::vector<std::string> TxOutRequest::item_list;
-
-void TxOutRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<TxOutRequest> func_table;  // NOLINT
-
-  func_table = {
-    TxOutRequest::GetAddressString,
-    TxOutRequest::SetAddressString,
-    TxOutRequest::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-  func_table = {
-    TxOutRequest::GetAmountString,
-    TxOutRequest::SetAmountString,
-    TxOutRequest::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    TxOutRequest::GetDirectLockingScriptString,
-    TxOutRequest::SetDirectLockingScriptString,
-    TxOutRequest::GetDirectLockingScriptFieldType,
-  };
-  json_mapper.emplace("directLockingScript", func_table);
-  item_list.push_back("directLockingScript");
-}
-
-void TxOutRequest::ConvertFromStruct(
-    const TxOutRequestStruct& data) {
-  address_ = data.address;
-  amount_ = data.amount;
-  direct_locking_script_ = data.direct_locking_script;
-  ignore_items = data.ignore_items;
-}
-
-TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
-  TxOutRequestStruct result;
-  result.address = address_;
-  result.amount = amount_;
-  result.direct_locking_script = direct_locking_script_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -12136,39 +10429,148 @@ CreateRawTransactionRequestStruct CreateRawTransactionRequest::ConvertToStruct()
 }
 
 // ------------------------------------------------------------------------
-// CreateRawTransactionResponse
+// TweakPrivkeyData
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<CreateRawTransactionResponse>
-  CreateRawTransactionResponse::json_mapper;
-std::vector<std::string> CreateRawTransactionResponse::item_list;
+cfd::core::JsonTableMap<TweakPrivkeyData>
+  TweakPrivkeyData::json_mapper;
+std::vector<std::string> TweakPrivkeyData::item_list;
 
-void CreateRawTransactionResponse::CollectFieldName() {
+void TweakPrivkeyData::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<CreateRawTransactionResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<TweakPrivkeyData> func_table;  // NOLINT
 
   func_table = {
-    CreateRawTransactionResponse::GetHexString,
-    CreateRawTransactionResponse::SetHexString,
-    CreateRawTransactionResponse::GetHexFieldType,
+    TweakPrivkeyData::GetPrivkeyString,
+    TweakPrivkeyData::SetPrivkeyString,
+    TweakPrivkeyData::GetPrivkeyFieldType,
   };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+  func_table = {
+    TweakPrivkeyData::GetTweakString,
+    TweakPrivkeyData::SetTweakString,
+    TweakPrivkeyData::GetTweakFieldType,
+  };
+  json_mapper.emplace("tweak", func_table);
+  item_list.push_back("tweak");
 }
 
-void CreateRawTransactionResponse::ConvertFromStruct(
-    const CreateRawTransactionResponseStruct& data) {
-  hex_ = data.hex;
+void TweakPrivkeyData::ConvertFromStruct(
+    const TweakPrivkeyDataStruct& data) {
+  privkey_ = data.privkey;
+  tweak_ = data.tweak;
   ignore_items = data.ignore_items;
 }
 
-CreateRawTransactionResponseStruct CreateRawTransactionResponse::ConvertToStruct() const {  // NOLINT
-  CreateRawTransactionResponseStruct result;
-  result.hex = hex_;
+TweakPrivkeyDataStruct TweakPrivkeyData::ConvertToStruct() const {  // NOLINT
+  TweakPrivkeyDataStruct result;
+  result.privkey = privkey_;
+  result.tweak = tweak_;
   result.ignore_items = ignore_items;
   return result;
 }
+
+// ------------------------------------------------------------------------
+// TweakPubkeyData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<TweakPubkeyData>
+  TweakPubkeyData::json_mapper;
+std::vector<std::string> TweakPubkeyData::item_list;
+
+void TweakPubkeyData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<TweakPubkeyData> func_table;  // NOLINT
+
+  func_table = {
+    TweakPubkeyData::GetPubkeyString,
+    TweakPubkeyData::SetPubkeyString,
+    TweakPubkeyData::GetPubkeyFieldType,
+  };
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
+  func_table = {
+    TweakPubkeyData::GetTweakString,
+    TweakPubkeyData::SetTweakString,
+    TweakPubkeyData::GetTweakFieldType,
+  };
+  json_mapper.emplace("tweak", func_table);
+  item_list.push_back("tweak");
+}
+
+void TweakPubkeyData::ConvertFromStruct(
+    const TweakPubkeyDataStruct& data) {
+  pubkey_ = data.pubkey;
+  tweak_ = data.tweak;
+  ignore_items = data.ignore_items;
+}
+
+TweakPubkeyDataStruct TweakPubkeyData::ConvertToStruct() const {  // NOLINT
+  TweakPubkeyDataStruct result;
+  result.pubkey = pubkey_;
+  result.tweak = tweak_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// SchnorrKeyPairData
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<SchnorrKeyPairData>
+  SchnorrKeyPairData::json_mapper;
+std::vector<std::string> SchnorrKeyPairData::item_list;
+
+void SchnorrKeyPairData::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<SchnorrKeyPairData> func_table;  // NOLINT
+
+  func_table = {
+    SchnorrKeyPairData::GetPubkeyString,
+    SchnorrKeyPairData::SetPubkeyString,
+    SchnorrKeyPairData::GetPubkeyFieldType,
+  };
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
+  func_table = {
+    SchnorrKeyPairData::GetParityString,
+    SchnorrKeyPairData::SetParityString,
+    SchnorrKeyPairData::GetParityFieldType,
+  };
+  json_mapper.emplace("parity", func_table);
+  item_list.push_back("parity");
+  func_table = {
+    SchnorrKeyPairData::GetPrivkeyString,
+    SchnorrKeyPairData::SetPrivkeyString,
+    SchnorrKeyPairData::GetPrivkeyFieldType,
+  };
+  json_mapper.emplace("privkey", func_table);
+  item_list.push_back("privkey");
+}
+
+void SchnorrKeyPairData::ConvertFromStruct(
+    const SchnorrKeyPairDataStruct& data) {
+  pubkey_ = data.pubkey;
+  parity_ = data.parity;
+  privkey_ = data.privkey;
+  ignore_items = data.ignore_items;
+}
+
+SchnorrKeyPairDataStruct SchnorrKeyPairData::ConvertToStruct() const {  // NOLINT
+  SchnorrKeyPairDataStruct result;
+  result.pubkey = pubkey_;
+  result.parity = parity_;
+  result.privkey = privkey_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+
+
 
 // ------------------------------------------------------------------------
 // UpdateTxOutAmountData
@@ -12281,41 +10683,6 @@ UpdateTxOutAmountRequestStruct UpdateTxOutAmountRequest::ConvertToStruct() const
   result.tx = tx_;
   result.is_elements = is_elements_;
   result.txouts = txouts_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// UpdateTxOutAmountResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<UpdateTxOutAmountResponse>
-  UpdateTxOutAmountResponse::json_mapper;
-std::vector<std::string> UpdateTxOutAmountResponse::item_list;
-
-void UpdateTxOutAmountResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<UpdateTxOutAmountResponse> func_table;  // NOLINT
-
-  func_table = {
-    UpdateTxOutAmountResponse::GetHexString,
-    UpdateTxOutAmountResponse::SetHexString,
-    UpdateTxOutAmountResponse::GetHexFieldType,
-  };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
-}
-
-void UpdateTxOutAmountResponse::ConvertFromStruct(
-    const UpdateTxOutAmountResponseStruct& data) {
-  hex_ = data.hex;
-  ignore_items = data.ignore_items;
-}
-
-UpdateTxOutAmountResponseStruct UpdateTxOutAmountResponse::ConvertToStruct() const {  // NOLINT
-  UpdateTxOutAmountResponseStruct result;
-  result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
 }
@@ -12507,99 +10874,144 @@ UpdateWitnessStackRequestStruct UpdateWitnessStackRequest::ConvertToStruct() con
 }
 
 // ------------------------------------------------------------------------
-// UpdateWitnessStackResponse
+// VerifyEcdsaAdaptorRequest
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<UpdateWitnessStackResponse>
-  UpdateWitnessStackResponse::json_mapper;
-std::vector<std::string> UpdateWitnessStackResponse::item_list;
+cfd::core::JsonTableMap<VerifyEcdsaAdaptorRequest>
+  VerifyEcdsaAdaptorRequest::json_mapper;
+std::vector<std::string> VerifyEcdsaAdaptorRequest::item_list;
 
-void UpdateWitnessStackResponse::CollectFieldName() {
+void VerifyEcdsaAdaptorRequest::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<UpdateWitnessStackResponse> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<VerifyEcdsaAdaptorRequest> func_table;  // NOLINT
 
   func_table = {
-    UpdateWitnessStackResponse::GetHexString,
-    UpdateWitnessStackResponse::SetHexString,
-    UpdateWitnessStackResponse::GetHexFieldType,
+    VerifyEcdsaAdaptorRequest::GetAdaptorSignatureString,
+    VerifyEcdsaAdaptorRequest::SetAdaptorSignatureString,
+    VerifyEcdsaAdaptorRequest::GetAdaptorSignatureFieldType,
   };
-  json_mapper.emplace("hex", func_table);
-  item_list.push_back("hex");
+  json_mapper.emplace("adaptorSignature", func_table);
+  item_list.push_back("adaptorSignature");
+  func_table = {
+    VerifyEcdsaAdaptorRequest::GetProofString,
+    VerifyEcdsaAdaptorRequest::SetProofString,
+    VerifyEcdsaAdaptorRequest::GetProofFieldType,
+  };
+  json_mapper.emplace("proof", func_table);
+  item_list.push_back("proof");
+  func_table = {
+    VerifyEcdsaAdaptorRequest::GetAdaptorString,
+    VerifyEcdsaAdaptorRequest::SetAdaptorString,
+    VerifyEcdsaAdaptorRequest::GetAdaptorFieldType,
+  };
+  json_mapper.emplace("adaptor", func_table);
+  item_list.push_back("adaptor");
+  func_table = {
+    VerifyEcdsaAdaptorRequest::GetMessageString,
+    VerifyEcdsaAdaptorRequest::SetMessageString,
+    VerifyEcdsaAdaptorRequest::GetMessageFieldType,
+  };
+  json_mapper.emplace("message", func_table);
+  item_list.push_back("message");
+  func_table = {
+    VerifyEcdsaAdaptorRequest::GetIsHashedString,
+    VerifyEcdsaAdaptorRequest::SetIsHashedString,
+    VerifyEcdsaAdaptorRequest::GetIsHashedFieldType,
+  };
+  json_mapper.emplace("isHashed", func_table);
+  item_list.push_back("isHashed");
+  func_table = {
+    VerifyEcdsaAdaptorRequest::GetPubkeyString,
+    VerifyEcdsaAdaptorRequest::SetPubkeyString,
+    VerifyEcdsaAdaptorRequest::GetPubkeyFieldType,
+  };
+  json_mapper.emplace("pubkey", func_table);
+  item_list.push_back("pubkey");
 }
 
-void UpdateWitnessStackResponse::ConvertFromStruct(
-    const UpdateWitnessStackResponseStruct& data) {
-  hex_ = data.hex;
+void VerifyEcdsaAdaptorRequest::ConvertFromStruct(
+    const VerifyEcdsaAdaptorRequestStruct& data) {
+  adaptor_signature_ = data.adaptor_signature;
+  proof_ = data.proof;
+  adaptor_ = data.adaptor;
+  message_ = data.message;
+  is_hashed_ = data.is_hashed;
+  pubkey_ = data.pubkey;
   ignore_items = data.ignore_items;
 }
 
-UpdateWitnessStackResponseStruct UpdateWitnessStackResponse::ConvertToStruct() const {  // NOLINT
-  UpdateWitnessStackResponseStruct result;
-  result.hex = hex_;
+VerifyEcdsaAdaptorRequestStruct VerifyEcdsaAdaptorRequest::ConvertToStruct() const {  // NOLINT
+  VerifyEcdsaAdaptorRequestStruct result;
+  result.adaptor_signature = adaptor_signature_;
+  result.proof = proof_;
+  result.adaptor = adaptor_;
+  result.message = message_;
+  result.is_hashed = is_hashed_;
+  result.pubkey = pubkey_;
   result.ignore_items = ignore_items;
   return result;
 }
 
 // ------------------------------------------------------------------------
-// VerifyignTxInUtxoData
+// VerifySignTxInUtxoData
 // ------------------------------------------------------------------------
-cfd::core::JsonTableMap<VerifyignTxInUtxoData>
-  VerifyignTxInUtxoData::json_mapper;
-std::vector<std::string> VerifyignTxInUtxoData::item_list;
+cfd::core::JsonTableMap<VerifySignTxInUtxoData>
+  VerifySignTxInUtxoData::json_mapper;
+std::vector<std::string> VerifySignTxInUtxoData::item_list;
 
-void VerifyignTxInUtxoData::CollectFieldName() {
+void VerifySignTxInUtxoData::CollectFieldName() {
   if (!json_mapper.empty()) {
     return;
   }
-  cfd::core::CLASS_FUNCTION_TABLE<VerifyignTxInUtxoData> func_table;  // NOLINT
+  cfd::core::CLASS_FUNCTION_TABLE<VerifySignTxInUtxoData> func_table;  // NOLINT
 
   func_table = {
-    VerifyignTxInUtxoData::GetTxidString,
-    VerifyignTxInUtxoData::SetTxidString,
-    VerifyignTxInUtxoData::GetTxidFieldType,
+    VerifySignTxInUtxoData::GetTxidString,
+    VerifySignTxInUtxoData::SetTxidString,
+    VerifySignTxInUtxoData::GetTxidFieldType,
   };
   json_mapper.emplace("txid", func_table);
   item_list.push_back("txid");
   func_table = {
-    VerifyignTxInUtxoData::GetVoutString,
-    VerifyignTxInUtxoData::SetVoutString,
-    VerifyignTxInUtxoData::GetVoutFieldType,
+    VerifySignTxInUtxoData::GetVoutString,
+    VerifySignTxInUtxoData::SetVoutString,
+    VerifySignTxInUtxoData::GetVoutFieldType,
   };
   json_mapper.emplace("vout", func_table);
   item_list.push_back("vout");
   func_table = {
-    VerifyignTxInUtxoData::GetAddressString,
-    VerifyignTxInUtxoData::SetAddressString,
-    VerifyignTxInUtxoData::GetAddressFieldType,
+    VerifySignTxInUtxoData::GetAddressString,
+    VerifySignTxInUtxoData::SetAddressString,
+    VerifySignTxInUtxoData::GetAddressFieldType,
   };
   json_mapper.emplace("address", func_table);
   item_list.push_back("address");
   func_table = {
-    VerifyignTxInUtxoData::GetAmountString,
-    VerifyignTxInUtxoData::SetAmountString,
-    VerifyignTxInUtxoData::GetAmountFieldType,
+    VerifySignTxInUtxoData::GetAmountString,
+    VerifySignTxInUtxoData::SetAmountString,
+    VerifySignTxInUtxoData::GetAmountFieldType,
   };
   json_mapper.emplace("amount", func_table);
   item_list.push_back("amount");
   func_table = {
-    VerifyignTxInUtxoData::GetDescriptorString,
-    VerifyignTxInUtxoData::SetDescriptorString,
-    VerifyignTxInUtxoData::GetDescriptorFieldType,
+    VerifySignTxInUtxoData::GetDescriptorString,
+    VerifySignTxInUtxoData::SetDescriptorString,
+    VerifySignTxInUtxoData::GetDescriptorFieldType,
   };
   json_mapper.emplace("descriptor", func_table);
   item_list.push_back("descriptor");
   func_table = {
-    VerifyignTxInUtxoData::GetConfidentialValueCommitmentString,
-    VerifyignTxInUtxoData::SetConfidentialValueCommitmentString,
-    VerifyignTxInUtxoData::GetConfidentialValueCommitmentFieldType,
+    VerifySignTxInUtxoData::GetConfidentialValueCommitmentString,
+    VerifySignTxInUtxoData::SetConfidentialValueCommitmentString,
+    VerifySignTxInUtxoData::GetConfidentialValueCommitmentFieldType,
   };
   json_mapper.emplace("confidentialValueCommitment", func_table);
   item_list.push_back("confidentialValueCommitment");
 }
 
-void VerifyignTxInUtxoData::ConvertFromStruct(
-    const VerifyignTxInUtxoDataStruct& data) {
+void VerifySignTxInUtxoData::ConvertFromStruct(
+    const VerifySignTxInUtxoDataStruct& data) {
   txid_ = data.txid;
   vout_ = data.vout;
   address_ = data.address;
@@ -12609,8 +11021,8 @@ void VerifyignTxInUtxoData::ConvertFromStruct(
   ignore_items = data.ignore_items;
 }
 
-VerifyignTxInUtxoDataStruct VerifyignTxInUtxoData::ConvertToStruct() const {  // NOLINT
-  VerifyignTxInUtxoDataStruct result;
+VerifySignTxInUtxoDataStruct VerifySignTxInUtxoData::ConvertToStruct() const {  // NOLINT
+  VerifySignTxInUtxoDataStruct result;
   result.txid = txid_;
   result.vout = vout_;
   result.address = address_;
@@ -12936,41 +11348,6 @@ VerifySignatureRequestStruct VerifySignatureRequest::ConvertToStruct() const {  
   result.tx = tx_;
   result.is_elements = is_elements_;
   result.txin = txin_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// VerifySignatureResponse
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<VerifySignatureResponse>
-  VerifySignatureResponse::json_mapper;
-std::vector<std::string> VerifySignatureResponse::item_list;
-
-void VerifySignatureResponse::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<VerifySignatureResponse> func_table;  // NOLINT
-
-  func_table = {
-    VerifySignatureResponse::GetSuccessString,
-    VerifySignatureResponse::SetSuccessString,
-    VerifySignatureResponse::GetSuccessFieldType,
-  };
-  json_mapper.emplace("success", func_table);
-  item_list.push_back("success");
-}
-
-void VerifySignatureResponse::ConvertFromStruct(
-    const VerifySignatureResponseStruct& data) {
-  success_ = data.success;
-  ignore_items = data.ignore_items;
-}
-
-VerifySignatureResponseStruct VerifySignatureResponse::ConvertToStruct() const {  // NOLINT
-  VerifySignatureResponseStruct result;
-  result.success = success_;
   result.ignore_items = ignore_items;
   return result;
 }

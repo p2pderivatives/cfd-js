@@ -132,12 +132,12 @@ struct Issuance {
 // -----------------------------------------------------------------------------
 // ElementsTransactionStructApiクラス
 // -----------------------------------------------------------------------------
-ElementsCreateRawTransactionResponseStruct
+RawTransactionResponseStruct
 ElementsTransactionStructApi::CreateRawTransaction(  // NOLINT
     const ElementsCreateRawTransactionRequestStruct& request) {
   auto call_func = [](const ElementsCreateRawTransactionRequestStruct& request)
-      -> ElementsCreateRawTransactionResponseStruct {  // NOLINT
-    ElementsCreateRawTransactionResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
     ElementsAddressFactory address_factory;
     // Transaction作成
     std::vector<ConfidentialTxIn> txins;
@@ -180,7 +180,7 @@ ElementsTransactionStructApi::CreateRawTransaction(  // NOLINT
 
     // feeの追加
     ConfidentialTxOut txout_fee;
-    ElementsTxOutFeeRequestStruct fee_req = request.fee;
+    auto& fee_req = request.fee;
     // amountが0のfeeは無効と判定
     if (fee_req.amount != 0) {
       txout_fee = ConfidentialTxOut(
@@ -196,10 +196,9 @@ ElementsTransactionStructApi::CreateRawTransaction(  // NOLINT
     return response;
   };
 
-  ElementsCreateRawTransactionResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      ElementsCreateRawTransactionRequestStruct,
-      ElementsCreateRawTransactionResponseStruct>(
+      ElementsCreateRawTransactionRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -331,7 +330,7 @@ ElementsTransactionStructApi::AddRawTransaction(  // NOLINT
 
     // feeの追加
     ConfidentialTxOut txout_fee;
-    ElementsAddTxOutFeeStruct fee_req = request.fee;
+    auto& fee_req = request.fee;
     // amountが0のfeeは無効と判定
     if (fee_req.amount != 0) {
       txout_fee = ConfidentialTxOut(
@@ -764,11 +763,11 @@ ElementsTransactionStructApi::GetWitnessStackNum(
   return result;
 }
 
-AddSignResponseStruct ElementsTransactionStructApi::AddSign(
+RawTransactionResponseStruct ElementsTransactionStructApi::AddSign(
     const AddSignRequestStruct& request) {
   auto call_func =
-      [](const AddSignRequestStruct& request) -> AddSignResponseStruct {
-    AddSignResponseStruct response;
+      [](const AddSignRequestStruct& request) -> RawTransactionResponseStruct {
+    RawTransactionResponseStruct response;
 
     std::string tx_hex = request.tx;
     Txid txid(request.txin.txid);
@@ -792,17 +791,18 @@ AddSignResponseStruct ElementsTransactionStructApi::AddSign(
     return response;
   };
 
-  AddSignResponseStruct result;
-  result = ExecuteStructApi<AddSignRequestStruct, AddSignResponseStruct>(
-      request, call_func, std::string(__FUNCTION__));
+  RawTransactionResponseStruct result;
+  result =
+      ExecuteStructApi<AddSignRequestStruct, RawTransactionResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-AddMultisigSignResponseStruct ElementsTransactionStructApi::AddMultisigSign(
+RawTransactionResponseStruct ElementsTransactionStructApi::AddMultisigSign(
     const AddMultisigSignRequestStruct& request) {
   auto call_func = [](const AddMultisigSignRequestStruct& request)
-      -> AddMultisigSignResponseStruct {  // NOLINT
-    AddMultisigSignResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
     // レスポンスとなるモデルへ変換
 
     ConfidentialTxInReference txin(
@@ -833,18 +833,18 @@ AddMultisigSignResponseStruct ElementsTransactionStructApi::AddMultisigSign(
     return response;
   };
 
-  AddMultisigSignResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      AddMultisigSignRequestStruct, AddMultisigSignResponseStruct>(
+      AddMultisigSignRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-SignWithPrivkeyResponseStruct ElementsTransactionStructApi::SignWithPrivkey(
+RawTransactionResponseStruct ElementsTransactionStructApi::SignWithPrivkey(
     const SignWithPrivkeyRequestStruct& request) {
   auto call_func = [](const SignWithPrivkeyRequestStruct& request)
-      -> SignWithPrivkeyResponseStruct {  // NOLINT
-    SignWithPrivkeyResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
     ConfidentialTransactionContext ctx(request.tx);
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
@@ -879,19 +879,18 @@ SignWithPrivkeyResponseStruct ElementsTransactionStructApi::SignWithPrivkey(
     return response;
   };
 
-  SignWithPrivkeyResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      SignWithPrivkeyRequestStruct, SignWithPrivkeyResponseStruct>(
+      SignWithPrivkeyRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-AddPubkeyHashSignResponseStruct
-ElementsTransactionStructApi::AddPubkeyHashSign(
+RawTransactionResponseStruct ElementsTransactionStructApi::AddPubkeyHashSign(
     const AddPubkeyHashSignRequestStruct& request) {
   auto call_func = [](const AddPubkeyHashSignRequestStruct& request)
-      -> AddPubkeyHashSignResponseStruct {  // NOLINT
-    AddPubkeyHashSignResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
     ConfidentialTransactionContext ctx(request.tx);
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
@@ -910,19 +909,18 @@ ElementsTransactionStructApi::AddPubkeyHashSign(
     return response;
   };
 
-  AddPubkeyHashSignResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      AddPubkeyHashSignRequestStruct, AddPubkeyHashSignResponseStruct>(
+      AddPubkeyHashSignRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-AddScriptHashSignResponseStruct
-ElementsTransactionStructApi::AddScriptHashSign(
+RawTransactionResponseStruct ElementsTransactionStructApi::AddScriptHashSign(
     const AddScriptHashSignRequestStruct& request) {
   auto call_func = [](const AddScriptHashSignRequestStruct& request)
-      -> AddScriptHashSignResponseStruct {  // NOLINT
-    AddScriptHashSignResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
     ConfidentialTransactionContext ctx(request.tx);
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
@@ -944,19 +942,18 @@ ElementsTransactionStructApi::AddScriptHashSign(
     return response;
   };
 
-  AddScriptHashSignResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      AddScriptHashSignRequestStruct, AddScriptHashSignResponseStruct>(
+      AddScriptHashSignRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-UpdateWitnessStackResponseStruct
-ElementsTransactionStructApi::UpdateWitnessStack(
+RawTransactionResponseStruct ElementsTransactionStructApi::UpdateWitnessStack(
     const UpdateWitnessStackRequestStruct& request) {
   auto call_func = [](const UpdateWitnessStackRequestStruct& request)
-      -> UpdateWitnessStackResponseStruct {  // NOLINT
-    UpdateWitnessStackResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
     // Witnessの更新
     const WitnessStackDataStruct& stack_req = request.txin.witness_stack;
@@ -973,19 +970,19 @@ ElementsTransactionStructApi::UpdateWitnessStack(
     return response;
   };
 
-  UpdateWitnessStackResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      UpdateWitnessStackRequestStruct, UpdateWitnessStackResponseStruct>(
+      UpdateWitnessStackRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateElementsSignatureHashResponseStruct
+CreateSignatureHashResponseStruct
 ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
     const CreateElementsSignatureHashRequestStruct& request) {
   auto call_func = [](const CreateElementsSignatureHashRequestStruct& request)
-      -> CreateElementsSignatureHashResponseStruct {  // NOLINT
-    CreateElementsSignatureHashResponseStruct response;
+      -> CreateSignatureHashResponseStruct {  // NOLINT
+    CreateSignatureHashResponseStruct response;
     std::string sig_hash;
     int64_t amount = request.txin.amount;
     const std::string& hashtype_str = request.txin.hash_type;
@@ -1041,10 +1038,10 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
     return response;
   };
 
-  CreateElementsSignatureHashResponseStruct result;
+  CreateSignatureHashResponseStruct result;
   result = ExecuteStructApi<
       CreateElementsSignatureHashRequestStruct,
-      CreateElementsSignatureHashResponseStruct>(
+      CreateSignatureHashResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -1188,12 +1185,11 @@ VerifySignResponseStruct ElementsTransactionStructApi::VerifySign(
   return result;
 }
 
-UpdateTxOutAmountResponseStruct
-ElementsTransactionStructApi::UpdateTxOutAmount(
+RawTransactionResponseStruct ElementsTransactionStructApi::UpdateTxOutAmount(
     const UpdateTxOutAmountRequestStruct& request) {
   auto call_func = [](const UpdateTxOutAmountRequestStruct& request)
-      -> UpdateTxOutAmountResponseStruct {  // NOLINT
-    UpdateTxOutAmountResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
     ConfidentialTransactionContext ctx(request.tx);
     ElementsAddressFactory address_factory;
@@ -1217,19 +1213,18 @@ ElementsTransactionStructApi::UpdateTxOutAmount(
     return response;
   };
 
-  UpdateTxOutAmountResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      UpdateTxOutAmountRequestStruct, UpdateTxOutAmountResponseStruct>(
+      UpdateTxOutAmountRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-BlindRawTransactionResponseStruct
-ElementsTransactionStructApi::BlindTransaction(
+RawTransactionResponseStruct ElementsTransactionStructApi::BlindTransaction(
     const BlindRawTransactionRequestStruct& request) {
   auto call_func = [](const BlindRawTransactionRequestStruct& request)
-      -> BlindRawTransactionResponseStruct {  // NOLINT
-    BlindRawTransactionResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
     uint32_t issuance_count = 0;
     std::map<OutPoint, BlindParameter> utxo_info_map;
     std::map<OutPoint, IssuanceBlindingKeyPair> issuance_key_map;
@@ -1303,9 +1298,9 @@ ElementsTransactionStructApi::BlindTransaction(
     return response;
   };
 
-  BlindRawTransactionResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      BlindRawTransactionRequestStruct, BlindRawTransactionResponseStruct>(
+      BlindRawTransactionRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -1405,7 +1400,7 @@ SetRawIssueAssetResponseStruct ElementsTransactionStructApi::SetRawIssueAsset(
     std::vector<TxInIssuanceParameters> issuance_param;
     std::vector<IssuanceOutput> issuance_output;
 
-    for (IssuanceDataRequestStruct issuance : request.issuances) {
+    for (auto& issuance : request.issuances) {
       ConfidentialTxOut asset_txout;
       ConfidentialTxOut token_txout;
       Amount asset_amount =
@@ -1504,7 +1499,7 @@ ElementsTransactionStructApi::SetRawReissueAsset(
     std::vector<TxInReissuanceParameters> reissuance_param;
     std::vector<IssuanceOutput> reissuance_output;
 
-    for (ReissuanceDataRequestStruct issuance : request.issuances) {
+    for (auto& issuance : request.issuances) {
       ConfidentialTxOut asset_txout;
       Amount amount = Amount::CreateBySatoshiAmount(issuance.amount);
 
@@ -1540,7 +1535,8 @@ ElementsTransactionStructApi::SetRawReissueAsset(
         request.tx, reissuance_param, &reissuance_output);
 
     for (const auto& output : reissuance_output) {
-      ReissuanceDataResponseStruct res_issuance;
+      IssuanceDataResponseStruct res_issuance;
+      res_issuance.ignore_items.insert("token");
       res_issuance.txid = output.txid.GetHex();
       res_issuance.vout = output.vout;
       res_issuance.asset = output.output.asset.GetHex();
@@ -1565,12 +1561,12 @@ ElementsTransactionStructApi::SetRawReissueAsset(
   return result;
 }
 
-CreateRawPeginResponseStruct
+RawTransactionResponseStruct
 ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
     const CreateRawPeginRequestStruct& request) {
   auto call_func = [](const CreateRawPeginRequestStruct& request)
-      -> CreateRawPeginResponseStruct {  // NOLINT
-    CreateRawPeginResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
     // Transaction作成
     std::vector<ConfidentialTxIn> txins;
     std::vector<ConfidentialTxOut> txouts;
@@ -1657,9 +1653,9 @@ ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
     return response;
   };
 
-  CreateRawPeginResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      CreateRawPeginRequestStruct, CreateRawPeginResponseStruct>(
+      CreateRawPeginRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -1781,12 +1777,11 @@ ElementsTransactionStructApi::CreateRawPegoutTransaction(  // NOLINT
   return result;
 }
 
-GetIssuanceBlindingKeyResponseStruct
-ElementsTransactionStructApi::GetIssuanceBlindingKey(
+BlindingKeyResponseStruct ElementsTransactionStructApi::GetIssuanceBlindingKey(
     const GetIssuanceBlindingKeyRequestStruct& request) {
   auto call_func = [](const GetIssuanceBlindingKeyRequestStruct& request)
-      -> GetIssuanceBlindingKeyResponseStruct {
-    GetIssuanceBlindingKeyResponseStruct response;
+      -> BlindingKeyResponseStruct {
+    BlindingKeyResponseStruct response;
 
     ElementsTransactionApi api;
     Privkey blinding_key = api.GetIssuanceBlindingKey(
@@ -1797,20 +1792,18 @@ ElementsTransactionStructApi::GetIssuanceBlindingKey(
     return response;
   };
 
-  GetIssuanceBlindingKeyResponseStruct result;
+  BlindingKeyResponseStruct result;
   result = ExecuteStructApi<
-      GetIssuanceBlindingKeyRequestStruct,
-      GetIssuanceBlindingKeyResponseStruct>(
+      GetIssuanceBlindingKeyRequestStruct, BlindingKeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-GetDefaultBlindingKeyResponseStruct
-ElementsTransactionStructApi::GetDefaultBlindingKey(
+BlindingKeyResponseStruct ElementsTransactionStructApi::GetDefaultBlindingKey(
     const GetDefaultBlindingKeyRequestStruct& request) {
   auto call_func = [](const GetDefaultBlindingKeyRequestStruct& request)
-      -> GetDefaultBlindingKeyResponseStruct {
-    GetDefaultBlindingKeyResponseStruct response;
+      -> BlindingKeyResponseStruct {
+    BlindingKeyResponseStruct response;
     Script locking_script;
 
     if (!request.address.empty() && request.locking_script.empty()) {
@@ -1827,19 +1820,19 @@ ElementsTransactionStructApi::GetDefaultBlindingKey(
     return response;
   };
 
-  GetDefaultBlindingKeyResponseStruct result;
+  BlindingKeyResponseStruct result;
   result = ExecuteStructApi<
-      GetDefaultBlindingKeyRequestStruct, GetDefaultBlindingKeyResponseStruct>(
+      GetDefaultBlindingKeyRequestStruct, BlindingKeyResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateDestroyAmountResponseStruct
+RawTransactionResponseStruct
 ElementsTransactionStructApi::CreateDestroyAmountTransaction(
     const CreateDestroyAmountRequestStruct& request) {
   auto call_func = [](const CreateDestroyAmountRequestStruct& request)
-      -> CreateDestroyAmountResponseStruct {  // NOLINT
-    CreateDestroyAmountResponseStruct response;
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
     // Transaction作成
     ElementsAddressFactory address_factory;
     // Transaction作成
@@ -1891,7 +1884,7 @@ ElementsTransactionStructApi::CreateDestroyAmountTransaction(
 
     // feeの追加
     ConfidentialTxOut txout_fee;
-    ElementsDestroyAmountFeeStruct fee_req = request.fee;
+    auto& fee_req = request.fee;
     // amountが0のfeeは無効と判定
     if (fee_req.amount != 0) {
       txout_fee = ConfidentialTxOut(
@@ -1907,9 +1900,9 @@ ElementsTransactionStructApi::CreateDestroyAmountTransaction(
     return response;
   };
 
-  CreateDestroyAmountResponseStruct result;
+  RawTransactionResponseStruct result;
   result = ExecuteStructApi<
-      CreateDestroyAmountRequestStruct, CreateDestroyAmountResponseStruct>(
+      CreateDestroyAmountRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -2077,7 +2070,7 @@ void ElementsTransactionJsonApi::FundRawTransaction(
   }
 
   // in parameter
-  const FundFeeInfomation& fee_info = request->GetFeeInfo();
+  const FundFeeInformation& fee_info = request->GetFeeInfo();
   CoinSelectionOption option;
   ConfidentialAssetId fee_asset;
   option.SetBlindInfo(fee_info.GetExponent(), fee_info.GetMinimumBits());

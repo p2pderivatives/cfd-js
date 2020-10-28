@@ -1,4 +1,4 @@
-// Copyright 2019 CryptoGarage
+// Copyright 2020 CryptoGarage
 /**
  * @file cfdjs_api_json.h
  *
@@ -225,6 +225,27 @@ class CFD_JS_API_EXPORT JsonMappingApi {
   static std::string GetPrivkeyWif(const std::string &request_message);
 
   /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakAddPrivkey(const std::string &request_message);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakMulPrivkey(const std::string &request_message);
+
+  /**
+   * @brief Get the negated public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string NegatePrivkey(const std::string &request_message);
+
+  /**
    * @brief GetPubkeyFromPrivkeyのJSON API関数(request, response).
    * @param[in] request_message     リクエストされたjson文字列
    * @return 戻り値(JSON文字列)
@@ -237,6 +258,41 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return 戻り値(JSON文字列)
    */
   static std::string GetCompressedPubkey(const std::string &request_message);
+
+  /**
+   * @brief Get the uncompressed public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string GetUncompressedPubkey(const std::string &request_message);
+
+  /**
+   * @brief Get the combined public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string CombinePubkey(const std::string &request_message);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakAddPubkey(const std::string &request_message);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakMulPubkey(const std::string &request_message);
+
+  /**
+   * @brief Get the negated public key based on the JSON parameter information.
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string NegatePubkey(const std::string &request_message);
 
   /**
    * @brief CreateExtkeyFromSeedのJSON API関数(request, response).
@@ -409,6 +465,109 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return 戻り値(JSON文字列)
    */
   static std::string UpdateTxOutAmount(const std::string &request_message);
+
+  /**
+   * @brief Get a Schnorr Pubkey From a Privkey object
+   *
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string GetSchnorrPubkeyFromPrivkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Get a SchnorrPubkey from a Pubkey object
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string GetSchnorrPubkeyFromPubkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Get a TweakAdd SchnorrPubkey from a Privkey object
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakAddSchnorrPubkeyFromPrivkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Get a TweakAdd SchnorrPubkey from a Pubkey object
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string TweakAddSchnorrPubkeyFromPubkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Check a tweaked SchnorrPubkey from a base pubkey.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string CheckTweakedSchnorrPubkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Get a Schnorr signature for a given message and private key.
+   *
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string SchnorrSign(const std::string &request_message);
+
+  /**
+   * @brief Verify a Schnorr signature for a given message and public key.
+   *
+   * @param[in] request_message     リクエストされたjson文字列
+   * @return 戻り値(JSON文字列)
+   */
+  static std::string SchnorrVerify(const std::string &request_message);
+
+  /**
+   * @brief Compute a sigpoint from Schnorr pubkey.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string ComputeSigPointSchnorrPubkey(
+      const std::string &request_message);
+
+  /**
+   * @brief Sign a ecdsa adaptor signature.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string SignEcdsaAdaptor(const std::string &request_message);
+
+  /**
+   * @brief Verify a ecdsa adaptor signature.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string VerifyEcdsaAdaptor(const std::string &request_message);
+
+  /**
+   * @brief Adapt a ecdsa adaptor.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string AdaptEcdsaAdaptor(const std::string &request_message);
+
+  /**
+   * @brief Extract a secret data.
+   *
+   * @param[in] request_message the request json message
+   * @return json string
+   */
+  static std::string ExtractSecretEcdsaAdaptor(
+      const std::string &request_message);
 
 #ifndef CFD_DISABLE_ELEMENTS
 

@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get mnemonic word list",
+  "request": {
+    ":class": "GetMnemonicWordlistRequest",
+    ":class:comment": "Request for get mnemonic word list",
+    "language": "en",
+    "language:require": "require",
+    "language:comment": "mnemonic language",
+    "language:hint": "support [en es fr it jp zhs zht]"
+  },
+  "response": {
+    ":class": "GetMnemonicWordlistResponse",
+    ":class:comment": "Response of get mnemonic word list",
+    "wordlist": [""],
+    "wordlist:require": "require",
+    "wordlist:comment": "mnemonic word list"
+  }
+}

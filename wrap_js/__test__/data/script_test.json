@@ -1,0 +1,1248 @@
+[
+    {
+        "name": "Script.Parse",
+        "cases": [
+            {
+                "case": "empty",
+                "request": {
+                    "script": ""
+                },
+                "expect": {
+                    "scriptItems": []
+                }
+            },
+            {
+                "case": "single byte data",
+                "request": {
+                    "script": "47522102bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae"
+                },
+                "expect": {
+                    "scriptItems": [
+                        "522102bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae"
+                    ]
+                }
+            },
+            {
+                "case": "multisig unlocking script data",
+                "request": {
+                    "script": "0047304402206fc4cc7e489208a2f4d24f5d35466debab2ce7aa34b5d00e0a9426c9d63529cf02202ec744939ef0b4b629c7d87bc2d017714b52bb86dccb0fd0f10148f62b7a09ba01473044022073ea24720b24c736bcb305a5de2fd8117ca2f0a85d7da378fae5b90dc361d227022004c0088bf1b73a56ae5ec407cf9c330d7206ffbcd0c9bb1c72661726fd4990390147522102bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae"
+                },
+                "expect": {
+                    "scriptItems": [
+                        "OP_0",
+                        "304402206fc4cc7e489208a2f4d24f5d35466debab2ce7aa34b5d00e0a9426c9d63529cf02202ec744939ef0b4b629c7d87bc2d017714b52bb86dccb0fd0f10148f62b7a09ba01",
+                        "3044022073ea24720b24c736bcb305a5de2fd8117ca2f0a85d7da378fae5b90dc361d227022004c0088bf1b73a56ae5ec407cf9c330d7206ffbcd0c9bb1c72661726fd49903901",
+                        "522102bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae"
+                    ]
+                }
+            },
+            {
+                "case": "pkh locking script data",
+                "request": {
+                    "script": "76a9145949cf1d302d32d127ee54b480aaf593797db22a88ac"
+                },
+                "expect": {
+                    "scriptItems": [
+                        "OP_DUP",
+                        "OP_HASH160",
+                        "5949cf1d302d32d127ee54b480aaf593797db22a",
+                        "OP_EQUALVERIFY",
+                        "OP_CHECKSIG"
+                    ]
+                }
+            },
+            {
+                "case": "htlc locking script data",
+                "request": {
+                    "script": "63522102ee4ce4f36fd824a76db5bb6e6de1d3d90b5ea2baf699c8546ef096152142fd7b21038d36a215869dcf2586799fe4d24531b5af39b38c57ebee30840d9f2c07d711fe52ae67029000b275210220ccf8f3706b924858637c53c6f438c2d13406375f0dc315bfe56faac09ed513ac68"
+                },
+                "expect": {
+                    "scriptItems": [
+                        "OP_IF",
+                        "OP_2",
+                        "02ee4ce4f36fd824a76db5bb6e6de1d3d90b5ea2baf699c8546ef096152142fd7b",
+                        "038d36a215869dcf2586799fe4d24531b5af39b38c57ebee30840d9f2c07d711fe",
+                        "OP_2",
+                        "OP_CHECKMULTISIG",
+                        "OP_ELSE",
+                        "144",
+                        "OP_CHECKSEQUENCEVERIFY",
+                        "OP_DROP",
+                        "0220ccf8f3706b924858637c53c6f438c2d13406375f0dc315bfe56faac09ed513",
+                        "OP_CHECKSIG",
+                        "OP_ENDIF"
+                    ]
+                }
+            },
+            {
+                "case": "illegal hex",
+                "request": {
+                    "script": "gt"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hex value.",
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "illegal script",
+                "request": {
+                    "script": "521f02bfd7daa5d113fcbd8c2f374ae58cbb89cbed9570e898f1af5ff989457e2d4d712102715ed9a5f16153c5216a6751b7d84eba32076f0b607550a58b209077ab7c30ad52ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "buffer is incorrect size."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Script.Create",
+        "cases": [
+            {
+                "case": "2-of-3 multisig redeem script",
+                "request": {
+                    "items": [
+                        "OP_2",
+                        "03a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e",
+                        "020b6222474874415891f2bd8ab4df1eff726e65c710dbe8ed4c9207ba025816f5",
+                        "03b451a31b2656db3cfbf376b5b9610feb99c90bb97dbd8ff673da0d8bfff30d5e",
+                        "OP_3",
+                        "OP_CHECKMULTISIG"
+                    ]
+                },
+                "expect": {
+                    "hex": "522103a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e21020b6222474874415891f2bd8ab4df1eff726e65c710dbe8ed4c9207ba025816f52103b451a31b2656db3cfbf376b5b9610feb99c90bb97dbd8ff673da0d8bfff30d5e53ae"
+                }
+            },
+            {
+                "case": "p2pk locking script",
+                "request": {
+                    "items": [
+                        "03a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e",
+                        "OP_CHECKSIG"
+                    ]
+                },
+                "expect": {
+                    "hex": "2103a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6eac"
+                }
+            },
+            {
+                "case": "p2pkh locking script",
+                "request": {
+                    "items": [
+                        "OP_DUP",
+                        "OP_HASH160",
+                        "5064e646420055eeb406c639267f5470541327dd",
+                        "OP_EQUALVERIFY",
+                        "OP_CHECKSIG"
+                    ]
+                },
+                "expect": {
+                    "hex": "76a9145064e646420055eeb406c639267f5470541327dd88ac"
+                }
+            },
+            {
+                "case": "p2sh locking script (redeem_script: 2-of-3 multisig redeem script)",
+                "request": {
+                    "items": [
+                        "OP_HASH160",
+                        "6b6e8c047a63cbfacd5aa680d63f1bd1cc84f0ce",
+                        "OP_EQUAL"
+                    ]
+                },
+                "expect": {
+                    "hex": "a9146b6e8c047a63cbfacd5aa680d63f1bd1cc84f0ce87"
+                }
+            },
+            {
+                "case": "p2wpkh locking script",
+                "request": {
+                    "items": [
+                        "OP_0",
+                        "5064e646420055eeb406c639267f5470541327dd"
+                    ]
+                },
+                "expect": {
+                    "hex": "00145064e646420055eeb406c639267f5470541327dd"
+                }
+            },
+            {
+                "case": "p2wsh locking script (redeem_script: 2-of-3 multisig redeem script)",
+                "request": {
+                    "items": [
+                        "OP_0",
+                        "dabee4686a8c85f73ae47079a068ea6d63a2a6a8cdf8a173ca5a11f7af7209b0"
+                    ]
+                },
+                "expect": {
+                    "hex": "0020dabee4686a8c85f73ae47079a068ea6d63a2a6a8cdf8a173ca5a11f7af7209b0"
+                }
+            },
+            {
+                "case": "HTLC locking script (delay: 24 hours = 144 sequence, no revoke script)",
+                "request": {
+                    "items": [
+                        "OP_IF",
+                        "03a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e",
+                        "OP_ELSE",
+                        "144",
+                        "OP_CHECKSEQUENCEVERIFY",
+                        "OP_DROP",
+                        "020b6222474874415891f2bd8ab4df1eff726e65c710dbe8ed4c9207ba025816f5",
+                        "OP_ENDIF",
+                        "OP_CHECKSIG"
+                    ]
+                },
+                "expect": {
+                    "hex": "632103a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e67029000b27521020b6222474874415891f2bd8ab4df1eff726e65c710dbe8ed4c9207ba025816f568ac"
+                }
+            },
+            {
+                "case": "p2pk unlocking script with dummy signature",
+                "request": {
+                    "items": [
+                        "3044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e01"
+                    ]
+                },
+                "expect": {
+                    "hex": "473044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e01"
+                }
+            },
+            {
+                "case": "p2pkh unlocking script with dummy signature",
+                "request": {
+                    "items": [
+                        "3044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e01",
+                        "03a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e"
+                    ]
+                },
+                "expect": {
+                    "hex": "473044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e012103a7fd499f727ca9343de6eebf651addffd06b28f62f4c23da2c2ee31c7b1d7a6e"
+                }
+            },
+            {
+                "case": "p2ms unlocking script with dummy signature",
+                "request": {
+                    "items": [
+                        "OP_0",
+                        "3044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e01",
+                        "304402204aa928aac947772113c0d670bb2ce843d2683750dbbbfa341b1b44139009e73802201c3172df980e9a068f584b585abde226bdbb099269125386f3f267c5124c3e0301"
+                    ]
+                },
+                "expect": {
+                    "hex": "00473044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e0147304402204aa928aac947772113c0d670bb2ce843d2683750dbbbfa341b1b44139009e73802201c3172df980e9a068f584b585abde226bdbb099269125386f3f267c5124c3e0301"
+                }
+            },
+            {
+                "case": "HTLC unlocking script with dummy signature(no-delay)",
+                "request": {
+                    "items": [
+                        "3044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e01",
+                        "OP_TRUE"
+                    ]
+                },
+                "expect": {
+                    "hex": "473044022065d9887baa46ed54756b67e62bcd4288dcaafeaa160972291abbeea17f5a06c8022077669a955a4ccbab02ad933684c7f54f3f88da34767f8b71926840ed17c1b33e0151"
+                }
+            },
+            {
+                "case": "HTLC unlocking script with dummy signature(delayed)",
+                "request": {
+                    "items": [
+                        "304402204aa928aac947772113c0d670bb2ce843d2683750dbbbfa341b1b44139009e73802201c3172df980e9a068f584b585abde226bdbb099269125386f3f267c5124c3e0301",
+                        "OP_FALSE"
+                    ]
+                },
+                "expect": {
+                    "hex": "47304402204aa928aac947772113c0d670bb2ce843d2683750dbbbfa341b1b44139009e73802201c3172df980e9a068f584b585abde226bdbb099269125386f3f267c5124c3e030100"
+                }
+            },
+            {
+                "case": "Error - empty items",
+                "request": {
+                    "items": []
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: empty script items.",
+                    "cfd": "Failed to CreateScript. empty script items."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Script.CreateMultisigScriptSig",
+        "cases": [
+            {
+                "case": "1-signature",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "0004111111114752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "sign 2",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "00041111111104222222224752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "sign derEncode true",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                            "type": "sign",
+                            "derEncode": true,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "00473044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb014752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "sign derEncode false",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb01",
+                            "type": "sign",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "00473044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb014752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "empty sign hex (derEncode: false)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "00004752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "sign maximum (sign count: 15)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "55555555",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4752210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "sign with related pubkey (sign count: 15, non-segwit 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false,
+                            "relatedPubkey": "0257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false,
+                            "relatedPubkey": "03b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0"
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false,
+                            "relatedPubkey": "0254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign with related pubkey and no related pubkey (sign count: 15, non-segwit 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign with related pubkey (sign count: 15, segwit 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false,
+                            "relatedPubkey": "0257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false,
+                            "relatedPubkey": "03b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0"
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false,
+                            "relatedPubkey": "0254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign with related pubkey and no related pubkey (sign count: 15, segwit 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign with related pubkey (sign count: 15, p2sh-p2wsh 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false,
+                            "relatedPubkey": "0257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false,
+                            "relatedPubkey": "03b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0"
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false,
+                            "relatedPubkey": "0254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign with related pubkey and no related pubkey (sign count: 15, p2sh-p2wsh 10-of-15 multisig)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "55555555",
+                            "derEncode": false,
+                            "relatedPubkey": "02cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f"
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false,
+                            "relatedPubkey": "0336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e"
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false,
+                            "relatedPubkey": "03311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a61"
+                        },
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false,
+                            "relatedPubkey": "024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf5"
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false,
+                            "relatedPubkey": "023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a550179"
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false,
+                            "relatedPubkey": "023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf05086"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false,
+                            "relatedPubkey": "02624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62"
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false,
+                            "relatedPubkey": "030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9"
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false,
+                            "relatedPubkey": "0300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec3"
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false
+                        }
+                    ],
+                    "redeemScript": "5a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                },
+                "expect": {
+                    "hex": "0004111111110422222222043333333304444444440455555555046666666604777777770488888888049999999904aaaaaaaa04bbbbbbbb04cccccccc04dddddddd04eeeeeeee04ffffffff4d01025a2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a612102158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f91163342102cb839b30751233637d21c2a1f12c09f8183d3f6dc97d1bfc0ed3d787499de39f21030a6324abc47e046efe98841773bad9aab843a177d9dcfdf06f8132ab97e785c9210300d6d0ee236deb0257c5e337b0192cdaec944eb5e83d34a305cd8bbfc62bbec321024c062ac5aab7f754e134385aa31c8de55b5414d613ede69484f30e4ef6e70cf52102624f62bc972674029a6d9f207dc8ccf4ffb58b6faafc352619142fd98bf46c62210336f92fc6f5470c13229fb59facba5b040285a11b3040d1ba4cd69e1ff58a3b9e21023765bb0b30563a53508f36495f639ce664f24b0b518e0451d5dc7dec6a55017921023b02f8b116398f14981f97b4118baa5c72dc9973031529569e54a588caf050862103b44f76723b1e1c8af9d48e3f7478364781c5f97aececaa27e3cc0970c546a2f0210257feca779a4bf12e6737695dccdc7c381535e5243c440830b5f722e0f9d32be8210254abd0c9feaf82fc04bdc9d0e6523d87230cd7f7b57d173b58e2019f77fd201a5fae"
+                }
+            },
+            {
+                "case": "sign empty",
+                "request": {
+                    "signParams": [],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "The signature has empty.",
+                    "message": "Failed to CreateMultisigScriptSig. empty sign params."
+                }
+            },
+            {
+                "case": "empty sign hex (derEncode: true)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "",
+                            "derEncode": true,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "capi": "Failed to parameter. signature is null or empty.",
+                    "cfd": "Invalid hex string. empty sign data."
+                }
+            },
+            {
+                "case": "invalid sign hex (3 chars)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "111",
+                            "derEncode": false,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hex value.",
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "empty sign sighashType",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                            "derEncode": true,
+                            "sighashType": ""
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid sighash type.",
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                }
+            },
+            {
+                "case": "invalid sign sighashType",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                            "derEncode": true,
+                            "sighashType": "abcde"
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid sighash type.",
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                }
+            },
+            {
+                "case": "empty redeemScript (hashType: p2sh)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                            "derEncode": true,
+                            "sighashType": "all"
+                        }
+                    ],
+                    "redeemScript": ""
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "capi": "Failed to parameter. redeemScript is null or empty.",
+                    "message": "Invalid hex string. empty redeemScript."
+                }
+            },
+            {
+                "case": "sign maximum over (sign count: 16)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "33333333",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "44444444",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "55555555",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "66666666",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "77777777",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "88888888",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "99999999",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "aaaaaaaa",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "bbbbbbbb",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "cccccccc",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "dddddddd",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "eeeeeeee",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "ffffffff",
+                            "derEncode": false
+                        },
+                        {
+                            "hex": "10101010",
+                            "derEncode": false
+                        }
+                    ],
+                    "redeemScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                },
+                "error": {
+                    "code": 3,
+                    "type": "out_of_range",
+                    "message": "Value out of range. sign array length over."
+                }
+            },
+            {
+                "case": "Invalid Script(OP_MULTISIG not found in redeemScript)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        }
+                    ],
+                    "redeemScript": "522103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a6153"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "OP_CHCKMULTISIG(OP_CHECKMULTISIGVERIFY) not found in redeem script."
+                }
+            },
+            {
+                "case": "Invalid Script(OP_M pubkey contain num not found in redeemScript)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        }
+                    ],
+                    "redeemScript": "522103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a615387ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid OP_CHCKMULTISIG(OP_CHECKMULTISIGVERIFY) input in redeem script. Missing contain pubkey number."
+                }
+            },
+            {
+                "case": "Invalid Script(not binary data input in redeemScript)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        }
+                    ],
+                    "redeemScript": "522103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c02900053ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid ScriptElementType.(not binary)"
+                }
+            },
+            {
+                "case": "Invalid Script(OP_N require sig num not found in redeemScript)",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c"
+                        }
+                    ],
+                    "redeemScript": "2103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a6153ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid OP_CHCKMULTISIG(OP_CHECKMULTISIGVERIFY) input in redeem script. Missing require signature number."
+                }
+            },
+            {
+                "case": "related pubkey is missing in redeemScript",
+                "request": {
+                    "signParams": [
+                        {
+                            "hex": "11111111",
+                            "derEncode": false,
+                            "relatedPubkey": "03d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b7"
+                        },
+                        {
+                            "hex": "22222222",
+                            "derEncode": false,
+                            "relatedPubkey": "02158acb215ab8d1ec30e17a98824e0f443f70b8d90bf5b9c6ef3d1076f9116334"
+                        }
+                    ],
+                    "redeemScript": "522103d21dcddc09b0d3e831f3d8a435f1d0221fe738d2232cf67af9e0f40ce10059b721033778f8983c89143a6c12c31b4662bfb69eb9d31ae4d18f4b9c7e3da502be467c2103311266f4d7ca742ca096ccdd341293bf769b41e8b5f7ea6a8855d154106c1a6153ae"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Missing related pubkey in script. Check your signature and pubkey pair."
+                }
+            }
+        ]
+    }
+]

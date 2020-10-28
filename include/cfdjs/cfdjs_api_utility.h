@@ -68,7 +68,7 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @param[in] request   request struct from json
    * @return response struct including decoded signature
    */
-  static DecodeDerSignatureToRawResponseStruct DecodeDerSignatureToRaw(
+  static SignatureDataResponseStruct DecodeDerSignatureToRaw(
       DecodeDerSignatureToRawRequestStruct request);
 
  private:

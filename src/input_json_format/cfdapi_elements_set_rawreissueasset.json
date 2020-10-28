@@ -1,51 +1,70 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Set reissue asset.",
   "request": {
     ":class": "SetRawReissueAssetRequest",
+    ":class:comment": "Request for set reissue asset.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "isRandomSortTxOut": false,
     "isRandomSortTxOut:require": "optional",
+    "isRandomSortTxOut:comment": "txout random sort after adding transaction",
     "issuances:require": "require",
+    "issuances:comment": "reissuance txin data",
     "issuances": [
       {
         ":class": "ReissuanceDataRequest",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:type": "uint32_t",
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "amount": 0,
         "amount:require": "require",
+        "amount:comment": "asset amount",
         "address": "",
         "address:require": "require",
+        "address:comment": "send asset address",
         "assetBlindingNonce": "",
         "assetBlindingNonce:require": "require",
+        "assetBlindingNonce:comment": "utxo asset blinder",
         "assetEntropy": "",
         "assetEntropy:require": "require",
+        "assetEntropy:comment": "issuance entropy",
         "isRemoveNonce": false,
-        "isRemoveNonce:require": "optional"
+        "isRemoveNonce:require": "optional",
+        "isRemoveNonce:comment": "remove nonce flag."
       }
     ]
   },
   "response": {
     ":class": "SetRawReissueAssetResponse",
+    ":class:comment": "Response of set reissue asset.",
     "hex": "",
     "hex:require": "require",
+    "hex:comment": "transaction hex",
     "issuances:require": "require",
+    "issuances:comment": "generate reissuance data",
     "issuances": [
       {
-        ":class": "ReissuanceDataResponse",
+        ":class": "IssuanceDataResponse",
+        ":class:comment": "issuance data",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:type": "uint32_t",
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "issued asset",
         "entropy": "",
-        "entropy:require": "require"
+        "entropy:require": "require",
+        "entropy:comment": "issuance entropy"
       }
     ]
   }

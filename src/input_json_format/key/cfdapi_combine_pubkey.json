@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "CombinePubkey",
+  "comment": "Combine pubkey.",
+  "request": {
+    ":class": "PubkeyListData",
+    ":class:comment": "pubkey list data",
+    "pubkeys": [""],
+    "pubkeys:require": "require",
+    "pubkeys:comment": "public key list"
+  },
+  "response": {
+    ":class": "PubkeyData",
+    ":class:comment": "schnorr pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "public key"
+  }
+}

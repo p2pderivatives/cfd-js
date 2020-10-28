@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "NegatePrivkey",
+  "comment": "Negate privkey.",
+  "request": {
+    ":class": "PrivkeyData",
+    ":class:comment": "private key data.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "private key. set is wif or hex."
+  },
+  "response": {
+    ":class": "OutputPrivkeyData",
+    ":class:comment": "privkey data.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey hex"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "TweakAddPrivkey",
+  "comment": "TweakAdd privkey.",
+  "request": {
+    ":class": "TweakPrivkeyData",
+    ":class:comment": "tweak privkey data",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey (wif or hex)",
+    "tweak": "",
+    "tweak:require": "require",
+    "tweak:comment": "32-byte tweak data"
+  },
+  "response": {
+    ":class": "OutputPrivkeyData",
+    ":class:comment": "privkey data.",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey hex"
+  }
+}

@@ -1,80 +1,114 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Create pegin transaction",
   "request": {
     ":class": "CreateRawPeginRequest",
+    ":class:comment": "Request for create pegin transaction",
     "version": 2,
     "version:type": "uint32_t",
     "version:require": "optional",
+    "version:comment": "transaction version",
     "locktime": 0,
     "locktime:type": "uint32_t",
     "locktime:require": "optional",
+    "locktime:comment": "locktime",
     "txins:require": "require",
+    "txins:comment": "txin list",
     "txins": [
       {
         ":class": "ElementsPeginTxIn",
+        ":class:comment": "Pegin's txin data",
         "isPegin": true,
         "isPegin:require": "optional",
+        "isPegin:comment": "pegin flag",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:type": "uint32_t",
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "sequence": 4294967295,
         "sequence:type": "uint32_t",
         "sequence:require": "optional",
-        "peginwitness:require": "optional",
+        "sequence:comment": "sequence number",
+        "peginwitness:require": "require",
+        "peginwitness:comment": "pegin witness data",
         "peginwitness": {
-          ":class": "ElementsPeginWitness",
+          ":class": "ElementsAddPeginWitness",
+          ":class:comment": "Pegin's witness stack",
           "amount": 0,
           "amount:require": "require",
+          "amount:comment": "pegin amount",
           "asset": "",
           "asset:require": "require",
+          "asset:comment": "pegin asset",
           "mainchainGenesisBlockHash": "",
           "mainchainGenesisBlockHash:require": "require",
+          "mainchainGenesisBlockHash:comment": "mainchain genesis block hash.",
           "claimScript": "",
           "claimScript:require": "require",
+          "claimScript:comment": "claim script",
           "mainchainRawTransaction": "",
           "mainchainRawTransaction:require": "require",
+          "mainchainRawTransaction:comment": "mainchain transaction hex",
           "mainchainTxoutproof": "",
-          "mainchainTxoutproof:require": "require"
+          "mainchainTxoutproof:require": "require",
+          "mainchainTxoutproof:comment": "mainchain txoutproof"
         },
         "isRemoveMainchainTxWitness": false,
         "isRemoveMainchainTxWitness:require": "optional",
+        "isRemoveMainchainTxWitness:comment": "(deprecated) remove mainchain txhex's witness data.",
         "isRemoveMainchainTxWitness:hint": "It is necessary to set true for Elements v0.18 or higher."
       }
     ],
     "txouts:require": "optional",
+    "txouts:comment": "txout list",
     "txouts": [
       {
-        ":class": "ElementsPeginTxOut",
+        ":class": "ElementsTxOut",
+        ":class:comment": "adding txout data",
         "address": "",
         "address:require": "require",
+        "address:comment": "address",
         "amount": 0,
         "amount:require": "require",
+        "amount:comment": "satoshi amount",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "asset",
         "directLockingScript": "",
         "directLockingScript:require": "optional",
+        "directLockingScript:comment": "locking script",
         "directNonce": "",
         "directNonce:require": "optional",
+        "directNonce:comment": "nonce for confidential key",
         "isRemoveNonce": false,
-        "isRemoveNonce:require": "optional"
+        "isRemoveNonce:require": "optional",
+        "isRemoveNonce:comment": "remove nonce flag"
       }
     ],
     "fee:require": "optional",
+    "fee:comment": "Transaction fee data.",
     "fee": {
-      ":class": "ElementsPeginTxOutFee",
+      ":class": "ElementsTxOutFee",
+      ":class:comment": "Transaction fee data.",
       "amount": 0,
       "amount:require": "require",
+      "amount:comment": "satoshi amount",
       "asset": "",
-      "asset:require": "require"
+      "asset:require": "require",
+      "asset:comment": "asset"
     },
     "isRandomSortTxOut": false,
-    "isRandomSortTxOut:require": "optional"
+    "isRandomSortTxOut:require": "optional",
+    "isRandomSortTxOut:comment": "txout random sort after adding transaction"
   },
   "response": {
-    ":class": "CreateRawPeginResponse",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "Response of create transaction",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "transaction hex"
   }
 }

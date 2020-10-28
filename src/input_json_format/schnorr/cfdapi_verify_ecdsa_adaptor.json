@@ -1,0 +1,35 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "VerifyEcdsaAdaptor",
+  "comment": "Verify signature on ecdsa adaptor.",
+  "request": {
+    ":class": "VerifyEcdsaAdaptorRequest",
+    ":class:comment": "Request for verify signature",
+    "adaptorSignature": "",
+    "adaptorSignature:require": "require",
+    "adaptorSignature:comment": "adaptor signature hex.",
+    "proof": "",
+    "proof:require": "require",
+    "proof:comment": "adaptor proof.",
+    "adaptor": "",
+    "adaptor:require": "require",
+    "adaptor:comment": "adaptor public key.",
+    "message": "",
+    "message:require": "require",
+    "message:comment": "message data.",
+    "message:hint": "32-byte hash, or text message.",
+    "isHashed": true,
+    "isHashed:require": "optional",
+    "isHashed:comment": "is 32-byte hashed message.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "public key."
+  },
+  "response": {
+    ":class": "VerifySignatureResponse",
+    "success": true,
+    "success:require": "require",
+    "success:comment": "verify result",
+    "success:hint": "true only. If it fails, an error is thrown."
+  }
+}

@@ -1,0 +1,2114 @@
+[
+    {
+        "name": "Address.Create",
+        "references": [
+            "https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses",
+            "https://qiita.com/osada/items/fe970427474f4326e9ae",
+            "https://bc-2.jp/tools/bech32demo/index.html"
+        ],
+        "cases": [
+            {
+                "case": "HashType(P2PKH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "address": "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs",
+                    "lockingScript": "76a914f54a5851e9372b87810a8e60cdd2e7cfd80b6e3188ac"
+                }
+            },
+            {
+                "case": "HashType(P2PKH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "030527ca322fbc0db2bb92560af7a3364599c0cfa4c2f8be5add2cf8a9f7053e14",
+                        "type": "pubkey"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "address": "mjawtDFWiNppWUqczgQevgyg6Hg7J8Uxcg",
+                    "lockingScript": "76a9142ca1d2e7214b16725cf6310867460633a061edcb88ac"
+                }
+            },
+            {
+                "case": "HashType(P2SH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "76a9147f6ab65fa911f558ca2dde3e9d073acb02c0d5c688ac",
+                        "type": "redeem_script"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "3KxE77EHe1ip6WGRifwr9fZ5WBDGsLyWFz",
+                    "lockingScript": "a914c852ac34a1c76b63a279c97502c9ccc4e3cb9e8b87"
+                }
+            },
+            {
+                "case": "HashType(P2SH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "016eb1752103b05c78e5dbde5046d0545fa788bac2303929259aa77f5eedf1d87bddbca1bb3cac",
+                        "type": "redeem_script"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "2NEbifo1SsiCYMQhGxGCg3tcTzR8xHuhqeH",
+                    "lockingScript": "a914ea3ae70e53e6e2813002738cba26bd0cfcdecb0687"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WPKH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "address": "3JvL6Ymt8MVWiCNHC7oWU6nLeHNJKLZGLN",
+                    "lockingScript": "a914bcfeb728b584253d5f3f70bcb780e9ef218a68f487",
+                    "redeemScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WPKH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
+                        "type": "pubkey"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "address": "2NAUYAHhujozruyzpsFRP63mbrdaU5wnEpN",
+                    "lockingScript": "a914bcfeb728b584253d5f3f70bcb780e9ef218a68f487",
+                    "redeemScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WSH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                        "type": "redeem_script"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "3NVZWnhKt53ukKw4Qm217Zk57FE8VnKjH2",
+                    "lockingScript": "a914e4300531190587e3880d4c3004f5355d88ff928d87",
+                    "redeemScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WSH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                        "type": "redeem_script"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "2NE3maXdMVXZFx7Zc5tdsjWjLKbSJHTyaoU",
+                    "lockingScript": "a914e4300531190587e3880d4c3004f5355d88ff928d87",
+                    "redeemScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "HashType(P2WPKH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
+                    "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2WPKH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "0279BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798",
+                        "type": "pubkey"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "address": "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx",
+                    "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2WSH) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                        "type": "redeem_script"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3",
+                    "lockingScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "HashType(P2WSH) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
+                        "type": "redeem_script"
+                    },
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7",
+                    "lockingScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "Elements HashType(P2PKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce",
+                        "type": "pubkey"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "address": "QKXGAM4Cvd1fvLEz5tbq4YwNRzTjdMWi2q",
+                    "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac"
+                }
+            },
+            {
+                "case": "Elements HashType(P2PKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "0221a8c3759f94ee780086ef2e180401ab57e65eb37a8ad4048c9304a3aa430d46",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "address": "2duUQnx5zuEhwsXtwpcYoA1xBGTzw7qDn18",
+                    "lockingScript": "76a914dbe367d802d56c6c794b70a322f87c2fc766b32288ac"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "5221026922ebe722bad2f73f1f2f4f8be39a8215bc5d68d2f12b655c9ed7290b419461210359d250d32ab5e30246d3a15fe9ec202613b3c2354133184e1aada4f5ff570b1d52ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "Gr23S1t38iLfYhoA3JVB41XgnHrGeuu4gW",
+                    "lockingScript": "a91460ee0a71aed74b76902a335cc5575daeab769fa987"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "5221024c055f6ed23a35f72ee508c3ad51b131686340ef54ea56357b9a025ffb6b93002103c6c56c7b12b4d224f036fb47987b579e871d3f4919a6801cf9df56615ff0f22152ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "XRpicZNrFZumBMhRV5BSYW28pGX7JyY1ua",
+                    "lockingScript": "a9149ec42b6cfa1b0bc3f55f07af29867057cb0b8a2e87"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce",
+                        "type": "pubkey"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "address": "Gpxfy5S6c6c9MCGHDSetdXpURmAck8LX84",
+                    "lockingScript": "a9145552bfdf1d11e4b0ff877bf0012ae1cc054d398687",
+                    "redeemScript": "0014f42331c418ef4517ba644ad6e9fc99681ad43937"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "02494f889a875d1ccdab8c34d40346f2661e7e2f7c31088c2fdd1ffc9ede838faa",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "address": "XR8iZq5ZZGe6ArQMtGo327GbF6QbJcdFR5",
+                    "lockingScript": "a91497337debcc62f2ede4fd37263323c089801c932987",
+                    "redeemScript": "0014d86c0ba00f7b10c701a283baabdde002e3b0ac0a"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WSH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "5221026922ebe722bad2f73f1f2f4f8be39a8215bc5d68d2f12b655c9ed7290b419461210359d250d32ab5e30246d3a15fe9ec202613b3c2354133184e1aada4f5ff570b1d52ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "Gmavxxp6FY96977GGvBwk71VXFTFMdig4y",
+                    "lockingScript": "a914304dbd9f6ef2f06cf16d8087343b30db00a18c1d87",
+                    "redeemScript": "0020d2fa4bd23f2f8178792329cc7dc11b99d5940569b86c49d22cb2d4af8cd07097"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WSH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "XCxh9LWwzygfq9P1g6HjXmxfTRcqDejiGd",
+                    "lockingScript": "a91411aca2b63fbee2cdda856217a8863135b070978b87",
+                    "redeemScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce",
+                        "type": "pubkey"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "address": "ex1q7s3nr3qcaaz30wnyfttwnlyedqddgwfhclhncc",
+                    "lockingScript": "0014f42331c418ef4517ba644ad6e9fc99681ad43937"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "02086983d61829536858913ead064797b71c598628e03d2d04dadcd151715a7552",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "address": "ert1q57etrknhl75e64jmqrvl0vwzu39xjpagaw9ynw",
+                    "lockingScript": "0014a7b2b1da77ffa99d565b00d9f7b1c2e44a6907a8"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WSH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "5221026922ebe722bad2f73f1f2f4f8be39a8215bc5d68d2f12b655c9ed7290b419461210359d250d32ab5e30246d3a15fe9ec202613b3c2354133184e1aada4f5ff570b1d52ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "ex1q6tayh53l97qhs7fr98x8msgmn82egptfhpkyn53vkt22lrxswztsgnpmxp",
+                    "lockingScript": "0020d2fa4bd23f2f8178792329cc7dc11b99d5940569b86c49d22cb2d4af8cd07097"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WSH) regtest",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                        "type": "redeem_script"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq",
+                    "lockingScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6"
+                }
+            },
+            {
+                "case": "Error(network is invalid)",
+                "request": {
+                    "keyData": {
+                        "hex": "025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnetttt",
+                    "hashType": "p2wpkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Error(hashtype is invalid)",
+                "request": {
+                    "keyData": {
+                        "hex": "025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2pk"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: p2pk",
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(scriptHex is invalid)",
+                "request": {
+                    "keyData": {
+                        "hex": "xxxx",
+                        "type": "redeem_script"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "Error(pubkeyHex is invalid)",
+                "request": {
+                    "keyData": {
+                        "hex": "xxxx",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "Error(scriptHex is none)",
+                "request": {
+                    "keyData": {
+                        "hex": "",
+                        "type": "redeem_script"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "script hex is empty."
+                }
+            },
+            {
+                "case": "Error(type is invalid)",
+                "request": {
+                    "keyData": {
+                        "hex": "",
+                        "type": "dummy"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "pubkey hex is empty."
+                }
+            },
+            {
+                "case": "Error(pubkeyHex is longer)",
+                "request": {
+                    "keyData": {
+                        "hex": "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b23520250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "Error(network is invalid on Elements)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "p2wpkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid elements_network_type passed. elements_network_type must be \"liquidv1\" or \"liquidregtest\" or \"elementsregtest\" or \"regtest\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "Error(hashtype is invalid)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "025476c2e83188368da1ff3e292e7acafcdb3566bb0ad253f62fc70f07aeee6357",
+                        "type": "pubkey"
+                    },
+                    "network": "liquidv1",
+                    "hashType": "p2pk"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: p2pk",
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(scriptHex is invalid)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "0254",
+                        "type": "redeem_script"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "buffer is incorrect size."
+                }
+            },
+            {
+                "case": "Error(pubkeyHex is invalid)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "0254",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "Error(scriptHex is none)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "",
+                        "type": "redeem_script"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "script hex is empty."
+                }
+            },
+            {
+                "case": "Error(type is invalid)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "",
+                        "type": "dummy"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "pubkey hex is empty."
+                }
+            },
+            {
+                "case": "Error(pubkeyHex is longer)",
+                "request": {
+                    "isElements": true,
+                    "keyData": {
+                        "hex": "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b23520250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid Pubkey data."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.GetInfo",
+        "cases": [
+            {
+                "case": "HashType(P2PKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
+                },
+                "expect": {
+                    "lockingScript": "76a914f54a5851e9372b87810a8e60cdd2e7cfd80b6e3188ac",
+                    "network": "mainnet",
+                    "hashType": "p2pkh",
+                    "hash": "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
+                }
+            },
+            {
+                "case": "HashType(P2PKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "mjawtDFWiNppWUqczgQevgyg6Hg7J8Uxcg"
+                },
+                "expect": {
+                    "lockingScript": "76a9142ca1d2e7214b16725cf6310867460633a061edcb88ac",
+                    "network": "testnet",
+                    "hashType": "p2pkh",
+                    "hash": "2ca1d2e7214b16725cf6310867460633a061edcb"
+                }
+            },
+            {
+                "case": "HashType(P2SH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "3KxE77EHe1ip6WGRifwr9fZ5WBDGsLyWFz"
+                },
+                "expect": {
+                    "lockingScript": "a914c852ac34a1c76b63a279c97502c9ccc4e3cb9e8b87",
+                    "network": "mainnet",
+                    "hashType": "p2sh",
+                    "hash": "c852ac34a1c76b63a279c97502c9ccc4e3cb9e8b"
+                }
+            },
+            {
+                "case": "HashType(P2SH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "2NEbifo1SsiCYMQhGxGCg3tcTzR8xHuhqeH"
+                },
+                "expect": {
+                    "lockingScript": "a914ea3ae70e53e6e2813002738cba26bd0cfcdecb0687",
+                    "network": "testnet",
+                    "hashType": "p2sh",
+                    "hash": "ea3ae70e53e6e2813002738cba26bd0cfcdecb06"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WPKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "3JvL6Ymt8MVWiCNHC7oWU6nLeHNJKLZGLN"
+                },
+                "expect": {
+                    "lockingScript": "a914bcfeb728b584253d5f3f70bcb780e9ef218a68f487",
+                    "network": "mainnet",
+                    "hashType": "p2sh",
+                    "hash": "bcfeb728b584253d5f3f70bcb780e9ef218a68f4"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WPKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "2NAUYAHhujozruyzpsFRP63mbrdaU5wnEpN"
+                },
+                "expect": {
+                    "lockingScript": "a914bcfeb728b584253d5f3f70bcb780e9ef218a68f487",
+                    "network": "testnet",
+                    "hashType": "p2sh",
+                    "hash": "bcfeb728b584253d5f3f70bcb780e9ef218a68f4"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WSH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "3NVZWnhKt53ukKw4Qm217Zk57FE8VnKjH2"
+                },
+                "expect": {
+                    "lockingScript": "a914e4300531190587e3880d4c3004f5355d88ff928d87",
+                    "network": "mainnet",
+                    "hashType": "p2sh",
+                    "hash": "e4300531190587e3880d4c3004f5355d88ff928d"
+                }
+            },
+            {
+                "case": "HashType(P2SH-P2WSH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "2NE3maXdMVXZFx7Zc5tdsjWjLKbSJHTyaoU"
+                },
+                "expect": {
+                    "lockingScript": "a914e4300531190587e3880d4c3004f5355d88ff928d87",
+                    "network": "testnet",
+                    "hashType": "p2sh",
+                    "hash": "e4300531190587e3880d4c3004f5355d88ff928d"
+                }
+            },
+            {
+                "case": "HashType(P2WPKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+                },
+                "expect": {
+                    "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6",
+                    "network": "mainnet",
+                    "hashType": "p2wpkh",
+                    "witnessVersion": 0,
+                    "hash": "751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2WPKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx"
+                },
+                "expect": {
+                    "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6",
+                    "network": "testnet",
+                    "hashType": "p2wpkh",
+                    "witnessVersion": 0,
+                    "hash": "751e76e8199196d454941c45d1b3a323f1433bd6"
+                }
+            },
+            {
+                "case": "HashType(P2WSH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3"
+                },
+                "expect": {
+                    "lockingScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262",
+                    "network": "mainnet",
+                    "hashType": "p2wsh",
+                    "witnessVersion": 0,
+                    "hash": "1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "HashType(P2WSH) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7"
+                },
+                "expect": {
+                    "lockingScript": "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262",
+                    "network": "testnet",
+                    "hashType": "p2wsh",
+                    "witnessVersion": 0,
+                    "hash": "1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "Elements HashType(P2PKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "QKXGAM4Cvd1fvLEz5tbq4YwNRzTjdMWi2q"
+                },
+                "expect": {
+                    "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
+                    "network": "liquidv1",
+                    "hashType": "p2pkh",
+                    "hash": "f42331c418ef4517ba644ad6e9fc99681ad43937"
+                }
+            },
+            {
+                "case": "Elements HashType(P2PKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "2duUQnx5zuEhwsXtwpcYoA1xBGTzw7qDn18"
+                },
+                "expect": {
+                    "lockingScript": "76a914dbe367d802d56c6c794b70a322f87c2fc766b32288ac",
+                    "network": "regtest",
+                    "hashType": "p2pkh",
+                    "hash": "dbe367d802d56c6c794b70a322f87c2fc766b322"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "Gr23S1t38iLfYhoA3JVB41XgnHrGeuu4gW"
+                },
+                "expect": {
+                    "lockingScript": "a91460ee0a71aed74b76902a335cc5575daeab769fa987",
+                    "network": "liquidv1",
+                    "hashType": "p2sh",
+                    "hash": "60ee0a71aed74b76902a335cc5575daeab769fa9"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "XRpicZNrFZumBMhRV5BSYW28pGX7JyY1ua"
+                },
+                "expect": {
+                    "lockingScript": "a9149ec42b6cfa1b0bc3f55f07af29867057cb0b8a2e87",
+                    "network": "regtest",
+                    "hashType": "p2sh",
+                    "hash": "9ec42b6cfa1b0bc3f55f07af29867057cb0b8a2e"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "Gpxfy5S6c6c9MCGHDSetdXpURmAck8LX84"
+                },
+                "expect": {
+                    "lockingScript": "a9145552bfdf1d11e4b0ff877bf0012ae1cc054d398687",
+                    "network": "liquidv1",
+                    "hashType": "p2sh",
+                    "hash": "5552bfdf1d11e4b0ff877bf0012ae1cc054d3986"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "XR8iZq5ZZGe6ArQMtGo327GbF6QbJcdFR5"
+                },
+                "expect": {
+                    "lockingScript": "a91497337debcc62f2ede4fd37263323c089801c932987",
+                    "network": "regtest",
+                    "hashType": "p2sh",
+                    "hash": "97337debcc62f2ede4fd37263323c089801c9329"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WSH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "Gmavxxp6FY96977GGvBwk71VXFTFMdig4y"
+                },
+                "expect": {
+                    "lockingScript": "a914304dbd9f6ef2f06cf16d8087343b30db00a18c1d87",
+                    "network": "liquidv1",
+                    "hashType": "p2sh",
+                    "hash": "304dbd9f6ef2f06cf16d8087343b30db00a18c1d"
+                }
+            },
+            {
+                "case": "Elements HashType(P2SH-P2WSH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "XCxh9LWwzygfq9P1g6HjXmxfTRcqDejiGd"
+                },
+                "expect": {
+                    "lockingScript": "a91411aca2b63fbee2cdda856217a8863135b070978b87",
+                    "network": "regtest",
+                    "hashType": "p2sh",
+                    "hash": "11aca2b63fbee2cdda856217a8863135b070978b"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "ex1q7s3nr3qcaaz30wnyfttwnlyedqddgwfhclhncc"
+                },
+                "expect": {
+                    "lockingScript": "0014f42331c418ef4517ba644ad6e9fc99681ad43937",
+                    "network": "liquidv1",
+                    "hashType": "p2wpkh",
+                    "witnessVersion": 0,
+                    "hash": "f42331c418ef4517ba644ad6e9fc99681ad43937"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "ert1q57etrknhl75e64jmqrvl0vwzu39xjpagaw9ynw"
+                },
+                "expect": {
+                    "lockingScript": "0014a7b2b1da77ffa99d565b00d9f7b1c2e44a6907a8",
+                    "network": "regtest",
+                    "hashType": "p2wpkh",
+                    "witnessVersion": 0,
+                    "hash": "a7b2b1da77ffa99d565b00d9f7b1c2e44a6907a8"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WSH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "address": "ex1q6tayh53l97qhs7fr98x8msgmn82egptfhpkyn53vkt22lrxswztsgnpmxp"
+                },
+                "expect": {
+                    "lockingScript": "0020d2fa4bd23f2f8178792329cc7dc11b99d5940569b86c49d22cb2d4af8cd07097",
+                    "network": "liquidv1",
+                    "hashType": "p2wsh",
+                    "witnessVersion": 0,
+                    "hash": "d2fa4bd23f2f8178792329cc7dc11b99d5940569b86c49d22cb2d4af8cd07097"
+                }
+            },
+            {
+                "case": "Elements HashType(P2WSH) regtest",
+                "request": {
+                    "isElements": true,
+                    "address": "ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq"
+                },
+                "expect": {
+                    "lockingScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6",
+                    "network": "regtest",
+                    "hashType": "p2wsh",
+                    "witnessVersion": 0,
+                    "hash": "7ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6"
+                }
+            },
+            {
+                "case": "Error(empty address)",
+                "request": {
+                    "isElements": false,
+                    "address": ""
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "capi": "Failed to parameter. address is null.",
+                    "cfd": "Base58 decode error."
+                }
+            },
+            {
+                "case": "Error(address is invalid)",
+                "request": {
+                    "isElements": false,
+                    "address": "aaaaaaabbbbbbbb"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Base58 decode error."
+                }
+            },
+            {
+                "case": "Error(prefix is invalid)",
+                "request": {
+                    "isElements": false,
+                    "address": "Q38pi6S5Z6ey6TRtKEFzhzFDJjsL6cwLky"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Unknown address prefix."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "Error(prefix is invalid, elements)",
+                "request": {
+                    "isElements": true,
+                    "address": "16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Unknown address prefix."
+                },
+                "exclude": [
+                    "python"
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Address.MultisigAddresses",
+        "cases": [
+            {
+                "case": "2-of-2 HashType(P2PKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5",
+                        "171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "2-of-2 HashType(P2PKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "testnet",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "mmPPsxXdtqgHFrxZdtFCtkwhHynGTiTsVh",
+                        "mmXpyns3Muq9oE4FTtFET9AKHTZVJUkEv2"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "2-of-2 HashType(P2SH-P2WPKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "3GVz5VfBw52k4uNPowhwociApuk5GdJrrm",
+                        "3DG57PudYQS8ffGU2yY3YbpikvFNs2vJeB"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "2-of-2 HashType(P2SH-P2WPKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "testnet",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "2N84C9EbDYXY6GgzwV5KpRZhS3FxF5jrHx6",
+                        "2N4pHB8qf9rwUsSu1i79vAYoyyGTYgeFvX9"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "2-of-2 HashType(P2WPKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "bc1qgp3v3thdf7qu94ellp2299tsyyv3ug9kkau5q5",
+                        "bc1qg8a3ppzx6ek3cpy7xrx8cvzyuum5axzk4h3dhk"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "2-of-2 HashType(P2WPKH) testnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "testnet",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "tb1qgp3v3thdf7qu94ellp2299tsyyv3ug9kum88m8",
+                        "tb1qg8a3ppzx6ek3cpy7xrx8cvzyuum5axzkl327v9"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "14-of-15 HashType(P2WPKH) mainnet",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "5e2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c45fae",
+                    "network": "mainnet",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "bc1qnfrcn5ktnjpk3hk0jjkald3atudmjla2d4vrsw",
+                        "bc1qmpt0dmlmmmcqxyv7madkqt8tffv5wey08xgplp",
+                        "bc1qxu753xkrs7wuk7n6hjehld523l0d2ja5mfd3da",
+                        "bc1q6kcut5x9utc9pv2p3xk0lm0a6m7zxlnga88jax",
+                        "bc1qtqsmnf9p3sld2gzgd7cwvfpn5ggcvz0csvl5y8",
+                        "bc1qw8ery72vv5urdp52h3en2ewl6qe90jkm8g96xs",
+                        "bc1qprtlkz0gy996m87j78sr68dr026xql4lmnge3g",
+                        "bc1qgytnc9c5yq8z7r7mlaxcgfprs879kzg7jayq38",
+                        "bc1qy85muc03sds4ap4dededgkjn2epnr7ckp7aeh8",
+                        "bc1q3cs20ylkp0x4m7ykw730vnlwgvd40hl3dwnnt6",
+                        "bc1qcqnztfdklych9cx6qf6lj6ayk5fll60x4e3cx6",
+                        "bc1qh9ar6ajqu05mma24p0573yw5hclewr5n6aj88y",
+                        "bc1qer50nud4r535myh0u4r2slhtt943uy4k2truml",
+                        "bc1qt3sv08t2zw6s404svsw4katek4r7k72mr5w8qe",
+                        "bc1qfyn306nu4xr32xcd55j9dy0hcl6rxplkkaay4d"
+                    ],
+                    "pubkeys": [
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
+                    ],
+                    "requireNum": 14
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2PKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "liquidv1",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "Q38pi6S5Z6ey6TRtKEFzhzFDJjsL6cwLky",
+                        "Q3HFovmV2AoqdpXa9EG2GNTqJDeYxT5UR8"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2PKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "2dfJByRVMwD8vfcFJfuYj2JhFLXjEbJbp9L",
+                        "2dfSd5FpmQHHoCyLzVuYkagusL1WTUFnFZT"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2SH-P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "liquidv1",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "GwzVZBnz5CnXse7LeD2nHsxvE4W9WDBD2q",
+                        "Gtkab63RgYBvUQ1QsErt2s5UA51T5kWPcV"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2SH-P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "regtest",
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "XSAD16XMdhU5KF8TXK2FkPmEtDn72mYjMM",
+                        "XNvJ2zmoF2sTv12XkLrMVNsnpEHQeVAM3D"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "liquidv1",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "ex1qgp3v3thdf7qu94ellp2299tsyyv3ug9ku5pvd5",
+                        "ex1qg8a3ppzx6ek3cpy7xrx8cvzyuum5axzkl7v46k"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 2-of-2 HashType(P2WPKH) regtest",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "regtest",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "ert1qgp3v3thdf7qu94ellp2299tsyyv3ug9kxxt5jw",
+                        "ert1qg8a3ppzx6ek3cpy7xrx8cvzyuum5axzk9vxd9v"
+                    ],
+                    "pubkeys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "requireNum": 2
+                }
+            },
+            {
+                "case": "Elements 14-of-15 HashType(P2WPKH) liquidv1",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "5e2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c45fae",
+                    "network": "liquidv1",
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "addresses": [
+                        "ex1qnfrcn5ktnjpk3hk0jjkald3atudmjla28u3maw",
+                        "ex1qmpt0dmlmmmcqxyv7madkqt8tffv5wey0d04ejp",
+                        "ex1qxu753xkrs7wuk7n6hjehld523l0d2ja53qsfqa",
+                        "ex1q6kcut5x9utc9pv2p3xk0lm0a6m7zxlnghw62sx",
+                        "ex1qtqsmnf9p3sld2gzgd7cwvfpn5ggcvz0c69zvf8",
+                        "ex1qw8ery72vv5urdp52h3en2ewl6qe90jkmdpczts",
+                        "ex1qprtlkz0gy996m87j78sr68dr026xql4l364pug",
+                        "ex1qgytnc9c5yq8z7r7mlaxcgfprs879kzg7c5ecu8",
+                        "ex1qy85muc03sds4ap4dededgkjn2epnr7ckthqp68",
+                        "ex1q3cs20ylkp0x4m7ykw730vnlwgvd40hl388wtx6",
+                        "ex1qcqnztfdklych9cx6qf6lj6ayk5fll60xlsvqt6",
+                        "ex1qh9ar6ajqu05mma24p0573yw5hclewr5ns50l2y",
+                        "ex1qer50nud4r535myh0u4r2slhtt943uy4kqz7ykl",
+                        "ex1qt3sv08t2zw6s404svsw4katek4r7k72mfanlde",
+                        "ex1qfyn306nu4xr32xcd55j9dy0hcl6rxplku5qucd"
+                    ],
+                    "pubkeys": [
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
+                    ],
+                    "requireNum": 14
+                }
+            },
+            {
+                "case": "Error(network is invalid)",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnetttt",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Error(hashtype is invalid)",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2pk"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: p2pk",
+                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(hashtype is invalid2)",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid address_type. address_type must be \"p2pkh\" \"p2wpkh\" or \"p2sh-p2wpkh\"."
+                }
+            },
+            {
+                "case": "Error(redeemScript is invalid)",
+                "request": {
+                    "isElements": false,
+                    "redeemScript": "xxxx",
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "Error(network is invalid on Elements)",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "mainnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid elements_network_type passed. elements_network_type must be \"liquidv1\" or \"liquidregtest\" or \"elementsregtest\" or \"regtest\"."
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "Error(hashtype is invalid)",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "liquidv1",
+                    "hashType": "p2pk"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: p2pk",
+                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(hashtype is invalid2)",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae",
+                    "network": "liquidv1",
+                    "hashType": "p2sh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid address_type. address_type must be \"p2pkh\" \"p2wpkh\" or \"p2sh-p2wpkh\"."
+                }
+            },
+            {
+                "case": "Error(redeemScript is invalid)",
+                "request": {
+                    "isElements": true,
+                    "redeemScript": "xxxx",
+                    "network": "liquidv1",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.CreateMultisig",
+        "cases": [
+            {
+                "case": "Testnet",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "tb1qr0qgx08sefuj7z2pm5k5kv754thdml96pvs9annay5qvu43kf2qs2t36xs",
+                    "witnessScript": "5221032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a14352ae"
+                }
+            },
+            {
+                "case": "Mainnet",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c"
+                    ],
+                    "network": "mainnet",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "bc1qzv8nc07hflz9v5w6ujgy56vzpwlq7ma4n6leq0dwm7w4afz6sz0sgd643e",
+                    "witnessScript": "522102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c52ae"
+                }
+            },
+            {
+                "case": "Regtest",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "bcrt1q7w0kyu46ddterr4sglzac38mgaf4dv8jfsf0egumry5yaqqq3fpqg5dgjn",
+                    "witnessScript": "52210205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec552ae"
+                }
+            },
+            {
+                "case": "Testnet(pubkey max)",
+                "request": {
+                    "nrequired": 15,
+                    "keys": [
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "tb1quq2d256q5f3kdsehh920akwgw9up2vnn6vzzhcn54wc9ejtpkz5qfys3z4",
+                    "witnessScript": "5f2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c45fae"
+                }
+            },
+            {
+                "case": "Mainnet(hashType p2sh)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c"
+                    ],
+                    "network": "mainnet",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "3AfQT248yof7qtw7JHD6i7vUmistGviyif",
+                    "redeemScript": "522102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c52ae"
+                }
+            },
+            {
+                "case": "Mainnet(hashType p2sh-p2wsh)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c"
+                    ],
+                    "network": "mainnet",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "34XgY9ws8ParHVHJCu36TqrcBnVZ23JxiU",
+                    "redeemScript": "0020130f3c3fd74fc45651dae4904a69820bbe0f6fb59ebf903daedf9d5ea45a809f",
+                    "witnessScript": "522102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c52ae"
+                }
+            },
+            {
+                "case": "Regtest(hashType p2sh)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "2NGRTbZBLGV4tJ3y4Avz7sa2Dea9o93UaPH",
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "Regtest(hashType p2sh-p2wsh)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "2MtrgHUaouokgnbFVdrbJCwtrcTnyKUWi3o",
+                    "redeemScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6",
+                    "witnessScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "Liquidv1 bech32 (hashType p2wsh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "liquidv1",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "ex1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnqxls2xh",
+                    "witnessScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "ElementsRegtest bech32 (hashType p2wsh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "expect": {
+                    "address": "ert1q0jnggjwnn22a4ywxc2pcw86c0d6tghqkgk3hlryrxl7nmxkylmnq3j0gqq",
+                    "witnessScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "Liquidv1 legacy (hashType p2sh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "liquidv1",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "H6Mm1WP6oAKKu15TL4h5jtHhqNhhauGpEE",
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "ElementsRegtest legacy (hashType p2sh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "XaXUTR7UMezsLc6aDAgZCQ62VXyfCrwsxG",
+                    "redeemScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "Liquidv1 p2sh-segwit (hashType p2sh-p2wsh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "liquidv1",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "GinyhRnaSV18PYMtnzJG5GALoGLshzEfk6",
+                    "redeemScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6",
+                    "witnessScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "ElementsRegtest p2sh-segwit (hashType p2sh-p2wsh)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "03789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd",
+                        "03dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a61626"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2sh-p2wsh"
+                },
+                "expect": {
+                    "address": "XCxh9LWwzygfq9P1g6HjXmxfTRcqDejiGd",
+                    "redeemScript": "00207ca68449d39a95da91c6c283871f587b74b45c1645a37f8c8337fd3d9ac4fee6",
+                    "witnessScript": "522103789ed0bb717d88f7d321a368d905e7430207ebbd82bd342cf11ae157a7ace5fd2103dbc6764b8884a92e871274b87583e6d5c2a58819473e17e107ef3f6aa5a6162652ae"
+                }
+            },
+            {
+                "case": "Error(Wrong key length)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262",
+                        "02be61f4350b4ae7"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "Error(Wrong network type)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "test",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Error(Nonexisting address type)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "testnet",
+                    "hashType": "bech"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: bech",
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(Wrong address type)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "cfd": "Failed to parameter. hash type cannot used pkh target.",
+                    "json": "Invalid address_type. address_type must be \"p2sh\" \"p2wsh\" or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Error(require_num is over)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript require_num is over."
+                }
+            },
+            {
+                "case": "Error(pubkey array empty)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid pubkey_list.",
+                    "cfd": "CreateMultisigScript empty pubkey array."
+                }
+            },
+            {
+                "case": "Error(count is over)",
+                "request": {
+                    "nrequired": 16,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript pubkeys array size is over."
+                }
+            },
+            {
+                "case": "Error(wrong pubkey)",
+                "request": {
+                    "nrequired": 2,
+                    "keys": [
+                        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn",
+                        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hex value.",
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "Error(nrequired is 0)",
+                "request": {
+                    "nrequired": 0,
+                    "keys": [
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c"
+                    ],
+                    "network": "mainnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript require_num is 0."
+                }
+            },
+            {
+                "case": "Error(wrong nrequired)",
+                "request": {
+                    "nrequired": -1,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 3,
+                    "type": "out_of_range",
+                    "cfd": "CreateMultisigScript require_num is over.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            },
+            {
+                "case": "Elements Error(Wrong key length)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262",
+                        "02be61f4350b4ae7"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Invalid Pubkey data."
+                }
+            },
+            {
+                "case": "Elements Error(Wrong network type)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "test",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid network type.",
+                    "json": "Invalid elements_network_type passed. elements_network_type must be \"liquidv1\" or \"liquidregtest\" or \"elementsregtest\" or \"regtest\"."
+                }
+            },
+            {
+                "case": "Elements Error(Nonexisting address type)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "regtest",
+                    "hashType": "bech"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hash type: bech",
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Elements Error(Wrong address type)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2pkh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "cfd": "Failed to parameter. hash type cannot used pkh target.",
+                    "json": "Invalid address_type. address_type must be \"p2sh\" \"p2wsh\" or \"p2sh-p2wsh\"."
+                }
+            },
+            {
+                "case": "Elements Error(require_num is over)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript require_num is over."
+                }
+            },
+            {
+                "case": "Elements Error(pubkey array empty)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid pubkey_list.",
+                    "cfd": "CreateMultisigScript empty pubkey array."
+                }
+            },
+            {
+                "case": "Elements Error(count is over)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 16,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript pubkeys array size is over."
+                }
+            },
+            {
+                "case": "Elements Error(wrong pubkey)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 2,
+                    "keys": [
+                        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn",
+                        "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmn"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "python": "Error: Invalid hex value.",
+                    "cfd": "hex to byte convert error."
+                }
+            },
+            {
+                "case": "Elements Error(nrequired is 0)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 0,
+                    "keys": [
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c"
+                    ],
+                    "network": "liquidv1",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript require_num is 0."
+                }
+            },
+            {
+                "case": "Elements Error(wrong nrequired)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": -1,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5"
+                    ],
+                    "network": "liquidv1",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 3,
+                    "type": "out_of_range",
+                    "cfd": "CreateMultisigScript require_num is over.",
+                    "json": "Json value convert error. Value out of range."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.FromLockingScript",
+        "cases": [
+            {
+                "case": "p2pkh mainnet",
+                "request": {
+                    "lockingScript": "76a914f54a5851e9372b87810a8e60cdd2e7cfd80b6e3188ac",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "address": "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs",
+                    "hashType": "p2pkh"
+                }
+            }
+        ]
+    }
+]

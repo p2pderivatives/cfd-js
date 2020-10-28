@@ -1,22 +1,31 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Get commitment.",
   "request": {
     ":class": "GetCommitmentRequest",
+    ":class:comment": "Request for get commitment.",
     "amount": 0,
     "amount:type": "int64_t",
     "amount:require": "require",
+    "amount:comment": "satoshi amount",
     "asset": "",
     "asset:require": "require",
+    "asset:comment": "asset",
     "assetBlindFactor": "",
     "assetBlindFactor:require": "require",
+    "assetBlindFactor:comment": "asset blind factor",
     "blindFactor": "",
-    "blindFactor:require": "require"
+    "blindFactor:require": "require",
+    "blindFactor:comment": "amount blind factor"
   },
   "response": {
     ":class": "GetCommitmentResponse",
+    ":class:comment": "Response of get commitment.",
     "assetCommitment": "",
     "assetCommitment:require": "require",
+    "assetCommitment:comment": "asset commitment",
     "amountCommitment": "",
-    "amountCommitment:require": "require"
+    "amountCommitment:require": "require",
+    "amountCommitment:comment": "amount commitment"
   }
 }

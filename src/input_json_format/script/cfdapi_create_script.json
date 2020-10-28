@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create script.",
+  "request": {
+    ":class": "CreateScriptRequest",
+    ":class:comment": "Request for creating script.",
+    "items": [""],
+    "items:require": "require",
+    "items:comment": "item array accepts string of op_code, binary hex or number"
+  },
+  "response": {
+    ":class": "ScriptDataResponse",
+    ":class:comment": "The data containing script.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "script hex."
+  }
+}

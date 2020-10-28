@@ -1,0 +1,22 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get pubkey from extkey.",
+  "request": {
+    ":class": "GetPubkeyFromExtkeyRequest",
+    ":class:comment": "Request for get pubkey from extkey.",
+    "extkey": "",
+    "extkey:require": "require",
+    "extkey:comment": "extkey",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest"
+  },
+  "response": {
+    ":class": "PubkeyData",
+    ":class:comment": "Response pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey"
+  }
+}

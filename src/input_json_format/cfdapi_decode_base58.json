@@ -1,7 +1,9 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Decode base58.",
   "request": {
     ":class": "DecodeBase58Request",
+    ":class:comment": "Request for decode base58",
     "data": "",
     "data:require": "require",
     "data:comment": "base58 data",
@@ -11,6 +13,7 @@
   },
   "response": {
     ":class": "DecodeBase58Response",
+    ":class:comment": "Response of decode base58",
     "hex": "",
     "hex:require": "require",
     "hex:comment": "decoded data byte hex"

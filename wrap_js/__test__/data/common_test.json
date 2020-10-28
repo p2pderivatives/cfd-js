@@ -1,0 +1,214 @@
+[
+    {
+        "name": "Base58.Encode",
+        "cases": [
+            {
+                "case": "checkChecksum=true",
+                "request": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7",
+                    "hasChecksum": true
+                },
+                "expect": {
+                    "data": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB"
+                }
+            },
+            {
+                "case": "checkChecksum=false",
+                "request": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252",
+                    "hasChecksum": false
+                },
+                "expect": {
+                    "data": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB"
+                }
+            },
+            {
+                "case": "Error(invalid hex format)",
+                "request": {
+                    "hex": "048",
+                    "hasChecksum": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Base58.Decode",
+        "cases": [
+            {
+                "case": "checkChecksum=true",
+                "request": {
+                    "data": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasChecksum": true
+                },
+                "expect": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7"
+                }
+            },
+            {
+                "case": "checkChecksum=false",
+                "request": {
+                    "data": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasChecksum": false
+                },
+                "expect": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "data": "9XpNiB4DberdMn4jZfZTsXNXKKpgdQ6Q8mFg63kyDnHd8FfRfTXPxGN27bYXRSe1TqTfe4s6MyyZVqiGTWgNiimiSSumMnnsk54MNP99U0",
+                    "hasChecksum": false
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "Decode base58 error."
+                }
+            },
+            {
+                "case": "Error(invalid checksum)",
+                "request": {
+                    "data": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGudso",
+                    "hasChecksum": true
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "Decode base58 error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "AES.Encode",
+        "cases": [
+            {
+                "case": "encrypt",
+                "request": {
+                    "isEncrypt": true,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "01234567890123456789012345678901",
+                    "data": "000011112222333300001111222233330000111122223333"
+                },
+                "expect": {
+                    "hex": "9a7012878146191eff9995851e78b322f9e5275ecd1fd50ca07136d194b0ad9b"
+                }
+            },
+            {
+                "case": "Error(empty key)",
+                "request": {
+                    "isEncrypt": true,
+                    "mode": "cbc",
+                    "key": "",
+                    "iv": "01234567890123456789012345678901",
+                    "data": "000011112222333300001111222233330000111122223333"
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "EncryptAes256Cbc key size error."
+                }
+            },
+            {
+                "case": "Error(empty iv)",
+                "request": {
+                    "isEncrypt": true,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "",
+                    "data": "000011112222333300001111222233330000111122223333"
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "EncryptAes256Cbc error."
+                }
+            },
+            {
+                "case": "Error(invalid key)",
+                "request": {
+                    "isEncrypt": true,
+                    "mode": "cbc",
+                    "key": "00129876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "01234567890123456789012345678901",
+                    "data": "000011112222333300001111222233330000111122223333"
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "EncryptAes256Cbc key size error."
+                }
+            },
+            {
+                "case": "Error(invalid iv)",
+                "request": {
+                    "isEncrypt": true,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "001201234567890123456789012345678901",
+                    "data": "000011112222333300001111222233330000111122223333"
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "EncryptAes256Cbc error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "AES.Decode",
+        "cases": [
+            {
+                "case": "decrypt",
+                "request": {
+                    "isEncrypt": false,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "01234567890123456789012345678901",
+                    "data": "9a7012878146191eff9995851e78b322f9e5275ecd1fd50ca07136d194b0ad9b"
+                },
+                "expect": {
+                    "hex": "000011112222333300001111222233330000111122223333"
+                }
+            },
+            {
+                "case": "Error(empty decrypt data)",
+                "request": {
+                    "isEncrypt": false,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "01234567890123456789012345678901",
+                    "data": ""
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "DecryptAes256Cbc error."
+                }
+            },
+            {
+                "case": "Error(invalid decrypt data)",
+                "request": {
+                    "isEncrypt": false,
+                    "mode": "cbc",
+                    "key": "9876543210987654321098765432109876543210987654321098765432109876",
+                    "iv": "01234567890123456789012345678901",
+                    "data": "001202039a7012878146191eff9995851e78b322f9e5275ecd1fd50ca07136d194b0ad9b"
+                },
+                "error": {
+                    "code": 2,
+                    "type": "illegal_state",
+                    "message": "DecryptAes256Cbc error."
+                }
+            }
+        ]
+    }
+]

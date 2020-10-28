@@ -1,56 +1,80 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Create transaction for Elements.",
   "request": {
     ":class": "ElementsCreateRawTransactionRequest",
+    ":class:comment": "Request for create transaction",
     "version": 2,
     "version:type": "uint32_t",
     "version:require": "optional",
+    "version:comment": "transaction version",
     "locktime": 0,
     "locktime:type": "uint32_t",
     "locktime:require": "optional",
-    "txins:require": "require",
+    "locktime:comment": "locktime",
+    "txins:require": "optional",
+    "txins:comment": "txin list",
     "txins": [
       {
-        ":class": "ElementsTxInRequest",
+        ":class": "TxInRequest",
+        ":class:comment": "The data added to the transaction input.",
         "txid": "",
         "txid:require": "require",
+        "txid:comment": "utxo txid",
         "vout": 0,
         "vout:type": "uint32_t",
         "vout:require": "require",
+        "vout:comment": "utxo vout",
         "sequence": 4294967295,
         "sequence:type": "uint32_t",
-        "sequence:require": "optional"
+        "sequence:require": "optional",
+        "sequence:comment": "sequence number"
       }
     ],
+    "txouts:comment": "txout list",
+    "txouts:comment": "txout list",
     "txouts": [
       {
-        ":class": "ElementsTxOutRequest",
+        ":class": "ElementsTxOut",
+        ":class:comment": "adding txout data",
         "address": "",
         "address:require": "require",
+        "address:comment": "address",
         "amount": 0,
         "amount:require": "require",
+        "amount:comment": "satoshi amount",
         "asset": "",
         "asset:require": "require",
+        "asset:comment": "asset",
         "directLockingScript": "",
         "directLockingScript:require": "optional",
+        "directLockingScript:comment": "locking script",
         "directNonce": "",
         "directNonce:require": "optional",
+        "directNonce:comment": "nonce for confidential key",
         "isRemoveNonce": false,
-        "isRemoveNonce:require": "optional"
+        "isRemoveNonce:require": "optional",
+        "isRemoveNonce:comment": "remove nonce flag"
       }
     ],
     "fee:require": "optional",
+    "fee:comment": "fee data",
     "fee": {
-      ":class": "ElementsTxOutFeeRequest",
+      ":class": "ElementsTxOutFee",
+      ":class:comment": "Transaction fee data.",
       "amount": 0,
       "amount:require": "require",
+      "amount:comment": "satoshi amount",
       "asset": "",
-      "asset:require": "require"
+      "asset:require": "require",
+      "asset:comment": "asset"
     }
   },
   "response": {
-    ":class": "ElementsCreateRawTransactionResponse",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "Response of create transaction",
     "hex": "",
-    "hex:require": "require"
+    "hex:require": "require",
+    "hex:comment": "transaction hex"
   }
 }

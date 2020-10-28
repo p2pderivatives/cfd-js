@@ -59,11 +59,11 @@ ParseScriptResponseStruct ScriptStructApi::ParseScript(
   return result;
 }
 
-CreateScriptResponseStruct ScriptStructApi::CreateScript(
+ScriptDataResponseStruct ScriptStructApi::CreateScript(
     const CreateScriptRequestStruct& request) {
   auto call_func = [](const CreateScriptRequestStruct& request)
-      -> CreateScriptResponseStruct {
-    CreateScriptResponseStruct response;
+      -> ScriptDataResponseStruct {
+    ScriptDataResponseStruct response;
 
     if (request.items.size() == 0) {
       warn(CFD_LOG_SOURCE, "empty script items.");
@@ -82,18 +82,18 @@ CreateScriptResponseStruct ScriptStructApi::CreateScript(
     return response;
   };
 
-  CreateScriptResponseStruct result;
+  ScriptDataResponseStruct result;
   result =
-      ExecuteStructApi<CreateScriptRequestStruct, CreateScriptResponseStruct>(
+      ExecuteStructApi<CreateScriptRequestStruct, ScriptDataResponseStruct>(
           request, call_func, std::string(__FUNCTION__));
   return result;
 }
 
-CreateMultisigScriptSigResponseStruct ScriptStructApi::CreateMultisigScriptSig(
+ScriptDataResponseStruct ScriptStructApi::CreateMultisigScriptSig(
     const CreateMultisigScriptSigRequestStruct& request) {
   auto call_func = [](const CreateMultisigScriptSigRequestStruct& request)
-      -> CreateMultisigScriptSigResponseStruct {
-    CreateMultisigScriptSigResponseStruct response;
+      -> ScriptDataResponseStruct {
+    ScriptDataResponseStruct response;
 
     if (request.sign_params.size() == 0) {
       warn(CFD_LOG_SOURCE, "empty sign params.");
@@ -121,10 +121,9 @@ CreateMultisigScriptSigResponseStruct ScriptStructApi::CreateMultisigScriptSig(
     return response;
   };
 
-  CreateMultisigScriptSigResponseStruct result;
+  ScriptDataResponseStruct result;
   result = ExecuteStructApi<
-      CreateMultisigScriptSigRequestStruct,
-      CreateMultisigScriptSigResponseStruct>(
+      CreateMultisigScriptSigRequestStruct, ScriptDataResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

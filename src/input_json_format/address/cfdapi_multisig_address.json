@@ -1,0 +1,41 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create multisig address and script",
+  "request": {
+    ":class": "CreateMultisigRequest",
+    ":class:comment": "Request for create multisig address and script",
+    "nrequired": 1,
+    "nrequired:type": "uint8_t",
+    "nrequired:require": "require",
+    "nrequired:comment": "require signature num.",
+    "keys:require": "require",
+    "keys:comment": "pubkey list",
+    "keys": [
+      ""
+    ],
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements mode flag.",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "hashType": "p2wsh",
+    "hashType:require": "require",
+    "hashType:comment": "hash type",
+    "hashType:hint": "p2sh, p2wsh, p2sh-p2wsh"
+  },
+  "response": {
+    ":class": "CreateMultisigResponse",
+    ":class:comment": "Response of create multisig address and script",
+    "address": "",
+    "address:require": "require",
+    "address:comment": "address",
+    "redeemScript": "",
+    "redeemScript:require": "optional",
+    "redeemScript:comment": "(required for P2SH or P2SH-P2WSH) redeem script for unlocking script",
+    "witnessScript": "",
+    "witnessScript:require": "optional",
+    "witnessScript:comment": "(required for P2WSH or P2SH-P2WSH) witness script for witness stack"
+  }
+}

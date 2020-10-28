@@ -1,4 +1,4 @@
-// Copyright 2019 CryptoGarage
+// Copyright 2020 CryptoGarage
 /**
  * @file cfdjs_api_key.h
  *
@@ -39,7 +39,7 @@ class CFD_JS_API_EXPORT KeyStructApi {
    * @param[in] request ec signatureを計算するためのパラメータ
    * @return ec signature
    */
-  static CalculateEcSignatureResponseStruct CalculateEcSignature(
+  static SignatureDataResponseStruct CalculateEcSignature(
       const CalculateEcSignatureRequestStruct& request);
 
   /**
@@ -47,32 +47,99 @@ class CFD_JS_API_EXPORT KeyStructApi {
    * @param[in] request  parameter into WIF.
    * @return hex, networkType, isCompressed.
    */
-  static GetPrivkeyFromWifResponseStruct GetPrivkeyFromWif(
-      const GetPrivkeyFromWifRequestStruct& request);
+  static PrivkeyHexDataStruct GetPrivkeyFromWif(
+      const PrivkeyWifDataStruct& request);
 
   /**
    * @brief Get WIF from privkey's hex.
    * @param[in] request  pribkey hex, networkType, isCompressed.
    * @return WIF
    */
-  static GetPrivkeyWifResponseStruct GetPrivkeyWif(
-      const GetPrivkeyWifRequestStruct& request);
+  static PrivkeyWifDataStruct GetPrivkeyWif(
+      const PrivkeyHexDataStruct& request);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static OutputPrivkeyDataStruct TweakAddPrivkey(
+      const TweakPrivkeyDataStruct& request);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static OutputPrivkeyDataStruct TweakMulPrivkey(
+      const TweakPrivkeyDataStruct& request);
+
+  /**
+   * @brief Get the negated public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static OutputPrivkeyDataStruct NegatePrivkey(
+      const PrivkeyDataStruct& request);
 
   /**
    * @brief JSONパラメータの情報を元に、秘密鍵から公開鍵を取得する.
    * @param[in] request リクエスト構造体
    * @return pubkeyを含むレスポンス構造体
    */
-  static GetPubkeyFromPrivkeyResponseStruct GetPubkeyFromPrivkey(
+  static PubkeyDataStruct GetPubkeyFromPrivkey(
       const GetPubkeyFromPrivkeyRequestStruct& request);
+
+  /**
+   * @brief JSONパラメータの情報を元に、秘密鍵から公開鍵を取得する.
+   * @param[in] request リクエスト構造体
+   * @return pubkeyを含むレスポンス構造体
+   */
+  static SchnorrPubkeyDataStruct GetSchnorrPubkeyFromPrivkey(
+      const GetSchnorrPubkeyFromPrivkeyRequestStruct& request);
 
   /**
    * @brief JSONパラメータの情報を元に、圧縮公開鍵を取得する.
    * @param[in] request リクエスト構造体
    * @return pubkeyを含むレスポンス構造体
    */
-  static GetCompressedPubkeyResponseStruct GetCompressedPubkey(
-      const GetCompressedPubkeyRequestStruct& request);
+  static PubkeyDataStruct GetCompressedPubkey(const PubkeyDataStruct& request);
+
+  /**
+   * @brief Get the uncompressed public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static PubkeyDataStruct GetUncompressedPubkey(
+      const PubkeyDataStruct& request);
+
+  /**
+   * @brief Get the combined public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static PubkeyDataStruct CombinePubkey(const PubkeyListDataStruct& request);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static PubkeyDataStruct TweakAddPubkey(const TweakPubkeyDataStruct& request);
+
+  /**
+   * @brief Get the tweaked public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static PubkeyDataStruct TweakMulPubkey(const TweakPubkeyDataStruct& request);
+
+  /**
+   * @brief Get the negated public key based on the JSON parameter information.
+   * @param[in] request     Request structure
+   * @return Response structure containing pubkey
+   */
+  static PubkeyDataStruct NegatePubkey(const PubkeyDataStruct& request);
 
  private:
   KeyStructApi();

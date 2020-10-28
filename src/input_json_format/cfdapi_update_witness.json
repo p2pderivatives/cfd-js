@@ -1,43 +1,60 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Update witness stack",
   "request": {
     ":class": "UpdateWitnessStackRequest",
+    ":class:comment": "Request for update witness stack",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "isElements": false,
     "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "txin:require": "require",
+    "txin:comment": "target txin",
     "txin": {
       ":class": "UpdateWitnessStackTxInRequest",
+      ":class:comment": "update target txin",
       "txid": "",
       "txid:require": "require",
+      "txid:comment": "utxo txid.",
       "vout": 0,
       "vout:type": "uint32_t",
       "vout:require": "require",
+      "vout:comment": "utxo vout.",
       "witnessStack:require": "require",
+      "witnessStack:comment": "witness stack",
       "witnessStack": {
         ":class": "WitnessStackData",
         "index": 0,
         "index:type": "uint32_t",
         "index:require": "require",
+        "index:comment": "stack index",
         "hex": "",
         "hex:require": "require",
+        "hex:comment": "update data",
         "type": "binary",
         "type:require": "optional",
+        "type:comment": "parameter type.",
         "type:hint": "binary, sign, pubkey, redeem_script",
         "derEncode": false,
         "derEncode:require": "optional",
+        "derEncode:comment": "der encode option flag. Valid when type is auto or sign.",
         "sighashType": "all",
         "sighashType:require": "optional",
+        "sighashType:comment": "signature hash type.",
         "sighashType:hint": "all, none, single",
         "sighashAnyoneCanPay": false,
-        "sighashAnyoneCanPay:require": "optional"
+        "sighashAnyoneCanPay:require": "optional",
+        "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
       }
     }
   },
   "response": {
-    ":class": "UpdateWitnessStackResponse",
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
     "hex": "",
-    "hex:require": "optional"
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
   }
 }

@@ -1,11 +1,9 @@
 
-- 説明
-  - in/outをわかりやすく定義するため、request/responseとして定義
-  - クラス名については、クラスの先頭で":class"フィールドとして定義する。
-  - 数値型については、"フィールド名:type"のフィールドを定義し、値にデータ型の名称を設定する。
-    - "フィールド名:type"："データ型"
-    - 未指定時は int64_t となる。
-  - 生成ファイルは、jsonファイル名＋"_json"で生成される。
+- Description:
+  - The class name is defined as a ": class" field at the beginning of the class.
+  - For numeric type, define the field of "field name: type" and set the name of the data type to the value.
+    - "fieldName:type"："dataType"
+    - If not specified, 'int64_t' is specified.
 ```
 {
   "namespace": ["cfd","api"],

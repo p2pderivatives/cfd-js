@@ -1,47 +1,64 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Create signature hash.",
   "request": {
     ":class": "CreateElementsSignatureHashRequest",
+    ":class:comment": "Request for create signature hash.",
     "tx": "",
     "tx:require": "require",
     "tx:comment": "transaction hex",
     "txin:require": "require",
+    "txin:comment": "txin data",
     "txin": {
       ":class": "CreateElementsSignatureHashTxIn",
+      ":class:comment": "txin data",
       "txid": "",
       "txid:require": "require",
+      "txid:comment": "utxo txid",
       "vout": 0,
       "vout:type": "uint32_t",
       "vout:require": "require",
+      "vout:comment": "utxo vout",
       "keyData:require": "require",
+      "keyData:comment": "key data",
       "keyData": {
-        ":class": "ElementsSignatureHashKeyData",
+        ":class": "HashKeyData",
+        ":class:comment": "Hash data based key",
         "hex": "",
         "hex:require": "require",
+        "hex:comment": "hex bytes",
         "type": "pubkey",
         "type:require": "require",
+        "type:comment": "parameter type.",
         "type:hint": "pubkey, redeem_script"
       },
       "amount": 0,
       "amount:type": "int64_t",
       "amount:require": "optional",
+      "amount:comment": "satoshi amount",
       "amount:hint": "need either amount or confidentialValueCommitment",
       "confidentialValueCommitment": "",
       "confidentialValueCommitment:require": "optional",
+      "confidentialValueCommitment:comment": "value commitment",
       "confidentialValueCommitment:hint": "need either amount or confidentialValueCommitment",
       "hashType": "p2wsh",
       "hashType:require": "require",
+      "hashType:comment": "hash type",
       "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh",
       "sighashType": "all",
-      "sighashAnyoneCanPay:require": "optional",
+      "sighashType:require": "optional",
+      "sighashType:comment": "signature hash type.",
       "sighashType:hint": "all, none, single",
       "sighashAnyoneCanPay": false,
-      "sighashAnyoneCanPay:require": "optional"
+      "sighashAnyoneCanPay:require": "optional",
+      "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
     }
   },
   "response": {
-    ":class": "CreateElementsSignatureHashResponse",
+    ":class": "CreateSignatureHashResponse",
+    ":class:comment": "Response of create signature hash.",
     "sighash": "",
-    "sighash:require": "require"
+    "sighash:require": "require",
+    "sighash:comment": "sighash"
   }
 }

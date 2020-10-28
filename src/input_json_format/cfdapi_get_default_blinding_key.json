@@ -1,18 +1,24 @@
 {
   "namespace": ["cfd","js","api","json"],
+  "comment": "Get default blinding key.",
   "request": {
     ":class": "GetDefaultBlindingKeyRequest",
+    ":class:comment": "Request for get default blinding key.",
     "masterBlindingKey": "",
     "masterBlindingKey:require": "require",
+    "masterBlindingKey:comment": "master blinding key",
     "lockingScript": "",
     "lockingScript:require": "optional",
+    "lockingScript:comment": "locking script",
     "address": "",
     "address:require": "optional",
     "address:comment": "use if empty locking script."
   },
   "response": {
-    ":class": "GetDefaultBlindingKeyResponse",
+    ":class": "BlindingKeyResponse",
+    ":class:comment": "Response of blinding key.",
     "blindingKey": "",
-    "blindingKey:require": "require"
+    "blindingKey:require": "require",
+    "blindingKey:comment": "blinding key"
   }
 }

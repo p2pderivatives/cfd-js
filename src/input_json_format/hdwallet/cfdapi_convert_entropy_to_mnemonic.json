@@ -1,0 +1,22 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get mnemonic from entropy.",
+  "request": {
+    ":class": "ConvertEntropyToMnemonicRequest",
+    ":class:comment": "Request's data for converting entropy to mnemonic.",
+    "entropy": "",
+    "entropy:require": "require",
+    "entropy:comment": "entropy hex",
+    "language": "en",
+    "language:require": "optional",
+    "language:comment": "mnemonic's language.",
+    "language:hint": "support [en es fr it jp zhs zht]"
+  },
+  "response": {
+    ":class": "ConvertEntropyToMnemonicResponse",
+    ":class:comment": "Response data of converting entropy to mnemonic.",
+    "mnemonic": [""],
+    "mnemonic:require": "require",
+    "mnemonic:comment": "mnemonic word list."
+  }
+}

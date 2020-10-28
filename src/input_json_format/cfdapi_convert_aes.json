@@ -6,7 +6,7 @@
     ":class:comment": "Request AES data.",
     "isEncrypt": true,
     "isEncrypt:require": "require",
-    "isEncrypt:comment": "aes encrypto flag. true is encrypto, false is decrypto",
+    "isEncrypt:comment": "aes encrypt flag. true is encrypt, false is decrypt",
     "mode": "cbc",
     "mode:require": "optional",
     "mode:comment": "AES mode. (for feature)",

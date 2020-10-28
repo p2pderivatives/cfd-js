@@ -1,0 +1,25 @@
+{
+  "namespace": ["cfd", "js", "api", "json"],
+  "comment": "Create a Schnorr signature for a given message",
+  "request": {
+    ":class": "SchnorrSignRequest",
+    ":class:comment": "Request for creating a Schnorr signature.",
+    "privkey": "",
+    "privkey:require": "require",
+    "message": "",
+    "message:require": "require",
+    "isHashed": false,
+    "isHashed:require": "optional",
+    "nonceOrAux": "",
+    "nonceOrAux:require": "require",
+    "isNonce": false,
+    "isNonce:require": "optional"
+  },
+  "response": {
+    ":class": "SchnorrSignResponse",
+    ":class:comment": "Contains the generated Schnorr signature.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "signature hex."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Get privkey from wif.",
+  "functionName": "GetPrivkeyFromWif",
+  "request": {
+    ":class": "PrivkeyWifData",
+    ":class:comment": "Request for get privkey from wif.",
+    "wif": "",
+    "wif:require": "require",
+    "wif:comment": "Wallet Import Format"
+  },
+  "response": {
+    ":class": "PrivkeyHexData",
+    ":class:comment": "Response of get privkey from wif.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "privkey hex.",
+    "network": "",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest",
+    "isCompressed": true,
+    "isCompressed:require": "require",
+    "isCompressed:comment": "compressed pubkey flag"
+  }
+}

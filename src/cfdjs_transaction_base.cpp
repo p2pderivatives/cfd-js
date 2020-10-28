@@ -276,12 +276,12 @@ TransactionStructApiBase::ConvertSignDataStructToSignParameter<SignDataStruct>(
 
 /**
  * @relates TransactionStructApiBase
- * @param[in] sign_data MultisigSignDataStruct構造体
+ * @param[in] sign_data PubkeySignDataStruct構造体
  * @returns SignParameter情報
  */
 template SignParameter
 TransactionStructApiBase::ConvertSignDataStructToSignParameter<
-    MultisigSignDataStruct>(const MultisigSignDataStruct& sign_data);
+    PubkeySignDataStruct>(const PubkeySignDataStruct& sign_data);
 
 /**
  * @relates TransactionStructApiBase
@@ -291,24 +291,6 @@ TransactionStructApiBase::ConvertSignDataStructToSignParameter<
 template SignParameter
 TransactionStructApiBase::ConvertSignDataStructToSignParameter<
     WitnessStackDataStruct>(const WitnessStackDataStruct& sign_data);
-
-/**
- * @relates TransactionStructApiBase
- * @param[in] sign_data MultisigScriptSigDataStruct構造体
- * @returns SignParameter情報
- */
-template SignParameter
-TransactionStructApiBase::ConvertSignDataStructToSignParameter<
-    MultisigScriptSigDataStruct>(const MultisigScriptSigDataStruct& sign_data);
-
-/**
- * @relates TransactionStructApiBase
- * @param[in] sign_data ScriptHashSignDataStruct構造体
- * @returns SignParameter情報
- */
-template SignParameter
-TransactionStructApiBase::ConvertSignDataStructToSignParameter<
-    ScriptHashSignDataStruct>(const ScriptHashSignDataStruct& sign_data);
 
 }  // namespace api
 }  // namespace js

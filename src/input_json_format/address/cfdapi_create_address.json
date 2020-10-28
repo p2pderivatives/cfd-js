@@ -1,0 +1,44 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create address.",
+  "request": {
+    ":class": "CreateAddressRequest",
+    ":class:comment": "Request data for creating address.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "keyData:comment": "address's base data.",
+    "keyData": {
+      ":class": "HashKeyData",
+      ":class:comment": "Hash data based key",
+      "hex": "",
+      "hex:require": "require",
+      "hex:comment": "hex data",
+      "type": "pubkey",
+      "type:require": "require",
+      "type:comment": "data type.",
+      "type:hint": "pubkey or redeem_script"
+    },
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type.",
+    "network:hint": "bitcoin:'mainnet, testnet, regtest'. elements:'liquidv1, regtest'",
+    "hashType": "p2wpkh",
+    "hashType:require": "require",
+    "hashType:comment": "hash type.",
+    "hashType:hint": "p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh"
+  },
+  "response": {
+    ":class": "CreateAddressResponse",
+    ":class:comment": "Response data of creating address.",
+    "address": "",
+    "address:require": "require",
+    "address:comment": "address string.",
+    "lockingScript": "",
+    "lockingScript:require": "require",
+    "lockingScript:comment": "(redeem script or pubkey) locking script",
+    "redeemScript": "",
+    "redeemScript:require": "optional",
+    "redeemScript:comment": "(required for P2SH-P2WPKH or P2SH-P2WSH) redeem script for unlocking script"
+  }
+}

@@ -139,11 +139,11 @@ EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
   return result;
 }
 
-DecodeDerSignatureToRawResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
+SignatureDataResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
     DecodeDerSignatureToRawRequestStruct request) {
   auto call_func = [](const DecodeDerSignatureToRawRequestStruct& request)
-      -> DecodeDerSignatureToRawResponseStruct {
-    DecodeDerSignatureToRawResponseStruct result;
+      -> SignatureDataResponseStruct {
+    SignatureDataResponseStruct result;
     auto signature_bytes = ByteData(request.signature);
     const ByteData raw_signature =
         CryptoUtil::ConvertSignatureFromDer(signature_bytes, nullptr);
@@ -152,10 +152,9 @@ DecodeDerSignatureToRawResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
     return result;
   };
 
-  DecodeDerSignatureToRawResponseStruct result;
+  SignatureDataResponseStruct result;
   result = ExecuteStructApi<
-      DecodeDerSignatureToRawRequestStruct,
-      DecodeDerSignatureToRawResponseStruct>(
+      DecodeDerSignatureToRawRequestStruct, SignatureDataResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }

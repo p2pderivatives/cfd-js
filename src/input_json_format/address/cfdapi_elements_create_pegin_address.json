@@ -1,0 +1,40 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "create pegin address.",
+  "request": {
+    ":class": "CreatePegInAddressRequest",
+    ":class:comment": "Request data. If unlock pegin tx, sign to p2wpkh or p2wsh format.",
+    "fedpegscript": "",
+    "fedpegscript:require": "require",
+    "fedpegscript:comment": "fedpeg script",
+    "fedpegscript:hint": "fedpegscript comes from 'getsidechaininfo' rpc command.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "pubkey related to unlocking peg-in utxo.",
+    "pubkey:hint": "This field is only available when lockingScript is empty.",
+    "redeemScript": "",
+    "redeemScript:require": "optional",
+    "redeemScript:comment": "default is empty. set claim script to direct.",
+    "network": "mainnet",
+    "network:require": "optional",
+    "network:comment": "network type.",
+    "network:hint": "mainnet, testnet or regtest",
+    "hashType": "p2sh-p2wsh",
+    "hashType:require": "optional",
+    "hashType:comment": "hash type",
+    "hashType:hint": "p2wsh, p2sh-p2wsh, p2sh"
+  },
+  "response": {
+    ":class": "CreatePegInAddressResponse",
+    ":class:comment": "Response data of creating pegin address.",
+    "mainchainAddress": "",
+    "mainchainAddress:require": "require",
+    "mainchainAddress:comment": "mainchain address",
+    "claimScript": "",
+    "claimScript:require": "require",
+    "claimScript:comment": "claim script.",
+    "tweakFedpegscript": "",
+    "tweakFedpegscript:require": "require",
+    "tweakFedpegscript:comment": "tweaked fedpeg script"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create extkey from parent with path.",
+  "request": {
+    ":class": "CreateExtkeyFromParentPathRequest",
+    ":class:comment": "Request data for creating extkey from parent.",
+    "extkey": "",
+    "extkey:require": "require",
+    "extkey:comment": "parent extkey",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest",
+    "extkeyType": "",
+    "extkeyType:require": "require",
+    "extkeyType:comment": "extkey type",
+    "extkeyType:hint": "extPrivkey or extPubkey",
+    "childNumberArray": [0],
+    "childNumberArray:require": "optional",
+    "childNumberArray:arraytype": "uint32_t",
+    "childNumberArray:comment": "bip32 child number array.",
+    "childNumberArray:hint": "hardened is logical sum 0x80000000",
+    "path": "",
+    "path:require": "optional",
+    "path:comment": "bip32 path.",
+    "path:hint": "child number string. if exist path, disable childNumberArray. ex) 44'/0h/2."
+  },
+  "response": {
+    ":class": "CreateExtkeyResponse",
+    "extkey": "",
+    "extkey:require": "require"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Parse script from hex.",
+  "request": {
+    ":class": "ParseScriptRequest",
+    ":class:comment": "Request for parse script",
+    "script": "",
+    "script:require": "require",
+    "script:comment": "script hex."
+  },
+  "response": {
+    ":class": "ParseScriptResponse",
+    ":class:comment": "Response of parse script",
+    "scriptItems": [""],
+    "scriptItems:require": "require",
+    "scriptItems:comment": "parse script item. (First level's item only)"
+  }
+}

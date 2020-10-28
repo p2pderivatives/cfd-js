@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "TweakAddSchnorrPubkeyFromPrivkey",
+  "comment": "TweakAdd schnorr pubkey from privkey.",
+  "request": {
+    ":class": "TweakPrivkeyData",
+    ":class:comment": "tweak privkey data",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey (wif or hex)",
+    "tweak": "",
+    "tweak:require": "require",
+    "tweak:comment": "32-byte tweak data"
+  },
+  "response": {
+    ":class": "SchnorrKeyPairData",
+    ":class:comment": "schnorr pubkey data.",
+    "pubkey": "",
+    "pubkey:require": "require",
+    "pubkey:comment": "schnorr public key",
+    "parity": false,
+    "parity:require": "require",
+    "parity:comment": "y-parity flag",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey hex"
+  }
+}

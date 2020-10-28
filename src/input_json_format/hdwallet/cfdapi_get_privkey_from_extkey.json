@@ -1,0 +1,29 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetPrivkeyFromExtkey",
+  "comment": "Get privkey from extkey.",
+  "request": {
+    ":class": "GetPrivkeyFromExtkeyRequest",
+    ":class:comment": "Request for get privkey from extkey",
+    "extkey": "",
+    "extkey:require": "require",
+    "extkey:comment": "extkey",
+    "network": "mainnet",
+    "network:require": "require",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet or regtest",
+    "wif": true,
+    "wif:require": "require",
+    "wif:comment": "use wallet import format",
+    "isCompressed": true,
+    "isCompressed:require": "optional",
+    "isCompressed:comment": "compressed flag"
+  },
+  "response": {
+    ":class": "GetPrivkeyFromExtkeyResponse",
+    ":class:comment": "Response of get privkey from extkey",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "privkey (wif or hex)"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Create multisig's scriptsig",
+  "request": {
+    ":class": "CreateMultisigScriptSigRequest",
+    ":class:comment": "Request for creating multisig's scriptsig.",
+    "signParams": [
+      {
+        ":class": "PubkeySignData",
+        ":class:comment": "pubkey signature data.",
+        "hex": "",
+        "hex:require": "require",
+        "hex:comment": "signature hex",
+        "type": "sign",
+        "type:require": "optional",
+        "type:comment": "hex data type",
+        "type:hint": "sign only",
+        "derEncode": true,
+        "derEncode:require": "optional",
+        "derEncode:comment": "use der-encode",
+        "sighashType": "all",
+        "sighashType:require": "optional",
+        "sighashType:comment": "sighash type",
+        "sighashType:hint": "all, none or single",
+        "sighashAnyoneCanPay": false,
+        "sighashAnyoneCanPay:require": "optional",
+        "sighashAnyoneCanPay:comment": "sighash anyone can pay flag",
+        "relatedPubkey": "",
+        "relatedPubkey:require": "optional",
+        "relatedPubkey:comment": "related pubkey"
+      }
+    ],
+    "signParams:comment": "sign parameter",
+    "redeemScript": "",
+    "redeemScript:require": "require",
+    "redeemScript:comment": "multisig script"
+  },
+  "response": {
+    ":class": "ScriptDataResponse",
+    ":class:comment": "The data containing script.",
+    "hex": "",
+    "hex:require": "require"
+  }
+}
