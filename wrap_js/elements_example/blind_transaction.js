@@ -97,6 +97,7 @@ const example = async function() {
     minimumRangeValue: 1,
     exponent: 0,
     minimumBits: 52,
+    collectBlinder: true,
   }));
   console.log('\n*** blind tx ***\n', blindTx);
 

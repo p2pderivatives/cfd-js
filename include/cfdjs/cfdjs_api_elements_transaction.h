@@ -147,7 +147,7 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    * @param[in] request Blind対象のTransactionとBlind情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
    */
-  static RawTransactionResponseStruct BlindTransaction(
+  static BlindTransactionResponseStruct BlindTransaction(
       const BlindRawTransactionRequestStruct& request);
 
   /**

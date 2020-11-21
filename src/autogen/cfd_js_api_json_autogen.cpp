@@ -1007,6 +1007,175 @@ TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
 }
 
 // ------------------------------------------------------------------------
+// UnblindIssuanceOutput
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UnblindIssuanceOutput>
+  UnblindIssuanceOutput::json_mapper;
+std::vector<std::string> UnblindIssuanceOutput::item_list;
+
+void UnblindIssuanceOutput::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UnblindIssuanceOutput> func_table;  // NOLINT
+
+  func_table = {
+    UnblindIssuanceOutput::GetTxidString,
+    UnblindIssuanceOutput::SetTxidString,
+    UnblindIssuanceOutput::GetTxidFieldType,
+  };
+  json_mapper.emplace("txid", func_table);
+  item_list.push_back("txid");
+  func_table = {
+    UnblindIssuanceOutput::GetVoutString,
+    UnblindIssuanceOutput::SetVoutString,
+    UnblindIssuanceOutput::GetVoutFieldType,
+  };
+  json_mapper.emplace("vout", func_table);
+  item_list.push_back("vout");
+  func_table = {
+    UnblindIssuanceOutput::GetAssetString,
+    UnblindIssuanceOutput::SetAssetString,
+    UnblindIssuanceOutput::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    UnblindIssuanceOutput::GetAssetamountString,
+    UnblindIssuanceOutput::SetAssetamountString,
+    UnblindIssuanceOutput::GetAssetamountFieldType,
+  };
+  json_mapper.emplace("assetamount", func_table);
+  item_list.push_back("assetamount");
+  func_table = {
+    UnblindIssuanceOutput::GetTokenString,
+    UnblindIssuanceOutput::SetTokenString,
+    UnblindIssuanceOutput::GetTokenFieldType,
+  };
+  json_mapper.emplace("token", func_table);
+  item_list.push_back("token");
+  func_table = {
+    UnblindIssuanceOutput::GetTokenamountString,
+    UnblindIssuanceOutput::SetTokenamountString,
+    UnblindIssuanceOutput::GetTokenamountFieldType,
+  };
+  json_mapper.emplace("tokenamount", func_table);
+  item_list.push_back("tokenamount");
+  func_table = {
+    UnblindIssuanceOutput::GetAssetValueBlindFactorString,
+    UnblindIssuanceOutput::SetAssetValueBlindFactorString,
+    UnblindIssuanceOutput::GetAssetValueBlindFactorFieldType,
+  };
+  json_mapper.emplace("assetValueBlindFactor", func_table);
+  item_list.push_back("assetValueBlindFactor");
+  func_table = {
+    UnblindIssuanceOutput::GetTokenValueBlindFactorString,
+    UnblindIssuanceOutput::SetTokenValueBlindFactorString,
+    UnblindIssuanceOutput::GetTokenValueBlindFactorFieldType,
+  };
+  json_mapper.emplace("tokenValueBlindFactor", func_table);
+  item_list.push_back("tokenValueBlindFactor");
+}
+
+void UnblindIssuanceOutput::ConvertFromStruct(
+    const UnblindIssuanceOutputStruct& data) {
+  txid_ = data.txid;
+  vout_ = data.vout;
+  asset_ = data.asset;
+  assetamount_ = data.assetamount;
+  token_ = data.token;
+  tokenamount_ = data.tokenamount;
+  asset_value_blind_factor_ = data.asset_value_blind_factor;
+  token_value_blind_factor_ = data.token_value_blind_factor;
+  ignore_items = data.ignore_items;
+}
+
+UnblindIssuanceOutputStruct UnblindIssuanceOutput::ConvertToStruct() const {  // NOLINT
+  UnblindIssuanceOutputStruct result;
+  result.txid = txid_;
+  result.vout = vout_;
+  result.asset = asset_;
+  result.assetamount = assetamount_;
+  result.token = token_;
+  result.tokenamount = tokenamount_;
+  result.asset_value_blind_factor = asset_value_blind_factor_;
+  result.token_value_blind_factor = token_value_blind_factor_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// UnblindOutput
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<UnblindOutput>
+  UnblindOutput::json_mapper;
+std::vector<std::string> UnblindOutput::item_list;
+
+void UnblindOutput::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<UnblindOutput> func_table;  // NOLINT
+
+  func_table = {
+    UnblindOutput::GetIndexString,
+    UnblindOutput::SetIndexString,
+    UnblindOutput::GetIndexFieldType,
+  };
+  json_mapper.emplace("index", func_table);
+  item_list.push_back("index");
+  func_table = {
+    UnblindOutput::GetAssetString,
+    UnblindOutput::SetAssetString,
+    UnblindOutput::GetAssetFieldType,
+  };
+  json_mapper.emplace("asset", func_table);
+  item_list.push_back("asset");
+  func_table = {
+    UnblindOutput::GetBlindFactorString,
+    UnblindOutput::SetBlindFactorString,
+    UnblindOutput::GetBlindFactorFieldType,
+  };
+  json_mapper.emplace("blindFactor", func_table);
+  item_list.push_back("blindFactor");
+  func_table = {
+    UnblindOutput::GetAssetBlindFactorString,
+    UnblindOutput::SetAssetBlindFactorString,
+    UnblindOutput::GetAssetBlindFactorFieldType,
+  };
+  json_mapper.emplace("assetBlindFactor", func_table);
+  item_list.push_back("assetBlindFactor");
+  func_table = {
+    UnblindOutput::GetAmountString,
+    UnblindOutput::SetAmountString,
+    UnblindOutput::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+}
+
+void UnblindOutput::ConvertFromStruct(
+    const UnblindOutputStruct& data) {
+  index_ = data.index;
+  asset_ = data.asset;
+  blind_factor_ = data.blind_factor;
+  asset_blind_factor_ = data.asset_blind_factor;
+  amount_ = data.amount;
+  ignore_items = data.ignore_items;
+}
+
+UnblindOutputStruct UnblindOutput::ConvertToStruct() const {  // NOLINT
+  UnblindOutputStruct result;
+  result.index = index_;
+  result.asset = asset_;
+  result.blind_factor = blind_factor_;
+  result.asset_blind_factor = asset_blind_factor_;
+  result.amount = amount_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // UtxoJsonData
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<UtxoJsonData>
@@ -2110,6 +2279,13 @@ void BlindRawTransactionRequest::CollectFieldName() {
   };
   json_mapper.emplace("minimumBits", func_table);
   item_list.push_back("minimumBits");
+  func_table = {
+    BlindRawTransactionRequest::GetCollectBlinderString,
+    BlindRawTransactionRequest::SetCollectBlinderString,
+    BlindRawTransactionRequest::GetCollectBlinderFieldType,
+  };
+  json_mapper.emplace("collectBlinder", func_table);
+  item_list.push_back("collectBlinder");
 }
 
 void BlindRawTransactionRequest::ConvertFromStruct(
@@ -2123,6 +2299,7 @@ void BlindRawTransactionRequest::ConvertFromStruct(
   minimum_range_value_ = data.minimum_range_value;
   exponent_ = data.exponent;
   minimum_bits_ = data.minimum_bits;
+  collect_blinder_ = data.collect_blinder;
   ignore_items = data.ignore_items;
 }
 
@@ -2136,6 +2313,60 @@ BlindRawTransactionRequestStruct BlindRawTransactionRequest::ConvertToStruct() c
   result.minimum_range_value = minimum_range_value_;
   result.exponent = exponent_;
   result.minimum_bits = minimum_bits_;
+  result.collect_blinder = collect_blinder_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// BlindTransactionResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<BlindTransactionResponse>
+  BlindTransactionResponse::json_mapper;
+std::vector<std::string> BlindTransactionResponse::item_list;
+
+void BlindTransactionResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<BlindTransactionResponse> func_table;  // NOLINT
+
+  func_table = {
+    BlindTransactionResponse::GetHexString,
+    BlindTransactionResponse::SetHexString,
+    BlindTransactionResponse::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+  func_table = {
+    BlindTransactionResponse::GetBlindersString,
+    BlindTransactionResponse::SetBlindersString,
+    BlindTransactionResponse::GetBlindersFieldType,
+  };
+  json_mapper.emplace("blinders", func_table);
+  item_list.push_back("blinders");
+  func_table = {
+    BlindTransactionResponse::GetIssuanceBlindersString,
+    BlindTransactionResponse::SetIssuanceBlindersString,
+    BlindTransactionResponse::GetIssuanceBlindersFieldType,
+  };
+  json_mapper.emplace("issuanceBlinders", func_table);
+  item_list.push_back("issuanceBlinders");
+}
+
+void BlindTransactionResponse::ConvertFromStruct(
+    const BlindTransactionResponseStruct& data) {
+  hex_ = data.hex;
+  blinders_.ConvertFromStruct(data.blinders);
+  issuance_blinders_.ConvertFromStruct(data.issuance_blinders);
+  ignore_items = data.ignore_items;
+}
+
+BlindTransactionResponseStruct BlindTransactionResponse::ConvertToStruct() const {  // NOLINT
+  BlindTransactionResponseStruct result;
+  result.hex = hex_;
+  result.blinders = blinders_.ConvertToStruct();
+  result.issuance_blinders = issuance_blinders_.ConvertToStruct();
   result.ignore_items = ignore_items;
   return result;
 }
@@ -6140,157 +6371,6 @@ UnblindRawTransactionRequestStruct UnblindRawTransactionRequest::ConvertToStruct
   result.tx = tx_;
   result.txouts = txouts_.ConvertToStruct();
   result.issuances = issuances_.ConvertToStruct();
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// UnblindOutput
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<UnblindOutput>
-  UnblindOutput::json_mapper;
-std::vector<std::string> UnblindOutput::item_list;
-
-void UnblindOutput::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<UnblindOutput> func_table;  // NOLINT
-
-  func_table = {
-    UnblindOutput::GetIndexString,
-    UnblindOutput::SetIndexString,
-    UnblindOutput::GetIndexFieldType,
-  };
-  json_mapper.emplace("index", func_table);
-  item_list.push_back("index");
-  func_table = {
-    UnblindOutput::GetAssetString,
-    UnblindOutput::SetAssetString,
-    UnblindOutput::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    UnblindOutput::GetBlindFactorString,
-    UnblindOutput::SetBlindFactorString,
-    UnblindOutput::GetBlindFactorFieldType,
-  };
-  json_mapper.emplace("blindFactor", func_table);
-  item_list.push_back("blindFactor");
-  func_table = {
-    UnblindOutput::GetAssetBlindFactorString,
-    UnblindOutput::SetAssetBlindFactorString,
-    UnblindOutput::GetAssetBlindFactorFieldType,
-  };
-  json_mapper.emplace("assetBlindFactor", func_table);
-  item_list.push_back("assetBlindFactor");
-  func_table = {
-    UnblindOutput::GetAmountString,
-    UnblindOutput::SetAmountString,
-    UnblindOutput::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-}
-
-void UnblindOutput::ConvertFromStruct(
-    const UnblindOutputStruct& data) {
-  index_ = data.index;
-  asset_ = data.asset;
-  blind_factor_ = data.blind_factor;
-  asset_blind_factor_ = data.asset_blind_factor;
-  amount_ = data.amount;
-  ignore_items = data.ignore_items;
-}
-
-UnblindOutputStruct UnblindOutput::ConvertToStruct() const {  // NOLINT
-  UnblindOutputStruct result;
-  result.index = index_;
-  result.asset = asset_;
-  result.blind_factor = blind_factor_;
-  result.asset_blind_factor = asset_blind_factor_;
-  result.amount = amount_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// UnblindIssuanceOutput
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<UnblindIssuanceOutput>
-  UnblindIssuanceOutput::json_mapper;
-std::vector<std::string> UnblindIssuanceOutput::item_list;
-
-void UnblindIssuanceOutput::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<UnblindIssuanceOutput> func_table;  // NOLINT
-
-  func_table = {
-    UnblindIssuanceOutput::GetTxidString,
-    UnblindIssuanceOutput::SetTxidString,
-    UnblindIssuanceOutput::GetTxidFieldType,
-  };
-  json_mapper.emplace("txid", func_table);
-  item_list.push_back("txid");
-  func_table = {
-    UnblindIssuanceOutput::GetVoutString,
-    UnblindIssuanceOutput::SetVoutString,
-    UnblindIssuanceOutput::GetVoutFieldType,
-  };
-  json_mapper.emplace("vout", func_table);
-  item_list.push_back("vout");
-  func_table = {
-    UnblindIssuanceOutput::GetAssetString,
-    UnblindIssuanceOutput::SetAssetString,
-    UnblindIssuanceOutput::GetAssetFieldType,
-  };
-  json_mapper.emplace("asset", func_table);
-  item_list.push_back("asset");
-  func_table = {
-    UnblindIssuanceOutput::GetAssetamountString,
-    UnblindIssuanceOutput::SetAssetamountString,
-    UnblindIssuanceOutput::GetAssetamountFieldType,
-  };
-  json_mapper.emplace("assetamount", func_table);
-  item_list.push_back("assetamount");
-  func_table = {
-    UnblindIssuanceOutput::GetTokenString,
-    UnblindIssuanceOutput::SetTokenString,
-    UnblindIssuanceOutput::GetTokenFieldType,
-  };
-  json_mapper.emplace("token", func_table);
-  item_list.push_back("token");
-  func_table = {
-    UnblindIssuanceOutput::GetTokenamountString,
-    UnblindIssuanceOutput::SetTokenamountString,
-    UnblindIssuanceOutput::GetTokenamountFieldType,
-  };
-  json_mapper.emplace("tokenamount", func_table);
-  item_list.push_back("tokenamount");
-}
-
-void UnblindIssuanceOutput::ConvertFromStruct(
-    const UnblindIssuanceOutputStruct& data) {
-  txid_ = data.txid;
-  vout_ = data.vout;
-  asset_ = data.asset;
-  assetamount_ = data.assetamount;
-  token_ = data.token;
-  tokenamount_ = data.tokenamount;
-  ignore_items = data.ignore_items;
-}
-
-UnblindIssuanceOutputStruct UnblindIssuanceOutput::ConvertToStruct() const {  // NOLINT
-  UnblindIssuanceOutputStruct result;
-  result.txid = txid_;
-  result.vout = vout_;
-  result.asset = asset_;
-  result.assetamount = assetamount_;
-  result.token = token_;
-  result.tokenamount = tokenamount_;
   result.ignore_items = ignore_items;
   return result;
 }

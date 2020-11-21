@@ -18,22 +18,36 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # os: [macos-latest, windows-latest, ubuntu-latest]
-        os: [macos-latest, ubuntu-latest]
-        node: [8, 12, 14]
+        os: [macos-10.15, windows-2019, ubuntu-18.04]
+        node: [8, 12, 14, 15]
         exclude:
-          - os: macos-latest
+          - os: windows-2019
             node: 8
-          - os: macos-latest
+          - os: macos-10.15
+            node: 8
+          - os: macos-10.15
             node: 12
+          - os: macos-10.15
+            node: 15
+        include:
+          - node: 8
+            always: false
+          - node: 12
+            always: false
+          - node: 14
+            always: false
+          - node: 15
+            always: true
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.1
-      continue-on-error: true
+    - uses: actions/setup-node@v2.1.2
       timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
+    - name: update to npm v7
+      if: matrix.os == 'windows-latest'
+      run: npm i -g npm@7
     - name: dump node version
       id: node_ver
       run: |
@@ -71,7 +85,7 @@ jobs:
         npm set progress=false
         npm ci
     - name: build
-      if: steps.node_cache.outputs.cache-hit == 'true'
+      if: steps.node_cache.outputs.cache-hit == 'true' || ${{ matrix.always }} == 'true'
       run: npm run cmake_release_parallel
     - name: test_all
       run: npm run test

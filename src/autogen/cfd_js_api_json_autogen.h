@@ -4496,6 +4496,799 @@ class TxOutRequest
 };
 
 // ------------------------------------------------------------------------
+// UnblindIssuanceOutput
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (UnblindIssuanceOutput) class
+ */
+class UnblindIssuanceOutput
+  : public cfd::core::JsonClassBase<UnblindIssuanceOutput> {
+ public:
+  UnblindIssuanceOutput() {
+    CollectFieldName();
+  }
+  virtual ~UnblindIssuanceOutput() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of txid
+   * @return txid
+   */
+  std::string GetTxid() const {
+    return txid_;
+  }
+  /**
+   * @brief Set to txid
+   * @param[in] txid    setting value.
+   */
+  void SetTxid(  // line separate
+    const std::string& txid) {  // NOLINT
+    this->txid_ = txid;
+  }
+  /**
+   * @brief Get data type of txid
+   * @return Data type of txid
+   */
+  static std::string GetTxidFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of txid field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTxidString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.txid_);
+  }
+  /**
+   * @brief Set json object to txid field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTxidString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.txid_, json_value);
+  }
+
+  /**
+   * @brief Get of vout
+   * @return vout
+   */
+  uint32_t GetVout() const {
+    return vout_;
+  }
+  /**
+   * @brief Set to vout
+   * @param[in] vout    setting value.
+   */
+  void SetVout(  // line separate
+    const uint32_t& vout) {  // NOLINT
+    this->vout_ = vout;
+  }
+  /**
+   * @brief Get data type of vout
+   * @return Data type of vout
+   */
+  static std::string GetVoutFieldType() {
+    return "uint32_t";
+  }
+  /**
+   * @brief Get json string of vout field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetVoutString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.vout_);
+  }
+  /**
+   * @brief Set json object to vout field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetVoutString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.vout_, json_value);
+  }
+
+  /**
+   * @brief Get of asset
+   * @return asset
+   */
+  std::string GetAsset() const {
+    return asset_;
+  }
+  /**
+   * @brief Set to asset
+   * @param[in] asset    setting value.
+   */
+  void SetAsset(  // line separate
+    const std::string& asset) {  // NOLINT
+    this->asset_ = asset;
+  }
+  /**
+   * @brief Get data type of asset
+   * @return Data type of asset
+   */
+  static std::string GetAssetFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of asset field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_);
+  }
+  /**
+   * @brief Set json object to asset field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_, json_value);
+  }
+
+  /**
+   * @brief Get of assetamount
+   * @return assetamount
+   */
+  int64_t GetAssetamount() const {
+    return assetamount_;
+  }
+  /**
+   * @brief Set to assetamount
+   * @param[in] assetamount    setting value.
+   */
+  void SetAssetamount(  // line separate
+    const int64_t& assetamount) {  // NOLINT
+    this->assetamount_ = assetamount;
+  }
+  /**
+   * @brief Get data type of assetamount
+   * @return Data type of assetamount
+   */
+  static std::string GetAssetamountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of assetamount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetamountString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.assetamount_);
+  }
+  /**
+   * @brief Set json object to assetamount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetamountString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.assetamount_, json_value);
+  }
+
+  /**
+   * @brief Get of token
+   * @return token
+   */
+  std::string GetToken() const {
+    return token_;
+  }
+  /**
+   * @brief Set to token
+   * @param[in] token    setting value.
+   */
+  void SetToken(  // line separate
+    const std::string& token) {  // NOLINT
+    this->token_ = token;
+  }
+  /**
+   * @brief Get data type of token
+   * @return Data type of token
+   */
+  static std::string GetTokenFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of token field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTokenString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.token_);
+  }
+  /**
+   * @brief Set json object to token field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTokenString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.token_, json_value);
+  }
+
+  /**
+   * @brief Get of tokenamount
+   * @return tokenamount
+   */
+  int64_t GetTokenamount() const {
+    return tokenamount_;
+  }
+  /**
+   * @brief Set to tokenamount
+   * @param[in] tokenamount    setting value.
+   */
+  void SetTokenamount(  // line separate
+    const int64_t& tokenamount) {  // NOLINT
+    this->tokenamount_ = tokenamount;
+  }
+  /**
+   * @brief Get data type of tokenamount
+   * @return Data type of tokenamount
+   */
+  static std::string GetTokenamountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of tokenamount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTokenamountString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.tokenamount_);
+  }
+  /**
+   * @brief Set json object to tokenamount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTokenamountString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.tokenamount_, json_value);
+  }
+
+  /**
+   * @brief Get of assetValueBlindFactor
+   * @return assetValueBlindFactor
+   */
+  std::string GetAssetValueBlindFactor() const {
+    return asset_value_blind_factor_;
+  }
+  /**
+   * @brief Set to assetValueBlindFactor
+   * @param[in] asset_value_blind_factor    setting value.
+   */
+  void SetAssetValueBlindFactor(  // line separate
+    const std::string& asset_value_blind_factor) {  // NOLINT
+    this->asset_value_blind_factor_ = asset_value_blind_factor;
+  }
+  /**
+   * @brief Get data type of assetValueBlindFactor
+   * @return Data type of assetValueBlindFactor
+   */
+  static std::string GetAssetValueBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of assetValueBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetValueBlindFactorString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_value_blind_factor_);
+  }
+  /**
+   * @brief Set json object to assetValueBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetValueBlindFactorString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_value_blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Get of tokenValueBlindFactor
+   * @return tokenValueBlindFactor
+   */
+  std::string GetTokenValueBlindFactor() const {
+    return token_value_blind_factor_;
+  }
+  /**
+   * @brief Set to tokenValueBlindFactor
+   * @param[in] token_value_blind_factor    setting value.
+   */
+  void SetTokenValueBlindFactor(  // line separate
+    const std::string& token_value_blind_factor) {  // NOLINT
+    this->token_value_blind_factor_ = token_value_blind_factor;
+  }
+  /**
+   * @brief Get data type of tokenValueBlindFactor
+   * @return Data type of tokenValueBlindFactor
+   */
+  static std::string GetTokenValueBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of tokenValueBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetTokenValueBlindFactorString(  // line separate
+      const UnblindIssuanceOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.token_value_blind_factor_);
+  }
+  /**
+   * @brief Set json object to tokenValueBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetTokenValueBlindFactorString(  // line separate
+      UnblindIssuanceOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.token_value_blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const UnblindIssuanceOutputStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  UnblindIssuanceOutputStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using UnblindIssuanceOutputMapTable =
+    cfd::core::JsonTableMap<UnblindIssuanceOutput>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const UnblindIssuanceOutputMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static UnblindIssuanceOutputMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(txid) value
+   */
+  std::string txid_ = "";
+  /**
+   * @brief JsonAPI(vout) value
+   */
+  uint32_t vout_ = 0;
+  /**
+   * @brief JsonAPI(asset) value
+   */
+  std::string asset_ = "";
+  /**
+   * @brief JsonAPI(assetamount) value
+   */
+  int64_t assetamount_ = 0;
+  /**
+   * @brief JsonAPI(token) value
+   */
+  std::string token_ = "";
+  /**
+   * @brief JsonAPI(tokenamount) value
+   */
+  int64_t tokenamount_ = 0;
+  /**
+   * @brief JsonAPI(assetValueBlindFactor) value
+   */
+  std::string asset_value_blind_factor_ = "";
+  /**
+   * @brief JsonAPI(tokenValueBlindFactor) value
+   */
+  std::string token_value_blind_factor_ = "";
+};
+
+// ------------------------------------------------------------------------
+// UnblindOutput
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (UnblindOutput) class
+ */
+class UnblindOutput
+  : public cfd::core::JsonClassBase<UnblindOutput> {
+ public:
+  UnblindOutput() {
+    CollectFieldName();
+  }
+  virtual ~UnblindOutput() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of index
+   * @return index
+   */
+  uint32_t GetIndex() const {
+    return index_;
+  }
+  /**
+   * @brief Set to index
+   * @param[in] index    setting value.
+   */
+  void SetIndex(  // line separate
+    const uint32_t& index) {  // NOLINT
+    this->index_ = index;
+  }
+  /**
+   * @brief Get data type of index
+   * @return Data type of index
+   */
+  static std::string GetIndexFieldType() {
+    return "uint32_t";
+  }
+  /**
+   * @brief Get json string of index field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetIndexString(  // line separate
+      const UnblindOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.index_);
+  }
+  /**
+   * @brief Set json object to index field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetIndexString(  // line separate
+      UnblindOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.index_, json_value);
+  }
+
+  /**
+   * @brief Get of asset
+   * @return asset
+   */
+  std::string GetAsset() const {
+    return asset_;
+  }
+  /**
+   * @brief Set to asset
+   * @param[in] asset    setting value.
+   */
+  void SetAsset(  // line separate
+    const std::string& asset) {  // NOLINT
+    this->asset_ = asset;
+  }
+  /**
+   * @brief Get data type of asset
+   * @return Data type of asset
+   */
+  static std::string GetAssetFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of asset field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetString(  // line separate
+      const UnblindOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_);
+  }
+  /**
+   * @brief Set json object to asset field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetString(  // line separate
+      UnblindOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_, json_value);
+  }
+
+  /**
+   * @brief Get of blindFactor
+   * @return blindFactor
+   */
+  std::string GetBlindFactor() const {
+    return blind_factor_;
+  }
+  /**
+   * @brief Set to blindFactor
+   * @param[in] blind_factor    setting value.
+   */
+  void SetBlindFactor(  // line separate
+    const std::string& blind_factor) {  // NOLINT
+    this->blind_factor_ = blind_factor;
+  }
+  /**
+   * @brief Get data type of blindFactor
+   * @return Data type of blindFactor
+   */
+  static std::string GetBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of blindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetBlindFactorString(  // line separate
+      const UnblindOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.blind_factor_);
+  }
+  /**
+   * @brief Set json object to blindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetBlindFactorString(  // line separate
+      UnblindOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Get of assetBlindFactor
+   * @return assetBlindFactor
+   */
+  std::string GetAssetBlindFactor() const {
+    return asset_blind_factor_;
+  }
+  /**
+   * @brief Set to assetBlindFactor
+   * @param[in] asset_blind_factor    setting value.
+   */
+  void SetAssetBlindFactor(  // line separate
+    const std::string& asset_blind_factor) {  // NOLINT
+    this->asset_blind_factor_ = asset_blind_factor;
+  }
+  /**
+   * @brief Get data type of assetBlindFactor
+   * @return Data type of assetBlindFactor
+   */
+  static std::string GetAssetBlindFactorFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of assetBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAssetBlindFactorString(  // line separate
+      const UnblindOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.asset_blind_factor_);
+  }
+  /**
+   * @brief Set json object to assetBlindFactor field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAssetBlindFactorString(  // line separate
+      UnblindOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.asset_blind_factor_, json_value);
+  }
+
+  /**
+   * @brief Get of amount
+   * @return amount
+   */
+  int64_t GetAmount() const {
+    return amount_;
+  }
+  /**
+   * @brief Set to amount
+   * @param[in] amount    setting value.
+   */
+  void SetAmount(  // line separate
+    const int64_t& amount) {  // NOLINT
+    this->amount_ = amount;
+  }
+  /**
+   * @brief Get data type of amount
+   * @return Data type of amount
+   */
+  static std::string GetAmountFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of amount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAmountString(  // line separate
+      const UnblindOutput& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.amount_);
+  }
+  /**
+   * @brief Set json object to amount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAmountString(  // line separate
+      UnblindOutput& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.amount_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const UnblindOutputStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  UnblindOutputStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using UnblindOutputMapTable =
+    cfd::core::JsonTableMap<UnblindOutput>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const UnblindOutputMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static UnblindOutputMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(index) value
+   */
+  uint32_t index_ = 0;
+  /**
+   * @brief JsonAPI(asset) value
+   */
+  std::string asset_ = "";
+  /**
+   * @brief JsonAPI(blindFactor) value
+   */
+  std::string blind_factor_ = "";
+  /**
+   * @brief JsonAPI(assetBlindFactor) value
+   */
+  std::string asset_blind_factor_ = "";
+  /**
+   * @brief JsonAPI(amount) value
+   */
+  int64_t amount_ = 0;
+};
+
+// ------------------------------------------------------------------------
 // UtxoJsonData
 // ------------------------------------------------------------------------
 /**
@@ -9473,6 +10266,49 @@ class BlindRawTransactionRequest
   }
 
   /**
+   * @brief Get of collectBlinder
+   * @return collectBlinder
+   */
+  bool GetCollectBlinder() const {
+    return collect_blinder_;
+  }
+  /**
+   * @brief Set to collectBlinder
+   * @param[in] collect_blinder    setting value.
+   */
+  void SetCollectBlinder(  // line separate
+    const bool& collect_blinder) {  // NOLINT
+    this->collect_blinder_ = collect_blinder;
+  }
+  /**
+   * @brief Get data type of collectBlinder
+   * @return Data type of collectBlinder
+   */
+  static std::string GetCollectBlinderFieldType() {
+    return "bool";
+  }
+  /**
+   * @brief Get json string of collectBlinder field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetCollectBlinderString(  // line separate
+      const BlindRawTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.collect_blinder_);
+  }
+  /**
+   * @brief Set json object to collectBlinder field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetCollectBlinderString(  // line separate
+      BlindRawTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.collect_blinder_, json_value);
+  }
+
+  /**
    * @brief Set ignore item.
    * @param[in] key   ignore target key name.
    */
@@ -9573,6 +10409,244 @@ class BlindRawTransactionRequest
    * @brief JsonAPI(minimumBits) value
    */
   int minimum_bits_ = 52;
+  /**
+   * @brief JsonAPI(collectBlinder) value
+   */
+  bool collect_blinder_ = false;
+};
+
+// ------------------------------------------------------------------------
+// BlindTransactionResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (BlindTransactionResponse) class
+ */
+class BlindTransactionResponse
+  : public cfd::core::JsonClassBase<BlindTransactionResponse> {
+ public:
+  BlindTransactionResponse() {
+    CollectFieldName();
+  }
+  virtual ~BlindTransactionResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of hex
+   * @return hex
+   */
+  std::string GetHex() const {
+    return hex_;
+  }
+  /**
+   * @brief Set to hex
+   * @param[in] hex    setting value.
+   */
+  void SetHex(  // line separate
+    const std::string& hex) {  // NOLINT
+    this->hex_ = hex;
+  }
+  /**
+   * @brief Get data type of hex
+   * @return Data type of hex
+   */
+  static std::string GetHexFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of hex field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetHexString(  // line separate
+      const BlindTransactionResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.hex_);
+  }
+  /**
+   * @brief Set json object to hex field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetHexString(  // line separate
+      BlindTransactionResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.hex_, json_value);
+  }
+
+  /**
+   * @brief Get of blinders.
+   * @return blinders
+   */
+  JsonObjectVector<UnblindOutput, UnblindOutputStruct>& GetBlinders() {  // NOLINT
+    return blinders_;
+  }
+  /**
+   * @brief Set to blinders.
+   * @param[in] blinders    setting value.
+   */
+  void SetBlinders(  // line separate
+      const JsonObjectVector<UnblindOutput, UnblindOutputStruct>& blinders) {  // NOLINT
+    this->blinders_ = blinders;
+  }
+  /**
+   * @brief Get data type of blinders.
+   * @return Data type of blinders.
+   */
+  static std::string GetBlindersFieldType() {
+    return "JsonObjectVector<UnblindOutput, UnblindOutputStruct>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of blinders field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetBlindersString(  // line separate
+      const BlindTransactionResponse& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.blinders_.Serialize();
+  }
+  /**
+   * @brief Set json object to blinders field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetBlindersString(  // line separate
+      BlindTransactionResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.blinders_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of issuanceBlinders.
+   * @return issuanceBlinders
+   */
+  JsonObjectVector<UnblindIssuanceOutput, UnblindIssuanceOutputStruct>& GetIssuanceBlinders() {  // NOLINT
+    return issuance_blinders_;
+  }
+  /**
+   * @brief Set to issuanceBlinders.
+   * @param[in] issuance_blinders    setting value.
+   */
+  void SetIssuanceBlinders(  // line separate
+      const JsonObjectVector<UnblindIssuanceOutput, UnblindIssuanceOutputStruct>& issuance_blinders) {  // NOLINT
+    this->issuance_blinders_ = issuance_blinders;
+  }
+  /**
+   * @brief Get data type of issuanceBlinders.
+   * @return Data type of issuanceBlinders.
+   */
+  static std::string GetIssuanceBlindersFieldType() {
+    return "JsonObjectVector<UnblindIssuanceOutput, UnblindIssuanceOutputStruct>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of issuanceBlinders field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetIssuanceBlindersString(  // line separate
+      const BlindTransactionResponse& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.issuance_blinders_.Serialize();
+  }
+  /**
+   * @brief Set json object to issuanceBlinders field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetIssuanceBlindersString(  // line separate
+      BlindTransactionResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.issuance_blinders_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const BlindTransactionResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  BlindTransactionResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using BlindTransactionResponseMapTable =
+    cfd::core::JsonTableMap<BlindTransactionResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const BlindTransactionResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static BlindTransactionResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(hex) value
+   */
+  std::string hex_ = "";
+  /**
+   * @brief JsonAPI(blinders) value
+   */
+  JsonObjectVector<UnblindOutput, UnblindOutputStruct> blinders_;  // NOLINT
+  /**
+   * @brief JsonAPI(issuanceBlinders) value
+   */
+  JsonObjectVector<UnblindIssuanceOutput, UnblindIssuanceOutputStruct> issuance_blinders_;  // NOLINT
 };
 
 // ------------------------------------------------------------------------
@@ -27668,705 +28742,6 @@ class UnblindRawTransactionRequest
    * @brief JsonAPI(issuances) value
    */
   JsonObjectVector<UnblindIssuance, UnblindIssuanceStruct> issuances_;  // NOLINT
-};
-
-// ------------------------------------------------------------------------
-// UnblindOutput
-// ------------------------------------------------------------------------
-/**
- * @brief JSON-API (UnblindOutput) class
- */
-class UnblindOutput
-  : public cfd::core::JsonClassBase<UnblindOutput> {
- public:
-  UnblindOutput() {
-    CollectFieldName();
-  }
-  virtual ~UnblindOutput() {
-    // do nothing
-  }
-  /**
-   * @brief collect field name.
-   */
-  static void CollectFieldName();
-
-  /**
-   * @brief Get of index
-   * @return index
-   */
-  uint32_t GetIndex() const {
-    return index_;
-  }
-  /**
-   * @brief Set to index
-   * @param[in] index    setting value.
-   */
-  void SetIndex(  // line separate
-    const uint32_t& index) {  // NOLINT
-    this->index_ = index;
-  }
-  /**
-   * @brief Get data type of index
-   * @return Data type of index
-   */
-  static std::string GetIndexFieldType() {
-    return "uint32_t";
-  }
-  /**
-   * @brief Get json string of index field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetIndexString(  // line separate
-      const UnblindOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.index_);
-  }
-  /**
-   * @brief Set json object to index field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetIndexString(  // line separate
-      UnblindOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.index_, json_value);
-  }
-
-  /**
-   * @brief Get of asset
-   * @return asset
-   */
-  std::string GetAsset() const {
-    return asset_;
-  }
-  /**
-   * @brief Set to asset
-   * @param[in] asset    setting value.
-   */
-  void SetAsset(  // line separate
-    const std::string& asset) {  // NOLINT
-    this->asset_ = asset;
-  }
-  /**
-   * @brief Get data type of asset
-   * @return Data type of asset
-   */
-  static std::string GetAssetFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of asset field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAssetString(  // line separate
-      const UnblindOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.asset_);
-  }
-  /**
-   * @brief Set json object to asset field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAssetString(  // line separate
-      UnblindOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.asset_, json_value);
-  }
-
-  /**
-   * @brief Get of blindFactor
-   * @return blindFactor
-   */
-  std::string GetBlindFactor() const {
-    return blind_factor_;
-  }
-  /**
-   * @brief Set to blindFactor
-   * @param[in] blind_factor    setting value.
-   */
-  void SetBlindFactor(  // line separate
-    const std::string& blind_factor) {  // NOLINT
-    this->blind_factor_ = blind_factor;
-  }
-  /**
-   * @brief Get data type of blindFactor
-   * @return Data type of blindFactor
-   */
-  static std::string GetBlindFactorFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of blindFactor field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetBlindFactorString(  // line separate
-      const UnblindOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.blind_factor_);
-  }
-  /**
-   * @brief Set json object to blindFactor field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetBlindFactorString(  // line separate
-      UnblindOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.blind_factor_, json_value);
-  }
-
-  /**
-   * @brief Get of assetBlindFactor
-   * @return assetBlindFactor
-   */
-  std::string GetAssetBlindFactor() const {
-    return asset_blind_factor_;
-  }
-  /**
-   * @brief Set to assetBlindFactor
-   * @param[in] asset_blind_factor    setting value.
-   */
-  void SetAssetBlindFactor(  // line separate
-    const std::string& asset_blind_factor) {  // NOLINT
-    this->asset_blind_factor_ = asset_blind_factor;
-  }
-  /**
-   * @brief Get data type of assetBlindFactor
-   * @return Data type of assetBlindFactor
-   */
-  static std::string GetAssetBlindFactorFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of assetBlindFactor field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAssetBlindFactorString(  // line separate
-      const UnblindOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.asset_blind_factor_);
-  }
-  /**
-   * @brief Set json object to assetBlindFactor field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAssetBlindFactorString(  // line separate
-      UnblindOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.asset_blind_factor_, json_value);
-  }
-
-  /**
-   * @brief Get of amount
-   * @return amount
-   */
-  int64_t GetAmount() const {
-    return amount_;
-  }
-  /**
-   * @brief Set to amount
-   * @param[in] amount    setting value.
-   */
-  void SetAmount(  // line separate
-    const int64_t& amount) {  // NOLINT
-    this->amount_ = amount;
-  }
-  /**
-   * @brief Get data type of amount
-   * @return Data type of amount
-   */
-  static std::string GetAmountFieldType() {
-    return "int64_t";
-  }
-  /**
-   * @brief Get json string of amount field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAmountString(  // line separate
-      const UnblindOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.amount_);
-  }
-  /**
-   * @brief Set json object to amount field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAmountString(  // line separate
-      UnblindOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.amount_, json_value);
-  }
-
-  /**
-   * @brief Set ignore item.
-   * @param[in] key   ignore target key name.
-   */
-  void SetIgnoreItem(const std::string& key) {
-    ignore_items.insert(key);
-  }
-
-  /**
-   * @brief Convert struct to class.
-   * @param[in] data   struct data.
-   */
-  void ConvertFromStruct(
-      const UnblindOutputStruct& data);
-
-  /**
-   * @brief Convert class to struct.
-   * @return  struct data.
-   */
-  UnblindOutputStruct ConvertToStruct()  const;
-
- protected:
-  /**
-   * @brief definition type of Map table.
-   */
-  using UnblindOutputMapTable =
-    cfd::core::JsonTableMap<UnblindOutput>;
-
-  /**
-   * @brief Get JSON mapping object.
-   * @return JSON mapping object.
-   * @see cfd::core::JsonClassBase::GetJsonMapper()
-   */
-  virtual const UnblindOutputMapTable& GetJsonMapper() const {  // NOLINT
-    return json_mapper;
-  }
-  /**
-   * @brief Get item lists of JSON mapping.
-   * Fetch a list of target variable names in the order of definition.
-   * @return Item lists of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetJsonItemList()
-   */
-  virtual const std::vector<std::string>& GetJsonItemList() const {
-    return item_list;
-  }
-  /**
-   * @brief Get ignore item lists of JSON mapping.
-   * Ignore the target variable at Serialize.
-   * @return Item list of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetIgnoreItem()
-   */
-  virtual const std::set<std::string>& GetIgnoreItem() const {
-    return ignore_items;
-  }
-
- private:
- /**
-  * @brief JsonFunctionMap table
-  */
-  static UnblindOutputMapTable json_mapper;
-  /**
-   * @brief field name list.
-   */
-  static std::vector<std::string> item_list;
-  /**
-   * @brief ignore item list.
-   */
-  std::set<std::string> ignore_items;
-
-  /**
-   * @brief JsonAPI(index) value
-   */
-  uint32_t index_ = 0;
-  /**
-   * @brief JsonAPI(asset) value
-   */
-  std::string asset_ = "";
-  /**
-   * @brief JsonAPI(blindFactor) value
-   */
-  std::string blind_factor_ = "";
-  /**
-   * @brief JsonAPI(assetBlindFactor) value
-   */
-  std::string asset_blind_factor_ = "";
-  /**
-   * @brief JsonAPI(amount) value
-   */
-  int64_t amount_ = 0;
-};
-
-// ------------------------------------------------------------------------
-// UnblindIssuanceOutput
-// ------------------------------------------------------------------------
-/**
- * @brief JSON-API (UnblindIssuanceOutput) class
- */
-class UnblindIssuanceOutput
-  : public cfd::core::JsonClassBase<UnblindIssuanceOutput> {
- public:
-  UnblindIssuanceOutput() {
-    CollectFieldName();
-  }
-  virtual ~UnblindIssuanceOutput() {
-    // do nothing
-  }
-  /**
-   * @brief collect field name.
-   */
-  static void CollectFieldName();
-
-  /**
-   * @brief Get of txid
-   * @return txid
-   */
-  std::string GetTxid() const {
-    return txid_;
-  }
-  /**
-   * @brief Set to txid
-   * @param[in] txid    setting value.
-   */
-  void SetTxid(  // line separate
-    const std::string& txid) {  // NOLINT
-    this->txid_ = txid;
-  }
-  /**
-   * @brief Get data type of txid
-   * @return Data type of txid
-   */
-  static std::string GetTxidFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of txid field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetTxidString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.txid_);
-  }
-  /**
-   * @brief Set json object to txid field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetTxidString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.txid_, json_value);
-  }
-
-  /**
-   * @brief Get of vout
-   * @return vout
-   */
-  uint32_t GetVout() const {
-    return vout_;
-  }
-  /**
-   * @brief Set to vout
-   * @param[in] vout    setting value.
-   */
-  void SetVout(  // line separate
-    const uint32_t& vout) {  // NOLINT
-    this->vout_ = vout;
-  }
-  /**
-   * @brief Get data type of vout
-   * @return Data type of vout
-   */
-  static std::string GetVoutFieldType() {
-    return "uint32_t";
-  }
-  /**
-   * @brief Get json string of vout field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetVoutString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.vout_);
-  }
-  /**
-   * @brief Set json object to vout field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetVoutString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.vout_, json_value);
-  }
-
-  /**
-   * @brief Get of asset
-   * @return asset
-   */
-  std::string GetAsset() const {
-    return asset_;
-  }
-  /**
-   * @brief Set to asset
-   * @param[in] asset    setting value.
-   */
-  void SetAsset(  // line separate
-    const std::string& asset) {  // NOLINT
-    this->asset_ = asset;
-  }
-  /**
-   * @brief Get data type of asset
-   * @return Data type of asset
-   */
-  static std::string GetAssetFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of asset field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAssetString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.asset_);
-  }
-  /**
-   * @brief Set json object to asset field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAssetString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.asset_, json_value);
-  }
-
-  /**
-   * @brief Get of assetamount
-   * @return assetamount
-   */
-  int64_t GetAssetamount() const {
-    return assetamount_;
-  }
-  /**
-   * @brief Set to assetamount
-   * @param[in] assetamount    setting value.
-   */
-  void SetAssetamount(  // line separate
-    const int64_t& assetamount) {  // NOLINT
-    this->assetamount_ = assetamount;
-  }
-  /**
-   * @brief Get data type of assetamount
-   * @return Data type of assetamount
-   */
-  static std::string GetAssetamountFieldType() {
-    return "int64_t";
-  }
-  /**
-   * @brief Get json string of assetamount field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAssetamountString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.assetamount_);
-  }
-  /**
-   * @brief Set json object to assetamount field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAssetamountString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.assetamount_, json_value);
-  }
-
-  /**
-   * @brief Get of token
-   * @return token
-   */
-  std::string GetToken() const {
-    return token_;
-  }
-  /**
-   * @brief Set to token
-   * @param[in] token    setting value.
-   */
-  void SetToken(  // line separate
-    const std::string& token) {  // NOLINT
-    this->token_ = token;
-  }
-  /**
-   * @brief Get data type of token
-   * @return Data type of token
-   */
-  static std::string GetTokenFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of token field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetTokenString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.token_);
-  }
-  /**
-   * @brief Set json object to token field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetTokenString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.token_, json_value);
-  }
-
-  /**
-   * @brief Get of tokenamount
-   * @return tokenamount
-   */
-  int64_t GetTokenamount() const {
-    return tokenamount_;
-  }
-  /**
-   * @brief Set to tokenamount
-   * @param[in] tokenamount    setting value.
-   */
-  void SetTokenamount(  // line separate
-    const int64_t& tokenamount) {  // NOLINT
-    this->tokenamount_ = tokenamount;
-  }
-  /**
-   * @brief Get data type of tokenamount
-   * @return Data type of tokenamount
-   */
-  static std::string GetTokenamountFieldType() {
-    return "int64_t";
-  }
-  /**
-   * @brief Get json string of tokenamount field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetTokenamountString(  // line separate
-      const UnblindIssuanceOutput& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.tokenamount_);
-  }
-  /**
-   * @brief Set json object to tokenamount field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetTokenamountString(  // line separate
-      UnblindIssuanceOutput& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.tokenamount_, json_value);
-  }
-
-  /**
-   * @brief Set ignore item.
-   * @param[in] key   ignore target key name.
-   */
-  void SetIgnoreItem(const std::string& key) {
-    ignore_items.insert(key);
-  }
-
-  /**
-   * @brief Convert struct to class.
-   * @param[in] data   struct data.
-   */
-  void ConvertFromStruct(
-      const UnblindIssuanceOutputStruct& data);
-
-  /**
-   * @brief Convert class to struct.
-   * @return  struct data.
-   */
-  UnblindIssuanceOutputStruct ConvertToStruct()  const;
-
- protected:
-  /**
-   * @brief definition type of Map table.
-   */
-  using UnblindIssuanceOutputMapTable =
-    cfd::core::JsonTableMap<UnblindIssuanceOutput>;
-
-  /**
-   * @brief Get JSON mapping object.
-   * @return JSON mapping object.
-   * @see cfd::core::JsonClassBase::GetJsonMapper()
-   */
-  virtual const UnblindIssuanceOutputMapTable& GetJsonMapper() const {  // NOLINT
-    return json_mapper;
-  }
-  /**
-   * @brief Get item lists of JSON mapping.
-   * Fetch a list of target variable names in the order of definition.
-   * @return Item lists of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetJsonItemList()
-   */
-  virtual const std::vector<std::string>& GetJsonItemList() const {
-    return item_list;
-  }
-  /**
-   * @brief Get ignore item lists of JSON mapping.
-   * Ignore the target variable at Serialize.
-   * @return Item list of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetIgnoreItem()
-   */
-  virtual const std::set<std::string>& GetIgnoreItem() const {
-    return ignore_items;
-  }
-
- private:
- /**
-  * @brief JsonFunctionMap table
-  */
-  static UnblindIssuanceOutputMapTable json_mapper;
-  /**
-   * @brief field name list.
-   */
-  static std::vector<std::string> item_list;
-  /**
-   * @brief ignore item list.
-   */
-  std::set<std::string> ignore_items;
-
-  /**
-   * @brief JsonAPI(txid) value
-   */
-  std::string txid_ = "";
-  /**
-   * @brief JsonAPI(vout) value
-   */
-  uint32_t vout_ = 0;
-  /**
-   * @brief JsonAPI(asset) value
-   */
-  std::string asset_ = "";
-  /**
-   * @brief JsonAPI(assetamount) value
-   */
-  int64_t assetamount_ = 0;
-  /**
-   * @brief JsonAPI(token) value
-   */
-  std::string token_ = "";
-  /**
-   * @brief JsonAPI(tokenamount) value
-   */
-  int64_t tokenamount_ = 0;
 };
 
 // ------------------------------------------------------------------------

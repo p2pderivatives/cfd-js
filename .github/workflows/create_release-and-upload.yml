@@ -5,10 +5,13 @@ on:
     tags:
     - 'v*'
 
+env:
+  XCODE_VERSION: 10.3
+
 jobs:
   create_releases:
     name: create-releases
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     outputs:
       release_url: ${{ steps.output_url.outputs.upload_url }}
 
@@ -52,11 +55,17 @@ jobs:
   upload-object-windows-vs2019:
     name: upload-object-win-vs2019
     needs: create_releases
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
     - name: checkout
       uses: actions/checkout@v2
+    - uses: actions/setup-node@v2.1.2
+      timeout-minutes: 1
+      with:
+        node-version: 15
+    - name: update to npm v7
+      run: npm i -g npm@7
     - name: output url
       id: get_url
       run: echo "::set-output name=upload_url::${{ needs.create_releases.outputs.release_url }}"
@@ -105,22 +114,21 @@ jobs:
         asset_path: ./cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-win-vs2019-x86_64.zip
         asset_content_type: application/zip
-# Comment out until the node addon's build on windows is possible.
-#    - name: npm install
-#      run: npm install
-#      timeout-minutes: 20
-#    - name: prebuild
-#      run: npm run prebuild_all
-#    - name: prebuild upload
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
-#      shell: bash
+    - name: npm install
+      run: npm install
+      timeout-minutes: 20
+    - name: prebuild
+      run: npm run prebuild_all
+    - name: prebuild upload
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
+      shell: bash
 
   upload-object-ubuntu:
     name: upload-object-ubuntu
     needs: create_releases
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - name: checkout
@@ -178,3 +186,67 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}
 
+  upload-object-macos:
+    name: upload-object-macos
+    needs: create_releases
+    runs-on: macos-10.15
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Get the version
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+    - name: Select Xcode version
+      run: sudo xcode-select -s '/Applications/Xcode_${{ env.XCODE_VERSION }}.app/Contents/Developer'
+    - name: Show Xcode version
+      run: xcodebuild -version
+    - name: list
+      run: ls -a $GITHUB_WORKSPACE
+    - name: create folder
+      run: |
+        echo "---- dump output data ----"
+        mkdir dist
+    - name: cmake-build
+      id: cmake_build
+      run: |
+        cmake -S . -B build
+        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib" --build build
+        cmake --build build --parallel 4 --config Release
+        cd ../..
+      timeout-minutes: 20
+    - name: cmake-install
+      run: |
+        cd build
+        sudo make install DESTDIR=../dist
+        cd ..
+        sudo rm -rf dist/usr/local/cmake/wallycore-* dist/usr/local/lib/pkgconfig/wallycore.pc
+        sudo rm -rf dist/usr/local/lib/wallycore.*   dist/usr/local/lib/libwallycore.*
+    - name: create archive file
+      run: |
+        cd dist
+        zip -r cfd.zip usr
+        echo "---- dump zip file ----"
+        ls -l
+    - name: output url
+      id: get_url
+      run: echo "::set-output name=upload_url::${{ needs.create_releases.outputs.release_url }}"
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_url.outputs.upload_url }}
+        asset_path: ./dist/cfd.zip
+        asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-osx-xcode${{ env.XCODE_VERSION }}-x86_64.zip
+        asset_content_type: application/zip
+    - name: npm install
+      run: npm install
+      timeout-minutes: 20
+    - name: prebuild
+      run: npm run prebuild_all
+    - name: prebuild upload
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run prebuild_upload_all -- ${GITHUB_TOKEN}

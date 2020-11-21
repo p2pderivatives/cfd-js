@@ -248,6 +248,39 @@ struct TxOutRequestStruct {
 };
 
 // ------------------------------------------------------------------------
+// UnblindIssuanceOutputStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UnblindIssuanceOutputStruct struct
+ */
+struct UnblindIssuanceOutputStruct {
+  std::string txid = "";                      //!< txid  // NOLINT
+  uint32_t vout = 0;                          //!< vout  // NOLINT
+  std::string asset = "";                     //!< asset  // NOLINT
+  int64_t assetamount = 0;                    //!< assetamount  // NOLINT
+  std::string token = "";                     //!< token  // NOLINT
+  int64_t tokenamount = 0;                    //!< tokenamount  // NOLINT
+  std::string asset_value_blind_factor = "";  //!< asset_value_blind_factor  // NOLINT
+  std::string token_value_blind_factor = "";  //!< token_value_blind_factor  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// UnblindOutputStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UnblindOutputStruct struct
+ */
+struct UnblindOutputStruct {
+  uint32_t index = 0;                   //!< index  // NOLINT
+  std::string asset = "";               //!< asset  // NOLINT
+  std::string blind_factor = "";        //!< blind_factor  // NOLINT
+  std::string asset_blind_factor = "";  //!< asset_blind_factor  // NOLINT
+  int64_t amount = 0;                   //!< amount  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // UtxoJsonDataStruct
 // ------------------------------------------------------------------------
 /**
@@ -508,6 +541,21 @@ struct BlindRawTransactionRequestStruct {
   int64_t minimum_range_value = 1;                        //!< minimum_range_value  // NOLINT
   int exponent = 0;                                       //!< exponent  // NOLINT
   int minimum_bits = 52;                                  //!< minimum_bits  // NOLINT
+  bool collect_blinder = false;                           //!< collect_blinder  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// BlindTransactionResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief BlindTransactionResponseStruct struct
+ */
+struct BlindTransactionResponseStruct {
+  std::string hex = "";                                        //!< hex  // NOLINT
+  std::vector<UnblindOutputStruct> blinders;                   //!< blinders  // NOLINT
+  std::vector<UnblindIssuanceOutputStruct> issuance_blinders;  //!< issuance_blinders  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -1427,37 +1475,6 @@ struct UnblindRawTransactionRequestStruct {
   std::string tx = "";                           //!< tx  // NOLINT
   std::vector<UnblindTxOutStruct> txouts;        //!< txouts  // NOLINT
   std::vector<UnblindIssuanceStruct> issuances;  //!< issuances  // NOLINT
-  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
-};
-
-// ------------------------------------------------------------------------
-// UnblindOutputStruct
-// ------------------------------------------------------------------------
-/**
- * @brief UnblindOutputStruct struct
- */
-struct UnblindOutputStruct {
-  uint32_t index = 0;                   //!< index  // NOLINT
-  std::string asset = "";               //!< asset  // NOLINT
-  std::string blind_factor = "";        //!< blind_factor  // NOLINT
-  std::string asset_blind_factor = "";  //!< asset_blind_factor  // NOLINT
-  int64_t amount = 0;                   //!< amount  // NOLINT
-  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
-};
-
-// ------------------------------------------------------------------------
-// UnblindIssuanceOutputStruct
-// ------------------------------------------------------------------------
-/**
- * @brief UnblindIssuanceOutputStruct struct
- */
-struct UnblindIssuanceOutputStruct {
-  std::string txid = "";    //!< txid  // NOLINT
-  uint32_t vout = 0;        //!< vout  // NOLINT
-  std::string asset = "";   //!< asset  // NOLINT
-  int64_t assetamount = 0;  //!< assetamount  // NOLINT
-  std::string token = "";   //!< token  // NOLINT
-  int64_t tokenamount = 0;  //!< tokenamount  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 

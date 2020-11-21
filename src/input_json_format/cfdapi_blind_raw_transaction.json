@@ -84,13 +84,73 @@
     "exponent:comment": "An exponential value that guarantees a range of rangeproof.",
     "minimumBits": 52,
     "minimumBits:type": "int",
-    "minimumBits:comment": "minimum bits of rangeproof."
+    "minimumBits:comment": "minimum bits of rangeproof.",
+    "collectBlinder": false,
+    "collectBlinder:require": "optional",
+    "collectBlinder:comment": "collect blinder data. (blinders and issuanceBlinders)"
   },
   "response": {
-    ":class": "RawTransactionResponse",
-    ":class:comment": "The output transaction data.",
+    ":class": "BlindTransactionResponse",
+    ":class:comment": "The output blind transaction data.",
     "hex": "",
     "hex:require": "require",
-    "hex:comment": "transaction hex."
+    "hex:comment": "transaction hex.",
+    "blinders:require": "optional",
+    "blinders:comment": "Blinder data",
+    "blinders": [
+      {
+        ":class": "UnblindOutput",
+        ":class:comment": "unblind txout",
+        "index": 0,
+        "index:type": "uint32_t",
+        "index:require": "require",
+        "index:comment": "vout",
+        "asset": "",
+        "asset:require": "require",
+        "asset:comment": "asset",
+        "blindFactor": "",
+        "blindFactor:require": "require",
+        "blindFactor:comment": "amount blind factor",
+        "assetBlindFactor": "",
+        "assetBlindFactor:require": "require",
+        "assetBlindFactor:comment": "asset blind factor",
+        "amount": 0,
+        "amount:require": "require",
+        "amount:comment": "satoshi amount"
+      }
+    ],
+    "issuanceBlinders:require": "optional",
+    "issuanceBlinders:comment": "Issuance blinder data",
+    "issuanceBlinders": [
+      {
+        ":class": "UnblindIssuanceOutput",
+        ":class:comment": "unblind issuance data",
+        "txid": "",
+        "txid:require": "require",
+        "txid:comment": "utxo txid",
+        "vout": 0,
+        "vout:require": "require",
+        "vout:comment": "utxo vout",
+        "vout:type": "uint32_t",
+        "asset": "",
+        "asset:require": "optional",
+        "asset:comment": "asset",
+        "assetamount": 0,
+        "assetamount:require": "optional",
+        "assetamount:comment": "asset amount",
+        "token": "",
+        "token:require": "optional",
+        "token:comment": "token",
+        "tokenamount": 0,
+        "tokenamount:require": "optional",
+        "tokenamount:comment": "token amount",
+        "assetValueBlindFactor": "",
+        "assetValueBlindFactor:require": "optional",
+        "assetValueBlindFactor:comment": "asset amount blind factor",
+        "tokenValueBlindFactor": "",
+        "tokenValueBlindFactor:require": "optional",
+        "tokenValueBlindFactor:comment": "token amount blind factor"
+      }
+    ]
   }
 }
