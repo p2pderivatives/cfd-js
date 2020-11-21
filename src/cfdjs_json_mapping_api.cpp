@@ -1025,9 +1025,10 @@ std::string JsonMappingApi::ElementsDecodeRawTransaction(
 std::string JsonMappingApi::BlindRawTransaction(
     const std::string &request_message) {
   return ExecuteJsonApi<
-      api::json::BlindRawTransactionRequest, api::json::RawTransactionResponse,
+      api::json::BlindRawTransactionRequest,
+      api::json::BlindTransactionResponse,
       api::BlindRawTransactionRequestStruct,
-      api::RawTransactionResponseStruct>(
+      api::BlindTransactionResponseStruct>(
       request_message,
       ElementsTransactionStructApi::BlindTransaction);  // NOLINT
 }

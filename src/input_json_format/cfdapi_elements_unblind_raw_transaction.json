@@ -97,7 +97,13 @@
         "token:comment": "token",
         "tokenamount": 0,
         "tokenamount:require": "optional",
-        "tokenamount:comment": "token amount"
+        "tokenamount:comment": "token amount",
+        "assetValueBlindFactor": "",
+        "assetValueBlindFactor:require": "optional",
+        "assetValueBlindFactor:comment": "asset amount blind factor",
+        "tokenValueBlindFactor": "",
+        "tokenValueBlindFactor:require": "optional",
+        "tokenValueBlindFactor:comment": "token amount blind factor"
       }
     ]
   }

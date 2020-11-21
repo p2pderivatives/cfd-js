@@ -74,7 +74,7 @@ const main = async function() {
 
     let targetName = '';
     if (isMacos) {
-      targetName = 'osx-xcode9.4';
+      targetName = 'osx-xcode10.3';
     } else if (isWindows) {
       targetName = 'win-vs2019';
     } else {

@@ -64,10 +64,7 @@
                     ],
                     "feeAmount": 3320,
                     "utxoFeeAmount": 1820
-                },
-                "exclude": [
-                    "python"
-                ]
+                }
             },
             {
                 "case": "ElementsSelectCoinsTest03",
@@ -633,6 +630,152 @@
                         "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
                     ],
                     "feeAmount": 883
+                }
+            },
+            {
+                "case": "regtest address",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [],
+                    "tx": "020000000000020100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ert1q0r4elskfu8xlvvlvkergtzagv2ep8p9t3zeg96"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ert1q55a7gqgnhdg09w9j6zl7585z8e6kx26lum2leh"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "hex": "0200000000020bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff050100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa0100000000000001ff00000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b595f0016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "usedAddresses": [
+                        "ert1q0r4elskfu8xlvvlvkergtzagv2ep8p9t3zeg96",
+                        "ert1q55a7gqgnhdg09w9j6zl7585z8e6kx26lum2leh"
+                    ],
+                    "feeAmount": 511
+                }
+            },
+            {
+                "case": "confidential address",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [],
+                    "tx": "020000000000020100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "el1qqdqg9pua7svrx9u5ujj4hp7djnfdy0837g42quyp4g5tj8pgkhj6z78tnlpvncwd7ce7edjxsk96sc4jzwz2ky5z0zegze59c"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ert1q55a7gqgnhdg09w9j6zl7585z8e6kx26lum2leh"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "hex": "0200000000020bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff050100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa0100000000000001ff00000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b595f034082879df418331794e4a55b87cd94d2d23cf1f22aa07081aa28b91c28b5e5a116001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "usedAddresses": [
+                        "el1qqdqg9pua7svrx9u5ujj4hp7djnfdy0837g42quyp4g5tj8pgkhj6z78tnlpvncwd7ce7edjxsk96sc4jzwz2ky5z0zegze59c",
+                        "ert1q55a7gqgnhdg09w9j6zl7585z8e6kx26lum2leh"
+                    ],
+                    "feeAmount": 511
+                }
+            },
+            {
+                "case": "unmatch address network type",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [],
+                    "tx": "020000000000020100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ert1q0r4elskfu8xlvvlvkergtzagv2ep8p9t3zeg96"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "error": {
+                    "cfd": "Failed to FundRawTransaction. Input address and network is unmatch."
+                }
+            },
+            {
+                "case": "bitcoin address",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [],
+                    "tx": "020000000000020100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "bc1q0r4elskfu8xlvvlvkergtzagv2ep8p9tpewghq"
+                        },
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "bc1q55a7gqgnhdg09w9j6zl7585z8e6kx26lvqaltd"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.1,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "error": {
+                    "cfd": "Base58 decode error."
                 }
             }
         ]

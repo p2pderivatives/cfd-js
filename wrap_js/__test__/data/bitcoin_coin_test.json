@@ -449,6 +449,50 @@
                     ],
                     "feeAmount": 7460
                 }
+            },
+            {
+                "case": "regtest address",
+                "request": {
+                    "utxoFile": "utxo_3",
+                    "selectUtxos": [],
+                    "tx": "02000000000280969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "regtest",
+                    "targetAmount": 0,
+                    "reserveAddress": "bcrt1q0r4elskfu8xlvvlvkergtzagv2ep8p9tfkvkm6",
+                    "feeInfo": {
+                        "feeRate": 20.0,
+                        "longTermFeeRate": 20.0,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0
+                    }
+                },
+                "expect": {
+                    "hex": "02000000010af4768e14f820cb9063f55833b5999119e53390ecf4bf181842909b11d0974d0000000000ffffffff0380969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470ce47f19000000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "usedAddresses": [
+                        "bcrt1q0r4elskfu8xlvvlvkergtzagv2ep8p9tfkvkm6"
+                    ],
+                    "feeAmount": 3860
+                }
+            },
+            {
+                "case": "error: liquid address",
+                "request": {
+                    "utxoFile": "utxo_3",
+                    "selectUtxos": [],
+                    "tx": "02000000000280969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "regtest",
+                    "targetAmount": 0,
+                    "reserveAddress": "ert1q0r4elskfu8xlvvlvkergtzagv2ep8p9t3zeg96",
+                    "feeInfo": {
+                        "feeRate": 20.0,
+                        "longTermFeeRate": 20.0,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0
+                    }
+                },
+                "error": {
+                    "cfd": "Base58 decode error."
+                }
             }
         ]
     }
