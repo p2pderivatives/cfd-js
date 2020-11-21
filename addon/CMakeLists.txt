@@ -288,7 +288,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 add_dependencies(${PROJECT_NAME} ${CFDJS_LIBRARY})
-add_dependencies(${PROJECT_NAME} wallycore)
+# add_dependencies(${PROJECT_NAME} wallycore)
 
 if(USE_INSTALLED_LIBRARY)
 if(ENABLE_SHARED)
