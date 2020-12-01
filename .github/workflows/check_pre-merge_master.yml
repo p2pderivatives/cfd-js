@@ -42,7 +42,7 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - name: update to npm v7
-      if: matrix.os == 'windows-latest'
+      if: runner.os == 'Windows'
       run: npm i -g npm@7
     - name: dump node version
       id: node_ver
@@ -65,7 +65,7 @@ jobs:
         npm --version
         echo "::set-output name=temp_npm_cachedir::$(npm config get cache)"
     - name: use npm cache
-      if: matrix.os != 'windows-latest' && steps.node_cache.outputs.cache-hit != 'true'
+      if: runner.os != 'Windows' && steps.node_cache.outputs.cache-hit != 'true'
       uses: actions/cache@v1
       id: npm_cache
       with:
@@ -90,7 +90,7 @@ jobs:
     - name: elements_example
       run: npm run elements_example
     - name: lint_check
-      if: matrix.os != 'macos-latest'
+      if: runner.os != 'macOS'
       run: npm run lint_all
     - name: after_job
       run: rm -rf node_modules/cfd-js

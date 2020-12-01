@@ -118,7 +118,7 @@ jobs:
       run: npm install
       timeout-minutes: 20
     - name: prebuild
-      run: npm run prebuild_all
+      run: npm run prebuild_napi
     - name: prebuild upload
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -180,7 +180,7 @@ jobs:
       run: npm install
       timeout-minutes: 20
     - name: prebuild
-      run: npm run prebuild_all
+      run: npm run prebuild_napi
     - name: prebuild upload
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -245,7 +245,7 @@ jobs:
       run: npm install
       timeout-minutes: 20
     - name: prebuild
-      run: npm run prebuild_all
+      run: npm run prebuild_napi
     - name: prebuild upload
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
