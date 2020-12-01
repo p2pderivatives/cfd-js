@@ -46,8 +46,7 @@ void SelectUtxosWrapRequest::PostDeserialize() {
     auto ite2 = json_target_list.cbegin();
     const auto& ite_end2 = json_target_list.cend();
     while (ite2 != ite_end2) {
-      map_target_amount_.insert(std::make_pair(
-          ite2->GetAsset(), Amount::CreateBySatoshiAmount(ite2->GetAmount())));
+      map_target_amount_.emplace(ite2->GetAsset(), ite2->GetAmount());
       ++ite2;
     }
   }
@@ -106,7 +105,7 @@ void SelectUtxosWrapResponse::SetSelectedAmountMap(
   for (const auto& selected_amount : map_selected_amount) {
     TargetAmountMapData selected_amount_data;
     selected_amount_data.SetAsset(selected_amount.first);
-    selected_amount_data.SetAmount(selected_amount.second.GetSatoshiValue());
+    selected_amount_data.SetAmount(selected_amount.second);
     json_selected_list.push_back(selected_amount_data);
   }
 }
