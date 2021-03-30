@@ -9,11 +9,16 @@ set(PACKAGE_VERSION_p2pderivatives   0.0.4)
 include(./cmake/CfdCommonOption.cmake)
 include(./cmake/CfdWallyOption.cmake)
 
+option(CFD_SHARED "force shared build (ON or OFF. default:OFF)" OFF)
 option(ENABLE_CAPI  "enable c-api (ON or OFF. default:OFF)" OFF)
+option(ENABLE_JSONAPI  "enable json-api (ON or OFF. default:ON)" ON)
 
 if(NOT APPLE)
 set(ENABLE_SHARED ON CACHE BOOL "" FORCE)
 endif()
+set(GENERATE_WALLY ON CACHE BOOL "" FORCE)
+set(EXCLUDE_WALLYCORE_LIB ON CACHE BOOL "" FORCE)
+set(ENABLE_JS_WRAPPER OFF CACHE BOOL "" FORCE)
 
 ####################
 # common setting

@@ -132,7 +132,8 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "capi": "Failed to parameter. address is null or empty.",
-                    "cfd": "unblinded_addrss is empty."
+                    "cfd": "unblinded_addrss is empty.",
+                    "python": "Failed to parameter. address is null."
                 }
             },
             {
@@ -145,7 +146,8 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "capi": "Failed to parameter. confidential key is null or empty.",
-                    "cfd": "key is empty."
+                    "cfd": "key is empty.",
+                    "python": "Failed to parameter. pubkey is null or empty."
                 }
             },
             {

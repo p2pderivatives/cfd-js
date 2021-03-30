@@ -1,0 +1,91 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "comment": "Add a signature and redeem script to the transaction.",
+  "request": {
+    ":class": "AddScriptHashSignRequest",
+    ":class:comment": "script hash input data to add to tx.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txin:require": "require",
+    "txin:comment": "transaction input data",
+    "txin": {
+      ":class": "AddScriptHashSignTxInRequest",
+      ":class:comment": "script hash input data",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "signParams:require": "require",
+      "signParams:comment": "sign parameter list.",
+      "signParams": [
+        {
+          ":class": "SignData",
+          ":class:comment": "The sign data.",
+          "hex": "",
+          "hex:require": "require",
+          "hex:comment": "If the type is auto or op_code, character string input is enabled. Others are hex byte array only.",
+          "type": "auto",
+          "type:require": "optional",
+          "type:comment": "parameter type.",
+          "type:hint": "binary, sign",
+          "derEncode": false,
+          "derEncode:require": "optional",
+          "derEncode:comment": "der encode option flag. Valid when type is auto or sign.",
+          "sighashType": "all",
+          "sighashType:require": "optional",
+          "sighashType:comment": "signature hash type.",
+          "sighashType:hint": "all, none, single",
+          "sighashAnyoneCanPay": false,
+          "sighashAnyoneCanPay:require": "optional",
+          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
+        }
+      ],
+      "signParam:require": "optional",
+      "signParam:comment": "sign parameter list.(deprecated)",
+      "signParam": [
+        {
+          ":class": "SignData",
+          ":class:comment": "The sign data.",
+          "hex": "",
+          "hex:require": "require",
+          "hex:comment": "If the type is auto or op_code, character string input is enabled. Others are hex byte array only.",
+          "type": "auto",
+          "type:require": "optional",
+          "type:comment": "parameter type.",
+          "type:hint": "binary, sign",
+          "derEncode": false,
+          "derEncode:require": "optional",
+          "derEncode:comment": "der encode option flag. Valid when type is auto or sign.",
+          "sighashType": "all",
+          "sighashType:require": "optional",
+          "sighashType:comment": "signature hash type.",
+          "sighashType:hint": "all, none, single",
+          "sighashAnyoneCanPay": false,
+          "sighashAnyoneCanPay:require": "optional",
+          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
+        }
+      ],
+      "redeemScript": "",
+      "redeemScript:require": "require",
+      "redeemScript:comment": "redeem script.",
+      "hashType": "",
+      "hashType:require": "require",
+      "hashType:comment": "hash type.",
+      "hashType:hint": "p2sh, p2wsh or p2sh-p2wsh"
+    }
+  },
+  "response": {
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
+  }
+}

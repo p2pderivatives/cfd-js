@@ -1,0 +1,47 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "VerifyPsbtSign",
+  "comment": "Verify the sign of psbt.",
+  "request": {
+    ":class": "VerifyPsbtSignRequest",
+    ":class:comment": "Request to verify psbt sign.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "outPointList:require": "optional",
+    "outPointList:comment": "outpoint list. if unset, it check all input.",
+    "outPointList": [{
+      ":class": "OutPoint",
+      ":class:comment": "OutPoint data.",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout."
+    }]
+  },
+  "response": {
+    ":class": "VerifySignResponse",
+    ":class:comment": "Response data of verification",
+    "success": true,
+    "success:require": "require",
+    "success:comment": "verification result",
+    "failTxins": [{
+      ":class": "FailSignTxIn",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout",
+      "reason": "",
+      "reason:require": "require",
+      "reason:comment": "error reason."
+    }],
+    "failTxins:require": "optional",
+    "failTxins:comment": "failed txin list"
+  }
+}

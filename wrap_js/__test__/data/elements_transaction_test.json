@@ -3842,7 +3842,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -3864,7 +3864,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "22222222",
                                 "type": "binary",
@@ -3887,7 +3887,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "22222222",
                                 "type": "binary",
@@ -3910,7 +3910,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -3944,7 +3944,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "",
                                 "type": "binary",
@@ -3967,7 +3967,7 @@
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
                         "isWitness": false,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "54b6116e20efb6da997e4fabe8e0af10ecb7b9d5009050795c21475ca4c6f3c6717787bc18eb2064b49a18cb8dec8b3bbaeb68ea71c58fa73bb1ec7e19d2cb26",
                                 "type": "sign",
@@ -3994,7 +3994,7 @@
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
                         "isWitness": false,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "OP_0",
                                 "type": "auto"
@@ -4027,7 +4027,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4052,7 +4052,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4077,7 +4077,7 @@
                     "txin": {
                         "txid": "",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4102,7 +4102,7 @@
                     "txin": {
                         "txid": "ea9d5a9e974af1d16730",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4127,7 +4127,7 @@
                     "txin": {
                         "txid": "ea9d5a9e974af1d167305aa6ee598706d63274e8a40f4f33af97db37a7adde4d",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4151,7 +4151,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": -1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4178,7 +4178,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 0,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "11111111",
                                 "type": "binary",
@@ -4202,7 +4202,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": []
+                        "signParams": []
                     }
                 },
                 "error": {
@@ -4223,7 +4223,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "111",
                                 "type": "binary",
@@ -4247,7 +4247,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
                                 "type": "sign",
@@ -4272,7 +4272,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
                                 "type": "sign",
@@ -4543,7 +4543,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "3044022054b6116e20efb6da997e4fabe8e0af10ecb7b9d5009050795c21475ca4c6f3c60220717787bc18eb2064b49a18cb8dec8b3bbaeb68ea71c58fa73bb1ec7e19d2cb2601",
                                 "type": "binary",
@@ -4576,7 +4576,7 @@
                     "txin": {
                         "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
                         "vout": 1,
-                        "signParam": [
+                        "signParams": [
                             {
                                 "hex": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
                                 "type": "sign",
@@ -4710,7 +4710,35 @@
                 },
                 "expect": {
                     "success": false
-                }
+                },
+                "exclude": [
+                    "json"
+                ]
+            },
+            {
+                "case": "Fail HashType(P2WPKH) SigHashType(all) by AmountCommitment on json",
+                "request": {
+                    "tx": "020000000101b7fc3ad65a21649fdf9a225a6165a2f945e895f2eac6b2bbc1d2f3681080f8030000000000ffffffff030b3584c0a40110d0a208aad09ca9be67dbe5fc7343b6287a8abb122439def1cc8c094d982039de127c6ffb3a012d7a54cb790baf1e923f48307eefd189aaa830dd4f03536ffcfc5365ae010225b8011f8b94e495574b4d0527350fef11fdbd93dbe21b17a914a3949e9a8b0b813db67c8fc5ad14194a297979cd870bcf3a513f93f3098858ba760efdcea670e9675930b210b9b7e5c33a87ebe3823d08e6b041a5120606213de33e800d38636a5a18277badf9f9393db822b15f3973aa03eaa4f0b5baacb04a6d8b37b5e70584550be4962178e20a9c0aec5faef855ccc617a914a3949e9a8b0b813db67c8fc5ad14194a297979cd870125b251070e29ca19043cf33ccd7324e2ddab03ecc4ae0b5e77c4fc0e5cf6c95a0100000000000027100000000000000000000043010001033a6e5463aeaf8460ef48520746c9a162f4b715eb6d4f00cb975e3b7a01e57092012829e2e1e87787fe5e04512e0b68500f97ae8771a44c05a87d3646e9215bfd4d0b602300000000000000014d3500fbe175b8e442af9d8322a0c892e2bca2c25561799c01c07f66cbb936e9c90404338f40bcf348912cc25855cbd38621076efd088b36b1933baf9513aea1bbd522551c82a478a7fa34e1dcda8ef648761031332ad5388ccbc171f9475c9fde056908bdec0b0c408c41691c4bed297da4b1740bbf0f81eb2ccf0f112ba6ca2c6f1d6bf3c1cecc613aaac01153bfaf7906df82402dcc8d0867eecd212fee82827e1ab5fb7ab448b36bed57bc9edb153544a961ee5e22a33385336e77f2b67dd6274c4d0232635c3112f7cb9dbb758beeac7db0ca1945c3497d1187aee1106181b2b2bd8c5602b1460085d2ac1319d0df500169a9344528feed3304ad212678e79946ebcf915cbbb9be47b0e850e0022c058e95e6e18d73227d354910b6d2ef7435c8a5f6e1355c2e35173e7bef86924a14a0f3e747562af1898a8c65ac52ba31bd860e81090f3cc1da296557685c4529681b25066d4db6febed3cbc3252e87df247a96a6f8c44550ebaf0610b3ebfdc80c744d41b4cb80b17d3ffa95024fac8ec40cbad4a2e442479e334021ee50218dabfec1d68bfda180d7d509e0d2da389f589ee6024791c2557b4175aae469e7e11b2779d1a8433ffe99ac7db6cbc7a4296c1eba50636839b1a378ad27c9fca08859689d5f08103c45f8de0eedabe7987afa9dd3aeb970cb8276c22fd329f182b8200b1d1a4baa88f2a82e54b40ae07cb10bd7c9bad09e59b461ea0f955791ace19af8dd90cb7b55cd09d319abc75686d15606b88356cf1f6838f59d61d473d4d128821d7628ac3c9b9068e65acfbab69fcbe498ee115fcb1cb3133d51d66e4727a4c37a56b66b940d40f4aaa16be4fc7a8c58d1df13614905472354a996f463c0102503a5191c4677a9666f3190555022a1f447d0cc45f65a845dd8a0a9fd9835948fe4aee490ead426df02327ce189458c85d08aad605810e5b9372023992040213e0df83c1d775c248edd7095271f88d065c073a15b37c3455b23ae946fa4cb7e40a14dc8810614deacf8ccab5634bce2f6475c35867c0c71add1d2af013269bc0973d8a54a78b2f6234c9520ea490f188aa493d612f5bef278cfb9f48e525f7eb202f3603bfe5d978b1233447872dff46a21b1d19ec8a8f6a9c4dc1c4ee3ebb4124b4c2a9d7d28705eecb04b9c592cee292155c7204a5a3f781cbc970d9549f5afba68d2e1ddc4b08ee3af6085716c7af487c92a1abe79d7c9f5027cb03190c9f47e05db5896cd94b119c53de617533dd7bdce57e9f3ce69cf8f25b6bcfce6d8abdcf14e098551d8f72256c2c04a5fb835f5b9f5ba1c7a5989a1c93e181240cb175e34ecedb9f2ef23614054f44cbaacb732e5529f02a7622c2ffaf811d205ed2be83f723ff8ba4ff23dbca65aabad5196c44c37982bbd5a54f9b38e776b52b8e817ca2f2c246dcd7b68922f9b2b4e8792c4a00c02a81de950afa532ce77ded61182f8fb65a49d416ffd697a8bab26feff05c9e0e7bcf028fd4775566f5864c4cdd51e425756369d9d4478ca027907511cedab3dcd098f9c9a019714a6ce3b40f54fcfaa6e035c4c8e566bb050ef9b9f4ac995155f2fcda379f94a3cf2819e5d57221ebe63af2dbcf319942728ada876379a0d98991d25125168307e089bd2bc24843d0b58f958d75b37f097dced7d7579d94346127d7a2029c1966ccf7e80ede17511da539ed2e4cb7b65f644e906f9c57c5a17ec9375ab5b9b867d1ab68a00371cbb5fa209d6badae3728723e0dff89cd5f9bd38dec57321b43b32c747b0f645e02df0ce9d946a723243d53a85232c4f26853b2d788c7f5c6e9974da549af5cf23813eaf88a409198729f12f5b83cccff34b6153e0d3adb79a3ce11dde701807519db5df63939d4ed44abd34971bc14a477ed35a7596907753477aabdfc15265f2625787d8a152f9b5deabc5371682657b0c9bd4dc20ca95e388de3454ec80ded9b9b268ec55e2f0816be7e9b979a81685e2885bce1f0c873d6f268fda1a8d4fe8f736e95842fc9b05f84ed1d14a67566dfe931fa13ffff2672d9f9d30b13e62ecca4ff20f462be0626c0b93493446ff90d7ff1bddd867c8c6d9ccee603ab0fb0896544a20f2f9a5f5928e026bfd0ea93cc4c26abcf6159fa2c15245f2f3190cfc201316985a17b666e16230598a84e4bc31a6ae90491ea1f4550f96360778342c84c494c9faa073624396d8ca2e1ced3b545959040be0a5cb9d8bedd9584ba2db6f3bbf2dca734806076cb406432793f7b3ba7bc4ac35325e97d1f48d219c9e0e5a1555cb49cd97fdbfda3034ef08073a490624e2e1b76450e091d878c3caf9fe066680b96af0db14d9939c489dfd387b2e86b89ecd4bf1e6cc4c7a7f0e4533c6dcb510bec483faac1a9bc73cf2e1e595e8ffad98c7c400601b56840766f4d7934b2cbd6aa70bf6ebd18436d23f963b1a7711b3966415e50a0b0c67cb6de142e1a1ba5d7dfa77542c44bbbaa0e95ed0e702a506fdab23ee7aaa7843083266693dfb6c31be76e0bc3b33fa18b11e95888a18cdc4793ae7bc1a4686c546a52c9843fa19739522cdbbf874ec59d0c38b6a4b3aedbfbe72d82b8efba6deac3cbdb2f18ac25de8c8f095f1c921431e6a7c342fb17e8d3a5cb809521765de4adb001ae63d92e109317d090425dcdc197dfdbe7440b857824ef6128397653e20c33f995b4c782db036b420945b4c2c3d953ead32378939e9b74537e2dd26cd360bac1dbf752f66f1ddbb03eede3c76efc619bb06ebac2a0cfbb6c40f9a2762995e0911950c07eb7b5ca642234e0c0df99db32dfe99253003c052db72d4f744e423cc28620e1742363e5745ba759d15b62f77bb9c6534bcc13ee8ef1381219ac07219f8a75caa256ab7c3fffd0c40f93556541c929a1754c289235c4f80b68f0cd0043c9e0c2922e512a0730a80c2b4bf038ee9d5ece4e5dbc1f84258a81da43e4921278f1e4aeffa6cbfb8b2f83e9dc756811a00a44a48498b7f0f1b8ab9b1808914cb66b3fd41e6d4ff6579747b2174b4651c66382fd6000b6db2dec4763f61667115113469b73de1d911af384a36f7e4c960e10102e015b8d1250af9ea7981e79d84b49f714aa3210fb6e7f9b2a860d9df18c981f69b479bfd744a6c054df476919407bd227c58c76f244c8b8ea4265912e95b4285da68be013e3888b92d57b8689ad1ef5c6f0d3c0bed3cf25e86931e7c4bf14042d8ca9b7c323b2875b981eb9b5883c4e3bd75233cd9ae19568a3adede390bcfa787067596ab704c9b057d6a91b77c514de5c034a96cb31db3393ead266aab3eaebf2fbeffa63c4202c5febaa3f2b848878a5c2235619071c10f6146868e735971c8a53f59d3235b0e3b4a460473e7173f29d42982f69cef40207d43e2fd308a7ff6421044c8960c991f33a9d3334a8d63109251f672fd89f75ae1d9b32559b73c5a22e019f46a503f9dfb5bc82deb5103dde9e91f145c7507ad55b21e0ff8f96b5dcb6222dc8c5e428ddd9e9c7658a8ba8d318aa6180e75c260bb83e16898a68711be33c0ba8906e3233c8c1f31c9fc75857655ef26ba7b53952dab096a48ccf9258490a0b6e05304da43a43878eb0740fe1f952b9028d450b904ebca2d00d036bd38a435ffcf73d795397a84ec18f72a93cdddd4b8dfdac4c6c7877e16b480e819857c8e18920beb0ee09e6c3b2b6baadcffeac776591744394eb512d5814c1f68ff0c73e2bb3e2f4e0186282cd8da6b8e96e1d5bca47c98329608edaebe36c01895638a7c728cf871d2f19d5833234d2277d3acfd60ebd6c4add790eee3758bd840bc22962f1fa2227ae2853813cc36b5be46e37b246f6a9b0a21b6159a82b5f92800941e33df02188761bc730c2b284aa15dd4545ae0f4c4229a4d8c9b415a691a355e1858a26c7433195a42e55c020cbc0efcb51b560d561715c546091d655dd5cac04b4ce0986941229591f33f7c96e9acef7e878043c49a4a420de859ff20695196c37660511276e43705f73751d68f7ef1929b3ab8e32faabc3c83ac13466c543650220aa2669a3ed7fe34d6f6e6ddb44e390b7338a8a3056a8643010001ff410fe519866271fcc3d47b83120429858ebaa008dce79ae35b4455d7ec3f3045ffab1a938bbf628ff8c14f87f08943acca6bdeebfb06c18b58ec8f4d1d9c51fd4d0b60230000000000000001e20700490755f44beb25382ec7d71b25290f105ca685a456ebd1a7c560386ec9d03fbcb13ae429d8a04902b5daf4ef10010551a2848a31c42a43dc4037705a3ccd2e329f4ae6b02bebe80e58062b374e35d099147cdb36dcbf174ced965c6697a4187f68eb482706f30b24c4312a93a576f07398cd3c5a001645885aa6fdd659a1aeebfd51fe2fe0fc8f26ca9071ee7480de50a9c0637a9c551fedb0215045a888c40d4629109d8c93be540df83c991ac8c1ac9c3e2bb798fcea1c4a4791925c01d349e4ee5832b6e3d53a6d2dc2193b78d97b3b0dd951a846d48d83ceb067518e558214fa17837b747285b80aa92200c5340bdfb727e55d72c26dbc7816073a3654b084022e2d951463a0838f4683ec74184f18af1c0fddbebe292b6615c3c12b7bc381943f2a0968df482be55dd45ce19491349f2cb982935c092cd281f24e3ccffea71f3c776dc79cd4338fc93e393d92de1456166bc1019c1252932f43408338c3a84716dc842cea2a069b057a968d73892429ffd02225550bef7faa19e580cda00ec18d1d60d8e338a9cab95aaa857c579904eea03873c96b23bdd7b2d7aa39d402d5e81cf3585d390c990ba6d786ff2e8183c15e8ca4faeebefd7630b54179a6edea020f6de31ba0b8f36173ba0caf6eace25d9aaaf2ec1ec3cf6a87caef74787447017a2f661598ca5252baccedcf3b7cab0d1bf3d13d69651d92c0dda2baed6f979b5bf5b1f9e4b60592da53cad89bdc53111aafa7a9d8874e7d9f145e128162b709db2557456a1f06789ff8508bce78b47fcd6d63914753e3c5002b1a3a31cf5ac6e42ab6638499c0b964681e854e7284a9fad3a96e5c53ead3ea652e9d0af6e6b86fd920edb6187fe22a03f47fb617ab4232155fd249922d4893d2c786abb074bd399b210e4461c75169f13b0ddedc25c4def03f9a7e6e58e1a9575fe59556cefab31114c3b59fcfe80883920aede6ca6db4db539367894bf9c0a465a0448c6b2f370a3c41e1a9790dcad74918f41dcc7f568559401bc4a471102e43489a731328aad4cb8f9cb459298569a724048b2e879964143837eee75e8a4906fc3bfa22581589f3ca9f6b9958c46a30747e54b5c7fe66f510c77d658458f2311140287b9fc421a48e17073707087f37c1098e9d60b67bac01f1b5b2feef6c1902bbe5581a1b13836f555e63f6fefcc715f4b818acb499ac17e9a3633bf97e975ac49cbf76aaa1ef85411a3fb9062195e202d03a6aed9b652bcb380424032cbaadc3a8b808414836fe68f29b62d27a22abdb5a618191707b442e9dba525fb13698c1af1d00db5927e8178eb7e69ecd21b3199b3eb10ce7d9619428070fa17664b0b8134b45c6c532c74fb32b581a63f3af2d675a74ab467703f4dfede85c7f570fe65c21f71c709db4ae94e4b6fb92314aafb88f953dc8ed3b28da983910413fc9bdc78627c98b519bcaec8de7cf21abbe44deea9c3bd4ead89433bbffaf7a00f1712c09601df224c9635612f97df35812b64fe88a6055d7a971611b358ff7c65320a4eec533a007824fbfb1f0640f5634a0875189321a692fda6e4b39c2e339e3072e181dd228603c82d232f3e7370d344512ea0c0ae8428835974600bbb5870bb922de9f47be0c4fc2f3632f4ae44c7029589f3463ea4418e51c4038788942306cf7715ff8a09bd27413211db78d165fd0a698968f1f1b1023feccb850c99596933da86be7cea9590ec25d487739a25f1552a7f06f8265111dbd65b20241557234a6ddff88a42222e3622c2bb8c0020ed5e21cbce129b734df3cccb008386f78eab530f9625117a0d6d29a396e849564a0c74ec2198da0200dd80a5071fb23f282d0ef2c9bb0290bbad54f91fb3175d38b66cd7b729e370f64948fccdd69703c99196afef66b2187f7a8b9ad13a012cd344e43dc16b3cfc28a680a9764c150c93bf1db12ccb98414aaefa426ef91360acdad7cc13be34660751a8af8f11975ebfb646e8fe5293b51553dfe22d8be3c7d1ab1c4850a362ce11d12b2048a64e8b6398eb5e2078a14eebd532542917b337033b6e82b35a8630cccf170bd73f7e6868634409f1c3351fc83ad399afb3847fbaa7beb4c534bbdbd87df1cb49c9462901f46f00d9e4a1c02c8d817ed31a8e77cdc271ca8f05498951dba32abc0153637790377917ce9d872a4853c67ea639befdc9873ebeb66c30b803d9866c8118e5c7ced668fab3a80b2d4b68f8a387dd0efe3b493888cd02479c7186eea9b58f6b4b8dca92dea056ba78a81d35b29e2586a25385e3574ba4e28ce2702fe1d781b38aae3dd7ab7375014e631421fedfef38b00bc2e622422c3e5cfaf92180c20903e1ab4e983ef8fa20201f47674ce3f85f37691c611155367075ed9e131606105973b428d2e2f7badd32bb4d460735aa5d5774835d5b25369a3959bc71e60a53696c7473101c76a36fcf84192dd3f8ed934c7485033519d1704c78aecda9c8abf0dc118879779dbf4ca888dfd4dad2a6e4bb832e0283563a6057237122f325c72eef7dc89adc842b6f305ed9b2e7b24723754a1d3a26e149b90ba51cb0207d46ccd0a69bd63ad1e95f641069f69639bdccea03428601606bc85a5f2b747a3476e3449ff2aeed12214468353a5326e322354fb56c3f1dac4fa61584ddc38c5a54c5fb8ec332085f50ebfffde12c46e0283656fd954d121191dea53d19fe287e8aee935011fa7b3a240afdb24db95f3ae77c86462028f5b054ef8af36d3f7b4453ad50f470fec39f95901a57d3b3bb01e952269983475f1d13c5a5921a8709332fa9586a0fd8f82f87d06e66e9ec2272fd67a9cfcc1f48b7a1da9a3af716216b811f03fcf4a12c8e832c4e36bcb83f7cae5dd17a385cb9a679d9cc64be8d9f972ea022cd9625664180e98c3f292e62b56b5bea3b9845ce720482f5fb6931dfbd35aa3fc816a776a4553360ec18888b1d9d9acb07edeb5908955373fe6984abc8dbc6724cfec5a908fd606169d0c5ff914e0db3f1a566602dba4265c67f3233b1623b016306d8d3bb0d8c2f47e101fb626c42849c9cd83b5dd7d148ff4a488b6929e52048cf0a61d8e2d506e5d6e70c8beac188de2c14bf8f7c385461257886baf4bf3ad78e16c657e3de62e5cb42015a2cce88516887e1995018a51fa5a2a6688613dde7edf213266e5520b73336cc775ea542908f3f76e67d2792e73afb3429aeae188e39aceb3d17652740ae37fb3639c16888336bc9f1cfea546d3443214d153405e03216ae0ebb79b949ead937daf5587409cf53b6be2428c289dedd6194c2a42719660bc3ca3706f8ba4141734b6e2734ec0e90bb267fc59b92e91a38f554097193494073fb7559b6571994dc5381b5b4ca4443665cf4da2f41dbc737b554a4266c5a40bccc36f94585788eaceddbcc6a082cc1265811c7546f562743264fd8c6926b4f28a7136583057701b8386ba7821ffb12ba742d8a475765c58c1ab68d44adf9a45127a9d0a456152f2ec1317c3c7dda48944fa8595d0e86662c311e6970bb6e51589105def2032e775d5025553d3f44c89044272f870aa7b19a7f71ae0e5d184b6cb7d9e697ae8a56ac1d5619e0d9f1673072928e201975ec84417c83c0fd611cde590995d7d44ad1dbc09c98e178e48bc861b37e46c5257c8a66f6323a1a33958b14eb811ab6c8827dbf16955d01b5ce46bd1e1b19afd48a70310dfbc54d8bb6ed68ec4612c71145bff3a1833e1bb8c52962ec51219abbb58de0ba4c6ca3105fc2c181809102df98ba0e6c22ed21c6d5b30fa2432e8065d5b2b98b95800d6e5600aef541990321bf28be3cff705457c9c00d2a727352e92d102b15a9f7105457b27f93111bf4552ae1588e69e7656e2f1cb723c969c6e8a886564bee122eab57b145fbb2781dea3c099633a80141dfddefa16d93ed7becedff15f196dbd8adff8c47affc10d75aec5e9e03828e371787276193cae56253fc54eb9d1bf925152ad5f3b671f3944f9f61ab35f52b3790c655dc6f0f30ce33169b563f85057b1235fbd62c1d0f9ae9642c639c951bde2baf544117687ab8a3682206ab35b010000",
+                    "isElements": true,
+                    "txin": {
+                        "txid": "03f8801068f3d2c1bbb2c6eaf295e845f9a265615a229adf9f64215ad63afcb7",
+                        "vout": 0,
+                        "signature": "52505e593132327ae41604e5ada810fa73b2951cf0ec7a6126b837eae60b0e491f3b18231af61311d2f98846bdea632acff87eee02f35e3880b92c14a0eb6418",
+                        "pubkey": "03f942716865bb9b62678d99aa34de4632249d066d99de2b5a2e542e54908450d6",
+                        "confidentialValueCommitment": "08b7057c10af7e696c1927584b006fbc3e7e914d4e7ac29f1876bf8d4a64276736",
+                        "hashType": "p2wpkh",
+                        "sighashType": "all",
+                        "sighashAnyoneCanPay": false
+                    }
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Failed to VerifySignature. check fail."
+                },
+                "exclude": [
+                    "capi"
+                ]
             }
         ]
     },
@@ -5705,7 +5733,10 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "message": ""
-                }
+                },
+                "exclude": [
+                    "json"
+                ]
             },
             {
                 "case": "with empty txins.txid",
@@ -5776,7 +5807,10 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "message": ""
-                }
+                },
+                "exclude": [
+                    "json"
+                ]
             },
             {
                 "case": "with empty txins.peginwitness.asset",
@@ -6010,7 +6044,10 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "message": ""
-                }
+                },
+                "exclude": [
+                    "json"
+                ]
             },
             {
                 "case": "with wrong txins.peginwitness.mainchainTxoutproof (deleted)",
@@ -6049,7 +6086,10 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "message": ""
-                }
+                },
+                "exclude": [
+                    "json"
+                ]
             },
             {
                 "case": "with empty txouts.address",
@@ -7663,7 +7703,9 @@
                             "asset": "02474456108a90b2040de29259cdaf64517f1d5583678692dbcfb077c4fd6afa",
                             "assetamount": 500000000,
                             "token": "ec7ddaab70ec4ef2d3d225dc929dff353ca8d9037299cc806731cae0cb790590",
-                            "tokenamount": 1000000000
+                            "tokenamount": 1000000000,
+                            "assetValueBlindFactor": "ec435d2f83fe3e0142b8a323bc837e0d585bf942fd8c50ca73c7853b1b82bd64",
+                            "tokenValueBlindFactor": "63b4dde9e8fb336b970a1166d6511e4ae8d96b0d7407f0ab2ff1ccafb34718b0"
                         }
                     ]
                 }
@@ -7727,7 +7769,9 @@
                             "asset": "02474456108a90b2040de29259cdaf64517f1d5583678692dbcfb077c4fd6afa",
                             "assetamount": 500000000,
                             "token": "ec7ddaab70ec4ef2d3d225dc929dff353ca8d9037299cc806731cae0cb790590",
-                            "tokenamount": 1000000000
+                            "tokenamount": 1000000000,
+                            "assetValueBlindFactor": "ec435d2f83fe3e0142b8a323bc837e0d585bf942fd8c50ca73c7853b1b82bd64",
+                            "tokenValueBlindFactor": "63b4dde9e8fb336b970a1166d6511e4ae8d96b0d7407f0ab2ff1ccafb34718b0"
                         }
                     ]
                 }
@@ -8349,7 +8393,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Value hex string length Invalid."
+                    "message": "Value hex string length Invalid.",
+                    "python": "Error: Invalid blind factor."
                 }
             },
             {
@@ -8465,7 +8510,7 @@
                             "asset": "186c7f955149a5274b39e24b6a50d1d6479f552f6522d91f3a97d771f1c18179",
                             "blindFactor": "54a38ba4faceb46c3a0d0fb80d66332af987beadff36d2a5c5ac2110c0730eaf",
                             "assetBlindFactor": "69c4e735c8e92765223ad29813ef4e3fd7873eda4ec05f27d137113705d37f3c",
-                            "amount": 999838040
+                            "amount": 999860340
                         }
                     ],
                     "txouts": [
@@ -8525,7 +8570,7 @@
                             "asset": "186c7f955149a5274b39e24b6a50d1d6479f552f6522d91f3a97d771f1c18179",
                             "blindFactor": "54a38ba4faceb46c3a0d0fb80d66332af987beadff36d2a5c5ac2110c0730eaf",
                             "assetBlindFactor": "69c4e735c8e92765223ad29813ef4e3fd7873eda4ec05f27d137113705d37f3c",
-                            "amount": 999838040
+                            "amount": 999860340
                         }
                     ],
                     "txoutConfidentialAddresses": [
@@ -8746,7 +8791,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             },
             {

@@ -1,0 +1,182 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "AddPsbtData",
+  "comment": "Add psbt input/output data.",
+  "request": {
+    ":class": "AddPsbtDataRequest",
+    ":class:comment": "request for add psbt data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "inputs:require": "optional",
+    "inputs:comment": "psbt input data array.",
+    "inputs": [
+      {
+        ":class": "PsbtAddInputRequest",
+        ":class:comment": "request for add psbt input.",
+        "txin:require": "require",
+        "txin:comment": "This is added to the transaction input.",
+        "txin": {
+          ":class": "TxInRequest",
+          ":class:comment": "The data added to the transaction input.",
+          "txid": "",
+          "txid:require": "require",
+          "txid:comment": "utxo txid.",
+          "vout": 0,
+          "vout:type": "uint32_t",
+          "vout:require": "require",
+          "vout:comment": "utxo vout.",
+          "sequence": 4294967295,
+          "sequence:type": "uint32_t",
+          "sequence:comment": "sequence number.",
+          "sequence:require": "optional"
+        },
+        "input:require": "require",
+        "input:comment": "psbt input data",
+        "input": {
+          ":class": "PsbtInputRequestData",
+          ":class:comment": "psbt input request data.",
+          "utxoFullTx": "",
+          "utxoFullTx:require": "optional",
+          "utxoFullTx:comment": "utxo full tx hex. (for not witness utxo.)",
+          "witnessUtxo:require": "optional",
+          "witnessUtxo:comment": "witness utxo data.",
+          "witnessUtxo": {
+            ":class": "TxOutRequest",
+            ":class:comment": "The data added to the transaction output.",
+            "address": "",
+            "address:require": "require",
+            "address:comment": "bitcoin address.",
+            "amount": 0,
+            "amount:require": "require",
+            "amount:comment": "satoshi amount.",
+            "directLockingScript": "",
+            "directLockingScript:require": "optional",
+            "directLockingScript:comment": "Set to locking script. (When using a script that cannot be expressed as an address)"
+          },
+          "redeemScript": "",
+          "redeemScript:require": "optional",
+          "redeemScript:comment": "redeem script or witness script",
+          "bip32Derives:require": "optional",
+          "bip32Derives:comment": "psbt xpub list.",
+          "bip32Derives": [{
+            ":class": "PsbtBip32PubkeyInput",
+            ":class:comment": "psbt bip32 pubkey data",
+            "descriptor": "",
+            "descriptor:require": "optional",
+            "descriptor:comment": "the descriptor pubkey string.",
+            "pubkey": "",
+            "pubkey:require": "optional",
+            "pubkey:comment": "pubkey hex. If the descriptor set, this field not reference.",
+            "master_fingerprint": "",
+            "master_fingerprint:require": "optional",
+            "master_fingerprint:comment": "master pubkey fingerprint. If the descriptor set, this field not reference.",
+            "path": "",
+            "path:require": "optional",
+            "path:comment": "bip32 path. If the descriptor set, this field not reference."
+          }],
+          "sighash": "",
+          "sighash:require": "optional",
+          "sighash:comment": "sighash type",
+          "sighash:hint": "ALL, SINGLE, NONE",
+          "partialSignature:require": "optional",
+          "partialSignature:comment": "signature",
+          "partialSignature": [{
+            ":class": "PsbtSignatureData",
+            ":class:comment": "psbt signature data.",
+            "pubkey": "",
+            "pubkey:require": "optional",
+            "pubkey:comment": "pubkey hex",
+            "signature": "",
+            "signature:require": "optional",
+            "signature:comment": "signature hex"
+          }],
+          "unknown:require": "optional",
+          "unknown:comment": "psbt unknown record list.",
+          "unknown": [{
+            ":class": "PsbtMapData",
+            ":class:comment": "psbt map data.",
+            "key": "",
+            "key:require": "require",
+            "key:comment": "key hex",
+            "value": "",
+            "value:require": "require",
+            "value:comment": "value hex"
+          }]
+        }
+      }
+    ],
+    "outputs:require": "optional",
+    "outputs:comment": "psbt output data array.",
+    "outputs": [
+      {
+        ":class": "PsbtAddOutputRequest",
+        ":class:comment": "request for add psbt output.",
+        "txout:require": "require",
+        "txout:comment": "This is added to the transaction output.",
+        "txout": {
+          ":class": "TxOutRequest",
+          ":class:comment": "The data added to the transaction output.",
+          "address": "",
+          "address:require": "require",
+          "address:comment": "bitcoin address.",
+          "amount": 0,
+          "amount:require": "require",
+          "amount:comment": "satoshi amount.",
+          "directLockingScript": "",
+          "directLockingScript:require": "optional",
+          "directLockingScript:comment": "Set to locking script. (When using a script that cannot be expressed as an address)"
+        },
+        "output:require": "require",
+        "output:comment": "psbt output data",
+        "output": {
+          ":class": "PsbtOutputRequestData",
+          ":class:comment": "psbt output request data.",
+          "redeemScript": "",
+          "redeemScript:require": "optional",
+          "redeemScript:comment": "redeem script or witness script",
+          "bip32Derives:require": "optional",
+          "bip32Derives:comment": "psbt xpub list.",
+          "bip32Derives": [{
+            ":class": "PsbtBip32PubkeyInput",
+            ":class:comment": "psbt bip32 pubkey data",
+            "descriptor": "",
+            "descriptor:require": "optional",
+            "descriptor:comment": "the descriptor pubkey string.",
+            "pubkey": "",
+            "pubkey:require": "optional",
+            "pubkey:comment": "pubkey hex. If the descriptor set, this field not reference.",
+            "master_fingerprint": "",
+            "master_fingerprint:require": "optional",
+            "master_fingerprint:comment": "master pubkey fingerprint. If the descriptor set, this field not reference.",
+            "path": "",
+            "path:require": "optional",
+            "path:comment": "bip32 path. If the descriptor set, this field not reference."
+          }],
+          "unknown:require": "optional",
+          "unknown:comment": "psbt unknown record list.",
+          "unknown": [{
+            ":class": "PsbtMapData",
+            ":class:comment": "psbt map data.",
+            "key": "",
+            "key:require": "require",
+            "key:comment": "key hex",
+            "value": "",
+            "value:require": "require",
+            "value:comment": "value hex"
+          }]
+        }
+      }
+    ]
+  },
+  "response": {
+    ":class": "PsbtOutputData",
+    ":class:comment": "psbt output data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex"
+  }
+}

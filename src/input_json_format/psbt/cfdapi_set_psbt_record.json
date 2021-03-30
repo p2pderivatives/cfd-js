@@ -1,0 +1,42 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "SetPsbtRecord",
+  "comment": "Set psbt records.",
+  "request": {
+    ":class": "SetPsbtRecordRequest",
+    ":class:comment": "request for set psbt record",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "records:require": "require",
+    "records:comment": "psbt record list.",
+    "records": [{
+      ":class": "PsbtRecordData",
+      ":class:comment": "psbt record data.",
+      "index": 0,
+      "index:type": "uint32_t",
+      "index:require": "optional",
+      "index:comment": "psbt input/output index. If type is global, this field not reference.",
+      "type": "",
+      "type:require": "require",
+      "type:comment": "field type.",
+      "type:hint": "global, input, output",
+      "key": "",
+      "key:require": "require",
+      "key:comment": "key hex",
+      "value": "",
+      "value:require": "require",
+      "value:comment": "value hex"
+    }]
+  },
+  "response": {
+    ":class": "PsbtOutputData",
+    ":class:comment": "psbt output data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex"
+  }
+}

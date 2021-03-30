@@ -192,6 +192,51 @@
                 }
             },
             {
+                "case": "HashType(Taproot) mainnet",
+                "request": {
+                    "keyData": {
+                        "hex": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                        "type": "pubkey"
+                    },
+                    "network": "mainnet",
+                    "hashType": "taproot"
+                },
+                "expect": {
+                    "address": "bc1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8naspp3kr4",
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                }
+            },
+            {
+                "case": "HashType(Taproot) testnet",
+                "request": {
+                    "keyData": {
+                        "hex": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                        "type": "pubkey"
+                    },
+                    "network": "testnet",
+                    "hashType": "taproot"
+                },
+                "expect": {
+                    "address": "tb1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8naskf8ee6",
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                }
+            },
+            {
+                "case": "HashType(Taproot) regtest",
+                "request": {
+                    "keyData": {
+                        "hex": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                        "type": "pubkey"
+                    },
+                    "network": "regtest",
+                    "hashType": "taproot"
+                },
+                "expect": {
+                    "address": "bcrt1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8nasmsdlvq",
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                }
+            },
+            {
                 "case": "Elements HashType(P2PKH) liquidv1",
                 "request": {
                     "isElements": true,
@@ -418,7 +463,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: p2pk",
-                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -536,7 +581,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: p2pk",
-                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -787,6 +832,48 @@
                     "hashType": "p2wsh",
                     "witnessVersion": 0,
                     "hash": "1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262"
+                }
+            },
+            {
+                "case": "HashType(Taproot) mainnet",
+                "request": {
+                    "isElements": false,
+                    "address": "bc1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8naspp3kr4"
+                },
+                "expect": {
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "network": "mainnet",
+                    "hashType": "taproot",
+                    "witnessVersion": 1,
+                    "hash": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                }
+            },
+            {
+                "case": "HashType(Taproot) testnet",
+                "request": {
+                    "isElements": false,
+                    "address": "tb1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8naskf8ee6"
+                },
+                "expect": {
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "network": "testnet",
+                    "hashType": "taproot",
+                    "witnessVersion": 1,
+                    "hash": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                }
+            },
+            {
+                "case": "HashType(Taproot) regtest",
+                "request": {
+                    "isElements": false,
+                    "address": "bcrt1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8nasmsdlvq"
+                },
+                "expect": {
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "network": "regtest",
+                    "hashType": "taproot",
+                    "witnessVersion": 1,
+                    "hash": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
                 }
             },
             {
@@ -1368,7 +1455,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: p2pk",
-                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -1428,7 +1515,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: p2pk",
-                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "message": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -1534,11 +1621,45 @@
                         "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
                     ],
                     "network": "testnet",
+                    "hashType": "p2sh"
+                },
+                "expect": {
+                    "address": "2N1cnwQMYCDNkdzNNo8qQv1kuSBjb8aAYXy",
+                    "redeemScript": "5f2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c45fae"
+                }
+            },
+            {
+                "case": "Testnet(pubkey max on witness)",
+                "request": {
+                    "nrequired": 20,
+                    "keys": [
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4",
+                        "025dffce0b5e131808a630d0d8769d22ead71fddf336836916c5906676e13394db",
+                        "030023121bed4585fdfea023aee4c7f9731e3cfa6b2a8ec21a159615d2bad57e55",
+                        "0267a49281bd9d6d366c39c62f2e95a2aab37638f2a4718891c542d0961962644e",
+                        "02f48e8e2bcaeb16a6d781bb7a72f6250607bf21e32f08c48e37a9e4706e6d48b8",
+                        "03968ac57888ddaa3b57caa39efd5d5382c24f3deed602775cd4895f7c7adb5950"
+                    ],
+                    "network": "testnet",
                     "hashType": "p2wsh"
                 },
                 "expect": {
-                    "address": "tb1quq2d256q5f3kdsehh920akwgw9up2vnn6vzzhcn54wc9ejtpkz5qfys3z4",
-                    "witnessScript": "5f2102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c45fae"
+                    "address": "tb1qmsnghn38jq4cn3c2cwexmt7qyhk5cqluanweztpe2f0qdc4ltyaswj6f0l",
+                    "witnessScript": "01142102be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec521032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db21030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a1432102927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a2102ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e72102ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c12102b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f22103f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e6021022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc2102e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d2103c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c2102063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d821033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a5572103a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa2102818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c421025dffce0b5e131808a630d0d8769d22ead71fddf336836916c5906676e13394db21030023121bed4585fdfea023aee4c7f9731e3cfa6b2a8ec21a159615d2bad57e55210267a49281bd9d6d366c39c62f2e95a2aab37638f2a4718891c542d0961962644e2102f48e8e2bcaeb16a6d781bb7a72f6250607bf21e32f08c48e37a9e4706e6d48b82103968ac57888ddaa3b57caa39efd5d5382c24f3deed602775cd4895f7c7adb59500114ae"
                 }
             },
             {
@@ -1761,7 +1882,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: bech",
-                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -1836,12 +1957,49 @@
                         "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
                     ],
                     "network": "testnet",
-                    "hashType": "p2wsh"
+                    "hashType": "p2sh"
                 },
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
                     "message": "CreateMultisigScript pubkeys array size is over."
+                }
+            },
+            {
+                "case": "Error(count is over on witness)",
+                "request": {
+                    "nrequired": 16,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4",
+                        "025dffce0b5e131808a630d0d8769d22ead71fddf336836916c5906676e13394db",
+                        "030023121bed4585fdfea023aee4c7f9731e3cfa6b2a8ec21a159615d2bad57e55",
+                        "0267a49281bd9d6d366c39c62f2e95a2aab37638f2a4718891c542d0961962644e",
+                        "02f48e8e2bcaeb16a6d781bb7a72f6250607bf21e32f08c48e37a9e4706e6d48b8",
+                        "03968ac57888ddaa3b57caa39efd5d5382c24f3deed602775cd4895f7c7adb5950"
+                    ],
+                    "network": "testnet",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript pubkeys array size is over.",
+                    "capi": "The number of pubkey has reached the upper limit."
                 }
             },
             {
@@ -1935,7 +2093,7 @@
                 }
             },
             {
-                "case": "Elements Error(Nonexisting address type)",
+                "case": "Elements Error(Non existing address type)",
                 "request": {
                     "isElements": true,
                     "nrequired": 2,
@@ -1950,7 +2108,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid hash type: bech",
-                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
+                    "json": "Invalid address_type passed. address_type must be \"p2pkh\", \"p2sh\", \"p2wpkh\", \"p2wsh\", \"taproot\", \"p2sh-p2wpkh\", or \"p2sh-p2wsh\"."
                 }
             },
             {
@@ -2029,12 +2187,50 @@
                         "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4"
                     ],
                     "network": "regtest",
-                    "hashType": "p2wsh"
+                    "hashType": "p2sh"
                 },
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
                     "message": "CreateMultisigScript pubkeys array size is over."
+                }
+            },
+            {
+                "case": "Elements Error(count is over on witness)",
+                "request": {
+                    "isElements": true,
+                    "nrequired": 16,
+                    "keys": [
+                        "0205ffcdde75f262d66ada3dd877c7471f8f8ee9ee24d917c3e18d01cee458bafe",
+                        "02be61f4350b4ae7544f99649a917f48ba16cf48c983ac1599774958d88ad17ec5",
+                        "032f061438c62aa9a1685d7451a4bf1af8d0b8c132b0db4614147df19b687c01db",
+                        "030dc96ba9b0dcce41a4b683164af15c045f0b169da1d1e234611a8cfc3195a143",
+                        "02927b60e6bdbd728009e7e19feb4700a04f25328929730a609471b8e236ff050a",
+                        "02ff43fd9fdb705d223951806f349dd2090edc4d971eb1c2a60c48cfb2af2862e7",
+                        "02ce1316489880a77407f9637af4e806c5a7e731b45504d6f3fca506b207f8e3c1",
+                        "02b12d700c4d851f773c55d17d9f59bf689a7cbdc01450c8679de9702fc77ac4f2",
+                        "03f6d4cfd7688da7a130ea0f6bd7ecaa6e7ae868ae8614cd746c26b1cb9e808e60",
+                        "022ac6940d159cd39b36cb4a2ec34fb2696e085be634ce1e7b5fcc118a6ac5e2cc",
+                        "02e9662b666479ed7117aa76fb96f322a84408d0882707b301c7450098d439680d",
+                        "03c0230a322f70675bef21097242ac70647798826588e47eca14e5715cef77008c",
+                        "02063566b61b4754dc2956b3571bdce889decc23c789d6b58df0057808b20e66d8",
+                        "033acbe038580c25da0c0c6e94c4dcbfa9c09f2f3bff59ae16aebfbd35a238a557",
+                        "03a1423fc026f41f3f786db98a793802f77819e33692301ed24426e6dbad05aeaa",
+                        "02818c3deec9c1f717cd6d97d2d9cf6cedfc9d97114fc6894ef71d4e1f69d859c4",
+                        "025dffce0b5e131808a630d0d8769d22ead71fddf336836916c5906676e13394db",
+                        "030023121bed4585fdfea023aee4c7f9731e3cfa6b2a8ec21a159615d2bad57e55",
+                        "0267a49281bd9d6d366c39c62f2e95a2aab37638f2a4718891c542d0961962644e",
+                        "02f48e8e2bcaeb16a6d781bb7a72f6250607bf21e32f08c48e37a9e4706e6d48b8",
+                        "03968ac57888ddaa3b57caa39efd5d5382c24f3deed602775cd4895f7c7adb5950"
+                    ],
+                    "network": "regtest",
+                    "hashType": "p2wsh"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "CreateMultisigScript pubkeys array size is over.",
+                    "capi": "The number of pubkey has reached the upper limit."
                 }
             },
             {
@@ -2107,6 +2303,673 @@
                 "expect": {
                     "address": "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs",
                     "hashType": "p2pkh"
+                }
+            },
+            {
+                "case": "taproot regtest",
+                "request": {
+                    "lockingScript": "51201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "address": "bcrt1pzamhq9jglfxaj0r5ahvatr8uc77u973s5tm04yytdltsey5r8nasmsdlvq",
+                    "hashType": "taproot"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.GetTapScriptTreeInfo",
+        "cases": [
+            {
+                "case": "simple network(mainnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "tree": [
+                        {
+                            "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac"
+                        },
+                        {
+                            "branchHash": "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d"
+                        },
+                        {
+                            "branchHash": "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                        }
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "get privkey. network(testnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27",
+                    "tree": [
+                        {
+                            "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac"
+                        },
+                        {
+                            "branchHash": "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d"
+                        },
+                        {
+                            "branchHash": "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                        }
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "child branch.",
+                "request": {
+                    "tree": [
+                        {
+                            "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac"
+                        },
+                        {
+                            "tapscript": "51"
+                        }
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                    "topBranchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                    "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac",
+                    "nodes": [
+                        "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675"
+                    ],
+                    "treeString": "{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)}"
+                }
+            },
+            {
+                "case": "root branch. (use child branch)",
+                "request": {
+                    "tree": [
+                        {
+                            "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac"
+                        },
+                        {
+                            "branchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                        }
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "topBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                    "nodes": [
+                        "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                    ],
+                    "treeString": "{af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4,tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            },
+            {
+                "case": "root branch. (use child branch string)",
+                "request": {
+                    "tree": [
+                        {
+                            "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac"
+                        },
+                        {
+                            "treeString": "{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)}"
+                        }
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "topBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                    "nodes": [
+                        "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                    ],
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.GetTapScriptTreeInfoByControlBlock",
+        "cases": [
+            {
+                "case": "simple network(mainnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "get privkey. network(testnet)",
+                "request": {
+                    "network": "testnet",
+                    "isElements": false,
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27"
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
+                    "address": "tb1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqekgu0q",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.GetTapScriptTreeFromString",
+        "cases": [
+            {
+                "case": "simple network(mainnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb"
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "get privkey. network(testnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27"
+                },
+                "expect": {
+                    "tapLeafHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513",
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
+                    "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
+                    "nodes": [
+                        "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d",
+                        "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                    ],
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "child branch.",
+                "request": {
+                    "treeString": "{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)}",
+                    "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac"
+                },
+                "expect": {
+                    "tapLeafHash": "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                    "topBranchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                    "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac",
+                    "nodes": [
+                        "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675"
+                    ],
+                    "treeString": "{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)}"
+                }
+            },
+            {
+                "case": "root branch. (use child branch)",
+                "request": {
+                    "treeString": "{af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4,tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac"
+                },
+                "expect": {
+                    "tapLeafHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "topBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                    "nodes": [
+                        "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                    ],
+                    "treeString": "{af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4,tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            },
+            {
+                "case": "root branch. (use child branch string)",
+                "request": {
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac"
+                },
+                "expect": {
+                    "tapLeafHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "topBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                    "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                    "nodes": [
+                        "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                    ],
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            },
+            {
+                "case": "parse branch mode.",
+                "request": {
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                },
+                "expect": {
+                    "topBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            },
+            {
+                "case": "parse branch mode. (single leaf)",
+                "request": {
+                    "treeString": "tl(51)"
+                },
+                "expect": {
+                    "topBranchHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                    "treeString": "tl(51)"
+                }
+            },
+            {
+                "case": "parse branch mode. (single branch hash)",
+                "request": {
+                    "treeString": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                },
+                "expect": {
+                    "topBranchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                    "treeString": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4"
+                }
+            },
+            {
+                "case": "tree search (contain multi script) 1",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}",
+                    "tapscript": "51",
+                    "nodes": [
+                        "06b46c960d6824f0da5af71d9ecc55714de5b2d2da51be60bd12c77df20a20df",
+                        "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                        "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                        "32a0a039ec1412be2803fd7b5f5444c03d498e5e8e107ee431a9597c7b5b3a7c",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                    "topBranchHash": "0c1bebfc9a508bf4d5835d401d96d71b72f1873fd338aebfff06d7adbe0c0cc3",
+                    "tapscript": "51",
+                    "nodes": [
+                        "06b46c960d6824f0da5af71d9ecc55714de5b2d2da51be60bd12c77df20a20df",
+                        "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                        "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                        "32a0a039ec1412be2803fd7b5f5444c03d498e5e8e107ee431a9597c7b5b3a7c",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ],
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}"
+                }
+            },
+            {
+                "case": "tree search (contain multi script) 2",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}",
+                    "tapscript": "51",
+                    "nodes": [
+                        "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                        "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ]
+                },
+                "expect": {
+                    "tapLeafHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                    "topBranchHash": "0c1bebfc9a508bf4d5835d401d96d71b72f1873fd338aebfff06d7adbe0c0cc3",
+                    "tapscript": "51",
+                    "nodes": [
+                        "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                        "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ],
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.GetTapBranchInfo",
+        "cases": [
+            {
+                "case": "by tree search 1",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}",
+                    "tapscript": "51",
+                    "nodes": [
+                        "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                        "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ],
+                    "index": 0
+                },
+                "expect": {
+                    "topBranchHash": "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                    "nodes": [
+                        "e82da59bb829eb21f7cb8eb9eb128626da9a9a31f3dfdeb29766faf14468e996"
+                    ],
+                    "treeString": "{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}"
+                }
+            },
+            {
+                "case": "by tree search 2",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}",
+                    "tapscript": "51",
+                    "nodes": [
+                        "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                        "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ],
+                    "index": 1
+                },
+                "expect": {
+                    "topBranchHash": "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                    "nodes": [
+                        "4b3bb79ea92e0b4f2bfa7e8c88d81133e347da393d72a37fe9cdcf1f5f56b5e0",
+                        "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                    ],
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                }
+            },
+            {
+                "case": "by tree search 3",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}",
+                    "tapscript": "51",
+                    "nodes": [
+                        "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                        "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                        "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                    ],
+                    "index": 2
+                },
+                "expect": {
+                    "topBranchHash": "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75",
+                    "nodes": [],
+                    "treeString": "tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)"
+                }
+            },
+            {
+                "case": "by tapbranch",
+                "request": {
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}",
+                    "index": 1
+                },
+                "expect": {
+                    "topBranchHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "nodes": [],
+                    "treeString": "tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Address.AnalyzeTapScriptTree",
+        "cases": [
+            {
+                "case": "multi branch tree",
+                "request": {
+                    "treeString": "{{{tl(51),{tl(204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac),tl(2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac)}},{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),{tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac),tl(51)}},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}},tl(2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac)}"
+                },
+                "expect": {
+                    "branches": [
+                        {
+                            "depth": 3,
+                            "tapBranchHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                            "tapscript": "51",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "32a0a039ec1412be2803fd7b5f5444c03d498e5e8e107ee431a9597c7b5b3a7c",
+                            "relatedBranchHash": [
+                                "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                                "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086"
+                            ]
+                        },
+                        {
+                            "depth": 4,
+                            "tapBranchHash": "1aac269b1edaa45c69fb8d1a703a1bb69e90129cef7b7cfe9e676b28e6d1175d",
+                            "tapscript": "204a7af8660f2b0bdb92d2ce8b88ab30feb916343228d2e7bd15da02e1f6a31d47ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 3,
+                            "tapBranchHash": "aaf9ea4cbd2f4606a31a35d563fa371bc630d9d7bcc50f62d064a3d84e0e3086",
+                            "relatedBranchHash": [
+                                "1aac269b1edaa45c69fb8d1a703a1bb69e90129cef7b7cfe9e676b28e6d1175d",
+                                "e82da59bb829eb21f7cb8eb9eb128626da9a9a31f3dfdeb29766faf14468e996"
+                            ]
+                        },
+                        {
+                            "depth": 4,
+                            "tapBranchHash": "e82da59bb829eb21f7cb8eb9eb128626da9a9a31f3dfdeb29766faf14468e996",
+                            "tapscript": "2000d134c42fd51c90fa82c6cfdaabd895474d979118525362c0cd236c857e29d9ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "0ae6aed84487410216ab1a6af0c7fe38b190cb7bdd6c898c5b04482fdec43f94",
+                            "relatedBranchHash": [
+                                "32a0a039ec1412be2803fd7b5f5444c03d498e5e8e107ee431a9597c7b5b3a7c",
+                                "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e"
+                            ]
+                        },
+                        {
+                            "depth": 4,
+                            "tapBranchHash": "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                            "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 3,
+                            "tapBranchHash": "7da36533760cede4c164d5c00eb1500a27dd86ca76914a9874112c43e0c1b945",
+                            "relatedBranchHash": [
+                                "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                                "4b3bb79ea92e0b4f2bfa7e8c88d81133e347da393d72a37fe9cdcf1f5f56b5e0"
+                            ]
+                        },
+                        {
+                            "depth": 5,
+                            "tapBranchHash": "06b46c960d6824f0da5af71d9ecc55714de5b2d2da51be60bd12c77df20a20df",
+                            "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 4,
+                            "tapBranchHash": "4b3bb79ea92e0b4f2bfa7e8c88d81133e347da393d72a37fe9cdcf1f5f56b5e0",
+                            "relatedBranchHash": [
+                                "06b46c960d6824f0da5af71d9ecc55714de5b2d2da51be60bd12c77df20a20df",
+                                "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675"
+                            ]
+                        },
+                        {
+                            "depth": 5,
+                            "tapBranchHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                            "tapscript": "51",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "aeeaab89d953f80ff117b3a94142c859f885c2d942ec13536f72dac0c961f27e",
+                            "relatedBranchHash": [
+                                "7da36533760cede4c164d5c00eb1500a27dd86ca76914a9874112c43e0c1b945",
+                                "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                            ]
+                        },
+                        {
+                            "depth": 3,
+                            "tapBranchHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                            "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 0,
+                            "tapBranchHash": "0c1bebfc9a508bf4d5835d401d96d71b72f1873fd338aebfff06d7adbe0c0cc3",
+                            "relatedBranchHash": [
+                                "0ae6aed84487410216ab1a6af0c7fe38b190cb7bdd6c898c5b04482fdec43f94",
+                                "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75"
+                            ]
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "d7b0b8d070638ff4f0b7e7d2aa930c58ec2d39853fd04c29c4c6688fdcb2ae75",
+                            "tapscript": "2008f8280d68e02e807ccffee141c4a6b7ac31d3c283ae0921892d95f691742c44ad20b0f8ce3e1df406514a773414b5d9e5779d8e68ce816e9db39b8e53255ac3b406ac",
+                            "leafVersion": 192
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "simple branch",
+                "request": {
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)}"
+                },
+                "expect": {
+                    "branches": [
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                            "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                            "relatedBranchHash": [
+                                "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                                "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675"
+                            ]
+                        },
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                            "tapscript": "51",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 0,
+                            "tapBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                            "relatedBranchHash": [
+                                "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                                "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                            ]
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                            "tapscript": "2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac",
+                            "leafVersion": 192
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "hash only branch",
+                "request": {
+                    "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb}"
+                },
+                "expect": {
+                    "branches": [
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                            "tapscript": "20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                            "relatedBranchHash": [
+                                "4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd",
+                                "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675"
+                            ]
+                        },
+                        {
+                            "depth": 2,
+                            "tapBranchHash": "a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675",
+                            "tapscript": "51",
+                            "leafVersion": 192
+                        },
+                        {
+                            "depth": 0,
+                            "tapBranchHash": "a625d1251a1100263fa9a77b81e9e6f46c2eb8d44b9f27b629875cc102efb0ec",
+                            "relatedBranchHash": [
+                                "af151388d3bfbebcdc87e4a0b4a97bbfa378f2e5a909eb38a6978cb2a71f39c4",
+                                "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                            ]
+                        },
+                        {
+                            "depth": 1,
+                            "tapBranchHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                        }
+                    ]
                 }
             }
         ]

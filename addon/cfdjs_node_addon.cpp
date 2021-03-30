@@ -222,6 +222,15 @@ Value CreateSignatureHash(const CallbackInfo &information) {
 }
 
 /**
+ * @brief Implements getting sighash api for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetSighash(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetSighash);
+}
+
+/**
  * @brief ConvertAes の JSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -246,6 +255,33 @@ Value EncodeBase58(const CallbackInfo &information) {
  */
 Value DecodeBase58(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::DecodeBase58);
+}
+
+/**
+ * @brief Encode the data by base64.
+ * @param[in] request   request json string.
+ * @return response json string.
+ */
+Value EncodeBase64(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::EncodeBase64);
+}
+
+/**
+ * @brief Decode the data by base64.
+ * @param[in] request   request json string.
+ * @return response json string.
+ */
+Value DecodeBase64(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::DecodeBase64);
+}
+
+/**
+ * @brief Hash message.
+ * @param[in] request   request json string.
+ * @return response json string.
+ */
+Value HashMessage(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::HashMessage);
 }
 
 /**
@@ -550,6 +586,24 @@ Value AddScriptHashSign(const CallbackInfo &information) {
 }
 
 /**
+ * @brief Implements taproot sign api for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value AddTaprootSchnorrSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AddTaprootSchnorrSign);
+}
+
+/**
+ * @brief Implements tapscript sign api for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value AddTapscriptSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AddTapscriptSign);
+}
+
+/**
  * @brief UpdateWitnessStackのJSON API関数(request, response).
  * @param[in] information     node addon apiのコールバック情報
  * @return 戻り値(JSON文字列)
@@ -641,9 +695,9 @@ Value GetSchnorrPubkeyFromPrivkey(const CallbackInfo &information) {
 }
 
 /**
-  * @brief The JSON parameter function of GetSchnorrPubkeyFromPubkey.
+ * @brief The JSON parameter function of GetSchnorrPubkeyFromPubkey.
  * @param[in] information   node add on api callback information
-  * @return json string
+ * @return json string
  */
 Value GetSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(
@@ -651,9 +705,9 @@ Value GetSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
 }
 
 /**
-  * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPrivkey.
+ * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPrivkey.
  * @param[in] information   node add on api callback information
-  * @return json string
+ * @return json string
  */
 Value TweakAddSchnorrPubkeyFromPrivkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(
@@ -661,9 +715,9 @@ Value TweakAddSchnorrPubkeyFromPrivkey(const CallbackInfo &information) {
 }
 
 /**
-  * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPubkey.
+ * @brief The JSON parameter function of TweakAddSchnorrPubkeyFromPubkey.
  * @param[in] information   node add on api callback information
-  * @return json string
+ * @return json string
  */
 Value TweakAddSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(
@@ -671,9 +725,9 @@ Value TweakAddSchnorrPubkeyFromPubkey(const CallbackInfo &information) {
 }
 
 /**
-  * @brief The JSON parameter function of CheckTweakedSchnorrPubkey.
+ * @brief The JSON parameter function of CheckTweakedSchnorrPubkey.
  * @param[in] information   node add on api callback information
-  * @return json string
+ * @return json string
  */
 Value CheckTweakedSchnorrPubkey(const CallbackInfo &information) {
   return NodeAddonJsonApi(
@@ -743,6 +797,188 @@ Value AdaptEcdsaAdaptor(const CallbackInfo &information) {
 Value ExtractSecretEcdsaAdaptor(const CallbackInfo &information) {
   return NodeAddonJsonApi(
       information, JsonMappingApi::ExtractSecretEcdsaAdaptor);
+}
+
+/**
+ * @brief Implements getting tapscript tree api for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetTapScriptTreeInfo(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetTapScriptTreeInfo);
+}
+
+/**
+ * @brief Implements getting tapscript tree by control block for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetTapScriptTreeInfoByControlBlock(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::GetTapScriptTreeInfoByControlBlock);
+}
+
+/**
+ * @brief Implements getting tapscript tree by string for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetTapScriptTreeFromString(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+      information, JsonMappingApi::GetTapScriptTreeFromString);
+}
+
+/**
+ * @brief Implements getting tapbranch by string for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetTapBranchInfo(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetTapBranchInfo);
+}
+
+/**
+ * @brief Implements analyze tapscript tree by string for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value AnalyzeTapScriptTree(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AnalyzeTapScriptTree);
+}
+
+/**
+ * @brief Decode PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value DecodePsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::DecodePsbt);
+}
+
+/**
+ * @brief Create PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value CreatePsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::CreatePsbt);
+}
+
+/**
+ * @brief Convert transaction to PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value ConvertToPsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::ConvertToPsbt);
+}
+
+/**
+ * @brief Join PSBTs.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value JoinPsbts(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::JoinPsbts);
+}
+
+/**
+ * @brief Combine PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value CombinePsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::CombinePsbt);
+}
+
+/**
+ * @brief Finalize PSBT input.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value FinalizePsbtInput(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::FinalizePsbtInput);
+}
+
+/**
+ * @brief Finalize and extract PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value FinalizePsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::FinalizePsbt);
+}
+
+/**
+ * @brief Sign PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value SignPsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SignPsbt);
+}
+
+/**
+ * @brief Verify PSBT sign.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value VerifyPsbtSign(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::VerifyPsbtSign);
+}
+
+/**
+ * @brief Add PSBT input/output data.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value AddPsbtData(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::AddPsbtData);
+}
+
+/**
+ * @brief Set PSBT data.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value SetPsbtData(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SetPsbtData);
+}
+
+/**
+ * @brief Set PSBT record.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value SetPsbtRecord(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::SetPsbtRecord);
+}
+
+/**
+ * @brief Is finalized PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value IsFinalizedPsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::IsFinalizedPsbt);
+}
+
+/**
+ * @brief Get PSBT utxos.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value GetPsbtUtxos(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetPsbtUtxos);
+}
+
+/**
+ * @brief Fund PSBT.
+ * @param[in] request_message the request json message
+ * @return json string
+ */
+Value FundPsbt(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::FundPsbt);
 }
 
 #ifndef CFD_DISABLE_ELEMENTS
@@ -960,11 +1196,18 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreateSignatureHash"),
       Function::New(env, CreateSignatureHash));
+  exports->Set(String::New(env, "GetSighash"), Function::New(env, GetSighash));
   exports->Set(String::New(env, "ConvertAes"), Function::New(env, ConvertAes));
   exports->Set(
       String::New(env, "EncodeBase58"), Function::New(env, EncodeBase58));
   exports->Set(
       String::New(env, "DecodeBase58"), Function::New(env, DecodeBase58));
+  exports->Set(
+      String::New(env, "EncodeBase64"), Function::New(env, EncodeBase64));
+  exports->Set(
+      String::New(env, "DecodeBase64"), Function::New(env, DecodeBase64));
+  exports->Set(
+      String::New(env, "HashMessage"), Function::New(env, HashMessage));
   exports->Set(
       String::New(env, "EncodeSignatureByDer"),
       Function::New(env, EncodeSignatureByDer));
@@ -984,6 +1227,12 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "AddScriptHashSign"),
       Function::New(env, AddScriptHashSign));
+  exports->Set(
+      String::New(env, "AddTaprootSchnorrSign"),
+      Function::New(env, AddTaprootSchnorrSign));
+  exports->Set(
+      String::New(env, "AddTapscriptSign"),
+      Function::New(env, AddTapscriptSign));
   exports->Set(
       String::New(env, "UpdateWitnessStack"),
       Function::New(env, UpdateWitnessStack));
@@ -1108,6 +1357,48 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "ExtractSecretEcdsaAdaptor"),
       Function::New(env, ExtractSecretEcdsaAdaptor));
+  exports->Set(
+      String::New(env, "GetTapScriptTreeInfo"),
+      Function::New(env, GetTapScriptTreeInfo));
+  exports->Set(
+      String::New(env, "GetTapScriptTreeInfoByControlBlock"),
+      Function::New(env, GetTapScriptTreeInfoByControlBlock));
+  exports->Set(
+      String::New(env, "GetTapScriptTreeFromString"),
+      Function::New(env, GetTapScriptTreeFromString));
+  exports->Set(
+      String::New(env, "GetTapBranchInfo"),
+      Function::New(env, GetTapBranchInfo));
+  exports->Set(
+      String::New(env, "AnalyzeTapScriptTree"),
+      Function::New(env, AnalyzeTapScriptTree));
+  exports->Set(String::New(env, "DecodePsbt"), Function::New(env, DecodePsbt));
+  exports->Set(String::New(env, "CreatePsbt"), Function::New(env, CreatePsbt));
+  exports->Set(
+      String::New(env, "ConvertToPsbt"), Function::New(env, ConvertToPsbt));
+  exports->Set(String::New(env, "JoinPsbts"), Function::New(env, JoinPsbts));
+  exports->Set(
+      String::New(env, "CombinePsbt"), Function::New(env, CombinePsbt));
+  exports->Set(
+      String::New(env, "FinalizePsbtInput"),
+      Function::New(env, FinalizePsbtInput));
+  exports->Set(
+      String::New(env, "FinalizePsbt"), Function::New(env, FinalizePsbt));
+  exports->Set(String::New(env, "SignPsbt"), Function::New(env, SignPsbt));
+  exports->Set(
+      String::New(env, "VerifyPsbtSign"), Function::New(env, VerifyPsbtSign));
+  exports->Set(
+      String::New(env, "AddPsbtData"), Function::New(env, AddPsbtData));
+  exports->Set(
+      String::New(env, "SetPsbtData"), Function::New(env, SetPsbtData));
+  exports->Set(
+      String::New(env, "SetPsbtRecord"), Function::New(env, SetPsbtRecord));
+  exports->Set(
+      String::New(env, "IsFinalizedPsbt"),
+      Function::New(env, IsFinalizedPsbt));
+  exports->Set(
+      String::New(env, "GetPsbtUtxos"), Function::New(env, GetPsbtUtxos));
+  exports->Set(String::New(env, "FundPsbt"), Function::New(env, FundPsbt));
 #ifndef CFD_DISABLE_ELEMENTS
   exports->Set(
       String::New(env, "GetConfidentialAddress"),

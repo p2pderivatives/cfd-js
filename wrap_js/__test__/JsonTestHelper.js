@@ -40,22 +40,26 @@ class TestHelper {
     createTestFunc = async (helper) => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     createCheckFunc = (helper) => {},
-    hasExecTest = () => true,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    hasExecTest = (testName) => true,
     setupFunc = async () => { },
     teardownFunc = async () => { }) {
     const helper = new TestHelper();
 
     describe(keyName, () => {
       let cfd;
-      const testTargets = [];
+      let testTargets = [];
+      const testAllTargets = [];
       const jsonObj = JSON.parse(fs.readFileSync(`${__dirname}/data/${fileName}.json`, 'utf8'));
       for (const data of jsonObj) {
         if (data && data.name) {
+          testAllTargets.push(data);
           if (data.name.startsWith(keyName)) {
             testTargets.push(data);
           }
         }
       }
+      if (testTargets.length == 0) testTargets = testAllTargets;
 
       beforeAll(async () => {
         while (!helper.hasLoadedWasm()) {
@@ -96,7 +100,7 @@ class TestHelper {
           beforeEach(async () => {
             // await Helper.waitInitialized();
             testFunc = createTestFunc(helper);
-            testCheckFunc = createCheckFunc(helper);
+            testCheckFunc = createCheckFunc(helper, testData.name);
             await setupFunc();
           });
           it(testCaseName, async () => {
@@ -112,7 +116,7 @@ class TestHelper {
                 throw e;
               }
             }
-            testCheckFunc(resp, testCase.expect, testCase.error);
+            await Promise.resolve(testCheckFunc(resp, testCase.expect, testCase.error, cfd));
           });
           afterEach(async () => {
             await teardownFunc();

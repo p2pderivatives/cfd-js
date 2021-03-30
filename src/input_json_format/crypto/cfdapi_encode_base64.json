@@ -1,0 +1,19 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "EncodeBase64",
+  "comment": "encode base64",
+  "request": {
+    ":class": "HexData",
+    ":class:comment": "Hex data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "hex string"
+  },
+  "response": {
+    ":class": "Base64Data",
+    ":class:comment": "base64 data",
+    "base64": "",
+    "base64:require": "require",
+    "base64:comment": "base64 data"
+  }
+}

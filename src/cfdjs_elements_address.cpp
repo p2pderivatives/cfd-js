@@ -1,8 +1,8 @@
 // Copyright 2019 CryptoGarage
 /**
- * @file cfdjs_address.cpp
+ * @file cfdjs_elements_address.cpp
  *
- * @brief cfd-apiで利用するAddress操作の実装ファイル
+ * @brief This file implements the address manipulation class for Elements.
  */
 #ifndef CFD_DISABLE_ELEMENTS
 #include <string>
@@ -15,66 +15,34 @@
 #include "cfdcore/cfdcore_script.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_elements_address.h"
-#include "cfdjs_internal.h"  // NOLINT
+#include "cfdjs_address_base.h"  // NOLINT
+#include "cfdjs_internal.h"      // NOLINT
 
 namespace cfd {
 namespace js {
 namespace api {
 
 using cfd::ElementsAddressFactory;
-using cfd::api::DescriptorKeyData;
-using cfd::api::DescriptorScriptData;
 using cfd::api::ElementsAddressApi;
 using cfd::core::Address;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::ConfidentialKey;
-using cfd::core::ContractHashUtil;
 using cfd::core::Descriptor;
 using cfd::core::ElementsConfidentialAddress;
 using cfd::core::ElementsNetType;
 using cfd::core::NetType;
 using cfd::core::Pubkey;
 using cfd::core::Script;
-using cfd::core::ScriptUtil;
 using cfd::core::logger::warn;
 
 CreateAddressResponseStruct ElementsAddressStructApi::CreateAddress(
     const CreateAddressRequestStruct& request) {
   auto call_func = [](const CreateAddressRequestStruct& request)
       -> CreateAddressResponseStruct {  // NOLINT
-    CreateAddressResponseStruct response;
-    // Address作成
-    Address addr;
-    Pubkey pubkey;
-    Script script;
-    Script locking_script;
-    Script redeem_script;
     ElementsNetType net_type = ConvertElementsNetType(request.network);
-    AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.hash_type);
-
-    if (request.key_data.type == "pubkey") {
-      pubkey = Pubkey(request.key_data.hex);
-    } else if (request.key_data.type == "redeem_script") {
-      script = Script(request.key_data.hex);
-    }
-
-    ElementsAddressApi api;
-    addr = api.CreateAddress(
-        net_type, addr_type, &pubkey, &script, &locking_script,
-        &redeem_script);
-
-    // レスポンスとなるモデルへ変換
-    response.error.code = 0;
-    response.address = addr.GetAddress();
-    response.locking_script = locking_script.GetHex();
-    if (redeem_script.IsEmpty()) {
-      response.ignore_items.insert("redeemScript");
-    } else {
-      response.redeem_script = redeem_script.GetHex();
-    }
-    return response;
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::CreateAddress(request, &api);
   };
 
   CreateAddressResponseStruct result;
@@ -88,38 +56,9 @@ CreateMultisigResponseStruct ElementsAddressStructApi::CreateMultisig(
     const CreateMultisigRequestStruct& request) {
   auto call_func = [](const CreateMultisigRequestStruct& request)
       -> CreateMultisigResponseStruct {  // NOLINT
-    CreateMultisigResponseStruct response;
-    // pubkeyモデルへの変換
-    std::vector<Pubkey> pubkeys;
-    for (std::string key : request.keys) {
-      pubkeys.push_back(Pubkey(key));
-    }
-
-    uint32_t req_sig_num = static_cast<uint32_t>(request.nrequired);
     ElementsNetType net_type = ConvertElementsNetType(request.network);
-    AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.hash_type);
-    Script witness_script;
-    Script redeem_script;
-
-    ElementsAddressApi api;
-    Address addr = api.CreateMultisig(
-        net_type, addr_type, req_sig_num, pubkeys, &redeem_script,
-        &witness_script);
-
-    // レスポンスとなるモデルへ変換
-    response.address = addr.GetAddress();
-    if (redeem_script.IsEmpty()) {
-      response.ignore_items.insert("redeemScript");
-    } else {
-      response.redeem_script = redeem_script.GetHex();
-    }
-    if (witness_script.IsEmpty()) {
-      response.ignore_items.insert("witnessScript");
-    } else {
-      response.witness_script = witness_script.GetHex();
-    }
-    return response;
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::CreateMultisig(request, &api);
   };
 
   CreateMultisigResponseStruct result;
@@ -134,27 +73,9 @@ ElementsAddressStructApi::GetAddressesFromMultisig(
     const GetAddressesFromMultisigRequestStruct& request) {
   auto call_func = [](const GetAddressesFromMultisigRequestStruct& request)
       -> GetAddressesFromMultisigResponseStruct {  // NOLINT
-    GetAddressesFromMultisigResponseStruct response;
-
     ElementsNetType net_type = ConvertElementsNetType(request.network);
-    AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.hash_type);
-    Script redeem_script(request.redeem_script);
-
-    ElementsAddressApi api;
-    std::vector<Pubkey> pubkeys;
-    std::vector<Address> addresses = api.GetAddressesFromMultisig(
-        net_type, addr_type, redeem_script, &pubkeys);
-
-    // レスポンスとなるモデルへ変換
-    for (const auto& addr : addresses) {
-      response.addresses.push_back(addr.GetAddress());
-    }
-    for (const auto& pubkey : pubkeys) {
-      response.pubkeys.push_back(pubkey.GetHex());
-    }
-    response.require_num = redeem_script.GetElementList()[0].GetNumber();
-    return response;
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::GetAddressesFromMultisig(request, &api);
   };
 
   GetAddressesFromMultisigResponseStruct result;
@@ -169,22 +90,11 @@ GetAddressInfoResponseStruct ElementsAddressStructApi::GetAddressInfo(
     const GetAddressInfoRequestStruct& request) {
   auto call_func = [](const GetAddressInfoRequestStruct& request)
       -> GetAddressInfoResponseStruct {  // NOLINT
-    GetAddressInfoResponseStruct response;
-
-    ElementsAddressFactory factory;
-    Address address = factory.GetAddress(request.address);
-
-    response.locking_script = address.GetLockingScript().GetHex();
+    ElementsAddressFactory api;
+    Address addr;
+    auto response = AddressApiBase::GetAddressInfo(request, &api, &addr);
     response.network =
-        (address.GetNetType() == NetType::kLiquidV1) ? "liquidv1" : "regtest";
-    response.hash_type =
-        AddressStructApi::ConvertAddressTypeText(address.GetAddressType());
-    response.witness_version =
-        static_cast<int32_t>(address.GetWitnessVersion());
-    if (response.witness_version < 0) {
-      response.ignore_items.insert("witnessVersion");
-    }
-    response.hash = address.GetHash().GetHex();
+        (addr.GetNetType() == NetType::kLiquidV1) ? "liquidv1" : "regtest";
     return response;
   };
 
@@ -201,7 +111,6 @@ ElementsAddressStructApi::GetConfidentialAddress(
   auto call_func = [](const GetConfidentialAddressRequestStruct& request)
       -> GetConfidentialAddressResponseStruct {  // NOLINT
     GetConfidentialAddressResponseStruct response;
-    // Address作成
     std::string unblinded_addrss = request.unblinded_address;
     if (unblinded_addrss.empty()) {
       warn(
@@ -221,9 +130,7 @@ ElementsAddressStructApi::GetConfidentialAddress(
 
     Address addr = ElementsAddressFactory().GetAddress(unblinded_addrss);
     ConfidentialKey conf_key(key);
-    ElementsAddressApi api;
-    ElementsConfidentialAddress conf_addr =
-        api.GetConfidentialAddress(addr, conf_key);
+    ElementsConfidentialAddress conf_addr(addr, conf_key);
 
     response.confidential_address = conf_addr.GetAddress();
     return response;
@@ -243,7 +150,6 @@ ElementsAddressStructApi::GetUnblindedAddress(
   auto call_func = [](const GetUnblindedAddressRequestStruct& request)
       -> GetUnblindedAddressResponseStruct {  // NOLINT
     GetUnblindedAddressResponseStruct response;
-    // Address作成
     std::string unblinded_addrss = request.confidential_address;
     if (unblinded_addrss.empty()) {
       warn(
@@ -278,7 +184,7 @@ CreatePegInAddressResponseStruct ElementsAddressStructApi::CreatePegInAddress(
     // Pubkey pubkey = Pubkey(request.pubkey);
     NetType net_type = AddressStructApi::ConvertNetType(request.network);
     AddressType address_type =
-        AddressStructApi::ConvertAddressType(request.hash_type);
+        AddressApiBase::ConvertAddressType(request.hash_type);
 
     // prepare output parameters
     Script claim_script;
@@ -322,21 +228,9 @@ ParseDescriptorResponseStruct ElementsAddressStructApi::ParseDescriptor(
     const ParseDescriptorRequestStruct& request) {
   auto call_func = [](const ParseDescriptorRequestStruct& request)
       -> ParseDescriptorResponseStruct {  // NOLINT
-    ParseDescriptorResponseStruct response;
-
     NetType net_type = ConvertElementsNetType(request.network);
-
-    ElementsAddressApi api;
-    std::vector<DescriptorScriptData> script_list;
-    std::vector<DescriptorKeyData> multisig_key_list;
-    DescriptorScriptData data = api.ParseOutputDescriptor(
-        request.descriptor, net_type, request.bip32_derivation_path,
-        &script_list, &multisig_key_list);
-
-    // レスポンスとなるモデルへ変換
-    response = AddressStructApi::ConvertDescriptorData(
-        data, script_list, multisig_key_list);
-    return response;
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::ParseDescriptor(request, &api);
   };
 
   ParseDescriptorResponseStruct result;
@@ -355,7 +249,6 @@ ElementsAddressStructApi::AppendDescriptorChecksum(
 
     Descriptor descriptor = Descriptor::ParseElements(request.descriptor);
 
-    // レスポンスとなるモデルへ変換
     response.descriptor = descriptor.ToString();
     return response;
   };
@@ -364,6 +257,55 @@ ElementsAddressStructApi::AppendDescriptorChecksum(
   result = ExecuteStructApi<
       AppendDescriptorChecksumRequestStruct, OutputDescriptorResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+TapScriptInfoStruct ElementsAddressStructApi::GetTapScriptTreeInfo(
+    const GetTapScriptTreeInfoRequestStruct& request) {
+  auto call_func = [](const GetTapScriptTreeInfoRequestStruct& request)
+      -> TapScriptInfoStruct {  // NOLINT
+    ElementsNetType net_type = ConvertElementsNetType(request.network);
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::GetTapScriptTreeInfo(request, &api);
+  };
+
+  TapScriptInfoStruct result;
+  result =
+      ExecuteStructApi<GetTapScriptTreeInfoRequestStruct, TapScriptInfoStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+TapScriptInfoStruct
+ElementsAddressStructApi::GetTapScriptTreeInfoByControlBlock(
+    const TapScriptInfoByControlRequestStruct& request) {
+  auto call_func = [](const TapScriptInfoByControlRequestStruct& request)
+      -> TapScriptInfoStruct {  // NOLINT
+    ElementsNetType net_type = ConvertElementsNetType(request.network);
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::GetTapScriptTreeInfoByControlBlock(request, &api);
+  };
+
+  TapScriptInfoStruct result;
+  result = ExecuteStructApi<
+      TapScriptInfoByControlRequestStruct, TapScriptInfoStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+TapScriptInfoStruct ElementsAddressStructApi::GetTapScriptTreeFromString(
+    const TapScriptFromStringRequestStruct& request) {
+  auto call_func = [](const TapScriptFromStringRequestStruct& request)
+      -> TapScriptInfoStruct {  // NOLINT
+    ElementsNetType net_type = ConvertElementsNetType(request.network);
+    ElementsAddressFactory api(net_type);
+    return AddressApiBase::GetTapScriptTreeFromString(request, &api);
+  };
+
+  TapScriptInfoStruct result;
+  result =
+      ExecuteStructApi<TapScriptFromStringRequestStruct, TapScriptInfoStruct>(
+          request, call_func, std::string(__FUNCTION__));
   return result;
 }
 

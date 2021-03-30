@@ -1,0 +1,35 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetTapBranchInfo",
+  "comment": "Get TapBranch info from tree.",
+  "request": {
+    ":class": "GetTapBranchInfoRequest",
+    ":class:comment": "Request for get TapBranch info.",
+    "treeString": "",
+    "treeString:require": "require",
+    "treeString:comment": "tree serialize string. (cfd format)",
+    "tapscript": "",
+    "tapscript:require": "optional",
+    "tapscript:comment": "tapscript hex.",
+    "nodes": [""],
+    "nodes:require": "optional",
+    "nodes:comment": "target tapbranches hash list. If exist the same tapscript in this tree, you can search for the target tapscript by specifying a hash list of tapbranches.",
+    "index": 0,
+    "index:require": "require",
+    "index:type": "uint32_t",
+    "index:comment": "branch index."
+  },
+  "response": {
+    ":class": "TapBranchInfo",
+    ":class:comment": "TapBranch information",
+    "topBranchHash": "",
+    "topBranchHash:require": "require",
+    "topBranchHash:comment": "branch hash on the top.",
+    "nodes": [""],
+    "nodes:require": "optional",
+    "nodes:comment": "tapbranch list in this tree.",
+    "treeString": "",
+    "treeString:require": "require",
+    "treeString:comment": "tree serialize string. (cfd format)"
+  }
+}

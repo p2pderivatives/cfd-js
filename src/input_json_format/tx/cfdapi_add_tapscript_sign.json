@@ -1,0 +1,66 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "AddTapscriptSign",
+  "comment": "Add a signature and redeem script to the transaction.",
+  "request": {
+    ":class": "AddTapscriptSignRequest",
+    ":class:comment": "tapscript input data to add to tx.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txin:require": "require",
+    "txin:comment": "transaction input data",
+    "txin": {
+      ":class": "AddTapscriptSignTxInRequest",
+      ":class:comment": "tapscript input data",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "signParams:require": "require",
+      "signParams:comment": "sign parameter list.",
+      "signParams": [
+        {
+          ":class": "TapScriptSignData",
+          ":class:comment": "tapscript sign data.",
+          "hex": "",
+          "hex:require": "require",
+          "hex:comment": "sign hex.",
+          "type": "binary",
+          "type:require": "optional",
+          "type:comment": "parameter type.",
+          "type:hint": "binary, sign",
+          "sighashType": "default",
+          "sighashType:require": "optional",
+          "sighashType:comment": "signature hash type. Valid only when type is sign.",
+          "sighashType:hint": "default, all, none or single",
+          "sighashAnyoneCanPay": false,
+          "sighashAnyoneCanPay:require": "optional",
+          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag. Valid only when type is sign."
+        }
+      ],
+      "tapscript": "",
+      "tapscript:require": "require",
+      "tapscript:comment": "tapscript.",
+      "controlBlock": "",
+      "controlBlock:require": "require",
+      "controlBlock:comment": "tapscript control block.",
+      "annex": "",
+      "annex:require": "optional",
+      "annex:comment": "taproot annex bytes."
+    }
+  },
+  "response": {
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
+  }
+}

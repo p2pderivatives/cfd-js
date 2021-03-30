@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_address.h"
+#include "cfdcore/cfdcore_descriptor.h"
 #include "cfdcore/cfdcore_iterator.h"
 #include "cfdjs_internal.h"  // NOLINT
 
@@ -17,13 +19,14 @@ namespace cfd {
 namespace js {
 namespace api {
 
+using cfd::AddressFactory;
 using cfd::SignParameter;
-using cfd::TransactionController;
 using cfd::core::AddressType;
 using cfd::core::ByteData;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::CryptoUtil;
+using cfd::core::Descriptor;
 using cfd::core::IteratorWrapper;
 using cfd::core::Pubkey;
 using cfd::core::Script;
@@ -98,6 +101,98 @@ SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
   }
 }
 
+std::vector<UtxoData> TransactionStructApiBase::ConvertUtxoList(
+    const std::vector<UtxoObjectStruct>& utxos,
+    const AddressFactory* address_factory) {
+  std::vector<UtxoData> utxo_list;
+  for (const auto& utxo : utxos) {
+    UtxoData data;
+    data.txid = Txid(utxo.txid);
+    data.vout = utxo.vout;
+    data.amount = Amount(utxo.amount);
+    data.locking_script = Script(utxo.locking_script);
+
+    if (!utxo.address.empty()) {
+      data.address = address_factory->GetAddress(utxo.address);
+      data.address_type = data.address.GetAddressType();
+    }
+    data.descriptor = utxo.descriptor;
+    if (!data.descriptor.empty()) {
+      auto desc = address_factory->ParseOutputDescriptor(data.descriptor);
+      if (utxo.address.empty()) {
+        data.address = desc.address;
+      }
+      data.address_type = desc.address_type;
+      data.locking_script = desc.locking_script;
+      if (!desc.redeem_script.IsEmpty()) {
+        data.redeem_script = desc.redeem_script;
+      }
+    } else if (!utxo.address.empty()) {
+      data.locking_script = data.address.GetLockingScript();
+    }
+    data.scriptsig_template = Script(utxo.script_sig_template);
+#ifndef CFD_DISABLE_ELEMENTS
+    if (!utxo.asset.empty()) {
+      data.asset = ConfidentialAssetId(utxo.asset);
+    } else if (!utxo.confidential_asset_commitment.empty()) {
+      data.asset = ConfidentialAssetId(utxo.confidential_asset_commitment);
+    }
+    if (!utxo.asset_blind_factor.empty()) {
+      data.asset_blind_factor = BlindFactor(utxo.asset_blind_factor);
+    }
+    if (!utxo.blind_factor.empty()) {
+      data.amount_blind_factor = BlindFactor(utxo.blind_factor);
+    }
+    if (!utxo.confidential_value_commitment.empty()) {
+      data.value_commitment =
+          ConfidentialValue(utxo.confidential_value_commitment);
+    }
+#endif  // CFD_DISABLE_ELEMENTS
+    utxo_list.emplace_back(data);
+  }
+  return utxo_list;
+}
+
+std::vector<UtxoData> TransactionStructApiBase::ConvertUtxoListForVerify(
+    const std::vector<VerifySignTxInUtxoDataStruct>& utxos,
+    const AddressFactory* address_factory) {
+  std::vector<UtxoData> utxo_list;
+  for (const auto& utxo : utxos) {
+    UtxoData data;
+    data.txid = Txid(utxo.txid);
+    data.vout = utxo.vout;
+    data.amount = Amount(utxo.amount);
+    data.locking_script = Script(utxo.locking_script);
+
+    if (!utxo.address.empty()) {
+      data.address = address_factory->GetAddress(utxo.address);
+      data.address_type = data.address.GetAddressType();
+    }
+    data.descriptor = utxo.descriptor;
+    if (!data.descriptor.empty()) {
+      auto desc = address_factory->ParseOutputDescriptor(data.descriptor);
+      if (utxo.address.empty()) {
+        data.address = desc.address;
+      }
+      data.address_type = desc.address_type;
+      data.locking_script = desc.locking_script;
+      if (!desc.redeem_script.IsEmpty()) {
+        data.redeem_script = desc.redeem_script;
+      }
+    } else if (!utxo.address.empty()) {
+      data.locking_script = data.address.GetLockingScript();
+    }
+#ifndef CFD_DISABLE_ELEMENTS
+    if (!utxo.confidential_value_commitment.empty()) {
+      data.value_commitment =
+          ConfidentialValue(utxo.confidential_value_commitment);
+    }
+#endif  // CFD_DISABLE_ELEMENTS
+    utxo_list.emplace_back(data);
+  }
+  return utxo_list;
+}
+
 ByteData TransactionStructApiBase::ConvertSignDataToSignature(
     const std::string& hex_string, bool is_sign, bool is_der_encode,
     const std::string& sighash_type, bool sighash_anyone_can_pay) {
@@ -121,7 +216,8 @@ ByteData TransactionStructApiBase::ConvertSignDataToSignature(
 }
 
 SigHashType TransactionStructApiBase::ConvertSigHashType(
-    const std::string& sighash_type_string, bool is_anyone_can_pay) {
+    const std::string& sighash_type_string, bool is_anyone_can_pay,
+    bool has_taproot) {
   std::string check_string = sighash_type_string;
   std::transform(
       check_string.begin(), check_string.end(), check_string.begin(),
@@ -132,6 +228,9 @@ SigHashType TransactionStructApiBase::ConvertSigHashType(
     return SigHashType(SigHashAlgorithm::kSigHashNone, is_anyone_can_pay);
   } else if (check_string == "single") {
     return SigHashType(SigHashAlgorithm::kSigHashSingle, is_anyone_can_pay);
+  } else if (
+      has_taproot && (check_string == "default") && !is_anyone_can_pay) {
+    return SigHashType(SigHashAlgorithm::kSigHashDefault);
   }
   warn(
       CFD_LOG_SOURCE,
@@ -149,7 +248,7 @@ ExtractScriptData TransactionStructApiBase::ExtractLockingScript(
 
   std::string script_type;
   std::vector<ScriptElement> elems = locking_script.GetElementList();
-  // FIXME(fujita-cg): anyonecanspent_aremineフラグの判定
+  // FIXME(fujita-cg): judge anycanspent_aremine flag
   if (elems.size() == 1 && elems[0].GetOpCode() == ScriptOperator::OP_TRUE) {
     extract_data.script_type = LockingScriptType::kTrue;
     return extract_data;
@@ -172,6 +271,8 @@ ExtractScriptData TransactionStructApiBase::ExtractLockingScript(
   if (locking_script.IsWitnessProgram()) {
     uint8_t witness_version = static_cast<uint8_t>(elems[0].GetNumber());
     ByteData program = elems[1].GetBinaryData();
+    extract_data.witness_version =
+        static_cast<WitnessVersion>(witness_version);
     if (locking_script.IsP2wpkhScript()) {
       // tx witness keyhash
       extract_data.script_type = LockingScriptType::kWitnessV0KeyHash;
@@ -180,19 +281,17 @@ ExtractScriptData TransactionStructApiBase::ExtractLockingScript(
       // tx witness scripthash
       extract_data.script_type = LockingScriptType::kWitnessV0ScriptHash;
       extract_data.pushed_datas.push_back(program);
+    } else if (locking_script.IsTaprootScript()) {
+      extract_data.script_type = LockingScriptType::kWitnessV1Taproot;
+      extract_data.pushed_datas.push_back(program);
     } else if (witness_version != 0) {
       // tx witness unknown
       extract_data.script_type = LockingScriptType::kWitnessUnknown;
-      std::vector<uint8_t> data;
-      data.reserve(program.GetDataSize() + 1);
-      data.push_back(witness_version);
-      std::copy(
-          program.GetBytes().begin(), program.GetBytes().end(),
-          std::back_inserter(data));
-      extract_data.pushed_datas.push_back(ByteData(data));
+      extract_data.pushed_datas.push_back(program);
     } else {
       // non standard
       extract_data.script_type = LockingScriptType::kNonStandard;
+      extract_data.witness_version = WitnessVersion::kVersionNone;
     }
     return extract_data;
   }
@@ -251,6 +350,8 @@ std::string TransactionStructApiBase::ConvertLockingScriptTypeString(
       return "witness_v0_scripthash";
     case LockingScriptType::kWitnessV0KeyHash:
       return "witness_v0_keyhash";
+    case LockingScriptType::kWitnessV1Taproot:
+      return "witness_v1_taproot";
     case LockingScriptType::kWitnessUnknown:
       return "witness_unknown";
     case LockingScriptType::kTrue:

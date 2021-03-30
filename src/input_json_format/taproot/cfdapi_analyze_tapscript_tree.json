@@ -1,0 +1,40 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "AnalyzeTapScriptTree",
+  "comment": "Analyze TapScript tree.",
+  "request": {
+    ":class": "AnalyzeTapScriptTreeRequest",
+    ":class:comment": "Request for get TapBranch info.",
+    "treeString": "",
+    "treeString:require": "require",
+    "treeString:comment": "tree serialize string. (cfd format)"
+  },
+  "response": {
+    ":class": "AnalyzeTapScriptTreeInfo",
+    ":class:comment": "TapScript tree information",
+    "branches": [
+      {
+        ":class": "TapScriptTreeItem",
+        ":class:comment": "TapScript tree item",
+        "depth": 0,
+        "depth:require": "require",
+        "depth:type": "uint32_t",
+        "depth:comment": "branch depth",
+        "tapBranchHash": "",
+        "tapBranchHash:require": "require",
+        "tapBranchHash:comment": "tapbranch hash or tapleaf hash.",
+        "tapscript": "",
+        "tapscript:require": "optional",
+        "tapscript:comment": "tapscript hex.",
+        "leafVersion": 0,
+        "leafVersion:require": "optional",
+        "leafVersion:comment": "tapleaf version.",
+        "relatedBranchHash": [""],
+        "relatedBranchHash:require": "optional",
+        "relatedBranchHash:comment": "related tapbranch hash"
+      }
+    ],
+    "branches:require": "require",
+    "branches:comment": "tapbranch list in this tree."
+  }
+}

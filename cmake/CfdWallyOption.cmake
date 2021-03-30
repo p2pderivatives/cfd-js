@@ -6,4 +6,5 @@ option(ENABLE_JS_WRAPPER "enable the Javascript interface wrappers (ON or OFF. d
 else()
 set(ENABLE_JS_WRAPPER  OFF)
 endif()
-set(GENERATE_WALLY  ON)
+option(GENERATE_WALLY "generate the wally.xxx library (ON or OFF. default:ON)" ON)
+option(EXCLUDE_WALLYCORE_LIB "exclude wallycore lib (ON or OFF. default:OFF)" OFF)

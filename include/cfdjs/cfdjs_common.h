@@ -1,7 +1,7 @@
 // Copyright 2019 CryptoGarage
 /**
  * @file cfdjs_common.h
- * @brief cfdcoreの共通定義ファイル。
+ * @brief Common definition file for cfd-js.
  */
 #ifndef CFD_JS_INCLUDE_CFDJS_CFDJS_COMMON_H_
 #define CFD_JS_INCLUDE_CFDJS_CFDJS_COMMON_H_
@@ -11,7 +11,7 @@
 #include <cstdint>
 
 /**
- * @brief APIのDLLエクスポート定義
+ * @brief API DLL export definition
  */
 #ifndef CFD_JS_API
 #if defined(_WIN32)
@@ -30,7 +30,7 @@
 #endif
 
 /**
- * @brief クラスのDLLエクスポート定義
+ * @brief DLL export definition for class
  */
 #ifndef CFD_JS_EXPORT
 #if defined(_WIN32)
@@ -49,29 +49,28 @@
 #endif
 
 /**
- * @brief cfd名前空間
+ * @brief cfd namespace
  */
 namespace cfd {
 /**
- * @brief cfd::js名前空間
+ * @brief cfd::js namespace
  */
 namespace js {
 /**
- * @brief cfd::js::api名前空間
+ * @brief cfd::js::api namespace
  */
 namespace api {
 /**
- * @brief cfd::js::api::json名前空間
+ * @brief cfd::js::api::json namespace
  */
 namespace json {
 
 // API
 /**
- * @brief Initialize処理を実施する。
- * @details N-APIの利用を前提とする。
- * @param[in] env 環境情報
- * @param[out] exports 関数格納オブジェクト
- * @return LibraryFunctionのビットフラグ
+ * @brief initialize.
+ * @details It is assumed that N-API is used.
+ * @param[in] env       environment information.
+ * @param[out] exports  export object.
  */
 CFD_JS_API void InitializeJsonApi(Napi::Env env, Napi::Object* exports);
 

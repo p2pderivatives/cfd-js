@@ -815,7 +815,8 @@
                 },
                 "error": {
                     "capi": "hex to byte convert error.",
-                    "json": ""
+                    "json": "",
+                    "python": "Error: Invalid hex value."
                 },
                 "exclude": [
                     "json"
@@ -1216,6 +1217,31 @@
                 },
                 "expect": {
                     "pubkey": "03735acf82eef9da1540efb07a68251d5476dabb11ac77054924eccbb4121885e8"
+                }
+            }
+        ]
+    },
+    {
+        "name": "Schnorr.TweakAddPrivkey",
+        "cases": [
+            {
+                "case": "parity=false",
+                "request": {
+                    "privkey": "4544c9f3dd84b9d5b32503e0dcd9ff60ab203bc9245361ebe6fe9556c7d0cc38",
+                    "tweak": "df707f11dc54706101eafed0202a581f8f9b14e0a0dcf9411ecc50113ca06dcf"
+                },
+                "expect": {
+                    "privkey": "24b54905b9d92a36b51002b0fd045781800c73c315e7baf145f886db343af8c6"
+                }
+            },
+            {
+                "case": "parity=true",
+                "request": {
+                    "privkey": "56f1abb4261f68c5e76c248ed60b21b60bbff4f997db6503a1c9b78e8881a1b7",
+                    "tweak": "4544c9f3dd84b9d5b32503e0dcd9ff60ab203bc9245361ebe6fe9556c7d0cc38"
+                },
+                "expect": {
+                    "privkey": "ee531e3fb765510fcbb8df5206cedda95a0f23b63bc09d2405073c550f856bc2"
                 }
             }
         ]

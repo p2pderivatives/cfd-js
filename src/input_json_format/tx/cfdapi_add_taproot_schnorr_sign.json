@@ -1,0 +1,48 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "AddTaprootSchnorrSign",
+  "comment": "Add a signature and pubkey to the transaction.",
+  "request": {
+    ":class": "AddTaprootSchnorrSignRequest",
+    ":class:comment": "taproot input data to add to tx.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "txin:require": "require",
+    "txin:comment": "transaction input data",
+    "txin": {
+      ":class": "AddTaprootSchnorrSignTxInRequest",
+      ":class:comment": "taprootinput data",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "signature": "",
+      "signature:require": "require",
+      "signature:comment": "sign hex.",
+      "sighashType": "default",
+      "sighashType:require": "optional",
+      "sighashType:comment": "signature hash type.",
+      "sighashType:hint": "default, all, none or single",
+      "sighashAnyoneCanPay": false,
+      "sighashAnyoneCanPay:require": "optional",
+      "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag.",
+      "annex": "",
+      "annex:require": "optional",
+      "annex:comment": "taproot annex bytes."
+    }
+  },
+  "response": {
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
+  }
+}

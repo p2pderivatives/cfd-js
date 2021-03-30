@@ -119,6 +119,30 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const CreateElementsSignatureHashRequestStruct& request);
 
   /**
+   * @brief Implements getting sighash api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static CreateSignatureHashResponseStruct GetSighash(
+      const GetSighashRequestStruct& request);
+
+  /**
+   * @brief Implements taproot sign api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static RawTransactionResponseStruct AddTaprootSchnorrSign(
+      const AddTaprootSchnorrSignRequestStruct& request);
+
+  /**
+   * @brief Implements tapscript sign api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static RawTransactionResponseStruct AddTapscriptSign(
+      const AddTapscriptSignRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、署名検証を実施する.
    * @param[in] request 署名検証情報を格納した構造体
    * @return 署名検証結果を格納した構造体

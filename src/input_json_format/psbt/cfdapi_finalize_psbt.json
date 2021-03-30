@@ -1,0 +1,31 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "FinalizePsbt",
+  "comment": "Finalize and extract PSBT.",
+  "request": {
+    ":class": "FinalizePsbtRequest",
+    ":class:comment": "Finalize and extract PSBT request",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt (hex or base64)",
+    "extract": true,
+    "extract:require": "optional",
+    "extract:comment": "If true and the transaction is complete, extract and return the complete transaction in normal network serialization instead of the PSBT."
+  },
+  "response": {
+    ":class": "FinalizePsbtResponse",
+    ":class:comment": "The output finalize psbt data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "If extracted, the transaction hex is set.",
+    "complete": true,
+    "complete:require": "require",
+    "complete:comment": "If the transaction has a complete set of signatures."
+  }
+}

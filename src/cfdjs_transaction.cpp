@@ -18,8 +18,10 @@
 #include "cfd/cfdapi_transaction.h"
 #include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdcore/cfdcore_descriptor.h"
+#include "cfdcore/cfdcore_taproot.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_transaction.h"
+#include "cfdjs_address_base.h"      // NOLINT
 #include "cfdjs_internal.h"          // NOLINT
 #include "cfdjs_json_transaction.h"  // NOLINT
 #include "cfdjs_transaction_base.h"  // NOLINT
@@ -32,7 +34,6 @@ using cfd::AddressFactory;
 using cfd::TransactionContext;
 using cfd::TransactionController;
 using cfd::UtxoData;
-using cfd::api::AddressApi;
 using cfd::api::KeyApi;
 using cfd::api::TransactionApi;
 using cfd::core::Address;
@@ -51,10 +52,12 @@ using cfd::core::kScriptHashP2pkhLength;
 using cfd::core::kScriptHashP2shLength;
 using cfd::core::NetType;
 using cfd::core::Pubkey;
+using cfd::core::SchnorrSignature;
 using cfd::core::Script;
 using cfd::core::ScriptElement;
 using cfd::core::ScriptOperator;
 using cfd::core::SigHashType;
+using cfd::core::TaprootUtil;
 using cfd::core::Transaction;
 using cfd::core::Txid;
 using cfd::core::TxIn;
@@ -77,14 +80,14 @@ RawTransactionResponseStruct TransactionStructApi::CreateRawTransaction(
     RawTransactionResponseStruct response;
 
     std::vector<TxIn> txins;
-    for (TxInRequestStruct txin_req : request.txins) {
+    for (const TxInRequestStruct& txin_req : request.txins) {
       // TxInのunlocking_scriptは空で作成
       TxIn txin(Txid(txin_req.txid), txin_req.vout, txin_req.sequence);
       txins.push_back(txin);
     }
 
     std::vector<TxOut> txouts;
-    for (TxOutRequestStruct txout_req : request.txouts) {
+    for (const TxOutRequestStruct& txout_req : request.txouts) {
       Amount amount = Amount::CreateBySatoshiAmount(txout_req.amount);
       if (!txout_req.direct_locking_script.empty()) {
         TxOut txout(amount, Script(txout_req.direct_locking_script));
@@ -165,14 +168,11 @@ DecodeRawTransactionResponseStruct TransactionStructApi::DecodeRawTransaction(
           CfdError::kCfdIllegalArgumentError,
           "Invalid hex string. empty data.");
     }
-    // TODO(k-matsuzawa): 引数のiswitness未使用。bitcoincoreの指定方法が不明瞭
-    // // NOLINT
+    // TODO(k-matsuzawa): The argument iswitness is unused. The method of specifying bitcoin core is unknown. NOLINT
 
     NetType net_type = AddressStructApi::ConvertNetType(request.network);
 
-    // TransactionController作成
-    TransactionController txc(hex_string);
-    const Transaction& tx = txc.GetTransaction();
+    TransactionContext tx(hex_string);
 
     response.txid = tx.GetTxid().GetHex();
     // Decode時はTxidと同様にリバースで出力
@@ -183,7 +183,7 @@ DecodeRawTransactionResponseStruct TransactionStructApi::DecodeRawTransaction(
     response.version = tx.GetVersion();
     response.locktime = tx.GetLockTime();
 
-    // TxInの追加
+    AddressFactory factory(net_type);
     for (auto& tx_in_ref : tx.GetTxInList()) {
       DecodeRawTransactionTxInStruct res_txin;
       if (tx.IsCoinBase()) {
@@ -217,7 +217,6 @@ DecodeRawTransactionResponseStruct TransactionStructApi::DecodeRawTransaction(
       response.vin.push_back(res_txin);
     }
 
-    // TxOutの追加
     int32_t txout_count = 0;
     for (auto& txout_ref : tx.GetTxOutList()) {
       DecodeRawTransactionTxOutStruct res_txout;
@@ -236,83 +235,21 @@ DecodeRawTransactionResponseStruct TransactionStructApi::DecodeRawTransaction(
         res_txout.script_pub_key.ignore_items.insert("reqSigs");
         res_txout.script_pub_key.ignore_items.insert("addresses");
       } else {
-        res_txout.script_pub_key.type = "nonstandard";
-
-        bool is_witness = false;
-        int top_number = static_cast<int>(script_element[0].GetNumber());
-
-        ScriptElement last_element = script_element.back();
-
-        // 現状、WitnessVersion0のみ
-        if ((script_element.size() == 2) && script_element[0].IsNumber() &&
-            script_element[1].IsBinary() &&
-            ((top_number >= 0) && (top_number <= 16))) {
-          size_t buffer_array_size =
-              script_element[1].GetBinaryData().GetDataSize();
-          if ((buffer_array_size == kByteData160Length) ||
-              (buffer_array_size == kByteData256Length)) {
-            // P2WPKH or P2WSH
-            is_witness = true;
-
-            if (top_number == 0) {
-              if (buffer_array_size == kByteData160Length) {
-                // P2WPKH
-                res_txout.script_pub_key.type = "witness_v0_keyhash";
-              } else if (buffer_array_size == kByteData256Length) {
-                // P2WSH
-                res_txout.script_pub_key.type = "witness_v0_scripthash";
-              }
-            } else {
-              // unsupported target witness version.
-              res_txout.script_pub_key.type = "witness_unknown";
-            }
-          }
+        int64_t require_num = 0;
+        auto addr_list = ConvertFromLockingScript(
+            factory, locking_script, &res_txout.script_pub_key.type,
+            &require_num);
+        if (require_num == 0) {
+          res_txout.script_pub_key.ignore_items.insert("reqSigs");
+        } else {
+          res_txout.script_pub_key.req_sigs = static_cast<int>(require_num);
         }
 
-        if (is_witness) {
-          res_txout.script_pub_key.req_sigs = 1;
-          Address addr(
-              net_type, WitnessVersion::kVersion0,
-              script_element[1].GetBinaryData());
-          res_txout.script_pub_key.addresses.push_back(addr.GetAddress());
-        } else if (CheckMultiSigScript(locking_script)) {
-          // MultiSig
-          int64_t sig_num = top_number;
-          res_txout.script_pub_key.req_sigs = sig_num;
-          res_txout.script_pub_key.type = "multisig";
-          for (size_t index = 1; index < script_element.size() - 2;
-               ++index) {  // NOLINT
-            Address addr(
-                net_type, Pubkey(script_element[index].GetBinaryData()));
-            res_txout.script_pub_key.addresses.push_back(addr.GetAddress());
-          }
-        } else if (locking_script.IsP2pkhScript()) {
-          res_txout.script_pub_key.req_sigs = 1;
-          res_txout.script_pub_key.type = "pubkeyhash";
-          Address addr(
-              net_type, AddressType::kP2pkhAddress,
-              ByteData160(script_element[2].GetBinaryData().GetBytes()));
-          res_txout.script_pub_key.addresses.push_back(addr.GetAddress());
-        } else if (locking_script.IsP2shScript()) {
-          res_txout.script_pub_key.req_sigs = 1;
-          res_txout.script_pub_key.type = "scripthash";
-          Address addr(
-              net_type, AddressType::kP2shAddress,
-              ByteData160(script_element[1].GetBinaryData().GetBytes()));
-          res_txout.script_pub_key.addresses.push_back(addr.GetAddress());
-        } else if (locking_script.IsP2pkScript()) {
-          res_txout.script_pub_key.req_sigs = 1;
-          res_txout.script_pub_key.type = "pubkey";
-          Address addr(net_type, Pubkey(script_element[0].GetBinaryData()));
-          res_txout.script_pub_key.addresses.push_back(addr.GetAddress());
-        } else if (CheckNullDataScript(locking_script)) {
-          res_txout.script_pub_key.type = "nulldata";
-          res_txout.script_pub_key.ignore_items.insert("reqSigs");
+        if (addr_list.empty()) {
           res_txout.script_pub_key.ignore_items.insert("addresses");
-        } else {
-          // nonstandard or witness_unknown
-          res_txout.script_pub_key.ignore_items.insert("reqSigs");
-          res_txout.script_pub_key.ignore_items.insert("addresses");
+        }
+        for (const auto& addr : addr_list) {
+          res_txout.script_pub_key.addresses.emplace_back(addr.GetAddress());
         }
       }
 
@@ -361,7 +298,10 @@ RawTransactionResponseStruct TransactionStructApi::AddSign(
     uint32_t vout = request.txin.vout;
 
     std::vector<SignParameter> sign_params;
-    for (const SignDataStruct& sign_data : request.txin.sign_param) {
+    const auto& params = (request.txin.sign_params.empty())
+                             ? request.txin.sign_param
+                             : request.txin.sign_params;
+    for (const SignDataStruct& sign_data : params) {
       sign_params.push_back(
           TransactionStructApiBase::ConvertSignDataStructToSignParameter(
               sign_data));
@@ -419,7 +359,7 @@ RawTransactionResponseStruct TransactionStructApi::AddMultisigSign(
       -> RawTransactionResponseStruct {  // NOLINT
     TxInReference txin(TxIn(Txid(request.txin.txid), request.txin.vout, 0));
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     Script redeem_script(request.txin.redeem_script);
     Script witness_script(request.txin.witness_script);
     std::vector<SignParameter> sign_list;
@@ -460,12 +400,13 @@ RawTransactionResponseStruct TransactionStructApi::SignWithPrivkey(
 
     TransactionContext ctx(request.tx);
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
-    Pubkey pubkey;
     Privkey privkey;
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
+    bool has_taproot = (addr_type == AddressType::kTaprootAddress);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        has_taproot);
 
     if (request.txin.privkey.size() == (Privkey::kPrivkeySize * 2)) {
       privkey = Privkey(request.txin.privkey);
@@ -473,16 +414,33 @@ RawTransactionResponseStruct TransactionStructApi::SignWithPrivkey(
       KeyApi key_api;
       privkey = key_api.GetPrivkeyFromWif(request.txin.privkey);
     }
-    if (request.txin.pubkey.empty()) {
-      pubkey = privkey.GeneratePubkey();
-    } else {
-      pubkey = Pubkey(request.txin.pubkey);
-    }
-    Amount value(request.txin.amount);
 
-    ctx.SignWithPrivkeySimple(
-        outpoint, pubkey, privkey, sighashtype, value, addr_type,
-        request.txin.is_grind_r);
+    if (has_taproot) {
+      ByteData256 aux_rand;
+      if (!request.txin.aux_rand.empty()) {
+        aux_rand = ByteData256(request.txin.aux_rand);
+      }
+      ByteData annex(request.txin.annex);
+      AddressFactory factory;
+      auto utxos =
+          TransactionStructApiBase::ConvertUtxoList(request.utxos, &factory);
+      ctx.CollectInputUtxo(utxos);
+      ctx.SignWithSchnorrPrivkeySimple(
+          outpoint, privkey, sighashtype,
+          (aux_rand.IsEmpty()) ? nullptr : &aux_rand,
+          (annex.IsEmpty()) ? nullptr : &annex);
+    } else {
+      Pubkey pubkey;
+      if (request.txin.pubkey.empty()) {
+        pubkey = privkey.GeneratePubkey();
+      } else {
+        pubkey = Pubkey(request.txin.pubkey);
+      }
+      Amount value(request.txin.amount);
+      ctx.SignWithPrivkeySimple(
+          outpoint, pubkey, privkey, sighashtype, value, addr_type,
+          request.txin.is_grind_r);
+    }
     response.hex = ctx.GetHex();
     return response;
   };
@@ -504,7 +462,7 @@ RawTransactionResponseStruct TransactionStructApi::AddPubkeyHashSign(
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
     Pubkey pubkey(request.txin.pubkey);
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sign_param.sighash_type,
         request.txin.sign_param.sighash_anyone_can_pay);
@@ -534,9 +492,12 @@ RawTransactionResponseStruct TransactionStructApi::AddScriptHashSign(
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
     Script redeem_script(request.txin.redeem_script);
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     std::vector<SignParameter> signatures;
-    for (const auto& sign_data : request.txin.sign_param) {
+    const auto& params = (request.txin.sign_params.empty())
+                             ? request.txin.sign_param
+                             : request.txin.sign_params;
+    for (const auto& sign_data : params) {
       SignParameter signature =
           TransactionStructApiBase::ConvertSignDataStructToSignParameter(
               sign_data);  // NOLINT
@@ -620,6 +581,156 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
   return result;
 }
 
+CreateSignatureHashResponseStruct TransactionStructApi::GetSighash(
+    const GetSighashRequestStruct& request) {
+  auto call_func = [](const GetSighashRequestStruct& request)
+      -> CreateSignatureHashResponseStruct {  // NOLINT
+    CreateSignatureHashResponseStruct response;
+    TransactionContext tx(request.tx);
+    AddressFactory factory;
+    auto utxo_list =
+        TransactionStructApiBase::ConvertUtxoList(request.utxos, &factory);
+    tx.CollectInputUtxo(utxo_list);
+
+    AddressType addr_type =
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    bool has_taproot = (addr_type == AddressType::kTaprootAddress);
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        has_taproot);
+
+    Script redeem_script;
+    bool is_pubkey = false;
+    if (request.txin.key_data.type == "pubkey") {
+      is_pubkey = true;
+    } else if (request.txin.key_data.type == "redeem_script") {
+      redeem_script = Script(request.txin.key_data.hex);
+    }
+
+    if (has_taproot) {
+      SchnorrPubkey pubkey;
+      if (is_pubkey) pubkey = SchnorrPubkey(request.txin.key_data.hex);
+      ByteData annex(request.txin.annex);
+      uint32_t pos =
+          static_cast<uint32_t>(request.txin.code_separator_position);
+      ByteData256 tapleaf_hash;
+      if (!is_pubkey) {
+        TaprootScriptTree tree(redeem_script);
+        tapleaf_hash = tree.GetTapLeafHash();
+      }
+      auto sighash = tx.CreateSignatureHashByTaproot(
+          outpoint, sighashtype, (is_pubkey) ? nullptr : &tapleaf_hash,
+          (request.txin.code_separator_position < 0) ? nullptr : &pos,
+          (annex.IsEmpty()) ? nullptr : &annex);
+      response.sighash = sighash.GetHex();
+    } else {
+      WitnessVersion version = WitnessVersion::kVersion0;
+      if ((addr_type == AddressType::kP2pkhAddress) ||
+          (addr_type == AddressType::kP2shAddress)) {
+        version = WitnessVersion::kVersionNone;
+      }
+      auto utxo = tx.GetTxInUtxoData(outpoint);
+      ByteData sighash;
+      if (is_pubkey) {
+        Pubkey pubkey(request.txin.key_data.hex);
+        sighash = tx.CreateSignatureHash(
+            outpoint, pubkey, sighashtype, utxo.amount, version);
+      } else {
+        sighash = tx.CreateSignatureHash(
+            outpoint, redeem_script, sighashtype, utxo.amount, version);
+      }
+      response.sighash = sighash.GetHex();
+    }
+    return response;
+  };
+
+  CreateSignatureHashResponseStruct result;
+  result = ExecuteStructApi<
+      GetSighashRequestStruct, CreateSignatureHashResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct TransactionStructApi::AddTaprootSchnorrSign(
+    const AddTaprootSchnorrSignRequestStruct& request) {
+  auto call_func = [](const AddTaprootSchnorrSignRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    TransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    ByteData annex(request.txin.annex);
+
+    SchnorrSignature sig(request.txin.signature);
+    if (sig.GetSigHashType().GetSigHashFlag() == 0) {
+      auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
+          request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+          true);
+      sig.SetSigHashType(sighashtype);
+    }
+
+    ctx.AddSchnorrSign(outpoint, sig, (annex.IsEmpty()) ? nullptr : &annex);
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      AddTaprootSchnorrSignRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct TransactionStructApi::AddTapscriptSign(
+    const AddTapscriptSignRequestStruct& request) {
+  auto call_func = [](const AddTapscriptSignRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    TransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    Script redeem_script(request.txin.tapscript);
+    ByteData control_block(request.txin.control_block);
+    ByteData annex(request.txin.annex);
+
+    std::vector<SignParameter> sign_params;
+    for (const auto& sign_data : request.txin.sign_params) {
+      SchnorrSignature sig(sign_data.hex);
+      if (sig.GetSigHashType().GetSigHashFlag() == 0) {
+        auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
+            sign_data.sighash_type, sign_data.sighash_anyone_can_pay, true);
+        sig.SetSigHashType(sighashtype);
+      }
+      sign_params.emplace_back(sig.GetData(true));
+    }
+    sign_params.emplace_back(redeem_script);
+    sign_params.emplace_back(control_block);
+
+    std::vector<ByteData> witness_stack;
+    witness_stack.emplace_back(redeem_script.GetData());
+    witness_stack.emplace_back(control_block);
+    if (!annex.IsEmpty()) {
+      sign_params.emplace_back(annex);
+      witness_stack.emplace_back(annex);
+    }
+
+    // verify check
+    TaprootUtil::ParseTaprootSignData(
+        witness_stack, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+
+    ctx.AddSign(outpoint, sign_params, true, true);
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      AddTapscriptSignRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 VerifySignatureResponseStruct TransactionStructApi::VerifySignature(
     const VerifySignatureRequestStruct& request) {
   auto call_func = [](const VerifySignatureRequestStruct& request)
@@ -628,40 +739,68 @@ VerifySignatureResponseStruct TransactionStructApi::VerifySignature(
     std::string sig_hash;
     int64_t amount = request.txin.amount;
     const std::string& hashtype_str = request.txin.hash_type;
-    const Txid& txid = Txid(request.txin.txid);
     uint32_t vout = request.txin.vout;
+    bool has_taproot = (hashtype_str == "taproot");
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
-
-    Pubkey pubkey = Pubkey(request.txin.pubkey);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        has_taproot);
     ByteData signature = ByteData(request.txin.signature);
-    Script script;
 
-    TransactionController tx(request.tx);
+    TransactionContext tx(request.tx);
     bool is_success = false;
     WitnessVersion version;
-    Amount value = Amount::CreateBySatoshiAmount(amount);
-    if ((hashtype_str == "p2pkh") || (hashtype_str == "p2wpkh")) {
-      version = (hashtype_str == "p2wpkh") ? WitnessVersion::kVersion0
-                                           : WitnessVersion::kVersionNone;
-      is_success = tx.VerifyInputSignature(
-          signature, pubkey, txid, vout, sighashtype, value, version);
-    } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
-      script = Script(request.txin.redeem_script);
-      version = (hashtype_str == "p2wsh") ? WitnessVersion::kVersion0
-                                          : WitnessVersion::kVersionNone;
-      is_success = tx.VerifyInputSignature(
-          signature, pubkey, txid, vout, script, sighashtype, value, version);
+    OutPoint outpoint(Txid(request.txin.txid), vout);
+    if (has_taproot) {
+      SchnorrPubkey pubkey(request.txin.pubkey);
+      ByteData annex(request.txin.annex);
+      SchnorrSignature sig(signature);
+      if (sig.GetSigHashType().GetSigHashFlag() == 0) {
+        sig.SetSigHashType(sighashtype);
+      }
+      AddressFactory factory;
+      auto utxo_list =
+          TransactionStructApiBase::ConvertUtxoList(request.utxos, &factory);
+      tx.CollectInputUtxo(utxo_list);
+      if (request.txin.redeem_script.empty()) {
+        is_success = tx.VerifyInputSchnorrSignature(
+            sig, outpoint, utxo_list, pubkey,
+            (annex.IsEmpty()) ? nullptr : &annex);
+      } else {
+        TaprootScriptTree tree(Script(request.txin.redeem_script));
+        auto tap_leaf_hash = tree.GetTapLeafHash();
+        uint32_t pos =
+            static_cast<uint32_t>(request.txin.code_separator_position);
+        auto sighash = tx.CreateSignatureHashByTaproot(
+            outpoint, sighashtype, &tap_leaf_hash,
+            (request.txin.code_separator_position < 0) ? nullptr : &pos,
+            (annex.IsEmpty()) ? nullptr : &annex);
+        is_success = pubkey.Verify(sig, sighash);
+      }
     } else {
-      warn(
-          CFD_LOG_SOURCE,
-          "Failed to VerifySignature. Invalid hashtype_str:  "
-          "hashtype_str={}",  // NOLINT
-          hashtype_str);
-      throw CfdException(
-          CfdError::kCfdIllegalArgumentError,
-          "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
-          "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\".");  // NOLINT
+      Pubkey pubkey(request.txin.pubkey);
+      Amount value = Amount::CreateBySatoshiAmount(amount);
+      if ((hashtype_str == "p2pkh") || (hashtype_str == "p2wpkh")) {
+        version = (hashtype_str == "p2wpkh") ? WitnessVersion::kVersion0
+                                             : WitnessVersion::kVersionNone;
+        is_success = tx.VerifyInputSignature(
+            signature, pubkey, outpoint, sighashtype, value, version);
+      } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
+        Script script(request.txin.redeem_script);
+        version = (hashtype_str == "p2wsh") ? WitnessVersion::kVersion0
+                                            : WitnessVersion::kVersionNone;
+        is_success = tx.VerifyInputSignature(
+            signature, pubkey, outpoint, script, sighashtype, value, version);
+      } else {
+        warn(
+            CFD_LOG_SOURCE,
+            "Failed to VerifySignature. Invalid hashtype_str:  "
+            "hashtype_str={}",  // NOLINT
+            hashtype_str);
+        throw CfdException(
+            CfdError::kCfdIllegalArgumentError,
+            "Invalid hashtype_str. hashtype_str must be \"p2pkh\" "
+            "or \"p2sh\" or \"p2wpkh\" or \"p2wsh\" or \"taproot\".");  // NOLINT
+      }
     }
     if (!is_success) {
       warn(CFD_LOG_SOURCE, "Failed to VerifySignature. check fail.");
@@ -689,34 +828,8 @@ VerifySignResponseStruct TransactionStructApi::VerifySign(
 
     TransactionContext ctx(request.tx);
     AddressFactory address_factory;
-    std::vector<UtxoData> utxos;
-    AddressApi addr_api;
-    for (auto& utxo : request.txins) {
-      UtxoData data = {};
-      data.txid = Txid(utxo.txid);
-      data.vout = utxo.vout;
-      data.amount = Amount::CreateBySatoshiAmount(utxo.amount);
-
-      data.descriptor = utxo.descriptor;
-      if (!data.descriptor.empty()) {
-        DescriptorScriptData script_data = addr_api.ParseOutputDescriptor(
-            data.descriptor, NetType::kMainnet, "", nullptr, nullptr, nullptr);
-        data.address_type = script_data.address_type;
-        if (script_data.type == DescriptorScriptType::kDescriptorScriptRaw) {
-          data.locking_script = script_data.locking_script;
-        } else {
-          // TODO(k-matsuzawa): mainnet only?
-          data.address = script_data.address;
-          data.locking_script = script_data.locking_script;
-        }
-      } else if (!utxo.address.empty()) {
-        data.address = address_factory.GetAddress(utxo.address);
-        data.locking_script = data.address.GetLockingScript();
-        data.address_type = data.address.GetAddressType();
-      }
-      data.binary_data = nullptr;
-      utxos.push_back(data);
-    }
+    auto utxos = TransactionStructApiBase::ConvertUtxoListForVerify(
+        request.txins, &address_factory);
     ctx.CollectInputUtxo(utxos);
 
     response.success = !utxos.empty();
@@ -841,6 +954,68 @@ bool TransactionStructApi::CheckNullDataScript(const Script& script) {
     }
   }
   return is_match;
+}
+
+std::vector<Address> TransactionStructApi::ConvertFromLockingScript(
+    const AddressFactory& factory, const Script& script,
+    std::string* script_type, int64_t* require_num) {
+  ExtractScriptData extract_data =
+      TransactionStructApiBase::ExtractLockingScript(script);
+  LockingScriptType type = extract_data.script_type;
+  if (script_type != nullptr) {
+    std::string type_str = "nonstandard";
+    if (type != LockingScriptType::kFee) {
+      type_str =
+          TransactionStructApiBase::ConvertLockingScriptTypeString(type);
+    }
+    *script_type = type_str;
+  }
+  if (require_num != nullptr) {
+    *require_num = static_cast<int64_t>(extract_data.pushed_datas.size());
+  }
+
+  std::vector<Address> addr_list;
+  Address address;
+  if (type == LockingScriptType::kMultisig) {
+    if (require_num != nullptr) {
+      *require_num = extract_data.req_sigs;
+    }
+    for (ByteData pubkey_bytes : extract_data.pushed_datas) {
+      Pubkey pubkey = Pubkey(pubkey_bytes);
+      address = factory.CreateP2pkhAddress(pubkey);
+      addr_list.push_back(address);
+    }
+  } else if (type == LockingScriptType::kPayToPubkey) {
+    Pubkey pubkey = Pubkey(extract_data.pushed_datas[0]);
+    address = factory.CreateP2pkhAddress(pubkey);
+    addr_list.push_back(address);
+  } else if (type == LockingScriptType::kPayToPubkeyHash) {
+    ByteData160 hash = ByteData160(extract_data.pushed_datas[0].GetBytes());
+    address = factory.GetAddressByHash(AddressType::kP2pkhAddress, hash);
+    addr_list.push_back(address);
+  } else if (type == LockingScriptType::kPayToScriptHash) {
+    ByteData160 hash = ByteData160(extract_data.pushed_datas[0].GetBytes());
+    address = factory.GetAddressByHash(AddressType::kP2shAddress, hash);
+    addr_list.push_back(address);
+  } else if (
+      (type == LockingScriptType::kWitnessV0KeyHash) ||
+      (type == LockingScriptType::kWitnessV0ScriptHash) ||
+      (type == LockingScriptType::kWitnessV1Taproot)) {
+    address = factory.GetSegwitAddressByHash(
+        extract_data.pushed_datas[0], extract_data.witness_version);
+    addr_list.push_back(address);
+  } else if (type == LockingScriptType::kWitnessUnknown) {
+    try {
+      address = factory.GetSegwitAddressByHash(
+          extract_data.pushed_datas[0], extract_data.witness_version);
+      addr_list.push_back(address);
+    } catch (const CfdException&) {
+      // If the data is invalid, it will not be output.
+    }
+  } else {
+    // do nothing
+  }
+  return addr_list;
 }
 
 namespace json {

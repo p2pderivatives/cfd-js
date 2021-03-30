@@ -1,0 +1,26 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "HashMessage",
+  "comment": "hash message",
+  "request": {
+    ":class": "HashMessageRequest",
+    ":class:comment": "Request for hash message",
+    "algorithm": "",
+    "algorithm:require": "require",
+    "algorithm:comment": "hash algorithm.",
+    "algorithm:hint": "hash160, hash256, sha256, ripemd160",
+    "message": "",
+    "message:require": "require",
+    "message:comment": "Set hex string or text string.",
+    "hasText": false,
+    "hasText:require": "optional",
+    "hasText:comment": "Specify true if the message is text string. (default: false)"
+  },
+  "response": {
+    ":class": "HexData",
+    ":class:comment": "Hex data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "hex string"
+  }
+}

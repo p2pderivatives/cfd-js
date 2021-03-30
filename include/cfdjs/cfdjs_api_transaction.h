@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_address.h"
 #include "cfdcore/cfdcore_script.h"
 #include "cfdjs/cfdjs_api_common.h"
 #include "cfdjs/cfdjs_struct.h"
@@ -19,6 +20,8 @@
 namespace cfd {
 namespace js {
 namespace api {
+
+using cfd::AddressFactory;
 
 /**
  * @brief Transaction関連のJSON APIクラス
@@ -119,6 +122,30 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const CreateSignatureHashRequestStruct& request);
 
   /**
+   * @brief Implements getting sighash api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static CreateSignatureHashResponseStruct GetSighash(
+      const GetSighashRequestStruct& request);
+
+  /**
+   * @brief Implements taproot sign api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static RawTransactionResponseStruct AddTaprootSchnorrSign(
+      const AddTaprootSchnorrSignRequestStruct& request);
+
+  /**
+   * @brief Implements tapscript sign api for JSON.
+   * @param[in] request     request data.
+   * @return response data.
+   */
+  static RawTransactionResponseStruct AddTapscriptSign(
+      const AddTapscriptSignRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、署名検証を実施する.
    * @param[in] request 署名検証情報を格納した構造体
    * @return 署名検証結果を格納した構造体
@@ -141,6 +168,18 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    */
   static RawTransactionResponseStruct UpdateTxOutAmount(
       const UpdateTxOutAmountRequestStruct& request);
+
+  /**
+   * @brief Convert from locking script.
+   * @param[in] factory     address factory
+   * @param[in] script      locking script
+   * @param[out] script_type    script type
+   * @param[out] require_num    multisig require num
+   * @return address list
+   */
+  static std::vector<Address> ConvertFromLockingScript(
+      const AddressFactory& factory, const Script& script,
+      std::string* script_type, int64_t* require_num);
 
  private:
   TransactionStructApi();

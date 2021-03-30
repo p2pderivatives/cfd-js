@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "SignPsbt",
+  "comment": "Sign psbt with privkey.",
+  "request": {
+    ":class": "SignPsbtRequest",
+    ":class:comment": "Sign psbt data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "privkey": "",
+    "privkey:require": "require",
+    "privkey:comment": "private key. hex or wif format.",
+    "hasGrindR": true,
+    "hasGrindR:require": "optional",
+    "hasGrindR:comment": "grind-r option"
+  },
+  "response": {
+    ":class": "PsbtOutputData",
+    ":class:comment": "psbt output data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex"
+  }
+}

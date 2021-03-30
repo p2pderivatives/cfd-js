@@ -83,6 +83,7 @@ module.exports = {
   modulePathIgnorePatterns: [
     '<rootDir>/external/.*/external',
     '<rootDir>/external/libwally-core/src/wrap_js',
+    '<rootDir>/wrap_js/__integration_test__',
   ],
 
   // Activates notifications for test results

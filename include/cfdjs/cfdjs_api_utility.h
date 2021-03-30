@@ -37,7 +37,8 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @param[in] request   request struct from json
    * @return response struct including encoded or decoded data.
    */
-  static ConvertAesResponseStruct ConvertAes(ConvertAesRequestStruct request);
+  static ConvertAesResponseStruct ConvertAes(
+      const ConvertAesRequestStruct &request);
 
   /**
    * @brief Encode the data by base58.
@@ -45,7 +46,7 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @return response struct including encoded string.
    */
   static EncodeBase58ResponseStruct EncodeBase58(
-      EncodeBase58RequestStruct request);
+      const EncodeBase58RequestStruct &request);
 
   /**
    * @brief Decode the data by base58.
@@ -53,7 +54,28 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @return response struct including decoded data.
    */
   static DecodeBase58ResponseStruct DecodeBase58(
-      DecodeBase58RequestStruct request);
+      const DecodeBase58RequestStruct &request);
+
+  /**
+   * @brief Encode the data by base64.
+   * @param[in] request   request struct from json
+   * @return response struct including encoded string.
+   */
+  static Base64DataStruct EncodeBase64(const HexDataStruct &request);
+
+  /**
+   * @brief Decode the data by base64.
+   * @param[in] request   request struct from json
+   * @return response struct including decoded data.
+   */
+  static HexDataStruct DecodeBase64(const Base64DataStruct &request);
+
+  /**
+   * @brief Hash message.
+   * @param[in] request   request struct from json
+   * @return response struct including hashed data.
+   */
+  static HexDataStruct HashMessage(const HashMessageRequestStruct &request);
 
   /**
    * @brief Encode the secp signature by der encodeing
@@ -61,7 +83,7 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @return response struct including encoded signature
    */
   static EncodeSignatureByDerResponseStruct EncodeSignatureByDer(
-      EncodeSignatureByDerRequestStruct request);
+      const EncodeSignatureByDerRequestStruct &request);
 
   /**
    * @brief Decode a DER signature to raw format.
@@ -69,7 +91,7 @@ class CFD_JS_API_EXPORT UtilStructApi {
    * @return response struct including decoded signature
    */
   static SignatureDataResponseStruct DecodeDerSignatureToRaw(
-      DecodeDerSignatureToRawRequestStruct request);
+      const DecodeDerSignatureToRawRequestStruct &request);
 
  private:
   UtilStructApi();

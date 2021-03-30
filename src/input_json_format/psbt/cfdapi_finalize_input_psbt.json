@@ -1,0 +1,41 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "FinalizePsbtInput",
+  "comment": "Finalize PSBT with input.",
+  "request": {
+    ":class": "FinalizePsbtInputRequest",
+    ":class:comment": "Finalize PSBT input request",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "inputs:require": "require",
+    "inputs:comment": "txin finalized list.",
+    "inputs": [{
+      ":class": "FinalizedPsbtInputData",
+      ":class:comment": "Finalized psbt input data.",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "finalScriptsig": "",
+      "finalScriptsig:require": "optional",
+      "finalScriptsig:comment": "final scriptsig",
+      "final_scriptwitness": [""],
+      "final_scriptwitness:require": "optional",
+      "final_scriptwitness:comment": "final witness stack"
+    }]
+  },
+  "response": {
+    ":class": "PsbtOutputData",
+    ":class:comment": "psbt output data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex"
+  }
+}

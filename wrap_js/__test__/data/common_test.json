@@ -31,7 +31,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             }
         ]
@@ -86,6 +87,210 @@
         ]
     },
     {
+        "name": "Base64.Encode",
+        "cases": [
+            {
+                "case": "Normal",
+                "request": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252"
+                },
+                "expect": {
+                    "base64": "BIiyHgAAAAAAAAAAAGBJn4AbiW2DF5pDdK63giqurOqg2x+F7j6QTE3vvZaJA8vKqcmMh3oml30AglyVaiOOjd370yLM5PdLC1vWrOSn4jOiUg=="
+                }
+            },
+            {
+                "case": "Error(invalid hex format)",
+                "request": {
+                    "hex": "048",
+                    "hasChecksum": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Base64.Decode",
+        "cases": [
+            {
+                "case": "Normal",
+                "request": {
+                    "base64": "BIiyHgAAAAAAAAAAAGBJn4AbiW2DF5pDdK63giqurOqg2x+F7j6QTE3vvZaJA8vKqcmMh3oml30AglyVaiOOjd370yLM5PdLC1vWrOSn4jOiUg=="
+                },
+                "expect": {
+                    "hex": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "base64": "9XpNiB4DberdMn4jZfZTsXNXKKpgdQ6Q8mFg63kyDnHd8FfRfTXPxGN27bYXRSe1TqTfe4s6MyyZVqiGTWgNiimiSSumMnnsk54MNP990"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Decode base64 error."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hash.Hash256",
+        "cases": [
+            {
+                "case": "hasText=false",
+                "request": {
+                    "message": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252",
+                    "hasText": false
+                },
+                "expect": {
+                    "hex": "a0757d2dd44f4a3f50a188325b077997ea0a02f81b6b1c2b7b89033e5662318b"
+                }
+            },
+            {
+                "case": "hasText=true",
+                "request": {
+                    "message": "This asset is LBTC.",
+                    "hasText": true
+                },
+                "expect": {
+                    "hex": "9fe2c589b0179696bb25f2aecc7787b263ac2142dccc84e0cb8696e7c022f4a3"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "message": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasText": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hash.Hash160",
+        "cases": [
+            {
+                "case": "hasText=false",
+                "request": {
+                    "message": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252",
+                    "hasText": false
+                },
+                "expect": {
+                    "hex": "f0a4b5617c5bf1953c7e40a0c21b1fd6943ee626"
+                }
+            },
+            {
+                "case": "hasText=true",
+                "request": {
+                    "message": "This asset is LBTC.",
+                    "hasText": true
+                },
+                "expect": {
+                    "hex": "55a2fbb88cbd3c863885fda7b2f8628935b85464"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "message": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasText": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hash.Sha256",
+        "cases": [
+            {
+                "case": "hasText=false",
+                "request": {
+                    "message": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252",
+                    "hasText": false
+                },
+                "expect": {
+                    "hex": "b1fdce1ab81e434088df5d34af90122a35c152b9111fab7c3efb710ba122bd22"
+                }
+            },
+            {
+                "case": "hasText=true",
+                "request": {
+                    "message": "This asset is LBTC.",
+                    "hasText": true
+                },
+                "expect": {
+                    "hex": "d3312069ae404156f1da33be2af14f40ee61a484b17256aad9893aff2d1de2eb"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "message": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasText": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Hash.Ripemd160",
+        "cases": [
+            {
+                "case": "hasText=false",
+                "request": {
+                    "message": "0488b21e00000000000000000060499f801b896d83179a4374aeb7822aaeaceaa0db1f85ee3e904c4defbd968903cbcaa9c98c877a26977d00825c956a238e8dddfbd322cce4f74b0b5bd6ace4a7e233a252",
+                    "hasText": false
+                },
+                "expect": {
+                    "hex": "f9d89ec4a5b362380771fc3a7c4193c246e973a2"
+                }
+            },
+            {
+                "case": "hasText=true",
+                "request": {
+                    "message": "This asset is LBTC.",
+                    "hasText": true
+                },
+                "expect": {
+                    "hex": "8df6e6e9864825b00c190b603ae616d44dff2fbe"
+                }
+            },
+            {
+                "case": "Error(invalid format)",
+                "request": {
+                    "message": "xpub661MyMwAqRbcFW31YEwpkMuc5THy2PSt5bDMsktWQcFF8syAmRUapSCGu8ED9W6oDMSgv6Zz8idoc4a6mr8BDzTJY47LJhkJ8UB7WEGuduB",
+                    "hasText": false
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
+                }
+            }
+        ]
+    },
+    {
         "name": "AES.Encode",
         "cases": [
             {
@@ -129,7 +334,10 @@
                     "code": 2,
                     "type": "illegal_state",
                     "message": "EncryptAes256Cbc error."
-                }
+                },
+                "exclude": [
+                    "python"
+                ]
             },
             {
                 "case": "Error(invalid key)",

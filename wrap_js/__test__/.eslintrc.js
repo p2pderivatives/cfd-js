@@ -15,8 +15,8 @@ module.exports = {
     'ecmaVersion': 2018,
   },
   'rules': {
-    'new-cap': ['off'],   // cfd-jsの関数が、PascalCaseであるため設定...
+    'new-cap': ['off'], // cfd-jsの関数が、PascalCaseであるため設定...
     'max-len': 'off',
-    'indent': ['error', 2]
+    'indent': ['error', 2],
   },
 };

@@ -13,14 +13,17 @@
 #include <string>
 #include <vector>
 
+#include "cfd/cfd_address.h"
 #include "cfd/cfd_transaction.h"
 #include "cfdcore/cfdcore_bytedata.h"
 #include "cfdcore/cfdcore_util.h"
+#include "cfdjs/cfdjs_struct.h"
 
 namespace cfd {
 namespace js {
 namespace api {
 
+using cfd::AddressFactory;
 using cfd::core::ByteData;
 using cfd::core::Pubkey;
 using cfd::core::Script;
@@ -38,6 +41,7 @@ enum LockingScriptType {
   kNullData,             //!< null data of locking script
   kWitnessV0ScriptHash,  //!< p2wsh locking script
   kWitnessV0KeyHash,     //!< p2wpkh locking script
+  kWitnessV1Taproot,     //!< taproot locking script
   kWitnessUnknown,       //!< invalid witness ver locking script
   kTrue,                 //!< can spend anyone script
 #ifndef CFD_DISABLE_ELEMENTS
@@ -46,12 +50,14 @@ enum LockingScriptType {
 };
 
 /**
- * @brief LockingScriptの解析情報
+ * @brief LockingScript extract data
  */
 struct ExtractScriptData {
-  LockingScriptType script_type;  //!< LockingScript種別
-  std::vector<ByteData> pushed_datas;  //!< LockingScriptに含まれるhashデータ
-  int64_t req_sigs;                    //!< Unlockingに必要なSignature数
+  LockingScriptType script_type;       //!< LockingScript type
+  std::vector<ByteData> pushed_datas;  //!< hashed data by locking script
+  int64_t req_sigs;                    //!< multisig unlocking signature num
+  //! Witness version
+  WitnessVersion witness_version = WitnessVersion::kVersionNone;
 };
 
 /**
@@ -78,10 +84,12 @@ class TransactionStructApiBase {
    * @brief Convert a string to a SigHashType object.
    * @param[in] sighash_type_string   SigHashType as a string
    * @param[in] is_anyone_can_pay     whether or not anyone_can_pay is used
+   * @param[in] has_taproot           has taproot sighashtype.
    * @return SigHashType object
    */
   static cfd::core::SigHashType ConvertSigHashType(
-      const std::string& sighash_type_string, bool is_anyone_can_pay);
+      const std::string& sighash_type_string, bool is_anyone_can_pay,
+      bool has_taproot = false);
 
   /**
    * @brief LockingScriptの解析を行う.
@@ -106,6 +114,25 @@ class TransactionStructApiBase {
   template <class SignStructClass>
   static SignParameter ConvertSignDataStructToSignParameter(
       const SignStructClass& sign_data);
+
+  /**
+   * @brief Convert from utxo object list.
+   * @param[in] utxos   utxo object list.
+   * @param[in] address_factory   address factory instance.
+   * @return utxo data list.
+   */
+  static std::vector<UtxoData> ConvertUtxoList(
+      const std::vector<UtxoObjectStruct>& utxos,
+      const AddressFactory* address_factory);
+  /**
+   * @brief Convert from utxo object list.
+   * @param[in] utxos   utxo object list.
+   * @param[in] address_factory   address factory instance.
+   * @return utxo data list.
+   */
+  static std::vector<UtxoData> ConvertUtxoListForVerify(
+      const std::vector<VerifySignTxInUtxoDataStruct>& utxos,
+      const AddressFactory* address_factory);
 };
 
 }  // namespace api
