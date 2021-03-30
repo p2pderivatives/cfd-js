@@ -114,6 +114,9 @@ jobs:
         asset_path: ./cfd.zip
         asset_name: cfdjs-api-${{ steps.get_version.outputs.VERSION }}-win-vs2019-x86_64.zip
         asset_content_type: application/zip
+    - name: cleanup
+      run: rm -rf build
+      shell: bash
     - name: npm install
       run: npm install
       timeout-minutes: 20
@@ -214,7 +217,7 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib" --build build
         cmake --build build --parallel 4 --config Release
         cd ../..
-      timeout-minutes: 20
+      timeout-minutes: 30
     - name: cmake-install
       run: |
         cd build

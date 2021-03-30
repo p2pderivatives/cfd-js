@@ -460,7 +460,7 @@
                 "case": "pkh hdkey-derive mainnet",
                 "request": {
                     "isElements": false,
-                    "descriptor": "pkh([d34db33f/44\"/0\"/0\"]xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
+                    "descriptor": "pkh([d34db33f/44'/0'/0']xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
                     "network": "mainnet",
                     "bip32DerivationPath": "0/44"
                 },
@@ -937,7 +937,7 @@
                 "case": "Error(extpubkey hardened derive fail)",
                 "request": {
                     "isElements": false,
-                    "descriptor": "pkh([d34db33f/44\"/0\"/0\"]xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
+                    "descriptor": "pkh([d34db33f/44'/0'/0']xpub6ERApfZwUNrhLCkDtcHTcxd75RbzS1ed54G1LkBUHQVHQKqhMkhgbmJbZRkrgZw4koxb5JaHWkY4ALHY2grBGRjaDMzQLcgJvLJuZZvRcEL/1/*)",
                     "network": "mainnet",
                     "bip32DerivationPath": "0h/44"
                 },
@@ -1121,7 +1121,7 @@
             {
                 "case": "invalid checksum.",
                 "request": {
-                    "descriptor": "sh(wpkh([ef57314e/0\"/0\"/4\"]03d3f817091de0bbe51e19b53303b12e463f664894d49cb5bf5bb19c88fbc54d8d))#eeerft8t"
+                    "descriptor": "sh(wpkh([ef57314e/0'/0'/4']03d3f817091de0bbe51e19b53303b12e463f664894d49cb5bf5bb19c88fbc54d8d))#eeerft8t"
                 },
                 "error": {
                     "code": 1,

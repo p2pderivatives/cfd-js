@@ -25,8 +25,8 @@ namespace cfd {
 namespace js {
 namespace api {
 
-using cfd::api::DescriptorKeyData;
-using cfd::api::DescriptorScriptData;
+using cfd::DescriptorKeyData;
+using cfd::DescriptorScriptData;
 using cfd::core::AddressType;
 using cfd::core::NetType;
 
@@ -92,6 +92,46 @@ class CFD_JS_API_EXPORT AddressStructApi {
       const AppendDescriptorChecksumRequestStruct& request);
 
   /**
+   * @brief Get tapscript tree information by control block.
+   * @param[in] request     tapscript data
+   * @return tapscript information
+   */
+  static TapScriptInfoStruct GetTapScriptTreeInfo(
+      const GetTapScriptTreeInfoRequestStruct& request);
+
+  /**
+   * @brief Get tapscript tree information by control block.
+   * @param[in] request     tapscript data
+   * @return tapscript information
+   */
+  static TapScriptInfoStruct GetTapScriptTreeInfoByControlBlock(
+      const TapScriptInfoByControlRequestStruct& request);
+
+  /**
+   * @brief Get tapscript tree information by string.
+   * @param[in] request     tapscript data
+   * @return tapscript information
+   */
+  static TapScriptInfoStruct GetTapScriptTreeFromString(
+      const TapScriptFromStringRequestStruct& request);
+
+  /**
+   * @brief Get a tapbranch information by string.
+   * @param[in] request     tapbranch data
+   * @return tapbranch information
+   */
+  static TapBranchInfoStruct GetTapBranchInfo(
+      const GetTapBranchInfoRequestStruct& request);
+
+  /**
+   * @brief Analyze a tapscript tree information by string.
+   * @param[in] request     tapscript data
+   * @return tapscript information
+   */
+  static AnalyzeTapScriptTreeInfoStruct AnalyzeTapScriptTree(
+      const AnalyzeTapScriptTreeRequestStruct& request);
+
+  /**
    * @brief bitcoinネットワーク文字列を、NetType情報へ変換する.
    * @param[in] network_type ネットワーク文字列
    * @return 引数に対応するNetType情報
@@ -106,43 +146,6 @@ class CFD_JS_API_EXPORT AddressStructApi {
    * @throw CfdException 範囲外の値が渡された場合
    */
   static std::string ConvertNetTypeString(cfd::core::NetType network_type);
-
-  /**
-   * @brief Convert address type from string to AddressType.
-   * @param[in] address_type the address type as a string.
-   * @return the converted AddressType.
-   * @throw CfdException if address_type does not match any known AddressType.
-   */
-  static AddressType ConvertAddressType(const std::string& address_type);
-
-  /**
-   * @brief Convert address type from string to AddressType text.
-   * @param[in] address_type the address type as a integer.
-   * @return the converted AddressType text.
-   * @throw CfdException if address_type does not match any known AddressType.
-   * @deprecated rename.
-   */
-  static std::string ConvertAddressTypeText(AddressType address_type);
-  /**
-   * @brief Convert address type from string to AddressType text.
-   * @param[in] address_type the address type as a integer.
-   * @return the converted AddressType text.
-   * @throw CfdException if address_type does not match any known AddressType.
-   */
-  static std::string ConvertAddressTypeString(AddressType address_type);
-
-  /**
-   * @brief Convert descriptor parse data to struct.
-   * @param[in] script_data         the top script data.
-   * @param[in] script_list         the script list.
-   * @param[in] multisig_key_list   the multisig key list.
-   * @return the descriptor struct data.
-   * @throw CfdException if address_type does not match any known AddressType.
-   */
-  static ParseDescriptorResponseStruct ConvertDescriptorData(
-      const DescriptorScriptData& script_data,
-      const std::vector<DescriptorScriptData>& script_list,
-      const std::vector<DescriptorKeyData>& multisig_key_list);
 
  private:
   AddressStructApi();

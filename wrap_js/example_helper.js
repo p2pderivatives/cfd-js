@@ -6,7 +6,7 @@ class Helper {
 
   getResponse(result) {
     return Promise.resolve(result);
-  };
+  }
 
   getCfdjs() {
     return this.cfdjsModule;

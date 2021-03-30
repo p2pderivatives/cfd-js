@@ -19,6 +19,7 @@
 #include "cfdjs/cfdjs_api_hdwallet.h"
 #include "cfdjs/cfdjs_api_json.h"
 #include "cfdjs/cfdjs_api_key.h"
+#include "cfdjs/cfdjs_api_psbt.h"
 #include "cfdjs/cfdjs_api_script.h"
 #include "cfdjs/cfdjs_api_transaction.h"
 #include "cfdjs/cfdjs_api_utility.h"
@@ -31,6 +32,7 @@
 using cfd::js::api::AddressStructApi;
 using cfd::js::api::HDWalletStructApi;
 using cfd::js::api::KeyStructApi;
+using cfd::js::api::PsbtStructApi;
 using cfd::js::api::ScriptStructApi;
 using cfd::js::api::TransactionStructApi;
 using cfd::js::api::UtilStructApi;
@@ -449,6 +451,18 @@ std::string JsonMappingApi::CreateSignatureHash(
       request_message, TransactionStructApi::CreateSignatureHash);
 }
 
+std::string JsonMappingApi::GetSighash(const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::GetSighashRequest, api::json::CreateSignatureHashResponse,
+      api::GetSighashRequestStruct, api::CreateSignatureHashResponseStruct>(
+      request_message, TransactionStructApi::GetSighash,
+#ifndef CFD_DISABLE_ELEMENTS
+      TransactionStructApi::GetSighash);
+#else
+      TransactionStructApi::GetSighash);
+#endif
+}
+
 std::string JsonMappingApi::ConvertAes(const std::string &request_message) {
   return ExecuteJsonApi<
       api::json::ConvertAesRequest, api::json::ConvertAesResponse,
@@ -468,6 +482,25 @@ std::string JsonMappingApi::DecodeBase58(const std::string &request_message) {
       api::json::DecodeBase58Request, api::json::DecodeBase58Response,
       api::DecodeBase58RequestStruct, api::DecodeBase58ResponseStruct>(
       request_message, UtilStructApi::DecodeBase58);
+}
+
+std::string JsonMappingApi::EncodeBase64(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::HexData, api::json::Base64Data, api::HexDataStruct,
+      api::Base64DataStruct>(request_message, UtilStructApi::EncodeBase64);
+}
+
+std::string JsonMappingApi::DecodeBase64(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::Base64Data, api::json::HexData, api::Base64DataStruct,
+      api::HexDataStruct>(request_message, UtilStructApi::DecodeBase64);
+}
+
+std::string JsonMappingApi::HashMessage(const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::HashMessageRequest, api::json::HexData,
+      api::HashMessageRequestStruct, api::HexDataStruct>(
+      request_message, UtilStructApi::HashMessage);
 }
 
 std::string JsonMappingApi::EncodeSignatureByDer(
@@ -759,6 +792,34 @@ std::string JsonMappingApi::AddScriptHashSign(
 #endif
 }
 
+std::string JsonMappingApi::AddTaprootSchnorrSign(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::AddTaprootSchnorrSignRequest,
+      api::json::RawTransactionResponse,
+      api::AddTaprootSchnorrSignRequestStruct,
+      api::RawTransactionResponseStruct>(
+      request_message, TransactionStructApi::AddTaprootSchnorrSign,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::AddTaprootSchnorrSign);
+#else
+      TransactionStructApi::AddTaprootSchnorrSign);
+#endif
+}
+
+std::string JsonMappingApi::AddTapscriptSign(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::AddTapscriptSignRequest, api::json::RawTransactionResponse,
+      api::AddTapscriptSignRequestStruct, api::RawTransactionResponseStruct>(
+      request_message, TransactionStructApi::AddTapscriptSign,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::AddTapscriptSign);
+#else
+      TransactionStructApi::AddTapscriptSign);
+#endif
+}
+
 std::string JsonMappingApi::UpdateWitnessStack(
     const std::string &request_message) {
   return ExecuteElementsCheckApi<
@@ -958,6 +1019,160 @@ std::string JsonMappingApi::ExtractSecretEcdsaAdaptor(
       ExtractSecretEcdsaAdaptorRequest, SecretData,
       ExtractSecretEcdsaAdaptorRequestStruct, SecretDataStruct>(
       request_message, SchnorrApi::ExtractSecretEcdsaAdaptor);
+}
+
+std::string JsonMappingApi::GetTapScriptTreeInfo(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::GetTapScriptTreeInfoRequest, api::json::TapScriptInfo,
+      api::GetTapScriptTreeInfoRequestStruct, api::TapScriptInfoStruct>(
+      request_message, AddressStructApi::GetTapScriptTreeInfo,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsAddressStructApi::GetTapScriptTreeInfo);
+#else
+      AddressStructApi::GetTapScriptTreeInfo);
+#endif
+}
+
+std::string JsonMappingApi::GetTapScriptTreeInfoByControlBlock(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::TapScriptInfoByControlRequest, api::json::TapScriptInfo,
+      api::TapScriptInfoByControlRequestStruct, api::TapScriptInfoStruct>(
+      request_message, AddressStructApi::GetTapScriptTreeInfoByControlBlock,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsAddressStructApi::GetTapScriptTreeInfoByControlBlock);
+#else
+      AddressStructApi::GetTapScriptTreeInfoByControlBlock);
+#endif
+}
+
+std::string JsonMappingApi::GetTapScriptTreeFromString(
+    const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::TapScriptFromStringRequest, api::json::TapScriptInfo,
+      api::TapScriptFromStringRequestStruct, api::TapScriptInfoStruct>(
+      request_message, AddressStructApi::GetTapScriptTreeFromString,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsAddressStructApi::GetTapScriptTreeFromString);
+#else
+      AddressStructApi::GetTapScriptTreeFromString);
+#endif
+}
+
+std::string JsonMappingApi::GetTapBranchInfo(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::GetTapBranchInfoRequest, api::json::TapBranchInfo,
+      api::GetTapBranchInfoRequestStruct, api::TapBranchInfoStruct>(
+      request_message, AddressStructApi::GetTapBranchInfo);
+}
+
+std::string JsonMappingApi::AnalyzeTapScriptTree(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::AnalyzeTapScriptTreeRequest,
+      api::json::AnalyzeTapScriptTreeInfo,
+      api::AnalyzeTapScriptTreeRequestStruct,
+      api::AnalyzeTapScriptTreeInfoStruct>(
+      request_message, AddressStructApi::AnalyzeTapScriptTree);
+}
+
+std::string JsonMappingApi::DecodePsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      DecodePsbtRequest, DecodePsbtResponse, DecodePsbtRequestStruct,
+      DecodePsbtResponseStruct>(request_message, PsbtStructApi::DecodePsbt);
+}
+
+std::string JsonMappingApi::CreatePsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      CreateRawTransactionRequest, PsbtOutputData,
+      CreateRawTransactionRequestStruct, PsbtOutputDataStruct>(
+      request_message, PsbtStructApi::CreatePsbt);
+}
+
+std::string JsonMappingApi::ConvertToPsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      ConvertToPsbtRequest, PsbtOutputData, ConvertToPsbtRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::ConvertToPsbt);
+}
+
+std::string JsonMappingApi::JoinPsbts(const std::string &request_message) {
+  return ExecuteJsonApi<
+      PsbtList, PsbtOutputData, PsbtListStruct, PsbtOutputDataStruct>(
+      request_message, PsbtStructApi::JoinPsbts);
+}
+
+std::string JsonMappingApi::CombinePsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      PsbtList, PsbtOutputData, PsbtListStruct, PsbtOutputDataStruct>(
+      request_message, PsbtStructApi::CombinePsbt);
+}
+
+std::string JsonMappingApi::FinalizePsbtInput(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      FinalizePsbtInputRequest, PsbtOutputData, FinalizePsbtInputRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::FinalizePsbtInput);
+}
+
+std::string JsonMappingApi::FinalizePsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      FinalizePsbtRequest, FinalizePsbtResponse, FinalizePsbtRequestStruct,
+      FinalizePsbtResponseStruct>(
+      request_message, PsbtStructApi::FinalizePsbt);
+}
+
+std::string JsonMappingApi::SignPsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      SignPsbtRequest, PsbtOutputData, SignPsbtRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::SignPsbt);
+}
+
+std::string JsonMappingApi::VerifyPsbtSign(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      VerifyPsbtSignRequest, VerifySignResponse, VerifyPsbtSignRequestStruct,
+      VerifySignResponseStruct>(
+      request_message, PsbtStructApi::VerifyPsbtSign);
+}
+
+std::string JsonMappingApi::AddPsbtData(const std::string &request_message) {
+  return ExecuteJsonApi<
+      AddPsbtDataRequest, PsbtOutputData, AddPsbtDataRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::AddPsbtData);
+}
+
+std::string JsonMappingApi::SetPsbtData(const std::string &request_message) {
+  return ExecuteJsonApi<
+      SetPsbtRequest, PsbtOutputData, SetPsbtRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::SetPsbtData);
+}
+
+std::string JsonMappingApi::SetPsbtRecord(const std::string &request_message) {
+  return ExecuteJsonApi<
+      SetPsbtRecordRequest, PsbtOutputData, SetPsbtRecordRequestStruct,
+      PsbtOutputDataStruct>(request_message, PsbtStructApi::SetPsbtRecord);
+}
+
+std::string JsonMappingApi::IsFinalizedPsbt(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      IsFinalizedPsbtRequest, IsFinalizedPsbtResponse,
+      IsFinalizedPsbtRequestStruct, IsFinalizedPsbtResponseStruct>(
+      request_message, PsbtStructApi::IsFinalizedPsbt);
+}
+
+std::string JsonMappingApi::GetPsbtUtxos(const std::string &request_message) {
+  return ExecuteJsonApi<
+      DecodePsbtRequest, UtxoListData, DecodePsbtRequestStruct,
+      UtxoListDataStruct>(request_message, PsbtStructApi::GetPsbtUtxos);
+}
+
+std::string JsonMappingApi::FundPsbt(const std::string &request_message) {
+  return ExecuteJsonApi<
+      FundPsbtRequest, FundPsbtResponse, FundPsbtRequestStruct,
+      FundPsbtResponseStruct>(request_message, PsbtStructApi::FundPsbt);
 }
 
 #ifndef CFD_DISABLE_ELEMENTS
@@ -1165,9 +1380,13 @@ void JsonMappingApi::LoadFunctions(
         "AppendDescriptorChecksum", JsonMappingApi::AppendDescriptorChecksum);
     request_map->emplace(
         "CreateSignatureHash", JsonMappingApi::CreateSignatureHash);
+    request_map->emplace("GetSighash", JsonMappingApi::GetSighash);
     request_map->emplace("ConvertAes", JsonMappingApi::ConvertAes);
     request_map->emplace("EncodeBase58", JsonMappingApi::EncodeBase58);
     request_map->emplace("DecodeBase58", JsonMappingApi::DecodeBase58);
+    request_map->emplace("EncodeBase64", JsonMappingApi::EncodeBase64);
+    request_map->emplace("DecodeBase64", JsonMappingApi::DecodeBase64);
+    request_map->emplace("HashMessage", JsonMappingApi::HashMessage);
     request_map->emplace(
         "EncodeSignatureByDer", JsonMappingApi::EncodeSignatureByDer);
     request_map->emplace(
@@ -1180,6 +1399,9 @@ void JsonMappingApi::LoadFunctions(
     request_map->emplace("SignWithPrivkey", JsonMappingApi::SignWithPrivkey);
     request_map->emplace(
         "AddScriptHashSign", JsonMappingApi::AddScriptHashSign);
+    request_map->emplace(
+        "AddTaprootSchnorrSign", JsonMappingApi::AddTaprootSchnorrSign);
+    request_map->emplace("AddTapscriptSign", JsonMappingApi::AddTapscriptSign);
     request_map->emplace(
         "UpdateWitnessStack", JsonMappingApi::UpdateWitnessStack);
     request_map->emplace("AddMultisigSign", JsonMappingApi::AddMultisigSign);
@@ -1261,6 +1483,33 @@ void JsonMappingApi::LoadFunctions(
     request_map->emplace(
         "ExtractSecretEcdsaAdaptor",
         JsonMappingApi::ExtractSecretEcdsaAdaptor);
+    request_map->emplace(
+        "GetTapScriptTreeInfo", JsonMappingApi::GetTapScriptTreeInfo);
+    request_map->emplace(
+        "GetTapScriptTreeInfoByControlBlock",
+        JsonMappingApi::GetTapScriptTreeInfoByControlBlock);
+    request_map->emplace(
+        "GetTapScriptTreeFromString",
+        JsonMappingApi::GetTapScriptTreeFromString);
+    request_map->emplace("GetTapBranchInfo", JsonMappingApi::GetTapBranchInfo);
+    request_map->emplace(
+        "AnalyzeTapScriptTree", JsonMappingApi::AnalyzeTapScriptTree);
+    request_map->emplace("DecodePsbt", JsonMappingApi::DecodePsbt);
+    request_map->emplace("CreatePsbt", JsonMappingApi::CreatePsbt);
+    request_map->emplace("ConvertToPsbt", JsonMappingApi::ConvertToPsbt);
+    request_map->emplace("JoinPsbts", JsonMappingApi::JoinPsbts);
+    request_map->emplace("CombinePsbt", JsonMappingApi::CombinePsbt);
+    request_map->emplace(
+        "FinalizePsbtInput", JsonMappingApi::FinalizePsbtInput);
+    request_map->emplace("FinalizePsbt", JsonMappingApi::FinalizePsbt);
+    request_map->emplace("SignPsbt", JsonMappingApi::SignPsbt);
+    request_map->emplace("VerifyPsbtSign", JsonMappingApi::VerifyPsbtSign);
+    request_map->emplace("AddPsbtData", JsonMappingApi::AddPsbtData);
+    request_map->emplace("SetPsbtData", JsonMappingApi::SetPsbtData);
+    request_map->emplace("SetPsbtRecord", JsonMappingApi::SetPsbtRecord);
+    request_map->emplace("IsFinalizedPsbt", JsonMappingApi::IsFinalizedPsbt);
+    request_map->emplace("GetPsbtUtxos", JsonMappingApi::GetPsbtUtxos);
+    request_map->emplace("FundPsbt", JsonMappingApi::FundPsbt);
 #ifndef CFD_DISABLE_ELEMENTS
     request_map->emplace(
         "GetConfidentialAddress", JsonMappingApi::GetConfidentialAddress);

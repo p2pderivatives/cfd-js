@@ -165,3 +165,5 @@ external/*
 /wrap_js/dl_lib
 
 /prebuilds
+
+/local_test

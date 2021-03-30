@@ -23,9 +23,12 @@ namespace api {
 using cfd::GetSupportedFunction;
 using cfd::LibraryFunction;
 using cfd::core::ByteData;
+using cfd::core::ByteData160;
+using cfd::core::ByteData256;
 using cfd::core::CfdError;
 using cfd::core::CfdException;
 using cfd::core::CryptoUtil;
+using cfd::core::HashUtil;
 using cfd::core::SigHashType;
 using cfd::core::logger::warn;
 
@@ -51,7 +54,7 @@ GetSupportedFunctionResponseStruct UtilStructApi::GetSupportedFunction() {
 }
 
 ConvertAesResponseStruct UtilStructApi::ConvertAes(
-    ConvertAesRequestStruct request) {
+    const ConvertAesRequestStruct& request) {
   auto call_func =
       [](const ConvertAesRequestStruct& request) -> ConvertAesResponseStruct {
     ConvertAesResponseStruct result;
@@ -76,7 +79,7 @@ ConvertAesResponseStruct UtilStructApi::ConvertAes(
 }
 
 EncodeBase58ResponseStruct UtilStructApi::EncodeBase58(
-    EncodeBase58RequestStruct request) {
+    const EncodeBase58RequestStruct& request) {
   auto call_func = [](const EncodeBase58RequestStruct& request)
       -> EncodeBase58ResponseStruct {
     EncodeBase58ResponseStruct result;
@@ -96,7 +99,7 @@ EncodeBase58ResponseStruct UtilStructApi::EncodeBase58(
 }
 
 DecodeBase58ResponseStruct UtilStructApi::DecodeBase58(
-    DecodeBase58RequestStruct request) {
+    const DecodeBase58RequestStruct& request) {
   auto call_func = [](const DecodeBase58RequestStruct& request)
       -> DecodeBase58ResponseStruct {
     DecodeBase58ResponseStruct result;
@@ -117,8 +120,94 @@ DecodeBase58ResponseStruct UtilStructApi::DecodeBase58(
   return result;
 }
 
+Base64DataStruct UtilStructApi::EncodeBase64(const HexDataStruct& request) {
+  auto call_func = [](const HexDataStruct& request) -> Base64DataStruct {
+    Base64DataStruct result;
+    result.base64 = CryptoUtil::EncodeBase64(ByteData(request.hex));
+    return result;
+  };
+
+  Base64DataStruct result;
+  result = ExecuteStructApi<HexDataStruct, Base64DataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+HexDataStruct UtilStructApi::DecodeBase64(const Base64DataStruct& request) {
+  auto call_func = [](const Base64DataStruct& request) -> HexDataStruct {
+    HexDataStruct result;
+    ByteData data = CryptoUtil::DecodeBase64(request.base64);
+    if ((!request.base64.empty()) && data.IsEmpty()) {
+      warn(CFD_LOG_SOURCE, "Failed to parameter. Decode base64 error.");
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError, "Decode base64 error.");
+    }
+    result.hex = data.GetHex();
+    return result;
+  };
+
+  HexDataStruct result;
+  result = ExecuteStructApi<Base64DataStruct, HexDataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+HexDataStruct UtilStructApi::HashMessage(
+    const HashMessageRequestStruct& request) {
+  auto call_func =
+      [](const HashMessageRequestStruct& request) -> HexDataStruct {
+    HexDataStruct result;
+    std::string algorithm = request.algorithm;
+    std::string message = request.message;
+    if (algorithm == "hash160") {
+      ByteData160 data;
+      if (request.has_text) {
+        data = HashUtil::Hash160(message);
+      } else {
+        data = HashUtil::Hash160(ByteData(message));
+      }
+      result.hex = data.GetHex();
+    } else if (algorithm == "ripemd160") {
+      ByteData160 data;
+      if (request.has_text) {
+        data = HashUtil::Ripemd160(message);
+      } else {
+        data = HashUtil::Ripemd160(ByteData(message));
+      }
+      result.hex = data.GetHex();
+    } else if (algorithm == "sha256") {
+      ByteData256 data;
+      if (request.has_text) {
+        data = HashUtil::Sha256(message);
+      } else {
+        data = HashUtil::Sha256(ByteData(message));
+      }
+      result.hex = data.GetHex();
+    } else if (algorithm == "hash256") {
+      ByteData256 data;
+      if (request.has_text) {
+        data = HashUtil::Sha256D(message);
+      } else {
+        data = HashUtil::Sha256D(ByteData(message));
+      }
+      result.hex = data.GetHex();
+    } else {
+      warn(CFD_LOG_SOURCE, "Failed to parameter. algorithm is unknown.");
+      throw CfdException(
+          CfdError::kCfdIllegalArgumentError,
+          "Failed to parameter. algorithm is unknown.");
+    }
+    return result;
+  };
+
+  HexDataStruct result;
+  result = ExecuteStructApi<HashMessageRequestStruct, HexDataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
-    EncodeSignatureByDerRequestStruct request) {
+    const EncodeSignatureByDerRequestStruct& request) {
   auto call_func = [](const EncodeSignatureByDerRequestStruct& request)
       -> EncodeSignatureByDerResponseStruct {
     EncodeSignatureByDerResponseStruct result;
@@ -140,7 +229,7 @@ EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
 }
 
 SignatureDataResponseStruct UtilStructApi::DecodeDerSignatureToRaw(
-    DecodeDerSignatureToRawRequestStruct request) {
+    const DecodeDerSignatureToRawRequestStruct& request) {
   auto call_func = [](const DecodeDerSignatureToRawRequestStruct& request)
       -> SignatureDataResponseStruct {
     SignatureDataResponseStruct result;

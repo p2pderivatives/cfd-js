@@ -1,0 +1,48 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "IsFinalizedPsbt",
+  "comment": "Is finalized psbt.",
+  "request": {
+    ":class": "IsFinalizedPsbtRequest",
+    ":class:comment": "Request to check finalized input.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "outPointList:require": "optional",
+    "outPointList:comment": "outpoint list. if unset, it check all input.",
+    "outPointList": [{
+      ":class": "OutPoint",
+      ":class:comment": "OutPoint data.",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout."
+    }]
+  },
+  "response": {
+    ":class": "IsFinalizedPsbtResponse",
+    ":class:comment": "The output finalized check.",
+    "success": false,
+    "success:require": "require",
+    "success:comment": "target all finalized flag.",
+    "finalizedAll": false,
+    "finalizedAll:require": "require",
+    "finalizedAll:comment": "all finalized flag.",
+    "failInputs": [{
+      ":class": "OutPoint",
+      ":class:comment": "OutPoint data.",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout."
+    }],
+    "failInputs:require": "optional",
+    "failInputs:comment": "not finlized outpoint list."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetPsbtUtxos",
+  "comment": "Get psbt utxo list.",
+  "request": {
+    ":class": "DecodePsbtRequest",
+    ":class:comment": "request for decode psbt.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "psbt data (hex or base64)",
+    "network": "mainnet",
+    "network:require": "optional",
+    "network:comment": "network type",
+    "network:hint": "mainnet, testnet, regtest"
+  },
+  "response": {
+    ":class": "UtxoListData",
+    ":class:comment": "The utxo list data.",
+    "utxos:require": "require",
+    "utxos:comment": "utxo list",
+    "utxos": [{
+      ":class": "FundUtxoJsonData",
+      ":class:comment": "utxo data.",
+      "txid": "",
+      "txid:require": "require",
+      "txid:comment": "utxo txid.",
+      "vout": 0,
+      "vout:type": "uint32_t",
+      "vout:require": "require",
+      "vout:comment": "utxo vout.",
+      "address": "",
+      "address:require": "require",
+      "address:comment": "address",
+      "amount": 0,
+      "amount:type": "int64_t",
+      "amount:require": "require",
+      "amount:comment": "satoshi amount.",
+      "asset": "",
+      "asset:require": "optional",
+      "asset:comment": "asset id.",
+      "asset:hint": "This field is available only elements utxo.",
+      "descriptor": "",
+      "descriptor:require": "optional",
+      "descriptor:comment": "output descriptor.",
+      "descriptor:hint": "descriptor is required, you needs to consider fee amount",
+      "scriptSigTemplate": "",
+      "scriptSigTemplate:require": "optional",
+      "scriptSigTemplate:comment": "ScriptSig template is for scriptHash calculation fee."
+    }]
+  }
+}

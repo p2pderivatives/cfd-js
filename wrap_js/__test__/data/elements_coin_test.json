@@ -63,7 +63,7 @@
                         }
                     ],
                     "feeAmount": 3320,
-                    "utxoFeeAmount": 1820
+                    "utxoFeeAmount": 1840
                 }
             },
             {
@@ -104,7 +104,7 @@
                         }
                     ],
                     "feeAmount": 5140,
-                    "utxoFeeAmount": 3640
+                    "utxoFeeAmount": 3680
                 }
             },
             {
@@ -145,7 +145,7 @@
                         }
                     ],
                     "feeAmount": 1864,
-                    "utxoFeeAmount": 364
+                    "utxoFeeAmount": 368
                 }
             },
             {
@@ -182,7 +182,7 @@
                         }
                     ],
                     "feeAmount": 1682,
-                    "utxoFeeAmount": 182
+                    "utxoFeeAmount": 184
                 }
             },
             {
@@ -227,7 +227,7 @@
                         }
                     ],
                     "feeAmount": 1773,
-                    "utxoFeeAmount": 273
+                    "utxoFeeAmount": 276
                 }
             },
             {
@@ -276,7 +276,7 @@
                         }
                     ],
                     "feeAmount": 5140,
-                    "utxoFeeAmount": 3640
+                    "utxoFeeAmount": 3680
                 }
             },
             {
@@ -333,7 +333,7 @@
                         }
                     ],
                     "feeAmount": 2228,
-                    "utxoFeeAmount": 728
+                    "utxoFeeAmount": 736
                 }
             },
             {
@@ -398,7 +398,7 @@
                         }
                     ],
                     "feeAmount": 2228,
-                    "utxoFeeAmount": 728
+                    "utxoFeeAmount": 736
                 }
             },
             {
@@ -624,12 +624,57 @@
                     }
                 },
                 "expect": {
-                    "hex": "0200000000030f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c34600000bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff07010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa01000000000000037300000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b57eb0016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "hex": "0200000000030f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c34600000bfa8774c5f753ce2f801a8106413b470af94edbff5b4242ed4c5a26d20e72b90000000000ffffffff040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff07010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000aa01000000000000037200000100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f0100000000000000000000000000000000000000000000000000000000000000aa0100000000004b57ec0016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
                     "usedAddresses": [
                         "ex1q0r4elskfu8xlvvlvkergtzagv2ep8p9ttsns6q",
                         "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
                     ],
-                    "feeAmount": 883
+                    "feeAmount": 882
+                }
+            },
+            {
+                "case": "FundRawTransaction NotBaseAssetOnly",
+                "request": {
+                    "utxoFile": "elements_utxo_3",
+                    "selectUtxos": [
+                        {
+                            "memo": "Issuance token UTXO for reissuance",
+                            "txid": "57a15002d066ce52573d674df925c9bc0f1164849420705f2cfad8a68111230f",
+                            "vout": 1,
+                            "amount": 700000000,
+                            "asset": "ed6927df918c89b5e3d8b5062acab2c749a3291bb7451d4267c7daaf1b52ad0b",
+                            "descriptor": "wsh(multi(2,03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7,03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb,03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a))",
+                            "isBlindIssuance": true,
+                            "assetBlindFactor": "0b8954757234fd3ec9cf0dd6ef0a89d825ec56a9532e7da4b6cb90c51be3bbd8",
+                            "blindFactor": "62e36e1f0fa4916b031648a6b6903083069fa587572a88b729250cde528cfd3b"
+                        }
+                    ],
+                    "tx": "0200000000010f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c346000004010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000",
+                    "network": "liquidv1",
+                    "targets": [
+                        {
+                            "asset": "bb00000000000000000000000000000000000000000000000000000000000000",
+                            "amount": 0,
+                            "reservedAddress": "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                        }
+                    ],
+                    "feeInfo": {
+                        "feeRate": 0.0,
+                        "longTermFeeRate": 0.1,
+                        "knapsackMinChange": -1,
+                        "dustFeeRate": 3.0,
+                        "feeAsset": "aa00000000000000000000000000000000000000000000000000000000000000",
+                        "isBlindEstimateFee": true,
+                        "exponent": 0,
+                        "minimumBits": 52
+                    }
+                },
+                "expect": {
+                    "hex": "0200000000020f231181a6d8fa2c5f7020948464110fbcc925f94d673d5752ce66d00250a1570100008000ffffffffd8bbe31bc590cbb6a47d2e53a956ec25d8890aefd60dcfc93efd34727554890b0683fe0819a4f9770c8a7cd5824e82975c825e017aff8ba0d6a5eb4959cf9c6f010000000023c3460000040b0000000000000000000000000000000000000000000000000000000000000000000000ffffffff05010bad521bafdac767421d45b71b29a349c7b2ca2a06b5d8e3b5898c91df2769ed010000000029b92700001976a9146c22e209d36612e0d9d2a20b814d7d8648cc7a7788ac01cdb0ed311810e61036ac9255674101497850f5eee5e4320be07479c05473cbac010000000023c34600001976a9149bdcb18911fa9faad6632ca43b81739082b0a19588ac0100000000000000000000000000000000000000000000000000000000000000aa010000000000989680001600144352a1a6e86311f22274f7ebb2746de21b09b15d0100000000000000000000000000000000000000000000000000000000000000bb01000000000007a120001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0100000000000000000000000000000000000000000000000000000000000000bb010000000001124c1e00160014a53be40113bb50f2b8b2d0bfea1e823e75632b5f00000000",
+                    "usedAddresses": [
+                        "ex1q55a7gqgnhdg09w9j6zl7585z8e6kx26lxfq8xd"
+                    ],
+                    "feeAmount": 0
                 }
             },
             {

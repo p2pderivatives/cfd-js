@@ -24,7 +24,7 @@
     "hashType": "p2pkh",
     "hashType:require": "require",
     "hashType:comment": "hash type",
-    "hashType:hint": "p2wpkh, p2pkh, p2wsh, p2sh(contain p2sh-segwit)",
+    "hashType:hint": "p2wpkh, p2pkh, p2wsh, p2sh(contain p2sh-segwit), taproot",
     "witnessVersion": 0,
     "witnessVersion:require": "optional",
     "witnessVersion:comment": "witness version.",

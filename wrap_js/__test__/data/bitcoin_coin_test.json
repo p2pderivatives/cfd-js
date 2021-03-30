@@ -42,7 +42,7 @@
                     ],
                     "selectedAmount": 39062500,
                     "feeAmount": 2860,
-                    "utxoFeeAmount": 1360
+                    "utxoFeeAmount": 1380
                 }
             },
             {
@@ -66,7 +66,7 @@
                     ],
                     "selectedAmount": 156250000,
                     "feeAmount": 2860,
-                    "utxoFeeAmount": 1360
+                    "utxoFeeAmount": 1380
                 }
             },
             {
@@ -90,7 +90,7 @@
                     ],
                     "selectedAmount": 156250000,
                     "feeAmount": 2860,
-                    "utxoFeeAmount": 1360
+                    "utxoFeeAmount": 1380
                 }
             },
             {
@@ -118,7 +118,7 @@
                     ],
                     "selectedAmount": 234375000,
                     "feeAmount": 4220,
-                    "utxoFeeAmount": 2720
+                    "utxoFeeAmount": 2760
                 }
             },
             {
@@ -146,7 +146,7 @@
                     ],
                     "selectedAmount": 468750000,
                     "feeAmount": 4220,
-                    "utxoFeeAmount": 2720
+                    "utxoFeeAmount": 2760
                 }
             },
             {
@@ -170,7 +170,7 @@
                     ],
                     "selectedAmount": 1250000000,
                     "feeAmount": 2860,
-                    "utxoFeeAmount": 1360
+                    "utxoFeeAmount": 1380
                 }
             },
             {
@@ -199,7 +199,7 @@
                     ],
                     "selectedAmount": 468750000,
                     "feeAmount": 3720,
-                    "utxoFeeAmount": 2720
+                    "utxoFeeAmount": 2760
                 }
             },
             {
@@ -228,7 +228,7 @@
                     ],
                     "selectedAmount": 100001090,
                     "feeAmount": 1860,
-                    "utxoFeeAmount": 360
+                    "utxoFeeAmount": 368
                 }
             },
             {
@@ -253,7 +253,7 @@
                     ],
                     "selectedAmount": 155062500,
                     "feeAmount": 1680,
-                    "utxoFeeAmount": 180
+                    "utxoFeeAmount": 184
                 }
             },
             {
@@ -286,7 +286,7 @@
                     ],
                     "selectedAmount": 115063590,
                     "feeAmount": 1770,
-                    "utxoFeeAmount": 270
+                    "utxoFeeAmount": 276
                 }
             },
             {
@@ -367,9 +367,9 @@
                     "tx": "02000000020a9a33750a810cd384ca5d93b09513f1eb5d93c669091b29eef710d2391ff7300000000000ffffffff0a9bf51e0ac499391efd9426e2c909901edd74a97d2378b49c8832c491ad1e9e0000000000ffffffff0200e1f505000000001600144352a1a6e86311f22274f7ebb2746de21b09b15dc00a7001000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c00000000"
                 },
                 "expect": {
-                    "feeAmount": 2520,
-                    "txoutFeeAmount": 720,
-                    "utxoFeeAmount": 1800
+                    "feeAmount": 2570,
+                    "txoutFeeAmount": 740,
+                    "utxoFeeAmount": 1830
                 }
             }
         ]
@@ -394,11 +394,11 @@
                     }
                 },
                 "expect": {
-                    "hex": "02000000010af4768e14f820cb9063f55833b5999119e53390ecf4bf181842909b11d0974d0000000000ffffffff0380969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470ce47f19000000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "hex": "02000000010af4768e14f820cb9063f55833b5999119e53390ecf4bf181842909b11d0974d0000000000ffffffff0380969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c947f19000000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
                     "usedAddresses": [
                         "bc1q0r4elskfu8xlvvlvkergtzagv2ep8p9tpewghq"
                     ],
-                    "feeAmount": 3860
+                    "feeAmount": 3940
                 }
             },
             {
@@ -443,11 +443,11 @@
                     }
                 },
                 "expect": {
-                    "hex": "02000000030a9a33750a810cd384ca5d93b09513f1eb5d93c669091b29eef710d2391ff7300000000000ffffffff0a9bf51e0ac499391efd9426e2c909901edd74a97d2378b49c8832c491ad1e9e0000000000ffffffff0a503dbd4f8f2b064c70e048b21f93fe4584174478abf5f44747932cd21da87c0000000000ffffffff0300e1f505000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00e1f505000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c0831b8040000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "hex": "02000000030a9a33750a810cd384ca5d93b09513f1eb5d93c669091b29eef710d2391ff7300000000000ffffffff0a9bf51e0ac499391efd9426e2c909901edd74a97d2378b49c8832c491ad1e9e0000000000ffffffff0a503dbd4f8f2b064c70e048b21f93fe4584174478abf5f44747932cd21da87c0000000000ffffffff0300e1f505000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00e1f505000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c9030b8040000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
                     "usedAddresses": [
                         "bc1q0r4elskfu8xlvvlvkergtzagv2ep8p9tpewghq"
                     ],
-                    "feeAmount": 7460
+                    "feeAmount": 7580
                 }
             },
             {
@@ -467,11 +467,11 @@
                     }
                 },
                 "expect": {
-                    "hex": "02000000010af4768e14f820cb9063f55833b5999119e53390ecf4bf181842909b11d0974d0000000000ffffffff0380969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470ce47f19000000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
+                    "hex": "02000000010af4768e14f820cb9063f55833b5999119e53390ecf4bf181842909b11d0974d0000000000ffffffff0380969800000000001600144352a1a6e86311f22274f7ebb2746de21b09b15d00093d00000000001600148beaaac4654cf4ebd8e46ca5062b0e7fb3e7470c947f19000000000016001478eb9fc2c9e1cdf633ecb646858ba862b21384ab00000000",
                     "usedAddresses": [
                         "bcrt1q0r4elskfu8xlvvlvkergtzagv2ep8p9tfkvkm6"
                     ],
-                    "feeAmount": 3860
+                    "feeAmount": 3940
                 }
             },
             {

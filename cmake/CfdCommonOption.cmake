@@ -6,6 +6,7 @@ endif()
 option(ENABLE_ELEMENTS "enable elements code (ON or OFF. default:ON)" ON)
 option(ENABLE_TESTS "enable code tests (ON or OFF. default:ON)" ON)
 option(ENABLE_EMSCRIPTEN "enable EMSCRIPTEN (ON or OFF. default:OFF)" OFF)
+option(STD_CPP_VERSION "c++ version (11/14/17. default:11)" "11")
 
 # use "cmake -DCMAKE_BUILD_TYPE=Debug" or "cmake-js -D"
 # option(ENABLE_DEBUG "enable debugging (ON or OFF. default:OFF)" OFF)

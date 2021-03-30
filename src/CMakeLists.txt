@@ -67,6 +67,7 @@ endif()
 target_sources(${PROJECT_NAME}
   PRIVATE
     cfdjs_json_mapping_api.cpp
+    cfdjs_address_base.cpp
     cfdjs_address.cpp
     cfdjs_elements_address.cpp
     cfdjs_elements_transaction.cpp
@@ -78,6 +79,7 @@ target_sources(${PROJECT_NAME}
     cfdjs_utility.cpp
     cfdjs_coin.cpp
     cfdjs_schnorr.cpp
+    cfdjs_psbt.cpp
     cfdapi_error_json.cpp
     cfdapi_select_utxos_wrapper_json.cpp
     autogen/cfd_js_api_json_autogen.cpp

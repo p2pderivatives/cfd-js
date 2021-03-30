@@ -21,10 +21,12 @@
 #include "cfd/cfdapi_ledger.h"
 #include "cfd_js_api_json_autogen.h"  // NOLINT
 #include "cfdcore/cfdcore_descriptor.h"
+#include "cfdcore/cfdcore_taproot.h"
 #include "cfdcore/cfdcore_util.h"
 #include "cfdjs/cfdjs_api_address.h"
 #include "cfdjs/cfdjs_api_elements_address.h"
 #include "cfdjs/cfdjs_api_elements_transaction.h"
+#include "cfdjs_address_base.h"               // NOLINT
 #include "cfdjs_internal.h"                   // NOLINT
 #include "cfdjs_json_elements_transaction.h"  // NOLINT
 #include "cfdjs_transaction_base.h"           // NOLINT
@@ -37,7 +39,6 @@ using cfd::ConfidentialTransactionContext;
 using cfd::ConfidentialTransactionController;
 using cfd::ElementsAddressFactory;
 using cfd::UtxoData;
-using cfd::api::ElementsAddressApi;
 using cfd::api::ElementsTransactionApi;
 using cfd::api::ElementsUtxoAndOption;
 using cfd::api::IssuanceBlindKeys;
@@ -84,9 +85,11 @@ using cfd::core::NetType;
 using cfd::core::Privkey;
 using cfd::core::Pubkey;
 using cfd::core::RangeProofInfo;
+using cfd::core::SchnorrSignature;
 using cfd::core::Script;
 using cfd::core::ScriptElement;
 using cfd::core::SigHashType;
+using cfd::core::TaprootUtil;
 using cfd::core::Txid;
 using cfd::core::logger::info;
 using cfd::core::logger::warn;
@@ -387,8 +390,7 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
     // FIXME(fujita-cg): 引数のiswitness未使用。elementsでの利用シーンが不明瞭
 
     // Decode transaction hex
-    ConfidentialTransactionController ctxc(hex_string);
-    const ConfidentialTransaction& ctx = ctxc.GetTransaction();
+    ConfidentialTransactionContext ctx(hex_string);
 
     response.txid = ctx.GetTxid().GetHex();
     response.hash = Txid(ctx.GetWitnessHash()).GetHex();
@@ -644,14 +646,23 @@ ElementsTransactionStructApi::DecodeRawTransaction(  // NOLINT
         address = addr_factory.GetAddressByHash(
             ElementsAddressType::kP2shAddress, hash);
         script_pub_key_res.addresses.push_back(address.GetAddress());
-      } else if (type == LockingScriptType::kWitnessV0KeyHash) {
-        address =
-            addr_factory.GetSegwitAddressByHash(extract_data.pushed_datas[0]);
+      } else if (
+          (type == LockingScriptType::kWitnessV0KeyHash) ||
+          (type == LockingScriptType::kWitnessV0ScriptHash) ||
+          (type == LockingScriptType::kWitnessV1Taproot)) {
+        address = addr_factory.GetSegwitAddressByHash(
+            extract_data.pushed_datas[0], extract_data.witness_version);
         script_pub_key_res.addresses.push_back(address.GetAddress());
-      } else if (type == LockingScriptType::kWitnessV0ScriptHash) {
-        address =
-            addr_factory.GetSegwitAddressByHash(extract_data.pushed_datas[0]);
-        script_pub_key_res.addresses.push_back(address.GetAddress());
+      } else if (type == LockingScriptType::kWitnessUnknown) {
+        try {
+          address = addr_factory.GetSegwitAddressByHash(
+              extract_data.pushed_datas[0], extract_data.witness_version);
+          script_pub_key_res.addresses.push_back(address.GetAddress());
+        } catch (const CfdException&) {
+          // If the data is invalid, it will not be output.
+          script_pub_key_res.ignore_items.insert("reqSigs");
+          script_pub_key_res.ignore_items.insert("addresses");
+        }
       } else {
         script_pub_key_res.ignore_items.insert("reqSigs");
         script_pub_key_res.ignore_items.insert("addresses");
@@ -775,7 +786,10 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddSign(
     uint32_t vout = request.txin.vout;
 
     std::vector<SignParameter> sign_params;
-    for (const SignDataStruct& sign_data : request.txin.sign_param) {
+    const auto& params = (request.txin.sign_params.empty())
+                             ? request.txin.sign_param
+                             : request.txin.sign_params;
+    for (const SignDataStruct& sign_data : params) {
       sign_params.push_back(
           TransactionStructApiBase::ConvertSignDataStructToSignParameter(
               sign_data));
@@ -809,7 +823,7 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddMultisigSign(
     ConfidentialTxInReference txin(
         ConfidentialTxIn(Txid(request.txin.txid), request.txin.vout));
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     Script redeem_script(request.txin.redeem_script);
     Script witness_script(request.txin.witness_script);
     std::vector<SignParameter> sign_list;
@@ -852,7 +866,7 @@ RawTransactionResponseStruct ElementsTransactionStructApi::SignWithPrivkey(
     Pubkey pubkey;
     Privkey privkey;
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
 
@@ -897,7 +911,7 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddPubkeyHashSign(
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
     Pubkey pubkey(request.txin.pubkey);
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sign_param.sighash_type,
         request.txin.sign_param.sighash_anyone_can_pay);
@@ -927,9 +941,12 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddScriptHashSign(
     OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
     Script redeem_script(request.txin.redeem_script);
     AddressType addr_type =
-        AddressStructApi::ConvertAddressType(request.txin.hash_type);
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
     std::vector<SignParameter> signatures;
-    for (const auto& sign_data : request.txin.sign_param) {
+    const auto& params = (request.txin.sign_params.empty())
+                             ? request.txin.sign_param
+                             : request.txin.sign_params;
+    for (const auto& sign_data : params) {
       SignParameter signature =
           TransactionStructApiBase::ConvertSignDataStructToSignParameter(
               sign_data);  // NOLINT
@@ -990,7 +1007,7 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
     const std::string& value_hex = request.txin.confidential_value_commitment;
     const Txid& txid = Txid(request.txin.txid);
     uint32_t vout = request.txin.vout;
-    ConfidentialTransactionController txc(request.tx);
+    ConfidentialTransactionContext txc(request.tx);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
 
@@ -1047,6 +1064,148 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
   return result;
 }
 
+CreateSignatureHashResponseStruct ElementsTransactionStructApi::GetSighash(
+    const GetSighashRequestStruct& request) {
+  auto call_func = [](const GetSighashRequestStruct& request)
+      -> CreateSignatureHashResponseStruct {  // NOLINT
+    CreateSignatureHashResponseStruct response;
+    ConfidentialTransactionContext tx(request.tx);
+    ElementsAddressFactory factory;
+    auto utxo_list =
+        TransactionStructApiBase::ConvertUtxoList(request.utxos, &factory);
+    tx.CollectInputUtxo(utxo_list);
+
+    AddressType addr_type =
+        AddressApiBase::ConvertAddressType(request.txin.hash_type);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    bool has_taproot = (addr_type == AddressType::kTaprootAddress);
+    SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        has_taproot);
+
+    Script redeem_script;
+    bool is_pubkey = false;
+    if (request.txin.key_data.type == "pubkey") {
+      is_pubkey = true;
+    } else if (request.txin.key_data.type == "redeem_script") {
+      redeem_script = Script(request.txin.key_data.hex);
+    }
+
+    if (has_taproot) {
+      throw CfdException(
+          CfdError::kCfdIllegalStateError,
+          "Elements does not yet support the taproot.");
+    } else {
+      WitnessVersion version = WitnessVersion::kVersion0;
+      if ((addr_type == AddressType::kP2pkhAddress) ||
+          (addr_type == AddressType::kP2shAddress)) {
+        version = WitnessVersion::kVersionNone;
+      }
+      auto utxo = tx.GetTxInUtxoData(outpoint);
+      ByteData sighash;
+      if (is_pubkey) {
+        Pubkey pubkey(request.txin.key_data.hex);
+        sighash = tx.CreateSignatureHash(
+            outpoint, pubkey, sighashtype, utxo.amount, version);
+      } else {
+        sighash = tx.CreateSignatureHash(
+            outpoint, redeem_script, sighashtype, utxo.amount, version);
+      }
+      response.sighash = sighash.GetHex();
+    }
+    return response;
+  };
+
+  CreateSignatureHashResponseStruct result;
+  result = ExecuteStructApi<
+      GetSighashRequestStruct, CreateSignatureHashResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct
+ElementsTransactionStructApi::AddTaprootSchnorrSign(
+    const AddTaprootSchnorrSignRequestStruct& request) {
+  auto call_func = [](const AddTaprootSchnorrSignRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    ByteData annex(request.txin.annex);
+
+    SchnorrSignature sig(request.txin.signature);
+    if (sig.GetSigHashType().GetSigHashFlag() == 0) {
+      auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
+          request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+          true);
+      sig.SetSigHashType(sighashtype);
+    }
+
+    // ctx.AddSchnorrSign(outpoint, sig, (annex.IsEmpty()) ? nullptr : &annex);
+    throw CfdException(
+        CfdError::kCfdIllegalStateError,
+        "Elements does not yet support the taproot.");
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      AddTaprootSchnorrSignRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct ElementsTransactionStructApi::AddTapscriptSign(
+    const AddTapscriptSignRequestStruct& request) {
+  auto call_func = [](const AddTapscriptSignRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    OutPoint outpoint(Txid(request.txin.txid), request.txin.vout);
+    Script redeem_script(request.txin.tapscript);
+    ByteData control_block(request.txin.control_block);
+    ByteData annex(request.txin.annex);
+
+    std::vector<SignParameter> sign_params;
+    for (const auto& sign_data : request.txin.sign_params) {
+      SchnorrSignature sig(sign_data.hex);
+      if (sig.GetSigHashType().GetSigHashFlag() == 0) {
+        auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
+            sign_data.sighash_type, sign_data.sighash_anyone_can_pay, true);
+        sig.SetSigHashType(sighashtype);
+      }
+      sign_params.emplace_back(sig.GetData(true));
+    }
+    sign_params.emplace_back(redeem_script);
+    sign_params.emplace_back(control_block);
+
+    std::vector<ByteData> witness_stack;
+    witness_stack.emplace_back(redeem_script.GetData());
+    witness_stack.emplace_back(control_block);
+    if (!annex.IsEmpty()) {
+      sign_params.emplace_back(annex);
+      witness_stack.emplace_back(annex);
+    }
+
+    // verify check
+    TaprootUtil::ParseTaprootSignData(
+        witness_stack, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+
+    ctx.AddSign(outpoint, sign_params, true, true);
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      AddTapscriptSignRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
     const VerifySignatureRequestStruct& request) {
   auto call_func = [](const VerifySignatureRequestStruct& request)
@@ -1065,7 +1224,7 @@ VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
     ByteData signature = ByteData(request.txin.signature);
     Script script;
 
-    ConfidentialTransactionController ctx(request.tx);
+    ConfidentialTransactionContext ctx(request.tx);
     bool is_success = false;
     WitnessVersion version;
     ConfidentialValue value =
@@ -1076,13 +1235,15 @@ VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
       version = (hashtype_str == "p2wpkh") ? WitnessVersion::kVersion0
                                            : WitnessVersion::kVersionNone;
       is_success = ctx.VerifyInputSignature(
-          signature, pubkey, txid, vout, sighashtype, value, version);
+          signature, pubkey, OutPoint(txid, vout), sighashtype, value,
+          version);
     } else if ((hashtype_str == "p2sh") || (hashtype_str == "p2wsh")) {
       script = Script(request.txin.redeem_script);
       version = (hashtype_str == "p2wsh") ? WitnessVersion::kVersion0
                                           : WitnessVersion::kVersionNone;
       is_success = ctx.VerifyInputSignature(
-          signature, pubkey, txid, vout, script, sighashtype, value, version);
+          signature, pubkey, OutPoint(txid, vout), script, sighashtype, value,
+          version);
     } else {
       warn(
           CFD_LOG_SOURCE,
@@ -1120,44 +1281,8 @@ VerifySignResponseStruct ElementsTransactionStructApi::VerifySign(
 
     ConfidentialTransactionContext ctx(request.tx);
     ElementsAddressFactory address_factory;
-    std::vector<UtxoData> utxos;
-    ElementsAddressApi addr_api;
-    for (const auto& utxo : request.txins) {
-      UtxoData data = {};
-      data.txid = Txid(utxo.txid);
-      data.vout = utxo.vout;
-      data.amount = Amount(utxo.amount);
-      if (!utxo.confidential_value_commitment.empty()) {
-        data.value_commitment =
-            ConfidentialValue(utxo.confidential_value_commitment);
-      }
-
-      data.descriptor = utxo.descriptor;
-      if (!data.descriptor.empty()) {
-        DescriptorScriptData script_data = addr_api.ParseOutputDescriptor(
-            data.descriptor, NetType::kLiquidV1, "", nullptr, nullptr,
-            nullptr);
-        data.address_type = script_data.address_type;
-        if (script_data.type == DescriptorScriptType::kDescriptorScriptRaw) {
-          data.locking_script = script_data.locking_script;
-        } else {
-          // TODO(k-matsuzawa): mainnet only?
-          data.address = script_data.address;
-          data.locking_script = script_data.locking_script;
-        }
-      } else if (!utxo.address.empty()) {
-        if (ElementsConfidentialAddress::IsConfidentialAddress(utxo.address)) {
-          ElementsConfidentialAddress confidential_addr(utxo.address);
-          data.address = confidential_addr.GetUnblindedAddress();
-        } else {
-          data.address = address_factory.GetAddress(utxo.address);
-        }
-        data.locking_script = data.address.GetLockingScript();
-        data.address_type = data.address.GetAddressType();
-      }
-      data.binary_data = nullptr;
-      utxos.push_back(data);
-    }
+    auto utxos = TransactionStructApiBase::ConvertUtxoListForVerify(
+        request.txins, &address_factory);
     ctx.CollectInputUtxo(utxos);
 
     response.success = !utxos.empty();

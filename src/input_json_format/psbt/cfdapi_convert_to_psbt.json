@@ -1,0 +1,25 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "ConvertToPsbt",
+  "comment": "Convert transaction to PSBT.",
+  "request": {
+    ":class": "ConvertToPsbtRequest",
+    ":class:comment": "Request for ConvertToPsbt.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "permitSigData": false,
+    "permitSigData:require": "optional",
+    "permitSigData:comment": "If true, any signatures in the input will be discarded and conversion will continue. If false, this function will fail if any signatures are present."
+  },
+  "response": {
+    ":class": "PsbtOutputData",
+    ":class:comment": "psbt output data.",
+    "psbt": "",
+    "psbt:require": "require",
+    "psbt:comment": "base64 encoded psbt.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "psbt hex"
+  }
+}

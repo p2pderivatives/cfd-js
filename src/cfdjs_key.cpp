@@ -137,7 +137,12 @@ OutputPrivkeyDataStruct KeyStructApi::TweakAddPrivkey(
   auto call_func =
       [](const TweakPrivkeyDataStruct& request) -> OutputPrivkeyDataStruct {
     OutputPrivkeyDataStruct response;
-    Privkey privkey(request.privkey);
+    Privkey privkey;
+    if (Privkey::HasWif(request.privkey)) {
+      privkey = Privkey::FromWif(request.privkey);
+    } else {
+      privkey = Privkey(request.privkey);
+    }
     ByteData256 tweak(request.tweak);
     response.privkey = privkey.CreateTweakAdd(tweak).GetHex();
     return response;
@@ -154,7 +159,12 @@ OutputPrivkeyDataStruct KeyStructApi::TweakMulPrivkey(
   auto call_func =
       [](const TweakPrivkeyDataStruct& request) -> OutputPrivkeyDataStruct {
     OutputPrivkeyDataStruct response;
-    Privkey privkey(request.privkey);
+    Privkey privkey;
+    if (Privkey::HasWif(request.privkey)) {
+      privkey = Privkey::FromWif(request.privkey);
+    } else {
+      privkey = Privkey(request.privkey);
+    }
     ByteData256 tweak(request.tweak);
     response.privkey = privkey.CreateTweakMul(tweak).GetHex();
     return response;
@@ -171,7 +181,12 @@ OutputPrivkeyDataStruct KeyStructApi::NegatePrivkey(
   auto call_func =
       [](const PrivkeyDataStruct& request) -> OutputPrivkeyDataStruct {
     OutputPrivkeyDataStruct response;
-    Privkey privkey(request.privkey);
+    Privkey privkey;
+    if (Privkey::HasWif(request.privkey)) {
+      privkey = Privkey::FromWif(request.privkey);
+    } else {
+      privkey = Privkey(request.privkey);
+    }
     response.privkey = privkey.CreateNegate().GetHex();
     return response;
   };

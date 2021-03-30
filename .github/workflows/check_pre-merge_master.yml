@@ -10,23 +10,29 @@ on:
 
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 4
+  IMAGE_NODE_VERSION: 14
+  GITHUB_ELEMENTS_VERSION: bitcoin-0.21.0
+  GITHUB_BITCOIN_VERSION: bitcoin-0.21.0
+  GITHUB_DOCKER_IMAGE: docker.pkg.github.com/cryptogarageinc/elements-testing-dockerfile/elements-testing
+  ELEMENTS_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_entrypoint.sh
+  BITCOIN_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_bitcoin_entrypoint.sh
 
 jobs:
   cmake-js-build:
     name: cmake-js build
-    timeout-minutes: 30
+    timeout-minutes: 50
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-10.15, windows-2019, ubuntu-18.04]
-        node: [8, 12, 14, 15]
+        node: [10, 12, 14, 15]
         exclude:
           - os: windows-2019
-            node: 8
+            node: 10
           - os: macos-10.15
-            node: 8
+            node: 10
         include:
-          - node: 8
+          - node: 10
             always: false
           - node: 12
             always: false
@@ -37,7 +43,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.2
+    - uses: actions/setup-node@v2
       timeout-minutes: 1
       with:
         node-version: ${{ matrix.node }}
@@ -97,9 +103,39 @@ jobs:
       shell: bash
       continue-on-error: true
 
+  bitcoin-e2e-test:
+    name: bitcoin e2e test
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Login GitHub Registry
+      run: docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Pull image from GitHub Registry
+      run: docker pull ${{ env.GITHUB_DOCKER_IMAGE }}:${{ env.GITHUB_BITCOIN_VERSION }}
+    - name: integration test
+      run: |
+        docker run -v ${{ github.workspace }}:/github/workspace --entrypoint ${{ env.BITCOIN_ENTRYPOINT_PATH }} ${{ env.GITHUB_DOCKER_IMAGE }}:${{ env.GITHUB_BITCOIN_VERSION }}
+
+  elements-e2e-test:
+    name: elements e2e test
+    runs-on: ubuntu-18.04
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Login GitHub Registry
+      run: docker login docker.pkg.github.com -u owner -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Pull image from GitHub Registry
+      run: docker pull ${{ env.GITHUB_DOCKER_IMAGE }}:${{ env.GITHUB_ELEMENTS_VERSION }}
+    - name: integration test
+      run: |
+        docker run -v ${{ github.workspace }}:/github/workspace --entrypoint ${{ env.ELEMENTS_ENTRYPOINT_PATH }} ${{ env.GITHUB_DOCKER_IMAGE }}:${{ env.GITHUB_ELEMENTS_VERSION }}
+
   doxygen-ubuntu:
     name: doxygen-ubuntu
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
 
     steps:
     - uses: actions/checkout@v2

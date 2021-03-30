@@ -9,51 +9,51 @@ import {Project} from 'ts-morph';
 interface JsonObjectCommonType {
   namespace: string | string[];
   commonHeader: string;
-};
+}
 
 interface ClassMapType {
   [key: string]: DetailClassParameterType;
-};
+}
 
 interface ClassParameterType {
   name: string;
   comment: string;
-};
+}
 
 interface CollectMapDataResponse {
   type: string;
   comment: string;
-};
+}
 
 interface DetailClassParameterType {
   data: JsonMappingData;
   childList: DetailParameterType[];
   parentList: string[];
-};
+}
 
 interface DetailParameterType {
   param: ParameterType;
   data: JsonMappingData;
-};
+}
 
 interface ParameterType {
   name: string;
   type: string;
   comment: string;
-};
+}
 
 interface TsAppendFunctionData {
   name: string;
   parameters: ParameterType[];
   returnType: string;
   comment: string;
-};
+}
 
 interface ReferenceClassInfo {
   name: string;
   references: Set<string>;
   weight: number;
-};
+}
 
 // ----------------------------------------------------------------------------
 // debug log function
@@ -387,9 +387,9 @@ class JsonData {
   }
 }
 
-interface ClassCache {
-  cache: Map<string, JsonMappingData>;
-};
+// interface ClassCache {
+//   cache: Map<string, JsonMappingData>;
+// }
 
 // ----------------------------------------------------------------------------
 // array check function
@@ -591,7 +591,7 @@ function analyzeJson(jsonObj: any | any[],
     console.log('empty value.');
     throw new Error('empty value.');
   }
-};
+}
 
 // ----------------------------------------------------------------------------
 // analyze child class function
@@ -613,7 +613,7 @@ function getChildClasses(jsonMapData: JsonMappingData,
   } else if (jsonMapData.isArray) {
     getChildClasses(jsonMapData.childList[0], list);
   }
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate cpp file source function
@@ -681,7 +681,7 @@ using cfd::core::JsonVector;
   result.push('');
 
   return result.join('\n');
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate cpp class source direct function
@@ -809,7 +809,7 @@ function generateClassSource(req: JsonMappingData | null | undefined,
   }
 
   return result.join('\n');
-};
+}
 
 
 // ----------------------------------------------------------------------------
@@ -839,7 +839,7 @@ class ${exportDefine}${mapData.type}
   static void CollectFieldName();
 `;
   return classHeader;
-};
+}
 
 
 // ----------------------------------------------------------------------------
@@ -897,7 +897,7 @@ function generateObjectFunctionByHeader(mapData: JsonMappingData,
   }
 `;
   return objectFunctions;
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate value function by header
@@ -953,7 +953,7 @@ function generateValueFunctionByHeader(mapData: JsonMappingData,
   }
 `;
   return valueFunctions;
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate class field by header
@@ -1036,7 +1036,7 @@ ${structConvertFunction}
   std::set<std::string> ignore_items;
 `;
   return commonFields;
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate header function
@@ -1143,7 +1143,7 @@ using cfd::core::JsonVector;
   }
   result.push(headerFileFooter2);
   return result.join('\n');
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate class header direct function
@@ -1235,7 +1235,7 @@ function generateClassHeader(req: JsonMappingData | null | undefined,
   }
 
   return result.join('\n');
-};
+}
 
 // ----------------------------------------------------------------------------
 // generate reference class list function
@@ -1303,10 +1303,10 @@ function generateReferenceClassList(
   */
 
   let changeWeight = true;
-  let refKeyList: string[] = [];
+  const refKeyList: string[] = [];
   while (changeWeight) {
     changeWeight = false;
-    const newRefKeyList = [];
+    // const newRefKeyList = [];
     if (refKeyList.length == 0) {
       for (const [key] of refList) {
         if (key) refKeyList.push(key);
@@ -1321,23 +1321,23 @@ function generateReferenceClassList(
             if (key == ref) continue;
             if (refList.get(ref)) {
               const dst = refList.get(ref);
-              if (dst && (dst.references.size > 1) &&
-                  dst.weight >= src.weight) {
-                src.weight = dst.weight + 1;
-                changeWeight = true;
-                targetCount += 1;
-                console.log(`update weight: ${key} weight=${src.weight}`);
+              if (dst) {
+                if (dst.weight >= src.weight) { // update ref weight
+                  src.weight = dst.weight + 1;
+                  changeWeight = true;
+                  targetCount += 1;
+                  // console.log(`update weight: ${key} weight=${src.weight}`);
+                }
               }
             }
           }
           if (targetCount > 0) {
             refList.set(key, src);
-            newRefKeyList.push(key);
+            // newRefKeyList.push(key);
           }
         }
       }
     }
-    refKeyList = newRefKeyList;
   }
 
   for (const [key, value] of refList) {
@@ -1358,7 +1358,7 @@ function generateReferenceClassList(
 
   // console.log(list);
   return list;
-};
+}
 
 
 // ----------------------------------------------------------------------------
@@ -1548,7 +1548,7 @@ function generateStructItemData(textArray: string[],
 function generateStructHeader(copyright: string, dirname: string,
     filename: string, jsonList: any[], libNamespace: string,
     referenceList: ReferenceClassInfo[], jsonClassMap: ClassMapType,
-    responseTypeSet: Set<string>) {
+    responseTypeSet: Set<string>, hasErrorOutput: boolean) {
   const result = [];
   const processedStructTypes: Set<string> = new Set();
 
@@ -1626,7 +1626,7 @@ function generateStructHeader(copyright: string, dirname: string,
   for (const refData of referenceList) {
     if (refData && jsonClassMap[refData.name]) {
       generateStructItemDataDirect(result,
-          jsonClassMap[refData.name].data, true,
+          jsonClassMap[refData.name].data, hasErrorOutput,
           lastNamespace, libNamespace, responseTypeSet);
       processedStructTypes.add(jsonClassMap[refData.name].data.structType);
     }
@@ -1641,7 +1641,7 @@ function generateStructHeader(copyright: string, dirname: string,
       const req = jsonList[jsonDataIndex].requestData;
       const res = jsonList[jsonDataIndex].responseData;
       generateStructItemData(result, req, res,
-          jsonList[jsonDataIndex].inputJsonData, lastNamespace, true,
+          jsonList[jsonDataIndex].inputJsonData, lastNamespace, hasErrorOutput,
           processedStructTypes, libNamespace, responseTypeSet);
       // const inputJsonData = jsonList[jsonDataIndex].inputJsonData;
       lastNamespace = jsonList[jsonDataIndex].inputJsonData.namespace;
@@ -1660,7 +1660,7 @@ function generateStructHeader(copyright: string, dirname: string,
 
   result.push(headerFileFooter);
   return result.join('\n');
-};
+}
 
 
 // ----------------------------------------------------------------------------
@@ -1693,7 +1693,7 @@ function generateTsData(dirname: string, filename: string,
   // initialize
   const project = new Project({
     tsConfigFilePath: `${__dirname}/../tsconfig.json`,
-    addFilesFromTsConfig: false,
+    // addFilesFromTsConfig: false,
   });
 
   if (loadCfdjsIndexFile) {
@@ -1888,7 +1888,7 @@ function generateTsData(dirname: string, filename: string,
 
   // asynchronously save all the changes above
   project.save().then(() => console.log(`output: ${outPath}`));
-};
+}
 
 
 // ----------------------------------------------------------------------------
@@ -1907,8 +1907,10 @@ async function convertFile() {
   };
   const libraryName = 'cfd-js';
   const libPrefix = 'cfdjs';
+  const structPrefix = 'cfdjs';
   const libNamespace = 'cfd::js::api';
   const errorClassName = 'CfdError';
+  const hasStructErrorOutput = true;
   const cfdPath = `${__dirname}/../external/${libraryName}/`;
   const cfdPath2 = `${__dirname}/../../${libraryName}/`;
   let folderPath = `src/input_json_format/`;
@@ -2112,23 +2114,23 @@ async function convertFile() {
       const outSourceFile = `${namespaceName}_autogen.cpp`;
       const headerStr = generateFileHeader(copyright, outHeaderFile,
           outJsonHeaderFolderPath,
-          classHeaderList, jsonObjectCommon, `${libPrefix}/${outStructFileName}`);
+          classHeaderList, jsonObjectCommon, `${structPrefix}/${outStructFileName}`);
       fs.writeFileSync(`${outJsonHeaderFolderPath}${outHeaderFile}`, headerStr);
       const srcStr = generateFileSource(copyright, outSourceFile,
           outHeaderFile, classSourceList, jsonObjectCommon);
       fs.writeFileSync(`${outJsonSourceFolderPath}${outSourceFile}`, srcStr);
     }
-  };
+  }
 
   if ((jsonDataList.length > 0) && (outStructFileName !== '')) {
     const headerStr = generateStructHeader(copyright, outStructDirPath,
         outStructFileName, jsonDataList, libNamespace,
-        referenceList, jsonClassMap, responseTypeSet);
+        referenceList, jsonClassMap, responseTypeSet, hasStructErrorOutput);
     fs.writeFileSync(path.resolve(`${outStructDirPath}${outStructFileName}`), headerStr);
     console.log(`output: ${outStructFileName}`);
   }
 
-  if (jsonTypeList.length > 0) {
+  if ((jsonTypeList.length > 0) && (outTsFileName.length > 0)) {
     try {
       fs.unlinkSync(path.resolve(`${cfdBaseDir}${outTsFileName}`));
     } catch (err) {
@@ -2138,7 +2140,7 @@ async function convertFile() {
         jsonTypeList, functionList, loadCfdjsIndexFile, promiseMode,
         tsClassName, insertFunctions, errorClassName, insertErrorFunctions);
   }
-};
+}
 
 
 const main = async function() {

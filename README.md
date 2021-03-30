@@ -2,11 +2,55 @@
 
 JavaScript wrapper of cfd libraries
 
-<!-- TODO: Write Summary and Overview
 
 ## Overview
 
--->
+This library is development kit for crypto finance application.
+Useful when developing applications for cryptocurrencies.
+
+### Target Network
+
+- Bitcoin
+- Liquid Network
+
+### Support function by cfd
+
+- Bitcoin
+  - Bitcoin Script (builder, viewer)
+  - Transaction
+    - Create, Parse, Decode
+    - Simple pubkey-hash sign / verify
+    - Estimate Fee
+    - Coin Selection (FundRawTransaction)
+  - PSBT (v0. v2 & taproot is not yet.)
+    - Create, Parse, Decode
+    - Simple pubkey-hash sign / verify
+    - Estimate Fee
+    - Coin Selection (FundRawTransaction)
+  - ECDSA Pubkey/Privkey (TweakAdd/Mul, Negate, Sign, Verify)
+  - BIP32, BIP39
+  - Output Descriptor (contains miniscript parser)
+  - Schnorr/Taproot
+  - Bitcoin Address (Segwit-v0, Segwit-v1, P2PKH/P2SH)
+- Liquid Network
+  - Confidential Transaction
+    - Blind, Unblind
+    - Reissuance
+  - Confidential Address
+
+### Libraries for each language
+
+- JavaScript : cfd-js
+  - C/C++ : cfd
+    - Extend the cfd-core library. Defines the C language API and extension classes.
+  - C++ : cfd-core
+    - Core library. Definition base class.
+- other language:
+  - WebAssembly : cfd-js-wasm
+  - Python : cfd-python
+  - C# : cfd-csharp
+  - Go : cfd-go
+  - Rust : cfd-rust
 
 ## Dependencies
 
@@ -60,30 +104,21 @@ Add cfd-js github on caller app's package.json.
 
 ex)
 ```
-  "cfd-js": "p2pderivatives/cfd-js#semver:^0.1.2",
+  "cfd-js": "p2pderivatives/cfd-js#semver:^0.3.0",
 ```
 
 If you use old npm or yarn, describe as follows.
 
 ex)
 ```
-  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.1.2",
+  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.3.0",
 ```
 
 When npm is installed, the cfd-js build is executed.
 
-### Electron setting (for build)
+### N-API
 
-Add cmake-js setting on caller app's package.json.
-
-ex)
-```
-"cmake-js": {
-  "runtime": "electron",
-  "runtimeVersion": "6.0.11",
-  "arch": "x64"
-},
-```
+cfd-js uses the N-API. Therefore, the same binary can be used for both node.js and electron.
 
 ---
 
