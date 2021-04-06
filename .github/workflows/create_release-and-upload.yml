@@ -83,8 +83,7 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B build
-        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off --build build
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off
         cmake --build build --parallel 4 --config Release
       timeout-minutes: 20
     - name: cmake-install
@@ -148,8 +147,7 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B build
-        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib" --build build
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib"
         cmake --build build --parallel 4 --config Release
         cd ../..
       timeout-minutes: 20
@@ -213,8 +211,7 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B build
-        cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib" --build build
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=off -DENABLE_CAPI=off -DENABLE_TESTS=off -DTARGET_RPATH="@executable_path;/usr/local/lib;/usr/local/lib64;./node_modules/cfd-js/build/Release;../node_modules/cfd-js/build/Release;../../node_modules/cfd-js/build/Release;../../../node_modules/cfd-js/build/Release;../../../../node_modules/cfd-js/build/Release;../../../../../node_modules/cfd-js/build/Release;../../../../../../node_modules/cfd-js/build/Release;./build/Release;./build/Release;./wrap_js/dl_lib/lib"
         cmake --build build --parallel 4 --config Release
         cd ../..
       timeout-minutes: 30
