@@ -509,6 +509,27 @@ class CFD_JS_API_EXPORT JsonMappingApi {
   static std::string UpdateTxOutAmount(const std::string &request_message);
 
   /**
+   * @brief Split the transaction output.
+   * @param[in] request_message     the request json message
+   * @return json string
+   */
+  static std::string SplitTxOut(const std::string &request_message);
+
+  /**
+   * @brief Get the transaction input index data.
+   * @param[in] request_message     the request json message
+   * @return json string
+   */
+  static std::string GetTxInIndex(const std::string &request_message);
+
+  /**
+   * @brief Get the transaction output index data.
+   * @param[in] request_message     the request json message
+   * @return json string
+   */
+  static std::string GetTxOutIndex(const std::string &request_message);
+
+  /**
    * @brief Get a Schnorr Pubkey From a Privkey object
    *
    * @param[in] request_message     the request json message
@@ -834,6 +855,14 @@ class CFD_JS_API_EXPORT JsonMappingApi {
    * @return json string
    */
   static std::string CreateRawPegin(const std::string &request_message);
+
+  /**
+   * @brief UpdatePeginWitnessStack.
+   * @param[in] request_message     the request json message
+   * @return json string
+   */
+  static std::string UpdatePeginWitnessStack(
+      const std::string &request_message);
 
   /**
    * @brief CreateRawPegout.

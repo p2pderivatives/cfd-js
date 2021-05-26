@@ -1,0 +1,33 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetTxInIndex",
+  "comment": "Get TxIn Index.",
+  "request": {
+    ":class": "GetTxInIndexRequest",
+    ":class:comment": "Request for get txin index.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "txid": "",
+    "txid:require": "require",
+    "txid:comment": "utxo txid",
+    "vout": 0,
+    "vout:type": "uint32_t",
+    "vout:require": "require",
+    "vout:comment": "utxo vout"
+  },
+  "response": {
+    ":class": "GetIndexData",
+    "index": 0,
+    "index:require": "require",
+    "index:comment": "index (on the first)",
+    "index:type": "uint32_t",
+    "indexes": [0],
+    "indexes:require": "optional",
+    "indexes:comment": "index list",
+    "indexes:arraytype": "uint32_t"
+  }
+}

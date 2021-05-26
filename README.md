@@ -104,14 +104,14 @@ Add cfd-js github on caller app's package.json.
 
 ex)
 ```
-  "cfd-js": "p2pderivatives/cfd-js#semver:^0.3.0",
+  "cfd-js": "p2pderivatives/cfd-js#semver:^0.3.1",
 ```
 
 If you use old npm or yarn, describe as follows.
 
 ex)
 ```
-  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.3.0",
+  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.3.1",
 ```
 
 When npm is installed, the cfd-js build is executed.
@@ -250,4 +250,13 @@ set CFD_CMAKE_GIT_SKIP_UPDATE=1
 - MacOS & Linux(Ubuntu):
 ```
 export CFD_CMAKE_GIT_SKIP_UPDATE=1
+```
+
+### Build error on windows:
+
+Errors may occur during processing of CMake External project on Windows.
+This is a problem with the Windows environment, but you can work around it by using npm v7.
+If npm is less than v7, please try to cleanup&build after running the following command:
+```bat
+npm i -g npm@7
 ```

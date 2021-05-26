@@ -2,7 +2,7 @@
 /**
  * @file cfdjs_node_addon.cpp
  *
- * @brief cfdのnode.js向けAPI実装ファイル
+ * @brief cfd API implementation file for node.js
  */
 #include <napi.h>  // NOLINT
 

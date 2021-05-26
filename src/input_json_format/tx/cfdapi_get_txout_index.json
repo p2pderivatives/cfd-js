@@ -1,0 +1,32 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetTxOutIndex",
+  "comment": "Get TxOut Index.",
+  "request": {
+    ":class": "GetTxOutIndexRequest",
+    ":class:comment": "Request for get txout index.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "address": "",
+    "address:require": "optional",
+    "address:comment": "target address",
+    "directLockingScript": "",
+    "directLockingScript:require": "optional",
+    "directLockingScript:comment": "target locking script"
+  },
+  "response": {
+    ":class": "GetIndexData",
+    "index": 0,
+    "index:require": "require",
+    "index:comment": "index (on the first)",
+    "index:type": "uint32_t",
+    "indexes": [0],
+    "indexes:require": "optional",
+    "indexes:comment": "index list",
+    "indexes:arraytype": "uint32_t"
+  }
+}

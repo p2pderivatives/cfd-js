@@ -167,6 +167,30 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const UpdateTxOutAmountRequestStruct& request);
 
   /**
+   * @brief Split the transaction output.
+   * @param[in] request   transaction and changing amount data struct.
+   * @return transaction struct.
+   */
+  static RawTransactionResponseStruct SplitTxOut(
+      const SplitTxOutRequestStruct& request);
+
+  /**
+   * @brief Get the transaction input index data.
+   * @param[in] request   getting txin index struct.
+   * @return index data struct.
+   */
+  static GetIndexDataStruct GetTxInIndex(
+      const GetTxInIndexRequestStruct& request);
+
+  /**
+   * @brief Get the transaction output index data.
+   * @param[in] request   getting txout index struct.
+   * @return index data struct.
+   */
+  static GetIndexDataStruct GetTxOutIndex(
+      const GetTxOutIndexRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、RawTransactionをBlindする.
    * @param[in] request Blind対象のTransactionとBlind情報を格納した構造体
    * @return Transactionのhexデータを格納した構造体
@@ -206,6 +230,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    */
   static RawTransactionResponseStruct CreateRawPeginTransaction(  // NOLINT
       const CreateRawPeginRequestStruct& request);
+
+  /**
+   * @brief Update pegin witness stack.
+   * @param[in] request  pegin witness target data.
+   * @return Transaction hex.
+   */
+  static RawTransactionResponseStruct UpdatePeginWitnessStack(
+      const UpdateWitnessStackRequestStruct& request);
 
   /**
    * @brief パラメータの情報を元に、Elements Pegout用のRaw Transactionを作成する.

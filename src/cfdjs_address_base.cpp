@@ -69,6 +69,7 @@ static const DescriptorNameData kDescriptorNameDataTable[] = {
     {"sortedmulti", DescriptorScriptType::kDescriptorScriptSortedMulti},
     {"addr", DescriptorScriptType::kDescriptorScriptAddr},
     {"raw", DescriptorScriptType::kDescriptorScriptRaw},
+    {"taproot", DescriptorScriptType::kDescriptorScriptTaproot},
 };
 
 CreateAddressResponseStruct AddressApiBase::CreateAddress(
@@ -501,6 +502,9 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
       case AddressType::kP2wshAddress:
         result = "p2wsh";
         break;
+      case AddressType::kTaprootAddress:
+        result = "taproot";
+        break;
       case AddressType::kP2shAddress:
       default:
         if (type == "sh") result = "p2sh";
@@ -517,6 +521,8 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
         return "extPrivkey";
       case DescriptorKeyType::kDescriptorKeyBip32:
         return "extPubkey";
+      case DescriptorKeyType::kDescriptorKeySchnorr:
+        return "schnorrPubkey";
       case DescriptorKeyType::kDescriptorKeyPublic:
       default:
         return "pubkey";
@@ -542,6 +548,11 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
   } else {
     result.ignore_items.insert("redeemScript");
   }
+  if (script_data.tree.IsValid()) {
+    result.tree_string = script_data.tree.ToString();
+  } else {
+    result.ignore_items.insert("treeString");
+  }
 
   std::vector<DescriptorScriptData> setting_scripts;
   bool is_force_multisig = false;
@@ -557,6 +568,8 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
   }
 
   if (!setting_scripts.empty()) {
+    bool is_combo =
+        (script_data.type == DescriptorScriptType::kDescriptorScriptCombo);
     for (const auto& data : setting_scripts) {
       DescriptorScriptJsonStruct script_struct;
       script_struct.depth = data.depth;
@@ -590,12 +603,19 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
           key_struct.key = key_data.key;
           key_struct.key_type = convert_key_type(key_data.type);
           script_struct.keys.push_back(key_struct);
+          result.keys.push_back(key_struct);
         }
       } else if (!data.key.empty()) {
         script_struct.key = data.key;
         script_struct.key_type = convert_key_type(data.key_type);
         script_struct.ignore_items.insert("keys");
         script_struct.ignore_items.insert("reqNum");
+        if ((!is_combo) || result.keys.empty()) {
+          DescriptorKeyJsonStruct key_struct;
+          key_struct.key = script_struct.key;
+          key_struct.key_type = script_struct.key_type;
+          result.keys.push_back(key_struct);
+        }
       } else {
         script_struct.ignore_items.insert("key");
         script_struct.ignore_items.insert("keyType");
@@ -608,6 +628,7 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
   if (result.scripts.empty()) {
     result.ignore_items.insert("scripts");
   }
+  if (result.keys.empty()) result.ignore_items.insert("keys");
 
   return result;
 }

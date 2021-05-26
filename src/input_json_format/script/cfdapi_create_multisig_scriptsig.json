@@ -25,6 +25,9 @@
         "sighashAnyoneCanPay": false,
         "sighashAnyoneCanPay:require": "optional",
         "sighashAnyoneCanPay:comment": "sighash anyone can pay flag",
+        "sighashRangeproof": false,
+        "sighashRangeproof:require": "optional",
+        "sighashRangeproof:comment": "(for Elements) sighash rangeproof",
         "relatedPubkey": "",
         "relatedPubkey:require": "optional",
         "relatedPubkey:comment": "related pubkey"

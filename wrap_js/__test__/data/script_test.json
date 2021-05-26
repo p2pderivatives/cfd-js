@@ -1010,7 +1010,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -1029,7 +1029,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {

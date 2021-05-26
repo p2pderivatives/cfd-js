@@ -173,6 +173,7 @@ export interface AddTaprootSchnorrSignRequest {
  * @property {string} signature - sign hex.
  * @property {string} sighashType? - signature hash type. (default, all, none or single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  * @property {string} annex? - taproot annex bytes.
  */
 export interface AddTaprootSchnorrSignTxInRequest {
@@ -181,6 +182,7 @@ export interface AddTaprootSchnorrSignTxInRequest {
     signature: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
     annex?: string;
 }
 
@@ -562,6 +564,7 @@ export interface CreateElementsSignatureHashRequest {
  * @property {string} hashType - hash type (p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh)
  * @property {string} sighashType? - signature hash type. (all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  */
 export interface CreateElementsSignatureHashTxIn {
     txid: string;
@@ -572,6 +575,7 @@ export interface CreateElementsSignatureHashTxIn {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
 }
 
 /**
@@ -1091,7 +1095,7 @@ export interface DecodeUnlockingScript {
 }
 
 /**
- * @property {string} keyType - contain key type (pubkey, extPubkey, extPrivkey)
+ * @property {string} keyType - contain key type (pubkey, extPubkey, extPrivkey, schnorrPubkey)
  * @property {string} key - key value (hex or base58)
  */
 export interface DescriptorKeyJson {
@@ -1106,8 +1110,8 @@ export interface DescriptorKeyJson {
  * @property {string} address - address
  * @property {string} hashType - hash type (p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh)
  * @property {string} redeemScript? - redeem script for script hash. (This field is only available when hashType is p2wsh, p2sh, or p2sh-p2wsh.)
- * @property {string} keyType? - contain key type (pubkey, extPubkey, extPrivkey)
- * @property {string} key? - key value (hex or base58) (This field is only available when hashType is p2wpkh, p2pkh, or p2pk.)
+ * @property {string} keyType? - contain key type (pubkey, extPubkey, extPrivkey, schnorrPubkey)
+ * @property {string} key? - key value (hex or base58) (This field is only available when hashType is taproot, p2wpkh, p2pkh, or p2pk. taproot is xonly-pubkey.)
  * @property {DescriptorKeyJson[]} keys? - keys included in multisig
  * @property {number} reqNum? - number of required signatures to solve multisig script.
  */
@@ -1457,11 +1461,13 @@ export interface EncodeBase58Response {
  * @property {string} signature - signature
  * @property {string} sighashType - sighash type (all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighash anyone can pay
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  */
 export interface EncodeSignatureByDerRequest {
     signature: string;
     sighashType: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
 }
 
 /**
@@ -1872,6 +1878,15 @@ export interface GetExtkeyInfoResponse {
 }
 
 /**
+ * @property {number} index - index (on the first)
+ * @property {number[]} indexes? - index list
+ */
+export interface GetIndexData {
+    index: number;
+    indexes?: number[];
+}
+
+/**
  * Request for get issuance blinding key.
  * @property {string} masterBlindingKey - master blinding key
  * @property {string} txid - utxo txid
@@ -1971,6 +1986,7 @@ export interface GetSighashRequest {
  * @property {string} hashType - hash type (taproot, p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh)
  * @property {string} sighashType? - signature hash type. (default(for taproot), all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  * @property {string} annex? - taproot annex bytes.
  * @property {bigint | number} codeSeparatorPosition? - (for tapscript) OP_CODESEPARATOR position.
  */
@@ -1981,6 +1997,7 @@ export interface GetSighashTxIn {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
     annex?: string;
     codeSeparatorPosition?: bigint | number;
 }
@@ -2023,6 +2040,34 @@ export interface GetTapScriptTreeInfoRequest {
     internalPubkey?: string;
     internalPrivkey?: string;
     tree: TapBranchData[];
+}
+
+/**
+ * Request for get txin index.
+ * @property {string} tx - transaction hex
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {string} txid - utxo txid
+ * @property {number} vout - utxo vout
+ */
+export interface GetTxInIndexRequest {
+    tx: string;
+    isElements?: boolean;
+    txid: string;
+    vout: number;
+}
+
+/**
+ * Request for get txout index.
+ * @property {string} tx - transaction hex
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {string} address? - target address
+ * @property {string} directLockingScript? - target locking script
+ */
+export interface GetTxOutIndexRequest {
+    tx: string;
+    isElements?: boolean;
+    address?: string;
+    directLockingScript?: string;
 }
 
 /**
@@ -2209,9 +2254,11 @@ export interface ParseDescriptorRequest {
  * @property {string} type - descriptor type.
  * @property {string} address? - address (This field is only available for types other than `raw`.)
  * @property {string} lockingScript - locking script
- * @property {string} hashType? - hash type (p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh)
+ * @property {string} hashType? - hash type (p2wpkh, p2wsh, p2pkh, p2sh, p2sh-p2wpkh, p2sh-p2wsh, taproot)
  * @property {string} redeemScript? - redeem script on script hash. (This field is only available when hashType is p2wsh, p2sh, or p2sh-p2wsh.)
  * @property {boolean} includeMultisig - multisig flag (whether multisig descriptor is included in scripts stack)
+ * @property {string} treeString? - taproot script tree serialize string. (cfd format)
+ * @property {DescriptorKeyJson[]} keys? - key list
  * @property {DescriptorScriptJson[]} scripts? - descriptor item.
  */
 export interface ParseDescriptorResponse {
@@ -2221,6 +2268,8 @@ export interface ParseDescriptorResponse {
     hashType?: string;
     redeemScript?: string;
     includeMultisig: boolean;
+    treeString?: string;
+    keys?: DescriptorKeyJson[];
     scripts?: DescriptorScriptJson[];
 }
 
@@ -2378,7 +2427,7 @@ export interface PsbtInputRequest {
  * @property {TxOutRequest} witnessUtxo? - witness utxo data.
  * @property {string} redeemScript? - redeem script or witness script
  * @property {PsbtBip32PubkeyInput[]} bip32Derives? - psbt bip32 pubkey data
- * @property {string} sighash? - sighash type (ALL, SINGLE, NONE)
+ * @property {string} sighash? - sighash type (ALL, SINGLE, NONE, 'ALL|ANYONECANPAY', 'SINGLE|ANYONECANPAY', 'NONE|ANYONECANPAY')
  * @property {PsbtSignatureData[]} partialSignature? - psbt signature data.
  * @property {PsbtMapData[]} unknown? - psbt map data.
  */
@@ -2501,6 +2550,7 @@ export interface PubkeyListData {
  * @property {boolean} derEncode? - use der-encode
  * @property {string} sighashType? - sighash type (all, none or single)
  * @property {boolean} sighashAnyoneCanPay? - sighash anyone can pay flag
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  * @property {string} relatedPubkey? - related pubkey
  */
 export interface PubkeySignData {
@@ -2509,6 +2559,7 @@ export interface PubkeySignData {
     derEncode?: boolean;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
     relatedPubkey?: string;
 }
 
@@ -2786,6 +2837,7 @@ export interface SignatureDataResponse {
  * @property {boolean} derEncode? - der encode option flag. Valid when type is auto or sign.
  * @property {string} sighashType? - signature hash type. (all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  */
 export interface SignData {
     hex: string;
@@ -2793,6 +2845,7 @@ export interface SignData {
     derEncode?: boolean;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
 }
 
 /**
@@ -2852,6 +2905,7 @@ export interface SignWithPrivkeyRequest {
  * @property {string} hashType - hash type (taproot, p2pkh, p2wpkh or p2sh-p2wpkh)
  * @property {string} sighashType? - signature hash type. (default(for taproot), all, none or single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  * @property {bigint | number} amount? - satoshi amount. Use only when utxos is not set. (need either amount or confidentialValueCommitment)
  * @property {string} confidentialValueCommitment? - value commitment. Use only when utxos is not set. (need either amount or confidentialValueCommitment)
  * @property {boolean} isGrindR? - grind-R flag
@@ -2866,11 +2920,40 @@ export interface SignWithPrivkeyTxInRequest {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
     amount?: bigint | number;
     confidentialValueCommitment?: string;
     isGrindR?: boolean;
     auxRand?: string;
     annex?: string;
+}
+
+/**
+ * add txout data for split
+ * @property {bigint | number} amount - satoshi amount
+ * @property {string} address? - target address (or confidential address)
+ * @property {string} directLockingScript? - target locking script
+ * @property {string} directNonce? - add nonce data (elements only)
+ */
+export interface SplitTxOutData {
+    amount: bigint | number;
+    address?: string;
+    directLockingScript?: string;
+    directNonce?: string;
+}
+
+/**
+ * Request for split txout.
+ * @property {string} tx - transaction hex
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {number} index - split target txout index.
+ * @property {SplitTxOutData[]} txouts - add txout data for split
+ */
+export interface SplitTxOutRequest {
+    tx: string;
+    isElements?: boolean;
+    index: number;
+    txouts: SplitTxOutData[];
 }
 
 /**
@@ -2965,12 +3048,14 @@ export interface TapScriptInfoByControlRequest {
  * @property {string} type? - parameter type. (binary, sign)
  * @property {string} sighashType? - signature hash type. Valid only when type is sign. (default, all, none or single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag. Valid only when type is sign.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  */
 export interface TapScriptSignData {
     hex: string;
     type?: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
 }
 
 /**
@@ -3289,6 +3374,7 @@ export interface VerifySignatureResponse {
  * @property {string} hashType - hash type. (p2pkh, p2sh, p2wpkh, p2wsh, taproot)
  * @property {string} sighashType? - signature hash type. (all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  * @property {bigint | number} amount? - satoshi amount. Use only when utxos is not set. (Only when using witness. Need either amount or confidentialValueCommitment)
  * @property {string} confidentialValueCommitment? - value commitment. Use only when utxos is not set. (Only when using witness. Need either amount or confidentialValueCommitment)
  * @property {string} annex? - taproot annex bytes.
@@ -3303,6 +3389,7 @@ export interface VerifySignatureTxInRequest {
     hashType: string;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
     amount?: bigint | number;
     confidentialValueCommitment?: string;
     annex?: string;
@@ -3351,12 +3438,14 @@ export interface VerifySignTxInUtxoData {
 }
 
 /**
+ * Updating WitnessStack data. Only index and hex are used in UpdatePeginWitnessStack.
  * @property {number} index - stack index
  * @property {string} hex - update data
  * @property {string} type? - parameter type. (binary, sign, pubkey, redeem_script)
  * @property {boolean} derEncode? - der encode option flag. Valid when type is auto or sign.
  * @property {string} sighashType? - signature hash type. (all, none, single)
  * @property {boolean} sighashAnyoneCanPay? - sighashType anyone can pay flag.
+ * @property {boolean} sighashRangeproof? - (for Elements) sighash rangeproof
  */
 export interface WitnessStackData {
     index: number;
@@ -3365,6 +3454,7 @@ export interface WitnessStackData {
     derEncode?: boolean;
     sighashType?: string;
     sighashAnyoneCanPay?: boolean;
+    sighashRangeproof?: boolean;
 }
 
 /**
@@ -3943,6 +4033,20 @@ export function GetTapScriptTreeInfo(jsonObject: GetTapScriptTreeInfoRequest): T
 export function GetTapScriptTreeInfoByControlBlock(jsonObject: TapScriptInfoByControlRequest): TapScriptInfo;
 
 /**
+ * Get TxIn Index.
+ * @param {GetTxInIndexRequest} jsonObject - request data.
+ * @return {GetIndexData} - response data.
+ */
+export function GetTxInIndex(jsonObject: GetTxInIndexRequest): GetIndexData;
+
+/**
+ * Get TxOut Index.
+ * @param {GetTxOutIndexRequest} jsonObject - request data.
+ * @return {GetIndexData} - response data.
+ */
+export function GetTxOutIndex(jsonObject: GetTxOutIndexRequest): GetIndexData;
+
+/**
  * Get unblinded address.
  * @param {GetUnblindedAddressRequest} jsonObject - request data.
  * @return {GetUnblindedAddressResponse} - response data.
@@ -4090,6 +4194,13 @@ export function SignPsbt(jsonObject: SignPsbtRequest): PsbtOutputData;
 export function SignWithPrivkey(jsonObject: SignWithPrivkeyRequest): RawTransactionResponse;
 
 /**
+ * Split txout.
+ * @param {SplitTxOutRequest} jsonObject - request data.
+ * @return {RawTransactionResponse} - response data.
+ */
+export function SplitTxOut(jsonObject: SplitTxOutRequest): RawTransactionResponse;
+
+/**
  * TweakAdd privkey.
  * @param {TweakPrivkeyData} jsonObject - request data.
  * @return {OutputPrivkeyData} - response data.
@@ -4137,6 +4248,13 @@ export function TweakMulPubkey(jsonObject: TweakPubkeyData): PubkeyData;
  * @return {UnblindRawTransactionResponse} - response data.
  */
 export function UnblindRawTransaction(jsonObject: UnblindRawTransactionRequest): UnblindRawTransactionResponse;
+
+/**
+ * Update Pegin witness stack. isElements not reference (force true).
+ * @param {UpdateWitnessStackRequest} jsonObject - request data.
+ * @return {RawTransactionResponse} - response data.
+ */
+export function UpdatePeginWitnessStack(jsonObject: UpdateWitnessStackRequest): RawTransactionResponse;
 
 /**
  * Update txout amount.

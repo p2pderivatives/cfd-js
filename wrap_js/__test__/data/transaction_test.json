@@ -2590,7 +2590,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -3380,7 +3380,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -3724,7 +3724,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -3743,7 +3743,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -4308,7 +4308,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Txid size Invalid."
+                    "message": "Txid size Invalid.",
+                    "python": "Error: Invalid txid."
                 }
             },
             {
@@ -4329,7 +4330,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Txid size Invalid."
+                    "message": "Txid size Invalid.",
+                    "python": "Error: Invalid txid."
                 }
             },
             {
@@ -4371,7 +4373,8 @@
                 "error": {
                     "code": 3,
                     "type": "out_of_range",
-                    "message": "Json value convert error. Value out of range."
+                    "message": "Json value convert error. Value out of range.",
+                    "capi": "Txid is not found."
                 }
             },
             {
@@ -4414,7 +4417,8 @@
                 "error": {
                     "code": 3,
                     "type": "out_of_range",
-                    "message": "Json value convert error. Value out of range."
+                    "message": "Json value convert error. Value out of range.",
+                    "capi": "witness stack set error."
                 }
             },
             {
@@ -4457,7 +4461,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             },
             {
@@ -4479,7 +4484,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -4501,7 +4506,261 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Transaction.SplitTxOut",
+        "cases": [
+            {
+                "case": "split index=0, output+1",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 0,
+                    "txouts": [
+                        {
+                            "amount": 499999000,
+                            "address": "bc1qz33wef9ehrvd7c64p27jf5xtvn50946xfzpxx4"
+                        }
+                    ]
+                },
+                "expect": {
+                    "hex": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0200943577000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb1861cd1d000000001600141462eca4b9b8d8df63550abd24d0cb64e8f2d74600000000"
+                }
+            },
+            {
+                "case": "split index=1, output+3",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000",
+                    "index": 1,
+                    "txouts": [
+                        {
+                            "amount": 5000000,
+                            "address": "bc1qz33wef9ehrvd7c64p27jf5xtvn50946xfzpxx4"
+                        },
+                        {
+                            "amount": 6000000,
+                            "address": "3LhVshd9QVVN4wvijTFtff89dM71VoP5kV"
+                        },
+                        {
+                            "amount": 7000000,
+                            "address": "bc1qze8fshg0eykfy7nxcr96778xagufv2w4z2vce4"
+                        }
+                    ]
+                },
+                "expect": {
+                    "hex": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff060200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429efc0c62d0000000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a42404b4c00000000001600141462eca4b9b8d8df63550abd24d0cb64e8f2d746808d5b000000000017a914d081b8e259b744aa903e1831cfce8956941273ce87c0cf6a0000000000160014164e985d0fc92c927a66c0cbaf78e6ea389629d500000000"
+                }
+            },
+            {
+                "case": "split index=0, output+2 by lockingScript",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 0,
+                    "txouts": [
+                        {
+                            "amount": 400000000,
+                            "directLockingScript": "00141462eca4b9b8d8df63550abd24d0cb64e8f2d746"
+                        },
+                        {
+                            "amount": 99999000,
+                            "directLockingScript": "0014164e985d0fc92c927a66c0cbaf78e6ea389629d5"
+                        }
+                    ]
+                },
+                "expect": {
+                    "hex": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0300943577000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb0084d717000000001600141462eca4b9b8d8df63550abd24d0cb64e8f2d74618ddf50500000000160014164e985d0fc92c927a66c0cbaf78e6ea389629d500000000"
+                }
+            },
+            {
+                "case": "error: split index=0, no input",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 0,
+                    "txouts": []
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "json": "list is empty.",
+                    "capi": "Invalid split output handle state. list is null"
+                }
+            },
+            {
+                "case": "error: invalid index",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 2,
+                    "txouts": [
+                        {
+                            "amount": 499999000,
+                            "address": "bc1qz33wef9ehrvd7c64p27jf5xtvn50946xfzpxx4"
+                        }
+                    ]
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "vin out_of_range error."
+                }
+            },
+            {
+                "case": "error: amount over",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 0,
+                    "txouts": [
+                        {
+                            "amount": 2400000000,
+                            "directLockingScript": "00141462eca4b9b8d8df63550abd24d0cb64e8f2d746"
+                        },
+                        {
+                            "amount": 99999001,
+                            "directLockingScript": "0014164e985d0fc92c927a66c0cbaf78e6ea389629d5"
+                        }
+                    ]
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "The Amount is too large."
+                }
+            },
+            {
+                "case": "error: empty locking script",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "index": 0,
+                    "txouts": [
+                        {
+                            "amount": 400000000
+                        },
+                        {
+                            "amount": 99999000,
+                            "directLockingScript": "0014164e985d0fc92c927a66c0cbaf78e6ea389629d5"
+                        }
+                    ]
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "json": "Base58 decode error.",
+                    "capi": "Failed to parameter. address and script is null."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Transaction.GetTxInIndex",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000",
+                    "txid": "d2911125d6ce9fac819206b5f262caafd76c4ce2f5893b4e54320c6c4cd3dd81",
+                    "vout": 0
+                },
+                "expect": {
+                    "index": 1
+                }
+            },
+            {
+                "case": "error: outpoint not found",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000",
+                    "txid": "f2911125d6ce9fac819206b5f262caafd76c4ce2f5893b4e54320c6c4cd3dd81",
+                    "vout": 0
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Txid is not found."
+                }
+            }
+        ]
+    },
+    {
+        "name": "Transaction.GetTxOutIndex",
+        "cases": [
+            {
+                "case": "address is single",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000",
+                    "address": "bc1qafd8yzxdm77zphvnuy4l980tqzmgcptrs2jsy3rvn3d42jgf2nfqc4zt4j"
+                },
+                "expect": {
+                    "index": 1,
+                    "indexes": [
+                        1
+                    ]
+                }
+            },
+            {
+                "case": "address is multiple",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff040200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a42406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d200000000",
+                    "address": "bc1qafd8yzxdm77zphvnuy4l980tqzmgcptrs2jsy3rvn3d42jgf2nfqc4zt4j"
+                },
+                "expect": {
+                    "index": 1,
+                    "indexes": [
+                        1,
+                        3
+                    ]
+                }
+            },
+            {
+                "case": "locking script is single",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff030200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a4200000000",
+                    "directLockingScript": "0020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d2"
+                },
+                "expect": {
+                    "index": 1,
+                    "indexes": [
+                        1
+                    ]
+                }
+            },
+            {
+                "case": "locking script is multiple",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff040200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a42406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d200000000",
+                    "directLockingScript": "0020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d2"
+                },
+                "expect": {
+                    "index": 1,
+                    "indexes": [
+                        1,
+                        3
+                    ]
+                }
+            },
+            {
+                "case": "error: address not found",
+                "request": {
+                    "tx": "0200000001ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb00000000",
+                    "address": "bc1qafd8yzxdm77zphvnuy4l980tqzmgcptrs2jsy3rvn3d42jgf2nfqc4zt4j"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "target is not found.",
+                    "capi": "Failed to parameter. search target is not found."
+                }
+            },
+            {
+                "case": "error: empty input",
+                "request": {
+                    "tx": "02000000034cdeada737db97af334f0fa4e87432d6068759eea65a3067d1f14a979e5a9dea0000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20000000000ffffffff81ddd34c6c0c32544e3b89f5e24c6cd7afca62f2b5069281ac9fced6251191d20100000000ffffffff040200000000000000220020c5ae4ff17cec055e964b573601328f3f879fa441e53ef88acdfd4d8e8df429ef406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d215cd5b0700000000220020f39f6272ba6b57918eb047c5dc44fb475356b0f24c12fca39b19284e80008a42406f400100000000220020ea5a7208cddfbc20dd93e12bf29deb00b68c056382a502446c9c5b55490954d200000000"
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "message": "Base58 decode error.",
+                    "capi": "Failed to parameter. search target is not found."
                 }
             }
         ]
@@ -5102,7 +5361,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -5126,7 +5385,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -5394,7 +5653,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -5418,7 +5677,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -6475,7 +6734,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -6500,7 +6759,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -7121,7 +7380,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -7147,7 +7406,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -7705,7 +7964,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "json": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "json": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {

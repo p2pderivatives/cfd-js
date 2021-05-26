@@ -78,7 +78,7 @@
           "sighash": "",
           "sighash:require": "optional",
           "sighash:comment": "sighash type",
-          "sighash:hint": "ALL, SINGLE, NONE",
+          "sighash:hint": "ALL, SINGLE, NONE, 'ALL|ANYONECANPAY', 'SINGLE|ANYONECANPAY', 'NONE|ANYONECANPAY'",
           "partialSignature:require": "optional",
           "partialSignature:comment": "signature",
           "partialSignature": [{

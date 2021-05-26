@@ -66,6 +66,22 @@ const createTestFunc = (helper) => {
       resp = cfd.UpdateWitnessStack(request);
       resp = await helper.getResponse(resp);
       break;
+    case 'ConfidentialTransaction.UpdatePeginWitnessStack':
+      resp = cfd.UpdatePeginWitnessStack(request);
+      resp = await helper.getResponse(resp);
+      break;
+    case 'ConfidentialTransaction.SplitTxOut':
+      resp = cfd.SplitTxOut(request);
+      resp = await helper.getResponse(resp);
+      break;
+    case 'ConfidentialTransaction.GetTxInIndex':
+      resp = cfd.GetTxInIndex(request);
+      resp = await helper.getResponse(resp);
+      break;
+    case 'ConfidentialTransaction.GetTxOutIndex':
+      resp = cfd.GetTxOutIndex(request);
+      resp = await helper.getResponse(resp);
+      break;
     case 'ConfidentialTransaction.AddSign':
       resp = cfd.AddSign(request);
       resp = await helper.getResponse(resp);

@@ -39,6 +39,12 @@ const testCase = [
     ['{"signature":"47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb","sighashType":"none","sighashAnyoneCanPay":true}'],
     '{"signature":"3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb82"}',
   ),
+  TestHelper.createTestCase(
+    'EncodeSignatureByDer SigHashType(none|anyonecanpay)2',
+    EncodeSignatureByDer,
+    ['{"signature":"47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb","sighashType":"none|anyonecanpay"}'],
+    '{"signature":"3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb82"}',
+  ),
 ];
 
 const errorCase = [
@@ -58,13 +64,19 @@ const errorCase = [
     'EncodeSignatureByDer Error(empty sighash type)',
     EncodeSignatureByDer,
     ['{"signature":"47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb","sighashType":"", "sighashAnyoneCanPay":false}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid sighashType. sighashType must be \\"all, none, single\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid sighashType. sighashType must be \\"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\\"."}}',
   ),
   TestHelper.createTestCase(
     'EncodeSignatureByDer Error(invalid sighash type)',
     EncodeSignatureByDer,
     ['{"signature":"47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb","sighashType":"dummy", "sighashAnyoneCanPay":false}'],
-    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid sighashType. sighashType must be \\"all, none, single\\"."}}',
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid sighashType. sighashType must be \\"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\\"."}}',
+  ),
+  TestHelper.createTestCase(
+    'EncodeSignatureByDer Error(invalid sighash type str)',
+    EncodeSignatureByDer,
+    ['{"signature":"47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb","sighashType":"none|anyonecanpay|anyonecanpay"}'],
+    '{"error":{"code":1,"type":"illegal_argument","message":"Invalid sighashType. sighashType must be \\"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\\"."}}',
   ),
 ];
 

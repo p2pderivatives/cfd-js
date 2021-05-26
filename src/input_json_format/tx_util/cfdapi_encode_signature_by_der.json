@@ -13,7 +13,10 @@
     "sighashType:hint": "all, none, single",
     "sighashAnyoneCanPay": false,
     "sighashAnyoneCanPay:require": "optional",
-    "sighashAnyoneCanPay:comment": "sighash anyone can pay"
+    "sighashAnyoneCanPay:comment": "sighash anyone can pay",
+    "sighashRangeproof": false,
+    "sighashRangeproof:require": "optional",
+    "sighashRangeproof:comment": "(for Elements) sighash rangeproof"
   },
   "response": {
     ":class": "EncodeSignatureByDerResponse",

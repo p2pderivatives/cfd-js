@@ -15,6 +15,12 @@
                     "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -40,6 +46,12 @@
                     "lockingScript": "76a91406afd46bcdfd22ef94ac122aa11f241244a37ecc88ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee5"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -64,6 +76,12 @@
                     "address": "1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH",
                     "lockingScript": "210279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798ac",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -88,6 +106,12 @@
                     "lockingScript": "00147dd65592d0ab2fe0d0257d571abf032cd9db93dc",
                     "hashType": "p2wpkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -113,6 +137,12 @@
                     "lockingScript": "a914cc6ffbc0bf31af759451068f90ba7a0272b6b33287",
                     "hashType": "p2sh-p2wpkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "03fff97bd5755eeea420453a14355235d382f6472f8568a18b2f057a1460297556"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -145,6 +175,12 @@
                     "lockingScript": "0014751e76e8199196d454941c45d1b3a323f1433bd6",
                     "hashType": "p2wpkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -193,6 +229,12 @@
                     "hashType": "p2sh-p2wsh",
                     "redeemScript": "76a914c42e7ef92fdb603af844d064faad95db9bcdfd3d88ac",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd13"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -231,6 +273,16 @@
                     "address": "17Vu7st1U1KwymUKU4jJheHHGRVNqrcfLD",
                     "lockingScript": "5121022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe421025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc52ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "025cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -265,6 +317,16 @@
                     "hashType": "p2sh",
                     "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -300,6 +362,16 @@
                     "hashType": "p2sh",
                     "redeemScript": "5221022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a012103acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe52ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "03acd484e2f0c7f65309ad178a9f559abde09796974c57e714c35f110dfc27ccbe"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "022f01e5e15cca351daff3843fb70f3c2f0a1bdd05e5af888a67784ef3e10a2a01"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -335,6 +407,20 @@
                     "hashType": "p2wsh",
                     "redeemScript": "522103a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c72103774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb2103d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a53ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "03a0434d9e47f3c86235477c7b1ae6ae5d3442d49b1943c2b752a68e2a47e247c7"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03774ae7f858a9411e5ef4246b70c65aac5649980be5c17891bbec17895da008cb"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03d01115d548e7561b15c38f004d734633687cf4419620095bc5b0f47070afe85a"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -375,6 +461,20 @@
                     "hashType": "p2sh-p2wsh",
                     "redeemScript": "512103f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa82103499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e42102d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e53ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "03f28773c2d975288bc7d1d205c3748651b075fbc6610e58cddeeddf8f19405aa8"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "02d7924d4f7d43ea965a465ae3095ff41131e5946f3c85f79e44adbcf8e27e080e"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -420,6 +520,12 @@
                     "address": "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma",
                     "lockingScript": "210339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2ac",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -444,6 +550,12 @@
                     "lockingScript": "76a914b28d12ab72a51b10114b17ce76b536265194e1fb88ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "extPrivkey",
+                            "key": "xprvA6Px9oYCqViqTHwPBpmnQoQoVKREy1PwgbsNHg46ZD4NdQwCV7zxfCHJzF7r49LoPaVZ9m5DDRm7UbEzrtNXppy4GfiPELJ6BQmAgt1UZSJ"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -470,6 +582,12 @@
                     "lockingScript": "76a914c463e6dedb2b780434e60fcee3f2d0a0fbcbbc9088ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6KVE2fr7hNDB8jMhwbwe9f1ynwAP362XwHDVmxcYirGYcaTzYwYdPtWnzc7h6rdgMcrCzp56qDwRUcDEJ35vshPQcQASkV2cFaDkPZEQcyk"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -497,6 +615,16 @@
                     "hashType": "p2wsh",
                     "redeemScript": "512102c7d7595371a9a01c6f7e34ee46ecfa54aef9c8fa3021b1892c0cad4b1af443f22102f129cf00a0daa7f4a046908e27e5faf783ebc57c4a34467daea67094ce77581352ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6BgWskLoyHmAu7ZPbBVoZW5RJZ9tk27v7mjgMApM9chxYC26bJkgENT3FPqYp8mCBcVr2bjMezjdqQT68z93R14DcJyXzeWu49nN1sLPC1y"
+                        },
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6EKMC2gSMfKgpKxeMAZB4aKYTjyDKWmkw5uTaac5UU8SyzXpu21vNcu575tjtJWo2jUpr3KXmoT5jNGRss1JVoQhiNjLsyyaMXrXZD9qnJF"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -534,6 +662,16 @@
                     "hashType": "p2wsh",
                     "redeemScript": "512102c57aa6e9aede38183a74ab6c30846b75b41670f4b23eee9c119bcb2138a6898f21038d0eb17ca501b8584994d65ff13a524522fdcfd3feb4f87f35e70f49a2720a2c52ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6BgWskLoyHmBLsxHAE2qLXnRxr5wf1PfTBAjhFMSp4LRmhghARTxrote35kSLcWDZVsGeh35tDdTXUEzBWGSrpriZgL49P2p4i4kS5B474W"
+                        },
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6EKMC2gSMfKhGnLRmKzvpVVpaCJ16CinBPGtiDTwUMXiVPopMEFYD6KdNQ8QZY5zNB3HfAJLN9fZrpLk17mGnXKa3gaHv5uAQsqCmPwLU2x"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -667,6 +805,134 @@
                 }
             },
             {
+                "case": "taproot schnorr",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "tr(ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a)",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "taproot",
+                    "address": "bcrt1paag57xhtzja2dnzh4vex37ejnjj5p3yy2nmlgem3a4e3ud962gdqqctzwn",
+                    "lockingScript": "5120ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a",
+                    "hashType": "taproot",
+                    "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ],
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "5120ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a",
+                            "address": "bcrt1paag57xhtzja2dnzh4vex37ejnjj5p3yy2nmlgem3a4e3ud962gdqqctzwn",
+                            "hashType": "taproot",
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "taproot extpubkey",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "tr([bd16bee5/0]xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*)",
+                    "bip32DerivationPath": "1",
+                    "network": "mainnet"
+                },
+                "expect": {
+                    "type": "taproot",
+                    "address": "bc1p33h4j4kre3e9r4yrl35rlgrtyt2w9hw8f94zty9vacmvfgcnlqtq0txdxt",
+                    "lockingScript": "51208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816",
+                    "hashType": "taproot",
+                    "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "extPubkey",
+                            "key": "xpub6EKMC2gSMfKgSwn7V9VZn7x1MvoeeVzSmmtSJ4z2L2d6R4WxvdQMouokypZHVp4fgKycrrQnGr6WJ5ED5jG9Q9FiA1q5gKYUc8u6JHJhdo8"
+                        }
+                    ],
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "51208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816",
+                            "address": "bc1p33h4j4kre3e9r4yrl35rlgrtyt2w9hw8f94zty9vacmvfgcnlqtq0txdxt",
+                            "hashType": "taproot",
+                            "keyType": "extPubkey",
+                            "key": "xpub6EKMC2gSMfKgSwn7V9VZn7x1MvoeeVzSmmtSJ4z2L2d6R4WxvdQMouokypZHVp4fgKycrrQnGr6WJ5ED5jG9Q9FiA1q5gKYUc8u6JHJhdo8"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "taproot tapscript single",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "tr(ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a,c:pk_k(8c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816))",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "taproot",
+                    "address": "bcrt1p2druqmxfa49j9ph0ea8d9y4gzrhy2x7u2zj0p2622d9r7k28v02s6x9jx3",
+                    "lockingScript": "51205347c06cc9ed4b2286efcf4ed292a810ee451bdc50a4f0ab4a534a3f594763d5",
+                    "hashType": "taproot",
+                    "includeMultisig": false,
+                    "treeString": "tl(208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816ac)",
+                    "keys": [
+                        {
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ],
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "51205347c06cc9ed4b2286efcf4ed292a810ee451bdc50a4f0ab4a534a3f594763d5",
+                            "address": "bcrt1p2druqmxfa49j9ph0ea8d9y4gzrhy2x7u2zj0p2622d9r7k28v02s6x9jx3",
+                            "hashType": "taproot",
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "taproot tapscript tapbranch (uncheck)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "tr(ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a,{c:pk_k(8c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816),{c:pk_k([bd16bee5/0]xpub69H7F5d8KSRgmmdJg2KhpAK8SR3DjMwAdkxj3ZuxV27CprR9LgpeyGmXUbC6wb7ERfvrnKZjXoUmmDznezpbZb7ap6r1D3tgFxHmwMkQTPH/0/0/*),thresh(2,c:pk_k(5cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bc),s:sha256(e38990d0c7fc009880a9c07c23842e886c6bbdc964ce6bdd5817ad357335ee6f),a:hash160(dd69735817e0e3f6f826a9238dc2e291184f0131))}})",
+                    "bip32DerivationPath": "1",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "taproot",
+                    "address": "bcrt1pfuqf4j7ceyzmu3rsmude93ctu948r565hf2ucrn9z7zn7a7hjegskj3rsv",
+                    "lockingScript": "51204f009acbd8c905be4470df1b92c70be16a71d354ba55cc0e6517853f77d79651",
+                    "hashType": "taproot",
+                    "includeMultisig": false,
+                    "treeString": "{tl(208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816ac),{tl(208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816ac),tl(205cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bcac7c82012088a820e38990d0c7fc009880a9c07c23842e886c6bbdc964ce6bdd5817ad357335ee6f87936b82012088a914dd69735817e0e3f6f826a9238dc2e291184f0131876c935287)}}",
+                    "keys": [
+                        {
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ],
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "51204f009acbd8c905be4470df1b92c70be16a71d354ba55cc0e6517853f77d79651",
+                            "address": "bcrt1pfuqf4j7ceyzmu3rsmude93ctu948r565hf2ucrn9z7zn7a7hjegskj3rsv",
+                            "hashType": "taproot",
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ]
+                }
+            },
+            {
                 "case": "Elements pkh liquidv1",
                 "request": {
                     "isElements": true,
@@ -679,6 +945,12 @@
                     "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -704,6 +976,12 @@
                     "lockingScript": "76a914f42331c418ef4517ba644ad6e9fc99681ad4393788ac",
                     "hashType": "p2pkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -730,6 +1008,20 @@
                     "hashType": "p2sh",
                     "redeemScript": "522102054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce2103ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d9272103499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e453ae",
                     "includeMultisig": true,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "02054feb47f9c5142beb9ec06cb7c7d2e2a1be1f58e1fba3aa32ad6c2bbc53f6ce"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927"
+                        },
+                        {
+                            "keyType": "pubkey",
+                            "key": "03499fdf9e895e719cfd64e67f07d38e3226aa7b63678949e6e49b241a60e823e4"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -783,6 +1075,12 @@
                     "lockingScript": "a91409c370a0373e00cf7e3dc6bb2f37f9fb881baff487",
                     "hashType": "p2sh-p2wpkh",
                     "includeMultisig": false,
+                    "keys": [
+                        {
+                            "keyType": "pubkey",
+                            "key": "03ad52910ed03e60dc6019c8f8cf373a4466ba945ad135240f5792415e2498d927"
+                        }
+                    ],
                     "scripts": [
                         {
                             "depth": 0,
@@ -904,7 +1202,7 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Failed to check wpkh. wpkh cannot be a child of wsh."
+                    "message": "Failed to wpkh parent. only top or sh."
                 }
             },
             {

@@ -32,7 +32,7 @@ do
 done
 echo "start bitcoin node"
 
-elementsd -chain=liquidregtest -datadir=${WORKDIR_PATH}/elementsd_datadir
+elementsd -chain=liquidregtest -datadir=${WORKDIR_PATH}/elementsd_datadir -pak=02b6991705d4b343ba192c2d1b10e7b8785202f51679f26a1f2cdbe9c069f8dceb024fb0908ea9263bedb5327da23ff914ce1883f851337d71b3ca09b32701003d05
 elements-cli -chain=liquidregtest -datadir=${WORKDIR_PATH}/elementsd_datadir ping > /dev/null 2>&1
 while [ $? -ne 0 ]
 do

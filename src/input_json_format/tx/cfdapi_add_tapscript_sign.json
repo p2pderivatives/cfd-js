@@ -42,7 +42,10 @@
           "sighashType:hint": "default, all, none or single",
           "sighashAnyoneCanPay": false,
           "sighashAnyoneCanPay:require": "optional",
-          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag. Valid only when type is sign."
+          "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag. Valid only when type is sign.",
+          "sighashRangeproof": false,
+          "sighashRangeproof:require": "optional",
+          "sighashRangeproof:comment": "(for Elements) sighash rangeproof"
         }
       ],
       "tapscript": "",

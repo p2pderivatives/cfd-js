@@ -1,0 +1,46 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "SplitTxOut",
+  "comment": "Split txout.",
+  "request": {
+    ":class": "SplitTxOutRequest",
+    ":class:comment": "Request for split txout.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "index": 0,
+    "index:require": "require",
+    "index:comment": "split target txout index.",
+    "index:type": "uint32_t",
+    "txouts:require": "require",
+    "txouts:comment": "add txout list",
+    "txouts": [
+      {
+        ":class": "SplitTxOutData",
+        ":class:comment": "add txout data for split",
+        "amount": 0,
+        "amount:require": "require",
+        "amount:comment": "satoshi amount",
+        "address": "",
+        "address:require": "optional",
+        "address:comment": "target address (or confidential address)",
+        "directLockingScript": "",
+        "directLockingScript:require": "optional",
+        "directLockingScript:comment": "target locking script",
+        "directNonce": "",
+        "directNonce:require": "optional",
+        "directNonce:comment": "add nonce data (elements only)"
+      }
+    ]
+  },
+  "response": {
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
+  }
+}

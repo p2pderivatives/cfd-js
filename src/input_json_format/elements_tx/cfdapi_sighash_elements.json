@@ -51,7 +51,10 @@
       "sighashType:hint": "all, none, single",
       "sighashAnyoneCanPay": false,
       "sighashAnyoneCanPay:require": "optional",
-      "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag."
+      "sighashAnyoneCanPay:comment": "sighashType anyone can pay flag.",
+      "sighashRangeproof": false,
+      "sighashRangeproof:require": "optional",
+      "sighashRangeproof:comment": "(for Elements) sighash rangeproof"
     }
   },
   "response": {
