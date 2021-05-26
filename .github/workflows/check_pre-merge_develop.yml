@@ -13,8 +13,8 @@ on:
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 4
   IMAGE_NODE_VERSION: 14
-  GITHUB_ELEMENTS_VERSION: bitcoin-0.21.0
-  GITHUB_BITCOIN_VERSION: bitcoin-0.21.0
+  GITHUB_ELEMENTS_VERSION: v0.0.10
+  GITHUB_BITCOIN_VERSION: v0.0.10
   GITHUB_DOCKER_IMAGE: docker.pkg.github.com/cryptogarageinc/elements-testing-dockerfile/elements-testing
   ELEMENTS_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_entrypoint.sh
   BITCOIN_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_bitcoin_entrypoint.sh
@@ -27,20 +27,13 @@ jobs:
     strategy:
       matrix:
         os: [macos-10.15, windows-2019, ubuntu-18.04]
-        node: [10, 12, 14, 15]
-        exclude:
-          - os: windows-2019
-            node: 10
-          - os: macos-10.15
-            node: 10
+        node: [12, 14, 16]
         include:
-          - node: 10
-            always: false
           - node: 12
             always: false
           - node: 14
             always: false
-          - node: 15
+          - node: 16
             always: true
 
     steps:
@@ -50,7 +43,7 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - name: update to npm v7
-      if: runner.os == 'Windows'
+      if: runner.os == 'Windows' || matrix.node == '16'
       run: npm i -g npm@7
     - name: dump node version
       id: node_ver

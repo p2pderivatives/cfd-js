@@ -555,7 +555,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             },
             {
@@ -568,7 +569,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             },
             {
@@ -581,7 +583,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Invalid Pubkey data."
+                    "message": "Invalid Pubkey data.",
+                    "python": "Error: Both pubkey and redeem_script is empty."
                 }
             },
             {
@@ -607,7 +610,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "hex to byte convert error."
+                    "message": "hex to byte convert error.",
+                    "python": "Error: Invalid hex value."
                 }
             },
             {
@@ -620,7 +624,8 @@
                 "error": {
                     "code": 1,
                     "type": "illegal_argument",
-                    "message": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\"."
+                    "message": "Invalid network_type passed. network_type must be \"mainnet\" or \"testnet\" or \"regtest\".",
+                    "python": "Invalid network type. need mainchain network type."
                 }
             }
         ]

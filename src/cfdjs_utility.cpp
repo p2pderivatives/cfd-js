@@ -213,7 +213,8 @@ EncodeSignatureByDerResponseStruct UtilStructApi::EncodeSignatureByDer(
     EncodeSignatureByDerResponseStruct result;
 
     SigHashType sighash_type = TransactionStructApiBase::ConvertSigHashType(
-        request.sighash_type, request.sighash_anyone_can_pay);
+        request.sighash_type, request.sighash_anyone_can_pay,
+        request.sighash_rangeproof);
     const ByteData der_signature =
         CryptoUtil::ConvertSignatureToDer(request.signature, sighash_type);
 

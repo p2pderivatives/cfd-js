@@ -13,6 +13,7 @@
 #include "cfd/cfd_address.h"
 #include "cfdcore/cfdcore_descriptor.h"
 #include "cfdcore/cfdcore_iterator.h"
+#include "cfdcore/cfdcore_util.h"
 #include "cfdjs_internal.h"  // NOLINT
 
 namespace cfd {
@@ -35,6 +36,7 @@ using cfd::core::ScriptElement;
 using cfd::core::ScriptOperator;
 using cfd::core::SigHashAlgorithm;
 using cfd::core::SigHashType;
+using cfd::core::StringUtil;
 using cfd::core::Txid;
 using cfd::core::logger::warn;
 
@@ -76,7 +78,8 @@ SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
       return SignParameter(
           sign_data.hex, sign_data.der_encode,
           TransactionStructApiBase::ConvertSigHashType(
-              sign_data.sighash_type, sign_data.sighash_anyone_can_pay));
+              sign_data.sighash_type, sign_data.sighash_anyone_can_pay,
+              sign_data.sighash_rangeproof));
     } else {
       return SignParameter(sign_data.hex);
     }
@@ -87,7 +90,8 @@ SignParameter TransactionStructApiBase::ConvertSignDataStructToSignParameter(
       return SignParameter(
           ByteData(sign_data.hex), sign_data.der_encode,
           TransactionStructApiBase::ConvertSigHashType(
-              sign_data.sighash_type, sign_data.sighash_anyone_can_pay));
+              sign_data.sighash_type, sign_data.sighash_anyone_can_pay,
+              sign_data.sighash_rangeproof));
     case kOpCode:
       return SignParameter(ScriptOperator::Get(sign_data.hex));
     case kPubkey:
@@ -195,7 +199,8 @@ std::vector<UtxoData> TransactionStructApiBase::ConvertUtxoListForVerify(
 
 ByteData TransactionStructApiBase::ConvertSignDataToSignature(
     const std::string& hex_string, bool is_sign, bool is_der_encode,
-    const std::string& sighash_type, bool sighash_anyone_can_pay) {
+    const std::string& sighash_type, bool sighash_anyone_can_pay,
+    bool sighash_rangeproof) {
   ByteData byte_data;
   if (is_sign && is_der_encode) {
     if (hex_string.empty()) {
@@ -205,7 +210,7 @@ ByteData TransactionStructApiBase::ConvertSignDataToSignature(
           "Invalid hex string. empty sign hex.");
     }
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        sighash_type, sighash_anyone_can_pay);
+        sighash_type, sighash_anyone_can_pay, sighash_rangeproof);
     byte_data = CryptoUtil::ConvertSignatureToDer(hex_string, sighashtype);
   } else if (hex_string.empty()) {
     // do nothing
@@ -217,29 +222,68 @@ ByteData TransactionStructApiBase::ConvertSignDataToSignature(
 
 SigHashType TransactionStructApiBase::ConvertSigHashType(
     const std::string& sighash_type_string, bool is_anyone_can_pay,
-    bool has_taproot) {
-  std::string check_string = sighash_type_string;
-  std::transform(
-      check_string.begin(), check_string.end(), check_string.begin(),
-      ::tolower);
+    bool is_rangeproof, bool has_taproot, const std::string& error_message) {
+  std::string check_string = StringUtil::ToLower(sighash_type_string);
   if (check_string == "all") {
-    return SigHashType(SigHashAlgorithm::kSigHashAll, is_anyone_can_pay);
+    return SigHashType(
+        SigHashAlgorithm::kSigHashAll, is_anyone_can_pay, is_rangeproof);
   } else if (check_string == "none") {
-    return SigHashType(SigHashAlgorithm::kSigHashNone, is_anyone_can_pay);
+    return SigHashType(
+        SigHashAlgorithm::kSigHashNone, is_anyone_can_pay, is_rangeproof);
   } else if (check_string == "single") {
-    return SigHashType(SigHashAlgorithm::kSigHashSingle, is_anyone_can_pay);
+    return SigHashType(
+        SigHashAlgorithm::kSigHashSingle, is_anyone_can_pay, is_rangeproof);
   } else if (
-      has_taproot && (check_string == "default") && !is_anyone_can_pay) {
+      has_taproot && (check_string == "default") && !is_anyone_can_pay &&
+      !is_rangeproof) {
     return SigHashType(SigHashAlgorithm::kSigHashDefault);
   }
+
+  auto str_list = StringUtil::Split(check_string, "|");
+  bool is_error = false;
+  SigHashType sighash_type;
+  if (str_list[0] == "all") {
+    sighash_type = SigHashType(SigHashAlgorithm::kSigHashAll);
+  } else if (str_list[0] == "none") {
+    sighash_type = SigHashType(SigHashAlgorithm::kSigHashNone);
+  } else if (str_list[0] == "single") {
+    sighash_type = SigHashType(SigHashAlgorithm::kSigHashSingle);
+  } else {
+    is_error = true;
+  }
+  if (!is_error) {
+    for (size_t index = 1; (index < str_list.size()) && (!is_error); ++index) {
+      if (str_list[index] == "anyonecanpay") {
+        if (sighash_type.IsAnyoneCanPay())
+          is_error = true;
+        else
+          sighash_type.SetAnyoneCanPay(true);
+      } else if (str_list[index] == "rangeproof") {
+        if (sighash_type.IsRangeproof())
+          is_error = true;
+        else
+          sighash_type.SetRangeproof(true);
+      } else {
+        is_error = true;
+      }
+    }
+    if (!is_error) {
+      if (is_anyone_can_pay) sighash_type.SetAnyoneCanPay(true);
+      if (is_rangeproof) sighash_type.SetRangeproof(true);
+      return sighash_type;
+    }
+  }
+
+  std::string err_msg =
+      "Invalid sighashType. sighashType must be "
+      "\"all, none, single, all|anyonecanpay, none|anyonecanpay,"
+      " single|anyonecanpay\".";
+  if (!error_message.empty()) err_msg = error_message;
   warn(
       CFD_LOG_SOURCE,
-      "Failed to CreateMultisig. Invalid sighash_type: sighashType={}",
+      "Failed to parameter. Invalid sighash_type: sighashType={}",
       sighash_type_string);
-  throw CfdException(
-      CfdError::kCfdIllegalArgumentError,
-      "Invalid sighashType. sighashType must be "
-      "\"all, none, single\".");
+  throw CfdException(CfdError::kCfdIllegalArgumentError, err_msg);
 }
 
 ExtractScriptData TransactionStructApiBase::ExtractLockingScript(

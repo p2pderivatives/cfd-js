@@ -72,24 +72,29 @@ class TransactionStructApiBase {
    * @param[in] is_sign                 Whether signature data is provided
    * @param[in] is_der_encode           Whether the signature is DER encoded
    * @param[in] sighash_type            SigHash type
-   * @param[in] sighash_anyone_can_pay  Flag determining if SigHash is
+   * @param[in] sighash_anyone_can_pay  whether or not anyone_can_pay is used
+   * @param[in] sighash_rangeproof      whether or not rangeproof is used
    * anyone_can_pay
    * @return Converted signature information.
    */
   static ByteData ConvertSignDataToSignature(
       const std::string& hex_string, bool is_sign, bool is_der_encode,
-      const std::string& sighash_type, bool sighash_anyone_can_pay);
+      const std::string& sighash_type, bool sighash_anyone_can_pay,
+      bool sighash_rangeproof);
 
   /**
    * @brief Convert a string to a SigHashType object.
    * @param[in] sighash_type_string   SigHashType as a string
    * @param[in] is_anyone_can_pay     whether or not anyone_can_pay is used
+   * @param[in] is_rangeproof         whether or not rangeproof is used
    * @param[in] has_taproot           has taproot sighashtype.
+   * @param[in] error_message         optional error message.
    * @return SigHashType object
    */
   static cfd::core::SigHashType ConvertSigHashType(
       const std::string& sighash_type_string, bool is_anyone_can_pay,
-      bool has_taproot = false);
+      bool is_rangeproof, bool has_taproot = false,
+      const std::string& error_message = "");
 
   /**
    * @brief LockingScriptの解析を行う.

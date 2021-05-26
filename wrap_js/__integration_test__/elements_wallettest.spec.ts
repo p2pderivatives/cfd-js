@@ -7,6 +7,24 @@ import {assert} from 'console';
 
 const isDebug = false;
 
+/*
+offline key mnemonic:
+turtle seat reward crime taste ability enlist track ensure powder animal buddy monitor sphere rich balance excuse joy pupil barely connect equip boost enact
+root: tprv8ZgxMBicQKsPetRsx1v2agxEqLt6yDL2Vx5dTNTvwQur8xok8Q9KjgnZVEbAx62PSPhovnuEUfT97vhA55frYEjFimDaTvxufx1vkvcHZ3D
+44h/0h/0h:
+- tprv8guKWxTYHjz6xzx8FUVRBzKXEu81rwWgPBZteAMhTy8eaZ3FyAJ1rVMBd8soiGrWqwz7pdfyxoXSqWhN5o1C1EaBPrdgqUs38nACUFYVsaD
+- tpubDDbMfNVnS7fmrTyv98A1bPydovdx2GhaxVAfvgPztEw3R3J2bZ7c2yy3oHx1D3ivjEH5tidRdA766QC83omWBtoUN7CBrk6vyogkTEPUb5b
+03b6991705d4b343ba192c2d1b10e7b8785202f51679f26a1f2cdbe9c069f8dceb
+negate: 02b6991705d4b343ba192c2d1b10e7b8785202f51679f26a1f2cdbe9c069f8dceb
+
+online key:
+cVSf1dmLm1XjafyXSXn955cyb2uabdtXxjBXx6fHMQLPQKzHCpT7
+024fb0908ea9263bedb5327da23ff914ce1883f851337d71b3ca09b32701003d05
+
+-pak=02b6991705d4b343ba192c2d1b10e7b8785202f51679f26a1f2cdbe9c069f8dceb024fb0908ea9263bedb5327da23ff914ce1883f851337d71b3ca09b32701003d05
+*/
+const testingWhitelist = '02b6991705d4b343ba192c2d1b10e7b8785202f51679f26a1f2cdbe9c069f8dceb024fb0908ea9263bedb5327da23ff914ce1883f851337d71b3ca09b32701003d05';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let cfd: any;
 const mainchainNetwork = NetworkType.Regtest;
@@ -345,7 +363,7 @@ describe('wallet test', () => {
         txid: txid1,
         vout: 0,
         isWitness: true,
-        signParam: [
+        signParams: [
           {
             hex: sigs1.signatures[0].signature,
             type: 'sign',
@@ -924,7 +942,8 @@ describe('wallet test', () => {
 
     const elmAddr1 = await elmWallet1.getNewAddress(
         AddressType.P2wpkh, 'addr1');
-    const elmCtAddr1 = elmWallet1.getConfidentialAddress(elmAddr1.address);
+    const elmCtAddr1 = await elmWallet1.getConfidentialAddress(
+        elmAddr1.address);
     console.log('address1:', elmCtAddr1);
 
     const beforeBalance = await elmWallet1.getBalance(1);
@@ -993,5 +1012,179 @@ describe('wallet test', () => {
     }
   });
 
-  // pegout test (low)
+  it('blind send tx by sighash rangeproof test', async () => {
+    const peggedAsset = elmWallet1.getPeggedAsset();
+    const elmAddr1 = await elmWallet2.getNewAddress(
+        AddressType.P2wpkh, 'addr1');
+    const elmCtAddr1 = await elmWallet2.getConfidentialAddress(
+        elmAddr1.address);
+    console.log('address1:', elmCtAddr1);
+
+    const beforeBalance = await elmWallet2.getBalance(1);
+    console.log('before balance:', beforeBalance);
+
+    const sendAmt = 100000;
+    const txBase = await cfd.ElementsCreateRawTransaction({
+      version: 2,
+      locktime: 0,
+      txouts: [{
+        asset: peggedAsset,
+        amount: sendAmt,
+        address: elmCtAddr1,
+      }],
+    });
+    const fundTx = await elmWallet1.fundRawTransaction(
+        txBase.hex, peggedAsset);
+    const blindInput: cfdjs.BlindTxInRequest[] = [];
+    for (const utxo of fundTx.utxos) {
+      blindInput.push({
+        txid: utxo.txid,
+        vout: utxo.vout,
+        asset: (utxo.asset) ? utxo.asset : '',
+        blindFactor: utxo.amountBlinder,
+        assetBlindFactor: utxo.assetBlinder,
+        amount: utxo.amount,
+      });
+    }
+    // const decFundTx = cfd.ElementsDecodeRawTransaction({hex: fundTx.hex});
+    // console.log('tx:', JSON.stringify(decFundTx, null, '  '));
+    // console.log('blindInput:', blindInput);
+    const blindTx = await cfd.BlindRawTransaction({
+      tx: fundTx.hex,
+      txins: blindInput,
+    });
+    let signTx: string = blindTx.hex;
+    // await elmWallet1.signRawTransactionWithWallet(blindTx.hex);
+    for (const utxo of fundTx.utxos) {
+      const key = await elmWallet1.dumpPrivkey(utxo.address);
+      const addrInfo = cfdjs.GetAddressInfo({
+        address: utxo.address, isElements: true});
+      let commitment = '';
+      if (utxo.confidentialKey && utxo.asset && utxo.assetBlinder &&
+          utxo.amountBlinder) {
+        commitment = cfdjs.GetCommitment({
+          amount: utxo.amount,
+          asset: utxo.asset,
+          assetBlindFactor: utxo.assetBlinder,
+          blindFactor: utxo.amountBlinder,
+        }).amountCommitment;
+      }
+      signTx = cfdjs.SignWithPrivkey({
+        tx: signTx,
+        isElements: true,
+        txin: {
+          txid: utxo.txid,
+          vout: utxo.vout,
+          amount: utxo.amount,
+          confidentialValueCommitment: commitment,
+          privkey: key,
+          hashType: addrInfo.hashType,
+          sighashType: 'all|rangeproof',
+        },
+      }).hex;
+    }
+    const decTx = await cfd.ElementsDecodeRawTransaction({hex: signTx});
+
+    // send tx
+    try {
+      console.log('send tx by sighash rangeproof:', signTx);
+      const txid = await elmWallet1.sendRawTransaction(signTx);
+      // console.log('sendRawTransaction pegin tx:', txid);
+      expect(txid).toBe(decTx.txid);
+
+      await elmWallet1.generate(1);
+      // console.log('tx:', decTx);
+
+      const balance = await elmWallet1.getBalance(1, '', '');
+      console.log('wallet balance:', balance);
+      await elmWallet1.generate(2);
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
+    await elmWallet2.forceUpdateUtxoData();
+  });
+
+  it('pegout test', async () => {
+    const pegoutAmount = 1000000;
+    const counter = 3;
+    const mainchainBip32 = 'tpubDDbMfNVnS7fmrTyv98A1bPydovdx2GhaxVAfvgPztEw3R3J2bZ7c2yy3oHx1D3ivjEH5tidRdA766QC83omWBtoUN7CBrk6vyogkTEPUb5b';
+    const pegoutDescriptor = `pkh(${mainchainBip32}/0/*)`;
+    const onlineKey = 'cVSf1dmLm1XjafyXSXn955cyb2uabdtXxjBXx6fHMQLPQKzHCpT7';
+    const onlinePubkey = '024fb0908ea9263bedb5327da23ff914ce1883f851337d71b3ca09b32701003d05';
+
+    const peggedAsset = elmWallet1.getPeggedAsset();
+    const mainchainGenesisBlockHash = elmWallet1.getParentBlockHash();
+    const elmAddr1 = await elmWallet1.getNewAddress(
+        AddressType.P2wpkh, 'addr1');
+    const elmCtAddr1 = await elmWallet1.getConfidentialAddress(
+        elmAddr1.address);
+    console.log('address1:', elmCtAddr1);
+
+    const beforeBalance = await elmWallet1.getBalance(1);
+    console.log('before balance:', beforeBalance);
+
+    const pegoutTxBase = await cfd.CreateRawPegout({
+      version: 2,
+      locktime: 0,
+      txouts: [{
+        asset: peggedAsset,
+        amount: 100000,
+        address: elmCtAddr1,
+      }],
+      pegout: {
+        amount: pegoutAmount,
+        asset: peggedAsset,
+        bip32Counter: counter,
+        bitcoinDescriptor: pegoutDescriptor,
+        elementsNetwork: network,
+        network: mainchainNetwork,
+        mainchainGenesisBlockHash,
+        masterOnlineKey: onlineKey,
+        onlinePubkey,
+        whitelist: testingWhitelist,
+      },
+    });
+    const fundTx = await elmWallet1.fundRawTransaction(
+        pegoutTxBase.hex, peggedAsset);
+    const blindInput: cfdjs.BlindTxInRequest[] = [];
+    for (const utxo of fundTx.utxos) {
+      blindInput.push({
+        txid: utxo.txid,
+        vout: utxo.vout,
+        asset: (utxo.asset) ? utxo.asset : '',
+        blindFactor: utxo.amountBlinder,
+        assetBlindFactor: utxo.assetBlinder,
+        amount: utxo.amount,
+      });
+    }
+    const blindTx = await cfd.BlindRawTransaction({
+      tx: fundTx.hex,
+      txins: blindInput,
+    });
+    const signTx = await elmWallet1.signRawTransactionWithWallet(blindTx.hex);
+    const decTx = await cfd.ElementsDecodeRawTransaction({
+      hex: signTx.hex,
+      network,
+      mainchainNetwork,
+    });
+    console.log('pegout tx:', JSON.stringify(decTx, null, '  '));
+
+    // send tx
+    try {
+      const txid = await elmWallet1.sendRawTransaction(signTx.hex);
+      // console.log('sendRawTransaction pegin tx:', txid);
+      expect(txid).toBe(decTx.txid);
+
+      await elmWallet1.generate(1);
+      // console.log('tx:', decTx);
+
+      const balance = await elmWallet1.getBalance(1, '', '');
+      console.log('wallet balance:', balance);
+      await elmWallet1.generate(2);
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
+  });
 });

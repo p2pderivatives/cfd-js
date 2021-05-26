@@ -3067,6 +3067,224 @@
                     ],
                     "feeAmount": 1166
                 }
+            },
+            {
+                "case": "real value",
+                "request": {
+                    "psbt": "cHNidP8BADUCAAAAAAEA4fUFAAAAACIAICjJbjePmp/tLuZR4KyR1k37+X+rUh6/bdKp5LhZw0nzAAAAAAABAUdSIQNIfwcMIgDqA8ZKOuQHrYKHeIK3N7VTsVOv0d2hdYRgkyECHvnOgXvotmxfFxWKBhjvhi/wpfLezy5RoVwmU9/ktiBSriICAh75zoF76LZsXxcVigYY74Yv8KXy3s8uUaFcJlPf5LYgDAAAAAABAAAAAQAAACICA0h/BwwiAOoDxko65Aetgod4grc3tVOxU6/R3aF1hGCTDAAAAAAAAAAAAQAAAAA=",
+                    "network": "regtest",
+                    "utxos": [
+                        {
+                            "outpoint": "5c4bc622f3d8e2d29b7670e7c058f87a1e485e31278c0081ce75f36e91b2ac9a,1",
+                            "txid": "5c4bc622f3d8e2d29b7670e7c058f87a1e485e31278c0081ce75f36e91b2ac9a",
+                            "vout": 1,
+                            "amount": 99899544,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "33475dfc91b775da3eb41d63219252775cb6b41fc9e1d5fd945d5b750304ac7f",
+                            "blockHeight": 316,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698342903,
+                                "version": 0,
+                                "updated": 1620698343420
+                            },
+                            "$loki": 22
+                        },
+                        {
+                            "outpoint": "5c4bc622f3d8e2d29b7670e7c058f87a1e485e31278c0081ce75f36e91b2ac9a,0",
+                            "txid": "5c4bc622f3d8e2d29b7670e7c058f87a1e485e31278c0081ce75f36e91b2ac9a",
+                            "vout": 0,
+                            "amount": 100000000,
+                            "address": "bcrt1qntzs28qdwx4ygag4fucjjjesm8g2kpt9j3732t",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/0/2)",
+                            "lockingScript": "00149ac5051c0d71aa4475154f31294b30d9d0ab0565",
+                            "blockHash": "33475dfc91b775da3eb41d63219252775cb6b41fc9e1d5fd945d5b750304ac7f",
+                            "blockHeight": 316,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698342903,
+                                "version": 0,
+                                "updated": 1620698343420
+                            },
+                            "$loki": 21
+                        },
+                        {
+                            "outpoint": "9294bbb95a14e35254ce19982edb308d39f693809b49c4258d289edcbd5a31a3,1",
+                            "txid": "9294bbb95a14e35254ce19982edb308d39f693809b49c4258d289edcbd5a31a3",
+                            "vout": 1,
+                            "amount": 98614,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "21cafe8ef00d3906c3bbfb2a373938a69899fa1297745d7089d4ddaea351324d",
+                            "blockHeight": 315,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698342321,
+                                "version": 0,
+                                "updated": 1620698342376
+                            },
+                            "$loki": 20
+                        },
+                        {
+                            "outpoint": "8d4a074c3d8e2a062dec6849fdf35fe0dea0b9f655f7e65f925bf6fb77e1ed55,1",
+                            "txid": "8d4a074c3d8e2a062dec6849fdf35fe0dea0b9f655f7e65f925bf6fb77e1ed55",
+                            "vout": 1,
+                            "amount": 4799996830,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "7c558edbc3ba155b5c68f86213f2c9a6e311ee026da318603a877fbd62e8816d",
+                            "blockHeight": 213,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698340239,
+                                "version": 0,
+                                "updated": 1620698340631
+                            },
+                            "$loki": 16
+                        },
+                        {
+                            "outpoint": "e9debc6911181c544cdf22fa021b755536834a45c36f4af76ba1f9a7e8a7b9f9,1",
+                            "txid": "e9debc6911181c544cdf22fa021b755536834a45c36f4af76ba1f9a7e8a7b9f9",
+                            "vout": 1,
+                            "amount": 4999999544,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "2967ccdcdc65625046a2bf2b5a3ad20f799dd05b0938a7232a2819763f26de2c",
+                            "blockHeight": 112,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698338817,
+                                "version": 0,
+                                "updated": 1620698338852
+                            },
+                            "$loki": 14
+                        },
+                        {
+                            "outpoint": "472f6ee4e5f40610577c3fe824cbc1cd9686957e38c066148b1c1e62657e9e82,1",
+                            "txid": "472f6ee4e5f40610577c3fe824cbc1cd9686957e38c066148b1c1e62657e9e82",
+                            "vout": 1,
+                            "amount": 4899999690,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "3c2c72d5ee4736f13b482b4c978395c2f09968667d50c19fe0b01772e36ca3f8",
+                            "blockHeight": 111,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698338257,
+                                "version": 0,
+                                "updated": 1620698338346
+                            },
+                            "$loki": 13
+                        },
+                        {
+                            "outpoint": "13338a243193d072a8e3925a508da49990a583bf5b2764ca180ce51d95aaa4c7,1",
+                            "txid": "13338a243193d072a8e3925a508da49990a583bf5b2764ca180ce51d95aaa4c7",
+                            "vout": 1,
+                            "amount": 5000000000,
+                            "address": "bcrt1qgk023q3rpc8dmsgcvu7d8gj0rrvhc8qftq5rcl",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/0/3)",
+                            "lockingScript": "0014459ea882230e0eddc118673cd3a24f18d97c1c09",
+                            "blockHash": "26cdb3b89b8240360e6200f34a229734375c8a0fdaddeaa337d908a26542435b",
+                            "blockHeight": 109,
+                            "coinbase": false,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 1,
+                                "created": 1620698337189,
+                                "version": 0,
+                                "updated": 1620698337325
+                            },
+                            "$loki": 10
+                        },
+                        {
+                            "outpoint": "923bdbe3be6eff8ee2541057fd903ef0dbf4f696d3a4d8b7cafd5190c15f1e85,0",
+                            "txid": "923bdbe3be6eff8ee2541057fd903ef0dbf4f696d3a4d8b7cafd5190c15f1e85",
+                            "vout": 0,
+                            "amount": 5000000000,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "0cb25995f6a4bc5a818f2c738057a15900c6f3b3e8598f6b72cc20c46b25440a",
+                            "blockHeight": 2,
+                            "coinbase": true,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 0,
+                                "created": 1620698324468,
+                                "version": 0
+                            },
+                            "$loki": 2
+                        },
+                        {
+                            "outpoint": "6d44c8080e92c0d7134647505cc57122be84652a2a4a740b1c6954ebdbadcae9,0",
+                            "txid": "6d44c8080e92c0d7134647505cc57122be84652a2a4a740b1c6954ebdbadcae9",
+                            "vout": 0,
+                            "amount": 5000000000,
+                            "address": "bcrt1q4akzjg7phc3n3cmcu6n2r73gr2slgugm7w8z3v",
+                            "descriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/1/1)",
+                            "lockingScript": "0014af6c2923c1be2338e378e6a6a1fa281aa1f4711b",
+                            "blockHash": "7aa1917b5e563f5267bb0e147addfaf97dab6e2f816ca679aeab133a40197576",
+                            "blockHeight": 1,
+                            "coinbase": true,
+                            "spent": false,
+                            "solvable": true,
+                            "extend": {},
+                            "meta": {
+                                "revision": 0,
+                                "created": 1620698324451,
+                                "version": 0
+                            },
+                            "$loki": 1
+                        }
+                    ],
+                    "reservedDescriptor": "wpkh([00000001/1]tprv8fce2zvfnLAXzh6X1gxH1kfCdECfQoqm1Y6bVNbmwtEpwQqCs5oQ42jJEq7d7Z4Cm26u3FDi83koiAjcqQvyooN1jNhYVPM33o7FxhJH6qU/0/3)",
+                    "feeInfo": {
+                        "feeRate": 2,
+                        "knapsackMinChange": 1
+                    }
+                },
+                "expect": {
+                    "psbt": "cHNidP8BAKYCAAAAApqsspFu83XOgQCMJzFeSB56+FjA53B2m9Li2PMixktcAAAAAAD/////ozFavdyeKI0lxEmbgJP2OY0w2y6YGc5UUuMUWrm7lJIBAAAAAP////8CAOH1BQAAAAAiACAoyW43j5qf7S7mUeCskdZN+/l/q1Iev23SqeS4WcNJ83h/AQAAAAAAFgAURZ6ogiMODt3BGGc806JPGNl8HAkAAAAAAAEBHwDh9QUAAAAAFgAUmsUFHA1xqkR1FU8xKUsw2dCrBWUiBgNIfwcMIgDqA8ZKOuQHrYKHeIK3N7VTsVOv0d2hdYRgkxAAAAABAQAAAAAAAAACAAAAAAEBHzaBAQAAAAAAFgAUr2wpI8G+IzjjeOamofooGqH0cRsiBgJ5LDdX0nfZlmx9lsKY09JN92BwF8EKR16VimwVcEOyoBAAAAABAQAAAAEAAAABAAAAAAEBR1IhA0h/BwwiAOoDxko65Aetgod4grc3tVOxU6/R3aF1hGCTIQIe+c6Be+i2bF8XFYoGGO+GL/Cl8t7PLlGhXCZT3+S2IFKuIgICHvnOgXvotmxfFxWKBhjvhi/wpfLezy5RoVwmU9/ktiAMAAAAAAEAAAABAAAAIgIDSH8HDCIA6gPGSjrkB62Ch3iCtze1U7FTr9HdoXWEYJMMAAAAAAAAAAABAAAAACICAszyNzrkZUZ0TSh3Y3u1lSNvpyyQT1Qmv3yeJc3F3JVvEAAAAAEBAAAAAAAAAAMAAAAA",
+                    "hex": "70736274ff0100a602000000029aacb2916ef375ce81008c27315e481e7af858c0e770769bd2e2d8f322c64b5c0000000000ffffffffa3315abddc9e288d25c4499b8093f6398d30db2e9819ce5452e3145ab9bb94920100000000ffffffff0200e1f5050000000022002028c96e378f9a9fed2ee651e0ac91d64dfbf97fab521ebf6dd2a9e4b859c349f3787f010000000000160014459ea882230e0eddc118673cd3a24f18d97c1c09000000000001011f00e1f505000000001600149ac5051c0d71aa4475154f31294b30d9d0ab0565220603487f070c2200ea03c64a3ae407ad82877882b737b553b153afd1dda17584609310000000010100000000000000020000000001011f3681010000000000160014af6c2923c1be2338e378e6a6a1fa281aa1f4711b220602792c3757d277d9966c7d96c298d3d24df7607017c10a475e958a6c157043b2a0100000000101000000010000000100000000010147522103487f070c2200ea03c64a3ae407ad82877882b737b553b153afd1dda17584609321021ef9ce817be8b66c5f17158a0618ef862ff0a5f2decf2e51a15c2653dfe4b62052ae2202021ef9ce817be8b66c5f17158a0618ef862ff0a5f2decf2e51a15c2653dfe4b6200c000000000100000001000000220203487f070c2200ea03c64a3ae407ad82877882b737b553b153afd1dda1758460930c00000000000000000100000000220202ccf2373ae46546744d2877637bb595236fa72c904f5426bf7c9e25cdc5dc956f100000000101000000000000000300000000",
+                    "usedAddresses": [
+                        "bcrt1qgk023q3rpc8dmsgcvu7d8gj0rrvhc8qftq5rcl"
+                    ],
+                    "feeAmount": 446
+                }
             }
         ]
     }

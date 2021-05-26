@@ -1,6 +1,7 @@
 {
   "namespace": ["cfd","js","api","json"],
-  "comment": "Update witness stack",
+  "functionName": "UpdatePeginWitnessStack",
+  "comment": "Update Pegin witness stack. isElements not reference (force true).",
   "request": {
     ":class": "UpdateWitnessStackRequest",
     ":class:comment": "Request for update witness stack",

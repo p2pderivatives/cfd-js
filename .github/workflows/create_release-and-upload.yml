@@ -63,7 +63,7 @@ jobs:
     - uses: actions/setup-node@v2.1.2
       timeout-minutes: 1
       with:
-        node-version: 15
+        node-version: 14
     - name: update to npm v7
       run: npm i -g npm@7
     - name: output url
@@ -83,12 +83,11 @@ jobs:
     - name: cmake-build
       id: cmake_build
       run: |
-        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_SHARED=on -DENABLE_CAPI=off -DENABLE_TESTS=off -DCMAKE_INSTALL_PREFIX="./dist"
         cmake --build build --parallel 4 --config Release
       timeout-minutes: 20
     - name: cmake-install
       run: |
-        cmake -DCMAKE_INSTALL_PREFIX="./dist" --install build
         cmake --install build
         cd dist
         del /F /Q cmake\wallycore-*

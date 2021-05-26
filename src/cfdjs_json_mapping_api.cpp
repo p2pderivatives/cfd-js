@@ -929,6 +929,42 @@ std::string JsonMappingApi::UpdateTxOutAmount(
 #endif
 }
 
+std::string JsonMappingApi::SplitTxOut(const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::SplitTxOutRequest, api::json::RawTransactionResponse,
+      api::SplitTxOutRequestStruct, api::RawTransactionResponseStruct>(
+      request_message, TransactionStructApi::SplitTxOut,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::SplitTxOut);
+#else
+      TransactionStructApi::SplitTxOut);
+#endif
+}
+
+std::string JsonMappingApi::GetTxInIndex(const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::GetTxInIndexRequest, api::json::GetIndexData,
+      api::GetTxInIndexRequestStruct, api::GetIndexDataStruct>(
+      request_message, TransactionStructApi::GetTxInIndex,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::GetTxInIndex);
+#else
+      TransactionStructApi::GetTxInIndex);
+#endif
+}
+
+std::string JsonMappingApi::GetTxOutIndex(const std::string &request_message) {
+  return ExecuteElementsCheckApi<
+      api::json::GetTxOutIndexRequest, api::json::GetIndexData,
+      api::GetTxOutIndexRequestStruct, api::GetIndexDataStruct>(
+      request_message, TransactionStructApi::GetTxOutIndex,
+#ifndef CFD_DISABLE_ELEMENTS
+      ElementsTransactionStructApi::GetTxOutIndex);
+#else
+      TransactionStructApi::GetTxOutIndex);
+#endif
+}
+
 std::string JsonMappingApi::GetSchnorrPubkeyFromPrivkey(
     const std::string &request_message) {
   return ExecuteJsonApi<
@@ -1295,6 +1331,14 @@ std::string JsonMappingApi::CreateRawPegin(
       ElementsTransactionStructApi::CreateRawPeginTransaction);
 }
 
+std::string JsonMappingApi::UpdatePeginWitnessStack(
+    const std::string &request_message) {
+  return ExecuteJsonApi<
+      api::json::UpdateWitnessStackRequest, api::json::RawTransactionResponse,
+      api::UpdateWitnessStackRequestStruct, api::RawTransactionResponseStruct>(
+      request_message, ElementsTransactionStructApi::UpdatePeginWitnessStack);
+}
+
 std::string JsonMappingApi::CreateRawPegout(
     const std::string &request_message) {
   return ExecuteJsonApi<
@@ -1455,6 +1499,9 @@ void JsonMappingApi::LoadFunctions(
         "FundRawTransaction", JsonMappingApi::FundRawTransaction);
     request_map->emplace(
         "UpdateTxOutAmount", JsonMappingApi::UpdateTxOutAmount);
+    request_map->emplace("SplitTxOut", JsonMappingApi::SplitTxOut);
+    request_map->emplace("GetTxInIndex", JsonMappingApi::GetTxInIndex);
+    request_map->emplace("GetTxOutIndex", JsonMappingApi::GetTxOutIndex);
     request_map->emplace(
         "GetSchnorrPubkeyFromPrivkey",
         JsonMappingApi::GetSchnorrPubkeyFromPrivkey);
@@ -1537,6 +1584,8 @@ void JsonMappingApi::LoadFunctions(
         "CreateElementsSignatureHash",
         JsonMappingApi::CreateElementsSignatureHash);
     request_map->emplace("CreateRawPegin", JsonMappingApi::CreateRawPegin);
+    request_map->emplace(
+        "UpdatePeginWitnessStack", JsonMappingApi::UpdatePeginWitnessStack);
     request_map->emplace("CreateRawPegout", JsonMappingApi::CreateRawPegout);
     request_map->emplace(
         "GetIssuanceBlindingKey", JsonMappingApi::GetIssuanceBlindingKey);

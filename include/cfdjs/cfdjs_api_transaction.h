@@ -2,9 +2,7 @@
 /**
  * @file cfdjs_api_transaction.h
  *
- * @brief cfd-apiで利用するTransaction作成のクラス定義
- *
- * JSON形式のAPIを提供する.
+ * @brief Definition JSON struct api for bitcoin transaction.
  */
 #ifndef CFD_JS_INCLUDE_CFDJS_CFDJS_API_TRANSACTION_H_
 #define CFD_JS_INCLUDE_CFDJS_CFDJS_API_TRANSACTION_H_
@@ -24,7 +22,7 @@ namespace api {
 using cfd::AddressFactory;
 
 /**
- * @brief Transaction関連のJSON APIクラス
+ * @brief JSON struct api for bitcoin transaction.
  */
 class CFD_JS_API_EXPORT TransactionStructApi {
  public:
@@ -106,17 +104,17 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const AddPubkeyHashSignRequestStruct& request);
 
   /**
-   * @brief パラメータの情報を元に、Scriptの署名情報を追加する.
-   * @param[in] request Transactionと署名情報を格納した構造体
-   * @return Transactionのhexデータを格納した構造体
+   * @brief Add script hash sign data.
+   * @param[in] request     tx and sign data.
+   * @return transaction data.
    */
   static RawTransactionResponseStruct AddScriptHashSign(
       const AddScriptHashSignRequestStruct& request);
 
   /**
-   * @brief JSONパラメータの情報を元に、SigHashを作成する
-   * @param[in] request sighashを生成するパラメータ
-   * @return sighashのhexデータを格納した構造体
+   * @brief Create signature hash.
+   * @param[in] request     creating signature hash data.
+   * @return signature hash data.
    */
   static CreateSignatureHashResponseStruct CreateSignatureHash(
       const CreateSignatureHashRequestStruct& request);
@@ -146,17 +144,17 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const AddTapscriptSignRequestStruct& request);
 
   /**
-   * @brief パラメータの情報を元に、署名検証を実施する.
-   * @param[in] request 署名検証情報を格納した構造体
-   * @return 署名検証結果を格納した構造体
+   * @brief Verify ECDSA signature.
+   * @param[in] request     signature verification data.
+   * @return response of signature verification.
    */
   static VerifySignatureResponseStruct VerifySignature(
       const VerifySignatureRequestStruct& request);
 
   /**
-   * @brief パラメータの情報を元に、署名検証を実施する.
-   * @param[in] request 署名検証情報を格納した構造体
-   * @return 署名検証結果を格納した構造体
+   * @brief Verify sign.
+   * @param[in] request     sign verification data.
+   * @return response of sign verification.
    */
   static VerifySignResponseStruct VerifySign(
       const VerifySignRequestStruct& request);
@@ -168,6 +166,30 @@ class CFD_JS_API_EXPORT TransactionStructApi {
    */
   static RawTransactionResponseStruct UpdateTxOutAmount(
       const UpdateTxOutAmountRequestStruct& request);
+
+  /**
+   * @brief Split the transaction output.
+   * @param[in] request   transaction and changing amount data struct.
+   * @return transaction struct.
+   */
+  static RawTransactionResponseStruct SplitTxOut(
+      const SplitTxOutRequestStruct& request);
+
+  /**
+   * @brief Get the transaction input index data.
+   * @param[in] request   getting txin index struct.
+   * @return index data struct.
+   */
+  static GetIndexDataStruct GetTxInIndex(
+      const GetTxInIndexRequestStruct& request);
+
+  /**
+   * @brief Get the transaction output index data.
+   * @param[in] request   getting txout index struct.
+   * @return index data struct.
+   */
+  static GetIndexDataStruct GetTxOutIndex(
+      const GetTxOutIndexRequestStruct& request);
 
   /**
    * @brief Convert from locking script.
@@ -183,21 +205,6 @@ class CFD_JS_API_EXPORT TransactionStructApi {
 
  private:
   TransactionStructApi();
-
-  /**
-   * @brief MultiSigスクリプトかどうかをチェックする。
-   * @param[in] script    スクリプト
-   * @retval true   MultiSig
-   * @retval false  その他のスクリプト
-   */
-  static bool CheckMultiSigScript(const cfd::core::Script& script);
-  /**
-   * @brief NullDataスクリプトかどうかをチェックする。
-   * @param[in] script    スクリプト
-   * @retval true   NullDataスクリプト
-   * @retval false  その他のスクリプト
-   */
-  static bool CheckNullDataScript(const cfd::core::Script& script);
 };
 
 }  // namespace api

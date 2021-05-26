@@ -1316,6 +1316,17 @@
                 }
             },
             {
+                "case": "SigHashType(none|rangeproof)",
+                "request": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "none",
+                    "sighashRangeproof": true
+                },
+                "expect": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb42"
+                }
+            },
+            {
                 "case": "Error(empty signature)",
                 "request": {
                     "signature": "",
@@ -1353,7 +1364,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             },
             {
@@ -1367,7 +1378,7 @@
                     "code": 1,
                     "type": "illegal_argument",
                     "python": "Error: Invalid sighash type.",
-                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single\"."
+                    "cfd": "Invalid sighashType. sighashType must be \"all, none, single, all|anyonecanpay, none|anyonecanpay, single|anyonecanpay\"."
                 }
             }
         ]
@@ -1384,6 +1395,30 @@
                     "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
                     "sighashType": "all",
                     "sighashAnyoneCanPay": false
+                }
+            },
+            {
+                "case": "not set sighashtype",
+                "request": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb"
+                },
+                "expect": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb"
+                },
+                "exclude": [
+                    "python"
+                ]
+            },
+            {
+                "case": "sighash none|rangeproof",
+                "request": {
+                    "signature": "3044022047ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f0220217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb42"
+                },
+                "expect": {
+                    "signature": "47ac8e878352d3ebbde1c94ce3a10d057c24175747116f8288e5d794d12d482f217f36a485cae903c713331d877c1f64677e3622ad4010726870540656fe9dcb",
+                    "sighashType": "none",
+                    "sighashAnyoneCanPay": false,
+                    "sighashRangeproof": true
                 }
             },
             {

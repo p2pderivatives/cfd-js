@@ -406,7 +406,7 @@ RawTransactionResponseStruct TransactionStructApi::SignWithPrivkey(
     bool has_taproot = (addr_type == AddressType::kTaprootAddress);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-        has_taproot);
+        request.txin.sighash_rangeproof, has_taproot);
 
     if (request.txin.privkey.size() == (Privkey::kPrivkeySize * 2)) {
       privkey = Privkey(request.txin.privkey);
@@ -465,7 +465,8 @@ RawTransactionResponseStruct TransactionStructApi::AddPubkeyHashSign(
         AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sign_param.sighash_type,
-        request.txin.sign_param.sighash_anyone_can_pay);
+        request.txin.sign_param.sighash_anyone_can_pay,
+        request.txin.sign_param.sighash_rangeproof);
     SignParameter signature(
         ByteData(request.txin.sign_param.hex),
         request.txin.sign_param.der_encode, sighashtype);
@@ -530,7 +531,7 @@ CreateSignatureHashResponseStruct TransactionStructApi::CreateSignatureHash(
     uint32_t vout = request.txin.vout;
     const std::string& hashtype_str = request.txin.hash_type;
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay, false);
 
     Pubkey pubkey;
     Script script;
@@ -598,7 +599,7 @@ CreateSignatureHashResponseStruct TransactionStructApi::GetSighash(
     bool has_taproot = (addr_type == AddressType::kTaprootAddress);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-        has_taproot);
+        request.txin.sighash_rangeproof, has_taproot);
 
     Script redeem_script;
     bool is_pubkey = false;
@@ -666,7 +667,7 @@ RawTransactionResponseStruct TransactionStructApi::AddTaprootSchnorrSign(
     if (sig.GetSigHashType().GetSigHashFlag() == 0) {
       auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
           request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-          true);
+          request.txin.sighash_rangeproof, true);
       sig.SetSigHashType(sighashtype);
     }
 
@@ -699,7 +700,8 @@ RawTransactionResponseStruct TransactionStructApi::AddTapscriptSign(
       SchnorrSignature sig(sign_data.hex);
       if (sig.GetSigHashType().GetSigHashFlag() == 0) {
         auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
-            sign_data.sighash_type, sign_data.sighash_anyone_can_pay, true);
+            sign_data.sighash_type, sign_data.sighash_anyone_can_pay,
+            sign_data.sighash_rangeproof, true);
         sig.SetSigHashType(sighashtype);
       }
       sign_params.emplace_back(sig.GetData(true));
@@ -743,7 +745,7 @@ VerifySignatureResponseStruct TransactionStructApi::VerifySignature(
     bool has_taproot = (hashtype_str == "taproot");
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-        has_taproot);
+        request.txin.sighash_rangeproof, has_taproot);
     ByteData signature = ByteData(request.txin.signature);
 
     TransactionContext tx(request.tx);
@@ -887,73 +889,84 @@ RawTransactionResponseStruct TransactionStructApi::UpdateTxOutAmount(
   return result;
 }
 
-bool TransactionStructApi::CheckMultiSigScript(const Script& script) {
-  bool is_match = false;
-  std::vector<ScriptElement> script_element = script.GetElementList();
+RawTransactionResponseStruct TransactionStructApi::SplitTxOut(
+    const SplitTxOutRequestStruct& request) {
+  auto call_func = [](const SplitTxOutRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
 
-  if (script_element.size() < 4) {
-    // insufficient
-  } else {
-    for (size_t index = 0; index < script_element.size(); ++index) {
-      if ((index == 0) || (index == (script_element.size() - 2))) {
-        int value = static_cast<int>(script_element[index].GetNumber());
-        if ((value >= 1) && (value <= 16)) {
-          // OK (1 to 16)
-        } else {
-          break;
-        }
-      } else if (index == (script_element.size() - 1)) {
-        ScriptOperator op_code = script_element[index].GetOpCode();
-
-        if (op_code == ScriptOperator::OP_CHECKMULTISIG) {
-          // OP_CHECKMULTISIGVERIFY is excluded.
-          is_match = true;
-        }
-        // Don't have to call break because it is the end.
+    TransactionContext ctx(request.tx);
+    std::vector<Amount> amounts;
+    std::vector<Script> scripts;
+    AddressFactory address_factory;
+    for (auto& txout : request.txouts) {
+      amounts.emplace_back(txout.amount);
+      if (!txout.direct_locking_script.empty()) {
+        scripts.emplace_back(Script(txout.direct_locking_script));
       } else {
-        size_t data_size = script_element[index].GetBinaryData().GetDataSize();
-        if (script_element[index].IsBinary() &&
-            ((data_size == Pubkey::kCompressedPubkeySize) ||
-             (data_size == Pubkey::kPubkeySize))) {
-          // Pubkey
-        } else {
-          break;
-        }
+        scripts.emplace_back(
+            address_factory.GetAddress(txout.address).GetLockingScript());
       }
     }
-  }
-  return is_match;
+    ctx.SplitTxOut(request.index, amounts, scripts);
+
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result =
+      ExecuteStructApi<SplitTxOutRequestStruct, RawTransactionResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
 }
 
-bool TransactionStructApi::CheckNullDataScript(const Script& script) {
-  // OP_RETURN <0 to 40 bytes of data>
-  static constexpr uint32_t kNullDataMaxSize = 40 + 1 + 1;
-  bool is_match = false;
-  std::vector<ScriptElement> script_element = script.GetElementList();
-  uint32_t length = static_cast<uint32_t>(script.GetData().GetDataSize());
+GetIndexDataStruct TransactionStructApi::GetTxInIndex(
+    const GetTxInIndexRequestStruct& request) {
+  auto call_func = [](const GetTxInIndexRequestStruct& request)
+      -> GetIndexDataStruct {  // NOLINT
+    GetIndexDataStruct response;
+    TransactionContext ctx(request.tx);
+    response.index = ctx.GetTxInIndex(Txid(request.txid), request.vout);
+    response.ignore_items.insert("indexes");
+    return response;
+  };
 
-  if (script_element.size() == 0) {
-    // unmatch count
-  } else if (length > kNullDataMaxSize) {
-    // unmatch length
-  } else if (script_element[0].GetOpCode() != ScriptOperator::OP_RETURN) {
-    // unmatch opcode
-  } else if (script_element.size() == 1) {
-    // op_return only.
-    is_match = true;
-  } else {
-    uint32_t count = 0;
-    for (size_t index = 1; index < script_element.size(); ++index) {
-      if (script_element[index].IsNumber() ||
-          script_element[index].IsBinary()) {
-        ++count;
-      }
+  GetIndexDataStruct result;
+  result = ExecuteStructApi<GetTxInIndexRequestStruct, GetIndexDataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+GetIndexDataStruct TransactionStructApi::GetTxOutIndex(
+    const GetTxOutIndexRequestStruct& request) {
+  auto call_func = [](const GetTxOutIndexRequestStruct& request)
+      -> GetIndexDataStruct {  // NOLINT
+    GetIndexDataStruct response;
+
+    TransactionContext ctx(request.tx);
+    if (!request.direct_locking_script.empty()) {
+      ctx.IsFindTxOut(
+          Script(request.direct_locking_script), &response.index,
+          &response.indexes);
+    } else {
+      AddressFactory address_factory;
+      ctx.IsFindTxOut(
+          address_factory.GetAddress(request.address), &response.index,
+          &response.indexes);
     }
-    if (static_cast<uint32_t>(script_element.size()) == (count + 1)) {
-      is_match = true;
+    if (response.indexes.empty()) {
+      warn(CFD_LOG_SOURCE, "target is not found.");
+      throw CfdException(
+          CfdError::kCfdOutOfRangeError, "target is not found.");
     }
-  }
-  return is_match;
+    return response;
+  };
+
+  GetIndexDataStruct result;
+  result = ExecuteStructApi<GetTxOutIndexRequestStruct, GetIndexDataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
 }
 
 std::vector<Address> TransactionStructApi::ConvertFromLockingScript(

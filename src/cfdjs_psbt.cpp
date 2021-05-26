@@ -50,6 +50,7 @@ using cfd::core::ScriptElement;
 using cfd::core::ScriptUtil;
 using cfd::core::SigHashAlgorithm;
 using cfd::core::SigHashType;
+using cfd::core::StringUtil;
 using cfd::core::Transaction;
 using cfd::core::Txid;
 using cfd::core::logger::info;
@@ -124,19 +125,11 @@ static void ParsePsbtInputRequest(
   }
 
   if (!data.sighash.empty()) {
-    if (data.sighash == "ALL") {
-      *sighash_type = SigHashType(SigHashAlgorithm::kSigHashAll);
-    } else if (data.sighash == "SINGLE") {
-      *sighash_type = SigHashType(SigHashAlgorithm::kSigHashSingle);
-    } else if (data.sighash == "NONE") {
-      *sighash_type = SigHashType(SigHashAlgorithm::kSigHashNone);
-    } else {
-      std::string err_msg =
-          "invalid sighash. Only 'ALL' or 'SINGLE' or 'NONE' can be "
-          "set for the sighash.";  // NOLINT
-      warn(CFD_LOG_SOURCE, "{}", err_msg);
-      throw CfdException(CfdError::kCfdIllegalArgumentError, err_msg);
-    }
+    std::string err_msg =
+        "invalid sighash. Only 'ALL' or 'SINGLE' or 'NONE' can be "
+        "set for the sighash.";  // NOLINT
+    *sighash_type = TransactionStructApiBase::ConvertSigHashType(
+        data.sighash, false, false, false, err_msg);
   }
 
   for (const auto& bip32_data : data.bip32_derives) {
@@ -210,7 +203,7 @@ static void SetPsbtInputData(
   TxOut witness_utxo;
   Transaction utxo_full_tx;
   std::vector<SignParameter> signatures;
-  SigHashType sighash_type(SigHashAlgorithm::kSigHashAll, false, true);
+  SigHashType sighash_type(SigHashAlgorithm::kSigHashUnknown);
   std::vector<KeyData> key_list;
   Script redeem_script;
   ParsePsbtInputRequest(
@@ -243,7 +236,7 @@ static void SetPsbtInputData(
     }
   }
 
-  if (!sighash_type.IsForkId()) {
+  if (sighash_type.IsValid()) {
     psbt->SetTxInSighashType(index, sighash_type);
   }
 

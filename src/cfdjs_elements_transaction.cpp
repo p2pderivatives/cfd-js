@@ -868,7 +868,8 @@ RawTransactionResponseStruct ElementsTransactionStructApi::SignWithPrivkey(
     AddressType addr_type =
         AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        request.txin.sighash_rangeproof);
 
     if (request.txin.privkey.size() == (Privkey::kPrivkeySize * 2)) {
       privkey = Privkey(request.txin.privkey);
@@ -914,7 +915,8 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddPubkeyHashSign(
         AddressApiBase::ConvertAddressType(request.txin.hash_type);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sign_param.sighash_type,
-        request.txin.sign_param.sighash_anyone_can_pay);
+        request.txin.sign_param.sighash_anyone_can_pay,
+        request.txin.sign_param.sighash_rangeproof);
     SignParameter signature(
         ByteData(request.txin.sign_param.hex),
         request.txin.sign_param.der_encode, sighashtype);
@@ -1009,7 +1011,8 @@ ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
     uint32_t vout = request.txin.vout;
     ConfidentialTransactionContext txc(request.tx);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        request.txin.sighash_rangeproof);
 
     Pubkey pubkey;
     Script script;
@@ -1081,7 +1084,7 @@ CreateSignatureHashResponseStruct ElementsTransactionStructApi::GetSighash(
     bool has_taproot = (addr_type == AddressType::kTaprootAddress);
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
         request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-        has_taproot);
+        request.txin.sighash_rangeproof, has_taproot);
 
     Script redeem_script;
     bool is_pubkey = false;
@@ -1138,7 +1141,7 @@ ElementsTransactionStructApi::AddTaprootSchnorrSign(
     if (sig.GetSigHashType().GetSigHashFlag() == 0) {
       auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
           request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
-          true);
+          request.txin.sighash_rangeproof, true);
       sig.SetSigHashType(sighashtype);
     }
 
@@ -1174,7 +1177,8 @@ RawTransactionResponseStruct ElementsTransactionStructApi::AddTapscriptSign(
       SchnorrSignature sig(sign_data.hex);
       if (sig.GetSigHashType().GetSigHashFlag() == 0) {
         auto sighashtype = TransactionStructApiBase::ConvertSigHashType(
-            sign_data.sighash_type, sign_data.sighash_anyone_can_pay, true);
+            sign_data.sighash_type, sign_data.sighash_anyone_can_pay,
+            sign_data.sighash_rangeproof, true);
         sig.SetSigHashType(sighashtype);
       }
       sign_params.emplace_back(sig.GetData(true));
@@ -1218,7 +1222,8 @@ VerifySignatureResponseStruct ElementsTransactionStructApi::VerifySignature(
     const Txid& txid = Txid(request.txin.txid);
     uint32_t vout = request.txin.vout;
     SigHashType sighashtype = TransactionStructApiBase::ConvertSigHashType(
-        request.txin.sighash_type, request.txin.sighash_anyone_can_pay);
+        request.txin.sighash_type, request.txin.sighash_anyone_can_pay,
+        request.txin.sighash_rangeproof);
 
     Pubkey pubkey = Pubkey(request.txin.pubkey);
     ByteData signature = ByteData(request.txin.signature);
@@ -1342,6 +1347,108 @@ RawTransactionResponseStruct ElementsTransactionStructApi::UpdateTxOutAmount(
   RawTransactionResponseStruct result;
   result = ExecuteStructApi<
       UpdateTxOutAmountRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct ElementsTransactionStructApi::SplitTxOut(
+    const SplitTxOutRequestStruct& request) {
+  auto call_func = [](const SplitTxOutRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    std::vector<Amount> amounts;
+    std::vector<Script> scripts;
+    std::vector<ConfidentialNonce> nonces;
+    ElementsAddressFactory address_factory;
+    for (auto& txout : request.txouts) {
+      ConfidentialNonce nonce;
+      amounts.emplace_back(txout.amount);
+      if (!txout.address.empty()) {
+        if (ElementsConfidentialAddress::IsConfidentialAddress(
+                txout.address)) {
+          ElementsConfidentialAddress confidential_addr(txout.address);
+          scripts.emplace_back(
+              confidential_addr.GetUnblindedAddress().GetLockingScript());
+          nonce = ConfidentialNonce(confidential_addr.GetConfidentialKey());
+        } else {
+          scripts.emplace_back(
+              address_factory.GetAddress(txout.address).GetLockingScript());
+        }
+      } else {
+        scripts.emplace_back(Script(txout.direct_locking_script));
+      }
+      if (nonce.IsEmpty() && (!txout.direct_nonce.empty())) {
+        nonce = ConfidentialNonce(txout.direct_nonce);
+      }
+      nonces.emplace_back(nonce);
+    }
+    ctx.SplitTxOut(request.index, amounts, scripts, nonces);
+
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result =
+      ExecuteStructApi<SplitTxOutRequestStruct, RawTransactionResponseStruct>(
+          request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+GetIndexDataStruct ElementsTransactionStructApi::GetTxInIndex(
+    const GetTxInIndexRequestStruct& request) {
+  auto call_func = [](const GetTxInIndexRequestStruct& request)
+      -> GetIndexDataStruct {  // NOLINT
+    GetIndexDataStruct response;
+    ConfidentialTransactionContext ctx(request.tx);
+    response.index = ctx.GetTxInIndex(Txid(request.txid), request.vout);
+    response.ignore_items.insert("indexes");
+    return response;
+  };
+
+  GetIndexDataStruct result;
+  result = ExecuteStructApi<GetTxInIndexRequestStruct, GetIndexDataStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+GetIndexDataStruct ElementsTransactionStructApi::GetTxOutIndex(
+    const GetTxOutIndexRequestStruct& request) {
+  auto call_func = [](const GetTxOutIndexRequestStruct& request)
+      -> GetIndexDataStruct {  // NOLINT
+    GetIndexDataStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    if (!request.address.empty()) {
+      ElementsAddressFactory address_factory;
+      if (ElementsConfidentialAddress::IsConfidentialAddress(
+              request.address)) {
+        ElementsConfidentialAddress confidential_addr(request.address);
+        ctx.IsFindTxOut(
+            confidential_addr.GetUnblindedAddress(), &response.index,
+            &response.indexes);
+      } else {
+        ctx.IsFindTxOut(
+            address_factory.GetAddress(request.address), &response.index,
+            &response.indexes);
+      }
+    } else {
+      ctx.IsFindTxOut(
+          Script(request.direct_locking_script), &response.index,
+          &response.indexes);
+    }
+    if (response.indexes.empty()) {
+      warn(CFD_LOG_SOURCE, "target is not found.");
+      throw CfdException(
+          CfdError::kCfdOutOfRangeError, "target is not found.");
+    }
+    return response;
+  };
+
+  GetIndexDataStruct result;
+  result = ExecuteStructApi<GetTxOutIndexRequestStruct, GetIndexDataStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
@@ -1822,6 +1929,30 @@ ElementsTransactionStructApi::CreateRawPeginTransaction(  // NOLINT
   RawTransactionResponseStruct result;
   result = ExecuteStructApi<
       CreateRawPeginRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+RawTransactionResponseStruct
+ElementsTransactionStructApi::UpdatePeginWitnessStack(
+    const UpdateWitnessStackRequestStruct& request) {
+  auto call_func = [](const UpdateWitnessStackRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    ConfidentialTransactionContext ctx(request.tx);
+    const WitnessStackDataStruct& stack_req = request.txin.witness_stack;
+    auto sign_data = ByteData(stack_req.hex);
+    auto index = ctx.GetTxInIndex(Txid(request.txin.txid), request.txin.vout);
+    ctx.SetPeginWitnessStack(index, stack_req.index, sign_data);
+
+    response.hex = ctx.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      UpdateWitnessStackRequestStruct, RawTransactionResponseStruct>(
       request, call_func, std::string(__FUNCTION__));
   return result;
 }
