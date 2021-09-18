@@ -189,6 +189,6 @@
     "ts-morph": "^12.0.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3",
-    "wallet-for-testing-js": "github:cryptogarageinc/wallet-for-testing-js#semver:^0.1.8"
+    "wallet-for-testing-js": "github:cryptogarageinc/wallet-for-testing-js#semver:0.1.9"
   }
 }
