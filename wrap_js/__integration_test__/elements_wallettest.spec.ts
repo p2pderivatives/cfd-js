@@ -93,6 +93,13 @@ beforeAll(async () => {
   elmWallet2 = await elmWalletMgr.createWallet(2, 'testuser', TargetNode.Elements, !isDebug);
 });
 
+afterAll(async () => {
+  jest.setTimeout(10000);
+  btcWalletMgr.shutdown();
+  elmWalletMgr.shutdown();
+  await sleep(5000);
+}, 10000);
+
 describe('wallet test', () => {
   it('btc wpkh address1 test', async () => {
     const ret = await btcWallet2.getNewAddress(AddressType.P2wpkh, 'label1', 1);
@@ -123,7 +130,7 @@ describe('wallet test', () => {
     const ret = await btcWallet1.generateFund(amount, false);
     console.log('generateFund -> ', ret);
     expect(ret).toBe(amount);
-  });
+  }, 90000);
 
   it('btc generate test', async () => {
     const ret = await btcWallet1.generate(2, '');
@@ -179,7 +186,7 @@ describe('wallet test', () => {
         expect(decTx2.vout[0].scriptPubKey.hex).toBe(addr2.lockingScript);
       }
     }
-  });
+  }, 90000);
 
 
   it('btc multisig test', async () => {
@@ -390,7 +397,7 @@ describe('wallet test', () => {
     // console.log('[multi] wData22 -> ', wData22);
 
     expect(wData12.spent).toBe(true);
-  });
+  }, 90000);
 
   // pegin test
   it('pegin test', async () => {
@@ -432,7 +439,7 @@ describe('wallet test', () => {
       console.log(e);
       throw e;
     }
-  });
+  }, 90000);
 
   it('blind pegin test', async () => {
     jest.setTimeout(60000);
@@ -484,7 +491,7 @@ describe('wallet test', () => {
       console.log(e);
       throw e;
     }
-  });
+  }, 90000);
 
   it('blind sendtoaddress test', async () => {
     const peggedAsset = elmWallet1.getPeggedAsset();

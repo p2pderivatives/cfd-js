@@ -56,6 +56,12 @@ beforeAll(async () => {
   // btcWallet3 = await walletMgr.createWallet(3, 'testuser', 'bitcoin');
 });
 
+afterAll(async () => {
+  jest.setTimeout(10000);
+  walletMgr.shutdown();
+  await sleep(5000);
+}, 10000);
+
 describe('wallet test', () => {
   it('wpkh address1 test', async () => {
     const ret = await btcWallet2.getNewAddress('p2wpkh', 'label1', 1);
@@ -86,14 +92,14 @@ describe('wallet test', () => {
     const ret = await btcWallet1.generateFund(amount, false);
     console.log('generateFund -> ', ret);
     expect(ret).toBe(amount);
-  });
+  }, 90000);
 
   it('generate test', async () => {
     jest.setTimeout(90000);
     const ret = await btcWallet1.generate(2, '', false);
     console.log('generate -> ', ret);
     expect(ret.amount).not.toBe(0);
-  });
+  }, 90000);
 
   it('sendtoaddress test', async () => {
     jest.setTimeout(90000);
@@ -134,7 +140,7 @@ describe('wallet test', () => {
 
     expect(decTx2.vout[0].value).toBe(amount2);
     expect(decTx2.vout[0].scriptPubKey.hex).toBe(addr2.lockingScript);
-  });
+  }, 90000);
 
 
   it('multisig test', async () => {
@@ -240,7 +246,7 @@ describe('wallet test', () => {
 
     expect(wData12.spent).toBe(true);
     expect(wData22.spent).toBe(true);
-  });
+  }, 90000);
 
   it('sendscriptaddress test', async () => {
     jest.setTimeout(15000);
@@ -330,7 +336,7 @@ describe('wallet test', () => {
     // console.log('[multi] wData22 -> ', wData22);
 
     expect(wData12.spent).toBe(true);
-  });
+  }, 90000);
 
   it('send thresh scriptaddress test', async () => {
     jest.setTimeout(90000);
@@ -469,7 +475,7 @@ describe('wallet test', () => {
     // console.log('[multi] wData22 -> ', wData22);
 
     expect(wData12.spent).toBe(true);
-  });
+  }, 90000);
 
   it('PSBT test', async () => {
     jest.setTimeout(90000);
@@ -721,7 +727,7 @@ describe('wallet test', () => {
 
     expect(wData12.spent).toBe(true);
     expect(wData22.spent).toBe(true);
-  });
+  }, 90000);
 
   it('send taproot-schnorr test', async () => {
     jest.setTimeout(90000);
@@ -963,7 +969,7 @@ describe('wallet test', () => {
 
     await btcWallet2.generate(1); // for using coinbase utxo
     await btcWallet1.forceUpdateUtxoData();
-  });
+  }, 90000);
 
   it('send taproot-tapscript test1', async () => {
     jest.setTimeout(90000);
@@ -1360,5 +1366,5 @@ describe('wallet test', () => {
 
     await btcWallet2.generate(1); // for using coinbase utxo
     await btcWallet1.forceUpdateUtxoData();
-  });
+  }, 90000);
 });
