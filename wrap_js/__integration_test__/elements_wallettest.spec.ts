@@ -57,8 +57,11 @@ const getDbDir = async function(dirName: string) {
       }
     }
     fs.rmdirSync(dbDir);
-  } catch (err) {
-    if (err.code !== 'ENOENT') throw err;
+  } catch (err: unknown) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const errnoErr: any = err;
+    // https://dev.to/jdbar/the-problem-with-handling-node-js-errors-in-typescript-and-the-workaround-m64
+    if (errnoErr.code && errnoErr.code !== 'ENOENT') throw err;
   }
   try {
     fs.mkdirSync(dbDir);
