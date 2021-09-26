@@ -244,7 +244,7 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeInfo(
     }
     if (!first_item.tree_string.empty()) {
       branch = TapBranch::FromString(first_item.tree_string);
-    } else {
+    } else if ((!first_item.branch_hash.empty()) || (!request.tree.empty())) {
       branch = TapBranch(ByteData256(first_item.branch_hash));
     }
     for (size_t index = 1; index < request.tree.size(); ++index) {
@@ -271,51 +271,53 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeInfo(
         tree.AddBranch(ByteData256(item.branch_hash));
       }
     }
-    if ((!request.internal_pubkey.empty()) ||
-        (!request.internal_privkey.empty())) {
-      SchnorrPubkey pubkey;
-      Privkey privkey;
-      if (!request.internal_privkey.empty()) {
-        if (Privkey::HasWif(request.internal_privkey)) {
-          privkey = Privkey::FromWif(request.internal_privkey);
-        } else {
-          privkey = Privkey(request.internal_privkey);
-        }
-        pubkey = SchnorrPubkey::FromPrivkey(privkey);
-      } else {
-        pubkey = SchnorrPubkey(request.internal_pubkey);
-      }
-      SchnorrPubkey hash;
-      Script locking_script;
-      auto control_block = TaprootUtil::CreateTapScriptControl(
-          pubkey, tree, &hash, &locking_script);
-      result.control_block = control_block.GetHex();
-      result.tweaked_pubkey = hash.GetHex();
-      result.locking_script = locking_script.GetHex();
-      result.address =
-          address_factory->CreateTaprootAddress(hash.GetByteData256())
-              .GetAddress();
-      if (privkey.IsValid()) {
-        result.tweaked_privkey = tree.GetTweakedPrivkey(privkey).GetHex();
-      }
-    }
-
     result.tap_leaf_hash = tree.GetTapLeafHash().GetHex();
     result.tapscript = tree.GetScript().GetHex();
-    for (const auto& node : tree.GetNodeList()) {
-      result.nodes.emplace_back(node.GetHex());
-    }
     branch_ptr = &tree;
+  }
+
+  if ((!request.internal_pubkey.empty()) ||
+      (!request.internal_privkey.empty())) {
+    SchnorrPubkey pubkey;
+    Privkey privkey;
+    if (!request.internal_privkey.empty()) {
+      if (Privkey::HasWif(request.internal_privkey)) {
+        privkey = Privkey::FromWif(request.internal_privkey);
+      } else {
+        privkey = Privkey(request.internal_privkey);
+      }
+      pubkey = SchnorrPubkey::FromPrivkey(privkey);
+    } else {
+      pubkey = SchnorrPubkey(request.internal_pubkey);
+    }
+    SchnorrPubkey hash;
+    Script locking_script;
+    auto control_block = TaprootUtil::CreateTapScriptControl(
+        pubkey, *branch_ptr, &hash, &locking_script);
+    result.control_block = control_block.GetHex();
+    result.tweaked_pubkey = hash.GetHex();
+    result.locking_script = locking_script.GetHex();
+    result.address =
+        address_factory->CreateTaprootAddress(hash.GetByteData256())
+            .GetAddress();
+    if (privkey.IsValid()) {
+      result.tweaked_privkey = branch_ptr->GetTweakedPrivkey(privkey).GetHex();
+    }
+  }
+  for (const auto& node : branch_ptr->GetNodeList()) {
+    result.nodes.emplace_back(node.GetHex());
   }
 
   result.top_branch_hash = branch_ptr->GetCurrentBranchHash().GetHex();
   result.tree_string = branch_ptr->ToString();
 
   if (result.control_block.empty()) {
+    result.ignore_items.insert("controlBlock");
+  }
+  if (result.tweaked_pubkey.empty()) {
     result.ignore_items.insert("tweakedPubkey");
     result.ignore_items.insert("lockingScript");
     result.ignore_items.insert("address");
-    result.ignore_items.insert("controlBlock");
   }
   if (result.tweaked_privkey.empty()) {
     result.ignore_items.insert("tweakedPrivkey");
@@ -323,8 +325,10 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeInfo(
   if (result.tapscript.empty()) {
     result.ignore_items.insert("tapLeafHash");
     result.ignore_items.insert("tapscript");
+    result.ignore_items.insert("controlBlock");
     result.ignore_items.insert("nodes");
   }
+  if (result.nodes.empty()) result.ignore_items.insert("nodes");
   return result;
 }
 
@@ -393,17 +397,14 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeInfoByControlBlock(
 TapScriptInfoStruct AddressApiBase::GetTapScriptTreeFromString(
     const TapScriptFromStringRequestStruct& request,
     const AddressFactory* address_factory) {
-  if (request.tree_string.empty()) {
-    warn(CFD_LOG_SOURCE, "Failed to parameter. tree string is empty.");
-    throw CfdException(
-        CfdError::kCfdIllegalArgumentError, "tree string is empty.");
-  }
   TapScriptInfoStruct result;
   TaprootScriptTree tree;
   TapBranch branch;
   TapBranch* branch_ptr;
-  if (request.tapscript.empty()) {
-    branch = TapBranch::FromString(request.tree_string);
+  if (request.tree_string.empty() || request.tapscript.empty()) {
+    if (!request.tree_string.empty()) {
+      branch = TapBranch::FromString(request.tree_string);
+    }
     branch_ptr = &branch;
   } else {
     std::vector<ByteData256> nodes;
@@ -412,52 +413,53 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeFromString(
     }
     tree = TaprootScriptTree::FromString(
         request.tree_string, Script(request.tapscript), nodes);
-
-    if ((!request.internal_pubkey.empty()) ||
-        (!request.internal_privkey.empty())) {
-      SchnorrPubkey pubkey;
-      Privkey privkey;
-      if (!request.internal_privkey.empty()) {
-        if (Privkey::HasWif(request.internal_privkey)) {
-          privkey = Privkey::FromWif(request.internal_privkey);
-        } else {
-          privkey = Privkey(request.internal_privkey);
-        }
-        pubkey = SchnorrPubkey::FromPrivkey(privkey);
-      } else {
-        pubkey = SchnorrPubkey(request.internal_pubkey);
-      }
-      SchnorrPubkey hash;
-      Script locking_script;
-      auto control_block = TaprootUtil::CreateTapScriptControl(
-          pubkey, tree, &hash, &locking_script);
-      result.control_block = control_block.GetHex();
-      result.tweaked_pubkey = hash.GetHex();
-      result.locking_script = locking_script.GetHex();
-      result.address =
-          address_factory->CreateTaprootAddress(hash.GetByteData256())
-              .GetAddress();
-      if (privkey.IsValid()) {
-        result.tweaked_privkey = tree.GetTweakedPrivkey(privkey).GetHex();
-      }
-    }
-
     result.tap_leaf_hash = tree.GetTapLeafHash().GetHex();
     result.tapscript = tree.GetScript().GetHex();
-    for (const auto& node : tree.GetNodeList()) {
-      result.nodes.emplace_back(node.GetHex());
-    }
     branch_ptr = &tree;
+  }
+
+  if ((!request.internal_pubkey.empty()) ||
+      (!request.internal_privkey.empty())) {
+    SchnorrPubkey pubkey;
+    Privkey privkey;
+    if (!request.internal_privkey.empty()) {
+      if (Privkey::HasWif(request.internal_privkey)) {
+        privkey = Privkey::FromWif(request.internal_privkey);
+      } else {
+        privkey = Privkey(request.internal_privkey);
+      }
+      pubkey = SchnorrPubkey::FromPrivkey(privkey);
+    } else {
+      pubkey = SchnorrPubkey(request.internal_pubkey);
+    }
+    SchnorrPubkey hash;
+    Script locking_script;
+    auto control_block = TaprootUtil::CreateTapScriptControl(
+        pubkey, *branch_ptr, &hash, &locking_script);
+    result.control_block = control_block.GetHex();
+    result.tweaked_pubkey = hash.GetHex();
+    result.locking_script = locking_script.GetHex();
+    result.address =
+        address_factory->CreateTaprootAddress(hash.GetByteData256())
+            .GetAddress();
+    if (privkey.IsValid()) {
+      result.tweaked_privkey = branch_ptr->GetTweakedPrivkey(privkey).GetHex();
+    }
+  }
+  for (const auto& node : branch_ptr->GetNodeList()) {
+    result.nodes.emplace_back(node.GetHex());
   }
 
   result.top_branch_hash = branch_ptr->GetCurrentBranchHash().GetHex();
   result.tree_string = branch_ptr->ToString();
 
   if (result.control_block.empty()) {
+    result.ignore_items.insert("controlBlock");
+  }
+  if (result.tweaked_pubkey.empty()) {
     result.ignore_items.insert("tweakedPubkey");
     result.ignore_items.insert("lockingScript");
     result.ignore_items.insert("address");
-    result.ignore_items.insert("controlBlock");
   }
   if (result.tweaked_privkey.empty()) {
     result.ignore_items.insert("tweakedPrivkey");
@@ -465,8 +467,10 @@ TapScriptInfoStruct AddressApiBase::GetTapScriptTreeFromString(
   if (result.tapscript.empty()) {
     result.ignore_items.insert("tapLeafHash");
     result.ignore_items.insert("tapscript");
+    result.ignore_items.insert("controlBlock");
     result.ignore_items.insert("nodes");
   }
+  if (result.nodes.empty()) result.ignore_items.insert("nodes");
   return result;
 }
 
@@ -551,7 +555,12 @@ ParseDescriptorResponseStruct AddressApiBase::ConvertDescriptorData(
   if (script_data.tree.IsValid()) {
     result.tree_string = script_data.tree.ToString();
   } else {
-    result.ignore_items.insert("treeString");
+    std::string tree_str = script_data.branch.ToString();
+    if (!tree_str.empty()) {
+      result.tree_string = tree_str;
+    } else {
+      result.ignore_items.insert("treeString");
+    }
   }
 
   std::vector<DescriptorScriptData> setting_scripts;

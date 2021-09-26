@@ -111,6 +111,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
       const UpdateWitnessStackRequestStruct& request);
 
   /**
+   * @brief Update sequence number.
+   * @param[in] request     request parameter.
+   * @return transaction hex.
+   */
+  static RawTransactionResponseStruct UpdateTxInSequence(
+      const UpdateTxInSequenceRequestStruct& request);
+
+  /**
    * @brief パラメータの情報を元に、SigHashを作成する
    * @param[in] request sighashを生成するパラメータ
    * @return sighashのhexデータを格納した構造体
@@ -286,6 +294,14 @@ class CFD_JS_API_EXPORT ElementsTransactionStructApi {
    */
   static GetCommitmentResponseStruct GetCommitment(
       const GetCommitmentRequestStruct& request);
+
+  /**
+   * @brief Get the unblind data.
+   * @param[in] request     request data.
+   * @return unblind data.
+   */
+  static UnblindOutputStruct GetUnblindData(
+      const GetUnblindDataRequestStruct& request);
 };
 
 }  // namespace api

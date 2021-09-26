@@ -897,6 +897,8 @@ struct FundSelectUtxoDataStruct {
   bool is_blind_issuance = false;        //!< is_blind_issuance  // NOLINT
   bool is_pegin = false;                 //!< is_pegin  // NOLINT
   uint32_t pegin_btc_tx_size = 0;        //!< pegin_btc_tx_size  // NOLINT
+  uint32_t pegin_tx_out_proof_size = 0;  //!< pegin_tx_out_proof_size  // NOLINT
+  std::string claim_script = "";         //!< claim_script  // NOLINT
   std::string fedpeg_script = "";        //!< fedpeg_script  // NOLINT
   std::string script_sig_template = "";  //!< script_sig_template  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
@@ -1108,6 +1110,8 @@ struct SelectUtxoDataStruct {
   bool is_blind_issuance = false;        //!< is_blind_issuance  // NOLINT
   bool is_pegin = false;                 //!< is_pegin  // NOLINT
   int64_t pegin_btc_tx_size = 0;         //!< pegin_btc_tx_size  // NOLINT
+  uint32_t pegin_tx_out_proof_size = 0;  //!< pegin_tx_out_proof_size  // NOLINT
+  std::string claim_script = "";         //!< claim_script  // NOLINT
   std::string fedpeg_script = "";        //!< fedpeg_script  // NOLINT
   std::string script_sig_template = "";  //!< script_sig_template  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
@@ -1247,6 +1251,7 @@ struct UnblindOutputStruct {
   std::string blind_factor = "";        //!< blind_factor  // NOLINT
   std::string asset_blind_factor = "";  //!< asset_blind_factor  // NOLINT
   int64_t amount = 0;                   //!< amount  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -2179,6 +2184,34 @@ struct CreatePegInAddressResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// CreatePegoutAddressRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreatePegoutAddressRequestStruct struct
+ */
+struct CreatePegoutAddressRequestStruct {
+  std::string network = "mainnet";           //!< network  // NOLINT
+  std::string elements_network = "mainnet";  //!< elements_network  // NOLINT
+  std::string descriptor = "";               //!< descriptor  // NOLINT
+  int64_t bip32_counter = 0;                 //!< bip32_counter  // NOLINT
+  std::string hash_type = "p2pkh";           //!< hash_type  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreatePegoutAddressResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreatePegoutAddressResponseStruct struct
+ */
+struct CreatePegoutAddressResponseStruct {
+  std::string mainchain_address = "";  //!< mainchain_address  // NOLINT
+  std::string base_descriptor = "";    //!< base_descriptor  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // CreateRawPeginRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -2669,6 +2702,38 @@ struct GetAddressesFromMultisigResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// BlockDataStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief BlockDataStruct struct
+ */
+struct BlockDataStruct {
+  bool is_elements = false;  //!< is_elements  // NOLINT
+  std::string block = "";    //!< block  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// BlockInformationStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief BlockInformationStruct struct
+ */
+struct BlockInformationStruct {
+  std::string block_hash = "";         //!< block_hash  // NOLINT
+  std::vector<std::string> tx;         //!< tx  // NOLINT
+  uint32_t version = 0;                //!< version  // NOLINT
+  std::string version_hex = "";        //!< version_hex  // NOLINT
+  std::string previousblockhash = "";  //!< previousblockhash  // NOLINT
+  std::string merkleroot = "";         //!< merkleroot  // NOLINT
+  uint32_t time = 0;                   //!< time  // NOLINT
+  uint32_t bits = 0;                   //!< bits  // NOLINT
+  uint32_t nonce = 0;                  //!< nonce  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // GetCommitmentRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -2744,6 +2809,7 @@ struct GetExtkeyInfoResponseStruct {
   std::string fingerprint = "";  //!< fingerprint  // NOLINT
   uint32_t child_number = 0;     //!< child_number  // NOLINT
   std::string chain_code = "";   //!< chain_code  // NOLINT
+  std::string key_type = "";     //!< key_type  // NOLINT
   cfd::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
@@ -3019,6 +3085,32 @@ struct GetTapScriptTreeInfoRequestStruct {
 };
 
 // ------------------------------------------------------------------------
+// BlockTxRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief BlockTxRequestStruct struct
+ */
+struct BlockTxRequestStruct {
+  bool is_elements = false;  //!< is_elements  // NOLINT
+  std::string block = "";    //!< block  // NOLINT
+  std::string txid = "";     //!< txid  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// BlockTxDataStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief BlockTxDataStruct struct
+ */
+struct BlockTxDataStruct {
+  std::string tx = "";          //!< tx  // NOLINT
+  std::string txoutproof = "";  //!< txoutproof  // NOLINT
+  cfd::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // GetTxInIndexRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -3056,6 +3148,22 @@ struct GetTxOutIndexRequestStruct {
   bool is_elements = false;                //!< is_elements  // NOLINT
   std::string address = "";                //!< address  // NOLINT
   std::string direct_locking_script = "";  //!< direct_locking_script  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// GetUnblindDataRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief GetUnblindDataRequestStruct struct
+ */
+struct GetUnblindDataRequestStruct {
+  std::string blinding_key = "";      //!< blinding_key  // NOLINT
+  std::string locking_script = "";    //!< locking_script  // NOLINT
+  std::string asset_commitment = "";  //!< asset_commitment  // NOLINT
+  std::string value_commitment = "";  //!< value_commitment  // NOLINT
+  std::string commitment_nonce = "";  //!< commitment_nonce  // NOLINT
+  std::string rangeproof = "";        //!< rangeproof  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 
@@ -3511,6 +3619,21 @@ struct UpdateWitnessStackRequestStruct {
   std::string tx = "";                       //!< tx  // NOLINT
   bool is_elements = false;                  //!< is_elements  // NOLINT
   UpdateWitnessStackTxInRequestStruct txin;  //!< txin  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// UpdateTxInSequenceRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief UpdateTxInSequenceRequestStruct struct
+ */
+struct UpdateTxInSequenceRequestStruct {
+  std::string tx = "";       //!< tx  // NOLINT
+  bool is_elements = false;  //!< is_elements  // NOLINT
+  std::string txid = "";     //!< txid  // NOLINT
+  uint32_t vout = 0;         //!< vout  // NOLINT
+  uint32_t sequence = 0;     //!< sequence  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 

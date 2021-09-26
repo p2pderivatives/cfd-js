@@ -2,12 +2,14 @@
 
 CFDJS_API_ELEMENTS_PKGINCLUDE_FILES = \
   cfdjs_api_elements_address.h \
+  cfdjs_api_elements_block.h \
   cfdjs_api_elements_transaction.h
 
 CFDJS_API_PKGINCLUDE_FILES = \
   cfdjs_struct.h \
   cfdjs_api_common.h \
   cfdjs_api_address.h \
+  cfdjs_api_block.h \
   cfdjs_api_hdwallet.h \
   cfdjs_api_json.h \
   cfdjs_api_key.h \

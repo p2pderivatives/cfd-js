@@ -224,6 +224,34 @@ CreatePegInAddressResponseStruct ElementsAddressStructApi::CreatePegInAddress(
   return result;
 }
 
+CreatePegoutAddressResponseStruct
+ElementsAddressStructApi::CreatePegoutAddress(
+    const CreatePegoutAddressRequestStruct& request) {
+  auto call_func = [](const CreatePegoutAddressRequestStruct& request)
+      -> CreatePegoutAddressResponseStruct {  // NOLINT
+    CreatePegoutAddressResponseStruct response;
+    NetType mainchain_net_type =
+        AddressStructApi::ConvertNetType(request.network);
+    NetType elements_net_type =
+        ConvertElementsNetType(request.elements_network);
+    AddressType addr_type =
+        AddressApiBase::ConvertAddressType(request.hash_type);
+    Descriptor desc;
+    auto addr = ElementsAddressFactory::CreatePegOutAddress(
+        mainchain_net_type, elements_net_type, request.descriptor,
+        request.bip32_counter, addr_type, &desc);
+    response.mainchain_address = addr.GetAddress();
+    response.base_descriptor = desc.ToString(false);
+    return response;
+  };
+
+  CreatePegoutAddressResponseStruct result;
+  result = ExecuteStructApi<
+      CreatePegoutAddressRequestStruct, CreatePegoutAddressResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 ParseDescriptorResponseStruct ElementsAddressStructApi::ParseDescriptor(
     const ParseDescriptorRequestStruct& request) {
   auto call_func = [](const ParseDescriptorRequestStruct& request)

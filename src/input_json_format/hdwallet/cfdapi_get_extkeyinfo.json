@@ -30,6 +30,10 @@
     "childNumber:comment": "bip32 child number",
     "chainCode": "",
     "chainCode:require": "require",
-    "chainCode:comment": "chain code"
+    "chainCode:comment": "chain code",
+    "keyType": "",
+    "keyType:require": "require",
+    "keyType:comment": "extkey type",
+    "keyType:hint": "extpubkey, extprivkey"
   }
 }

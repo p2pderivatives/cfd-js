@@ -1,0 +1,28 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "GetTxDataFromBlock",
+  "comment": "Get block header and txid list.",
+  "request": {
+    ":class": "BlockTxRequest",
+    ":class:comment": "Request by block and txid.",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "block": "",
+    "block:require": "require",
+    "block:comment": "block hex",
+    "txid": "",
+    "txid:require": "require",
+    "txid:comment": "txid"
+  },
+  "response": {
+    ":class": "BlockTxData",
+    ":class:comment": "The output block transaction data.",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "tx hex.",
+    "txoutproof": "",
+    "txoutproof:require": "require",
+    "txoutproof:comment": "txout proof."
+  }
+}

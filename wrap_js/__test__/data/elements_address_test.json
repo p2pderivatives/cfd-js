@@ -629,5 +629,234 @@
                 }
             }
         ]
+    },
+    {
+        "name": "PegoutAddress.Create",
+        "cases": [
+            {
+                "case": "extkey - p2pkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "n3Na7mek1zAStRxvt7RPrNCpZhDErMPkGw",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "descriptor - p2pkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "n3Na7mek1zAStRxvt7RPrNCpZhDErMPkGw",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2pkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y/0/*)",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "n3Na7mek1zAStRxvt7RPrNCpZhDErMPkGw",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "extkey - p2pkh - mainnet",
+                "request": {
+                    "network": "mainnet",
+                    "elementsNetwork": "liquidv1",
+                    "descriptor": "xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "1MMxsm4QG8NRHqaFZaUTFQQ9c9dEHUPWnD",
+                    "baseDescriptor": "pkh(xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2)"
+                }
+            },
+            {
+                "case": "descriptor - p2pkh - mainnet",
+                "request": {
+                    "network": "mainnet",
+                    "elementsNetwork": "liquidv1",
+                    "descriptor": "pkh(xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2)",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "1MMxsm4QG8NRHqaFZaUTFQQ9c9dEHUPWnD",
+                    "baseDescriptor": "pkh(xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2)"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2pkh - mainnet",
+                "request": {
+                    "network": "mainnet",
+                    "elementsNetwork": "liquidv1",
+                    "descriptor": "pkh(xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2/0/*)",
+                    "bip32Counter": 0,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "1MMxsm4QG8NRHqaFZaUTFQQ9c9dEHUPWnD",
+                    "baseDescriptor": "pkh(xpub67v4wfueMiZVkc7UbutFgPiptQw4kkNs89ooNMrwht8xEjnZZim1rNZHhEdrLejB99fiBdnWNNAB8hmUK7tCo5Ua6UtHzwVLj2Bzpch7vB2)"
+                }
+            },
+            {
+                "case": "extkey - p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y",
+                    "bip32Counter": 0,
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "bcrt1qa77w63m523kq82z4fn3d5f7qxqxfm4pmdthkdf",
+                    "baseDescriptor": "wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "descriptor - p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)",
+                    "bip32Counter": 0,
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "bcrt1qa77w63m523kq82z4fn3d5f7qxqxfm4pmdthkdf",
+                    "baseDescriptor": "wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y/0/*)",
+                    "bip32Counter": 0,
+                    "hashType": "p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "bcrt1qa77w63m523kq82z4fn3d5f7qxqxfm4pmdthkdf",
+                    "baseDescriptor": "wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "extkey - p2sh-p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y",
+                    "bip32Counter": 0,
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "2N8UxQ5u9YXYFn6Ukj5KGXCMDUZTixKTXHo",
+                    "baseDescriptor": "sh(wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y))"
+                }
+            },
+            {
+                "case": "descriptor - p2sh-p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "sh(wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y))",
+                    "bip32Counter": 0,
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "2N8UxQ5u9YXYFn6Ukj5KGXCMDUZTixKTXHo",
+                    "baseDescriptor": "sh(wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y))"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2sh-p2wpkh - regtest",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "sh(wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y/0/*))",
+                    "bip32Counter": 0,
+                    "hashType": "p2sh-p2wpkh"
+                },
+                "expect": {
+                    "mainchainAddress": "2N8UxQ5u9YXYFn6Ukj5KGXCMDUZTixKTXHo",
+                    "baseDescriptor": "sh(wpkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y))"
+                }
+            },
+            {
+                "case": "extkey - p2pkh - regtest - count 1",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y",
+                    "bip32Counter": 1,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "mjii5Qey7jLxtvsV5f6BaFeVaqfeqcKXzL",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "descriptor - p2pkh - regtest - count 1",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)",
+                    "bip32Counter": 1,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "mjii5Qey7jLxtvsV5f6BaFeVaqfeqcKXzL",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2pkh - regtest - count 1",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y/0/*)",
+                    "bip32Counter": 1,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "mjii5Qey7jLxtvsV5f6BaFeVaqfeqcKXzL",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            },
+            {
+                "case": "deriveDescriptor - p2pkh - regtest - count max",
+                "request": {
+                    "network": "regtest",
+                    "elementsNetwork": "elementsregtest",
+                    "descriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y/0/*)",
+                    "bip32Counter": 2147483647,
+                    "hashType": "p2pkh"
+                },
+                "expect": {
+                    "mainchainAddress": "mfkLVoxUp9K2Q1KeRr3Ewnn414jLSCTGmn",
+                    "baseDescriptor": "pkh(tpubDASgDECJvTMzUgS7GkSCxQAAWPveW7BeTPSvbi1wpUe1Mq1v743FRw1i7vTavjAb3D3Y8geCTYw2ezgiVS7SFXDXS6NpZmvr6XPjPvg632y)"
+                }
+            }
+        ]
     }
 ]

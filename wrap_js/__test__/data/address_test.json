@@ -2357,7 +2357,7 @@
             {
                 "case": "get privkey. network(testnet)",
                 "request": {
-                    "network": "mainnet",
+                    "network": "testnet",
                     "isElements": false,
                     "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
                     "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27",
@@ -2378,7 +2378,7 @@
                     "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
                     "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
                     "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
-                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "address": "tb1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqekgu0q",
                     "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
                     "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
                     "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
@@ -2387,6 +2387,34 @@
                         "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
                     ],
                     "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "get privkey by hash only tree.",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27",
+                    "tree": [
+                        {
+                            "branchHash": "dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513"
+                        },
+                        {
+                            "branchHash": "4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d"
+                        },
+                        {
+                            "branchHash": "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
+                        }
+                    ]
+                },
+                "expect": {
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
                 }
             },
             {
@@ -2540,7 +2568,7 @@
             {
                 "case": "get privkey. network(testnet)",
                 "request": {
-                    "network": "mainnet",
+                    "network": "testnet",
                     "isElements": false,
                     "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}",
                     "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
@@ -2552,7 +2580,7 @@
                     "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
                     "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
                     "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
-                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "address": "tb1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqekgu0q",
                     "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
                     "controlBlock": "c01777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6ddc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54",
                     "tapscript": "201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac",
@@ -2561,6 +2589,24 @@
                         "dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54"
                     ],
                     "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,tl(201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfbac)},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
+                }
+            },
+            {
+                "case": "get privkey on hash only tree. network(mainnet)",
+                "request": {
+                    "network": "mainnet",
+                    "isElements": false,
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}",
+                    "internalPubkey": "1777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb",
+                    "internalPrivkey": "305e293b010d29bf3c888b617763a438fee9054c8cab66eb12ad078f819d9f27"
+                },
+                "expect": {
+                    "topBranchHash": "09659d67a7a6fb82c1e382fd8f99f6bb43cbd80883845c6df7029f9589fc7af3",
+                    "tweakedPubkey": "3dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "tweakedPrivkey": "a7d17bee0b6313cf864a1ac6f203aafd74a40703ffc050f66517e4f83ff41a03",
+                    "address": "bc1p8hh955u8526hjqhn5m5a5pmhymgecmxgerrmqj70tgvhk25mq8fqw77n40",
+                    "lockingScript": "51203dee5a5387a2b57902f3a6e9da077726d19c6cc8c8c7b04bcf5a197b2a9b01d2",
+                    "treeString": "{{4d18084bb47027f47d428b2ed67e1ccace5520fdc36f308e272394e288d53b6d,dfc43ba9fc5f8a9e1b6d6a50600c704bb9e41b741d9ed6de6559a53d2f38e513},dc82121e4ff8d23745f3859e8939ecb0a38af63e6ddea2fff97a7fd61a1d2d54}"
                 }
             },
             {
@@ -2766,6 +2812,18 @@
                     "nodes": [],
                     "treeString": "tl(2057bf643684f6c5c75e1cdf45990036502a0d897394013210858cdabcbb95a05aad205bec1a08fa3443176edd0a08e2a64642f45e57543b62bffe43ec350edc33dc22ac)"
                 }
+            },
+            {
+                "case": "by tapbranch only hash",
+                "request": {
+                    "treeString": "{{4691fbb1196f4675241c8958a7ab6378a63aa0cc008ed03d216fd038357f52fd,a85b2107f791b26a84e7586c28cec7cb61202ed3d01944d832500f363782d675},e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb}",
+                    "index": 1
+                },
+                "expect": {
+                    "topBranchHash": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb",
+                    "nodes": [],
+                    "treeString": "e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb"
+                }
             }
         ]
     },
@@ -2931,7 +2989,7 @@
                 }
             },
             {
-                "case": "hash only branch",
+                "case": "hash branch",
                 "request": {
                     "treeString": "{{tl(20ac52f50b28cdd4d3bcb7f0d5cb533f232e4c4ef12fbf3e718420b84d4e3c3440ac),tl(51)},e47f58011f27e9046b8195d0ab6a2acbc68ce281437a8d5132dadf389b2a5ebb}"
                 },

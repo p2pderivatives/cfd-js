@@ -813,8 +813,8 @@
                 },
                 "expect": {
                     "type": "taproot",
-                    "address": "bcrt1paag57xhtzja2dnzh4vex37ejnjj5p3yy2nmlgem3a4e3ud962gdqqctzwn",
-                    "lockingScript": "5120ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a",
+                    "address": "bcrt1pvv8jm84ye0xr7p9h8l2k58rm287nryk73cnw0nvfxyjfqqpn60gssz7u5f",
+                    "lockingScript": "5120630f2d9ea4cbcc3f04b73fd56a1c7b51fd3192de8e26e7cd893124900033d3d1",
                     "hashType": "taproot",
                     "includeMultisig": false,
                     "keys": [
@@ -826,8 +826,8 @@
                     "scripts": [
                         {
                             "depth": 0,
-                            "lockingScript": "5120ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a",
-                            "address": "bcrt1paag57xhtzja2dnzh4vex37ejnjj5p3yy2nmlgem3a4e3ud962gdqqctzwn",
+                            "lockingScript": "5120630f2d9ea4cbcc3f04b73fd56a1c7b51fd3192de8e26e7cd893124900033d3d1",
+                            "address": "bcrt1pvv8jm84ye0xr7p9h8l2k58rm287nryk73cnw0nvfxyjfqqpn60gssz7u5f",
                             "hashType": "taproot",
                             "keyType": "schnorrPubkey",
                             "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
@@ -845,8 +845,8 @@
                 },
                 "expect": {
                     "type": "taproot",
-                    "address": "bc1p33h4j4kre3e9r4yrl35rlgrtyt2w9hw8f94zty9vacmvfgcnlqtq0txdxt",
-                    "lockingScript": "51208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816",
+                    "address": "bc1p4jueea9m897g4me0ef8eyqg9x5n02jzpwnl0yydvdtrl459r3fyqg8wvnj",
+                    "lockingScript": "5120acb99cf4bb397c8aef2fca4f9201053526f5484174fef211ac6ac7fad0a38a48",
                     "hashType": "taproot",
                     "includeMultisig": false,
                     "keys": [
@@ -858,8 +858,8 @@
                     "scripts": [
                         {
                             "depth": 0,
-                            "lockingScript": "51208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816",
-                            "address": "bc1p33h4j4kre3e9r4yrl35rlgrtyt2w9hw8f94zty9vacmvfgcnlqtq0txdxt",
+                            "lockingScript": "5120acb99cf4bb397c8aef2fca4f9201053526f5484174fef211ac6ac7fad0a38a48",
+                            "address": "bc1p4jueea9m897g4me0ef8eyqg9x5n02jzpwnl0yydvdtrl459r3fyqg8wvnj",
                             "hashType": "taproot",
                             "keyType": "extPubkey",
                             "key": "xpub6EKMC2gSMfKgSwn7V9VZn7x1MvoeeVzSmmtSJ4z2L2d6R4WxvdQMouokypZHVp4fgKycrrQnGr6WJ5ED5jG9Q9FiA1q5gKYUc8u6JHJhdo8"
@@ -914,6 +914,38 @@
                     "hashType": "taproot",
                     "includeMultisig": false,
                     "treeString": "{tl(208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816ac),{tl(208c6f5956c3cc7251d483fc683fa06b22d4e2ddc7496a2590acee36c4a313f816ac),tl(205cbdf0646e5db4eaa398f365f2ea7a0e3d419b7e0330e39ce92bddedcac4f9bcac7c82012088a820e38990d0c7fc009880a9c07c23842e886c6bbdc964ce6bdd5817ad357335ee6f87936b82012088a914dd69735817e0e3f6f826a9238dc2e291184f0131876c935287)}}",
+                    "keys": [
+                        {
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ],
+                    "scripts": [
+                        {
+                            "depth": 0,
+                            "lockingScript": "51204f009acbd8c905be4470df1b92c70be16a71d354ba55cc0e6517853f77d79651",
+                            "address": "bcrt1pfuqf4j7ceyzmu3rsmude93ctu948r565hf2ucrn9z7zn7a7hjegskj3rsv",
+                            "hashType": "taproot",
+                            "keyType": "schnorrPubkey",
+                            "key": "ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a"
+                        }
+                    ]
+                }
+            },
+            {
+                "case": "taproot hash only tapbranch (uncheck)",
+                "request": {
+                    "isElements": false,
+                    "descriptor": "tr(ef514f1aeb14baa6cc57ab3268fb329ca540c48454f7f46771ed731e34ba521a,{1717a480c2e3a474eed8dba83f684731243cff8ef384521936cf3a730dd0a286,{1717a480c2e3a474eed8dba83f684731243cff8ef384521936cf3a730dd0a286,80039cda864c4f2f1c87f161b0038e57fb7a4a59ff37517048696b85cdaaf911}})",
+                    "network": "regtest"
+                },
+                "expect": {
+                    "type": "taproot",
+                    "address": "bcrt1pfuqf4j7ceyzmu3rsmude93ctu948r565hf2ucrn9z7zn7a7hjegskj3rsv",
+                    "lockingScript": "51204f009acbd8c905be4470df1b92c70be16a71d354ba55cc0e6517853f77d79651",
+                    "hashType": "taproot",
+                    "includeMultisig": false,
+                    "treeString": "{1717a480c2e3a474eed8dba83f684731243cff8ef384521936cf3a730dd0a286,{1717a480c2e3a474eed8dba83f684731243cff8ef384521936cf3a730dd0a286,80039cda864c4f2f1c87f161b0038e57fb7a4a59ff37517048696b85cdaaf911}}",
                     "keys": [
                         {
                             "keyType": "schnorrPubkey",

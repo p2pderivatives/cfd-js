@@ -326,6 +326,7 @@ GetExtkeyInfoResponseStruct HDWalletStructApi::GetExtkeyInfo(
       response.fingerprint = privkey.GetFingerprintData().GetHex();
       response.chain_code = privkey.GetChainCode().GetHex();
       response.child_number = privkey.GetChildNum();
+      response.key_type = "extprivkey";
       return response;
     } catch (...) {
       // fall-through
@@ -339,6 +340,7 @@ GetExtkeyInfoResponseStruct HDWalletStructApi::GetExtkeyInfo(
     response.fingerprint = pubkey.GetFingerprintData().GetHex();
     response.chain_code = pubkey.GetChainCode().GetHex();
     response.child_number = pubkey.GetChildNum();
+    response.key_type = "extpubkey";
     return response;
   };
 

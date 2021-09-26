@@ -1,0 +1,38 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "CreatePegOutAddress",
+  "comment": "create pegout address.",
+  "request": {
+    ":class": "CreatePegoutAddressRequest",
+    ":class:comment": "Request for CreatePegoutAddress.",
+    "network": "mainnet",
+    "network:require": "optional",
+    "network:comment": "mainchain network type.",
+    "network:hint": "mainnet, testnet or regtest",
+    "elementsNetwork": "mainnet",
+    "elementsNetwork:require": "optional",
+    "elementsNetwork:comment": "elements network type.",
+    "elementsNetwork:hint": "liquidv1, elementsregtest",
+    "descriptor": "",
+    "descriptor:require": "require",
+    "descriptor:comment": "output descriptor or xpub",
+    "bip32Counter": 0,
+    "bip32Counter:require": "optional",
+    "bip32Counter:comment": "bip32 derive counter.",
+    "bip32Counter:hint": "0 to 2147483647.",
+    "hashType": "p2pkh",
+    "hashType:require": "optional",
+    "hashType:comment": "pubkey hash type",
+    "hashType:hint": "p2pkh, p2sh-p2pkh, p2wpkh"
+  },
+  "response": {
+    ":class": "CreatePegoutAddressResponse",
+    ":class:comment": "Response data of creating pegout address.",
+    "mainchainAddress": "",
+    "mainchainAddress:require": "require",
+    "mainchainAddress:comment": "mainchain address",
+    "baseDescriptor": "",
+    "baseDescriptor:require": "require",
+    "baseDescriptor:comment": "base output descriptor"
+  }
+}

@@ -4512,6 +4512,39 @@
         ]
     },
     {
+        "name": "Transaction.UpdateTxInSequence",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "tx": "02000000000101ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb02473044022018b10265080f8c491c43595000461a19212239fea9ee4c6fd26498f358b1760d0220223c1389ac26a2ed5f77ad73240af2fa6eb30ef5d19520026c2f7b7e817592530121023179b32721d07deb06cade59f56dedefdc932e89fde56e998f7a0e93a3e30c4400000000",
+                    "isElements": false,
+                    "txid": "1f9866dc0a19c427347c2db0b5910bdc2c20b78fa9f74f8756b21db890dba8ff",
+                    "vout": 0,
+                    "sequence": 4294967294
+                },
+                "expect": {
+                    "hex": "02000000000101ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000feffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb02473044022018b10265080f8c491c43595000461a19212239fea9ee4c6fd26498f358b1760d0220223c1389ac26a2ed5f77ad73240af2fa6eb30ef5d19520026c2f7b7e817592530121023179b32721d07deb06cade59f56dedefdc932e89fde56e998f7a0e93a3e30c4400000000"
+                }
+            },
+            {
+                "case": "unknown outpoint",
+                "request": {
+                    "tx": "02000000000101ffa8db90b81db256874ff7a98fb7202cdc0b91b5b02d7c3427c4190adc66981f0000000000ffffffff0118f50295000000002251201777701648fa4dd93c74edd9d58cfcc7bdc2fa30a2f6fa908b6fd70c92833cfb02473044022018b10265080f8c491c43595000461a19212239fea9ee4c6fd26498f358b1760d0220223c1389ac26a2ed5f77ad73240af2fa6eb30ef5d19520026c2f7b7e817592530121023179b32721d07deb06cade59f56dedefdc932e89fde56e998f7a0e93a3e30c4400000000",
+                    "isElements": false,
+                    "txid": "1f9866dc0a19c427347c2db0b5910bdc2c20b78fa9f74f8756b21db890dba8ff",
+                    "vout": 2,
+                    "sequence": 4294967294
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "cfd": "Txid is not found."
+                }
+            }
+        ]
+    },
+    {
         "name": "Transaction.SplitTxOut",
         "cases": [
             {

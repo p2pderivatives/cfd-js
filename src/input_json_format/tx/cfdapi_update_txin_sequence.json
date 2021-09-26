@@ -1,0 +1,33 @@
+{
+  "namespace": ["cfd","js","api","json"],
+  "functionName": "UpdateTxInSequence",
+  "comment": "Update sequence number",
+  "request": {
+    ":class": "UpdateTxInSequenceRequest",
+    ":class:comment": "Request for update sequence number",
+    "tx": "",
+    "tx:require": "require",
+    "tx:comment": "transaction hex",
+    "isElements": false,
+    "isElements:require": "optional",
+    "isElements:comment": "elements transaction flag.",
+    "txid": "",
+    "txid:require": "require",
+    "txid:comment": "utxo txid.",
+    "vout": 0,
+    "vout:type": "uint32_t",
+    "vout:require": "require",
+    "vout:comment": "utxo vout.",
+    "sequence": 0,
+    "sequence:type": "uint32_t",
+    "sequence:require": "require",
+    "sequence:comment": "sequence number"
+  },
+  "response": {
+    ":class": "RawTransactionResponse",
+    ":class:comment": "The output transaction data.",
+    "hex": "",
+    "hex:require": "require",
+    "hex:comment": "transaction hex."
+  }
+}

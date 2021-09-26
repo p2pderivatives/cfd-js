@@ -104,14 +104,14 @@ Add cfd-js github on caller app's package.json.
 
 ex)
 ```
-  "cfd-js": "p2pderivatives/cfd-js#semver:^0.3.1",
+  "cfd-js": "p2pderivatives/cfd-js#semver:^0.3.2",
 ```
 
 If you use old npm or yarn, describe as follows.
 
 ex)
 ```
-  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.3.1",
+  "cfd-js": "git+https://github.com/p2pderivatives/cfd-js#semver:^0.3.2",
 ```
 
 When npm is installed, the cfd-js build is executed.

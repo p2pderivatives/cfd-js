@@ -42,6 +42,10 @@ const createTestFunc = (helper) => {
       resp = cfd.UpdateWitnessStack(request);
       resp = await helper.getResponse(resp);
       break;
+    case 'Transaction.UpdateTxInSequence':
+      resp = cfd.UpdateTxInSequence(request);
+      resp = await helper.getResponse(resp);
+      break;
     case 'Transaction.SplitTxOut':
       resp = cfd.SplitTxOut(request);
       resp = await helper.getResponse(resp);

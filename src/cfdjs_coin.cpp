@@ -38,12 +38,10 @@ void CoinJsonApi::SelectUtxos(
   if (!is_elements) {
     // Bitcoin
     target_amount = Amount::CreateBySatoshiAmount(req->GetTargetAmount());
-    option.InitializeTxSizeInfo();
   } else {
     // Elements
 #ifndef CFD_DISABLE_ELEMENTS
     option.SetBlindInfo(fee_info.GetExponent(), fee_info.GetMinimumBits());
-    option.InitializeConfidentialTxSizeInfo();
     if (!req->GetTargetAmountMap().empty()) {
       // asset idの厳密チェックは、CoinSelectionのロジックで実施
       const AmountMap& targets = req->GetTargetAmountMap();
@@ -62,8 +60,7 @@ void CoinJsonApi::SelectUtxos(
     if (!fee_info.GetFeeAsset().empty()) {
       std::string fee_asset = fee_info.GetFeeAsset();
       option.SetFeeAsset(ConfidentialAssetId(fee_asset));
-    } else if (
-        fee_info.GetFeeRate() == 0 || fee_info.GetLongTermFeeRate() == 0) {
+    } else if (fee_info.GetFeeRate() == 0) {
       // fall through
     } else {
       warn(CFD_LOG_SOURCE, "Failed to SelectUtxos. feeAsset is required.");
@@ -80,6 +77,10 @@ void CoinJsonApi::SelectUtxos(
   option.SetEffectiveFeeBaserate(fee_info.GetFeeRate());
   option.SetLongTermFeeBaserate(fee_info.GetLongTermFeeRate());
   option.SetKnapsackMinimumChange(fee_info.GetKnapsackMinChange());
+  if (fee_info.GetFeeRate() == 0) {
+    option.SetLongTermFeeBaserate(0);
+    option.SetKnapsackMinimumChange(0);
+  }
 
   // out parameter
   Amount select_amount;
@@ -92,6 +93,7 @@ void CoinJsonApi::SelectUtxos(
   CoinSelection coin_selection;
   std::vector<Utxo> ret_utxos;
   if (!is_elements) {
+    option.InitializeTxSizeInfo();
     ret_utxos = coin_selection.SelectCoins(
         target_amount, utxos, filter, option, tx_fee, &select_amount,
         &utxo_fee, &use_bnb);
@@ -99,10 +101,17 @@ void CoinJsonApi::SelectUtxos(
     res->SetIgnoreItem("selectedAmounts");
   } else {
 #ifndef CFD_DISABLE_ELEMENTS
+    option.InitializeConfidentialTxSizeInfo();
     ret_utxos = coin_selection.SelectCoins(
         map_target_amount, utxos, filter, option, tx_fee, &map_select_amount,
         &utxo_fee, &map_use_bnb);
-    res->SetSelectedAmountMap(map_select_amount);
+    for (auto ite = map_target_amount.begin(); ite != map_target_amount.end();
+         ++ite) {
+      if (ite->second > 0) target_amount += ite->second;
+    }
+    if ((fee_info.GetFeeRate() != 0) || (target_amount != 0)) {
+      res->SetSelectedAmountMap(map_select_amount);
+    }
     res->SetIgnoreItem("selectedAmount");
 #endif  //  CFD_DISABLE_ELEMENTS
   }
@@ -114,7 +123,9 @@ void CoinJsonApi::SelectUtxos(
   res->SetUtxoFeeAmount(utxo_fee.GetSatoshiValue());
   Amount fee = tx_fee;
   fee += utxo_fee;
-  res->SetFeeAmount(fee.GetSatoshiValue());
+  if ((fee_info.GetFeeRate() != 0) || (target_amount != 0)) {
+    res->SetFeeAmount(fee.GetSatoshiValue());
+  }
   if (fee == 0) {
     res->SetIgnoreItem("feeAmount");
   }

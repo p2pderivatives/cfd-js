@@ -812,7 +812,8 @@
                     "depth": 4,
                     "fingerprint": "8806118d",
                     "childNumber": 2,
-                    "chainCode": "a3d58c40ac9c588529edb6cf9576241a6c2c919843bd97c3c26b35538d91a292"
+                    "chainCode": "a3d58c40ac9c588529edb6cf9576241a6c2c919843bd97c3c26b35538d91a292",
+                    "keyType": "extpubkey"
                 }
             },
             {
@@ -854,7 +855,8 @@
                     "depth": 4,
                     "fingerprint": "00378ea0",
                     "childNumber": 2,
-                    "chainCode": "4d3e59df124f789eabee7bbb7348b8dc64ff64093bd304214b1a8b0e75af8faf"
+                    "chainCode": "4d3e59df124f789eabee7bbb7348b8dc64ff64093bd304214b1a8b0e75af8faf",
+                    "keyType": "extprivkey"
                 }
             },
             {

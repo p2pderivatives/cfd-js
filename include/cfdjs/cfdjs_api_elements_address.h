@@ -93,6 +93,14 @@ class CFD_JS_API_EXPORT ElementsAddressStructApi {
       const CreatePegInAddressRequestStruct& request);
 
   /**
+   * @brief Create pegout address.
+   * @param[in] request     request data
+   * @return pegout address data.
+   */
+  static CreatePegoutAddressResponseStruct CreatePegoutAddress(
+      const CreatePegoutAddressRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、Descriptorを解析する
    * @param[in] request Descriptorを構築するパラメータ
    * @return Descriptor解析結果を格納した構造体
