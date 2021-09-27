@@ -353,6 +353,27 @@ RawTransactionResponseStruct TransactionStructApi::UpdateWitnessStack(
   return result;
 }
 
+RawTransactionResponseStruct TransactionStructApi::UpdateTxInSequence(
+    const UpdateTxInSequenceRequestStruct& request) {
+  auto call_func = [](const UpdateTxInSequenceRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    TransactionContext txc(request.tx);
+    auto index = txc.GetTxInIndex(Txid(request.txid), request.vout);
+    txc.SetTxInSequence(index, request.sequence);
+
+    response.hex = txc.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      UpdateTxInSequenceRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 RawTransactionResponseStruct TransactionStructApi::AddMultisigSign(
     const AddMultisigSignRequestStruct& request) {
   auto call_func = [](const AddMultisigSignRequestStruct& request)

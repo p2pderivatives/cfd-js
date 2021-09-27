@@ -339,6 +339,62 @@ export interface BlindTxOutRequest {
 }
 
 /**
+ * block data.
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {string} block - block hex
+ */
+export interface BlockData {
+    isElements?: boolean;
+    block: string;
+}
+
+/**
+ * The output block information.
+ * @property {string} blockHash - block hash.
+ * @property {string[]} tx - txid list.
+ * @property {number} version - version.
+ * @property {string} versionHex - version hex.
+ * @property {string} previousblockhash - previous block hash.
+ * @property {string} merkleroot - merkleroot.
+ * @property {number} time - block time.
+ * @property {number} bits - bits.
+ * @property {number} nonce - nonce.
+ */
+export interface BlockInformation {
+    blockHash: string;
+    tx: string[];
+    version: number;
+    versionHex: string;
+    previousblockhash: string;
+    merkleroot: string;
+    time: number;
+    bits: number;
+    nonce: number;
+}
+
+/**
+ * The output block transaction data.
+ * @property {string} tx - tx hex.
+ * @property {string} txoutproof - txout proof.
+ */
+export interface BlockTxData {
+    tx: string;
+    txoutproof: string;
+}
+
+/**
+ * Request by block and txid.
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {string} block - block hex
+ * @property {string} txid - txid
+ */
+export interface BlockTxRequest {
+    isElements?: boolean;
+    block: string;
+    txid: string;
+}
+
+/**
  * request ec signature data.
  * @property {string} sighash - signature hash.
  * @property {PrivkeyData} privkeyData? - private key data.
@@ -770,6 +826,32 @@ export interface CreatePegInAddressResponse {
     mainchainAddress: string;
     claimScript: string;
     tweakFedpegscript: string;
+}
+
+/**
+ * Request for CreatePegoutAddress.
+ * @property {string} network? - mainchain network type. (mainnet, testnet or regtest)
+ * @property {string} elementsNetwork? - elements network type. (liquidv1, elementsregtest)
+ * @property {string} descriptor - output descriptor or xpub
+ * @property {bigint | number} bip32Counter? - bip32 derive counter. (0 to 2147483647.)
+ * @property {string} hashType? - pubkey hash type (p2pkh, p2sh-p2pkh, p2wpkh)
+ */
+export interface CreatePegoutAddressRequest {
+    network?: string;
+    elementsNetwork?: string;
+    descriptor: string;
+    bip32Counter?: bigint | number;
+    hashType?: string;
+}
+
+/**
+ * Response data of creating pegout address.
+ * @property {string} mainchainAddress - mainchain address
+ * @property {string} baseDescriptor - base output descriptor
+ */
+export interface CreatePegoutAddressResponse {
+    mainchainAddress: string;
+    baseDescriptor: string;
 }
 
 /**
@@ -1706,7 +1788,9 @@ export interface FundRawTransactionResponse {
  * @property {boolean} isBlindIssuance? - use issuance's blind (This field is available only elements.)
  * @property {boolean} isPegin? - use pegin (This field is available only elements.)
  * @property {number} peginBtcTxSize? - pegin's btc transaction size (This field is available only elements.)
- * @property {string} fedpegScript? - fedpeg script (This field is available only elements.)
+ * @property {number} peginTxOutProofSize? - pegin's btc txoutproof size (This field is available only elements.)
+ * @property {string} claimScript? - claim script (This field is available only elements.)
+ * @property {string} fedpegScript? - (deprecated)fedpeg script
  * @property {string} scriptSigTemplate? - ScriptSig template is for scriptHash calculation fee.
  */
 export interface FundSelectUtxoData {
@@ -1721,6 +1805,8 @@ export interface FundSelectUtxoData {
     isBlindIssuance?: boolean;
     isPegin?: boolean;
     peginBtcTxSize?: number;
+    peginTxOutProofSize?: number;
+    claimScript?: string;
     fedpegScript?: string;
     scriptSigTemplate?: string;
 }
@@ -1867,6 +1953,7 @@ export interface GetExtkeyInfoRequest {
  * @property {string} fingerprint - fingerprint
  * @property {number} childNumber - bip32 child number
  * @property {string} chainCode - chain code
+ * @property {string} keyType - extkey type (extpubkey, extprivkey)
  */
 export interface GetExtkeyInfoResponse {
     network: string;
@@ -1875,6 +1962,7 @@ export interface GetExtkeyInfoResponse {
     fingerprint: string;
     childNumber: number;
     chainCode: string;
+    keyType: string;
 }
 
 /**
@@ -2068,6 +2156,24 @@ export interface GetTxOutIndexRequest {
     isElements?: boolean;
     address?: string;
     directLockingScript?: string;
+}
+
+/**
+ * Request for get unblind data.
+ * @property {string} blindingKey - blinding key
+ * @property {string} lockingScript - locking script
+ * @property {string} assetCommitment - asset commitment
+ * @property {string} valueCommitment - value commitment
+ * @property {string} commitmentNonce - nonce
+ * @property {string} rangeproof - rangeproof
+ */
+export interface GetUnblindDataRequest {
+    blindingKey: string;
+    lockingScript: string;
+    assetCommitment: string;
+    valueCommitment: string;
+    commitmentNonce: string;
+    rangeproof: string;
 }
 
 /**
@@ -2669,7 +2775,9 @@ export interface SecretData {
  * @property {boolean} isBlindIssuance? - blind issuance flag. (This field is available only elements.)
  * @property {boolean} isPegin? - use pegin utxo. (This field is available only elements.)
  * @property {bigint | number} peginBtcTxSize? - pegin btc transaction size (This field is available only elements.)
- * @property {string} fedpegScript? - fedpeg script (This field is available only elements.)
+ * @property {number} peginTxOutProofSize? - pegin's btc txoutproof size (This field is available only elements.)
+ * @property {string} claimScript? - claim script (This field is available only elements.)
+ * @property {string} fedpegScript? - (deprecated)fedpeg script
  * @property {string} scriptSigTemplate? - ScriptSig template is for scriptHash calculation fee.
  */
 export interface SelectUtxoData {
@@ -2682,6 +2790,8 @@ export interface SelectUtxoData {
     isBlindIssuance?: boolean;
     isPegin?: boolean;
     peginBtcTxSize?: bigint | number;
+    peginTxOutProofSize?: number;
+    claimScript?: string;
     fedpegScript?: string;
     scriptSigTemplate?: string;
 }
@@ -3214,6 +3324,22 @@ export interface UnblindTxOut {
 }
 
 /**
+ * Request for update sequence number
+ * @property {string} tx - transaction hex
+ * @property {boolean} isElements? - elements transaction flag.
+ * @property {string} txid - utxo txid.
+ * @property {number} vout - utxo vout.
+ * @property {number} sequence - sequence number
+ */
+export interface UpdateTxInSequenceRequest {
+    tx: string;
+    isElements?: boolean;
+    txid: string;
+    vout: number;
+    sequence: number;
+}
+
+/**
  * target txout
  * @property {bigint | number} amount - satoshi amount
  * @property {number} index? - txout index
@@ -3713,6 +3839,13 @@ export function CreateMultisigScriptSig(jsonObject: CreateMultisigScriptSigReque
 export function CreatePegInAddress(jsonObject: CreatePegInAddressRequest): CreatePegInAddressResponse;
 
 /**
+ * create pegout address.
+ * @param {CreatePegoutAddressRequest} jsonObject - request data.
+ * @return {CreatePegoutAddressResponse} - response data.
+ */
+export function CreatePegOutAddress(jsonObject: CreatePegoutAddressRequest): CreatePegoutAddressResponse;
+
+/**
  * Create transaction
  * @param {CreateRawTransactionRequest} jsonObject - request data.
  * @return {PsbtOutputData} - response data.
@@ -3887,6 +4020,13 @@ export function GetAddressesFromMultisig(jsonObject: GetAddressesFromMultisigReq
 export function GetAddressInfo(jsonObject: GetAddressInfoRequest): GetAddressInfoResponse;
 
 /**
+ * Get block header and txid list.
+ * @param {BlockData} jsonObject - request data.
+ * @return {BlockInformation} - response data.
+ */
+export function GetBlockInfo(jsonObject: BlockData): BlockInformation;
+
+/**
  * Get commitment.
  * @param {GetCommitmentRequest} jsonObject - request data.
  * @return {GetCommitmentResponse} - response data.
@@ -4033,6 +4173,13 @@ export function GetTapScriptTreeInfo(jsonObject: GetTapScriptTreeInfoRequest): T
 export function GetTapScriptTreeInfoByControlBlock(jsonObject: TapScriptInfoByControlRequest): TapScriptInfo;
 
 /**
+ * Get block header and txid list.
+ * @param {BlockTxRequest} jsonObject - request data.
+ * @return {BlockTxData} - response data.
+ */
+export function GetTxDataFromBlock(jsonObject: BlockTxRequest): BlockTxData;
+
+/**
  * Get TxIn Index.
  * @param {GetTxInIndexRequest} jsonObject - request data.
  * @return {GetIndexData} - response data.
@@ -4045,6 +4192,13 @@ export function GetTxInIndex(jsonObject: GetTxInIndexRequest): GetIndexData;
  * @return {GetIndexData} - response data.
  */
 export function GetTxOutIndex(jsonObject: GetTxOutIndexRequest): GetIndexData;
+
+/**
+ * Get unblind data.
+ * @param {GetUnblindDataRequest} jsonObject - request data.
+ * @return {UnblindOutput} - response data.
+ */
+export function GetUnblindData(jsonObject: GetUnblindDataRequest): UnblindOutput;
 
 /**
  * Get unblinded address.
@@ -4255,6 +4409,13 @@ export function UnblindRawTransaction(jsonObject: UnblindRawTransactionRequest):
  * @return {RawTransactionResponse} - response data.
  */
 export function UpdatePeginWitnessStack(jsonObject: UpdateWitnessStackRequest): RawTransactionResponse;
+
+/**
+ * Update sequence number
+ * @param {UpdateTxInSequenceRequest} jsonObject - request data.
+ * @return {RawTransactionResponse} - response data.
+ */
+export function UpdateTxInSequence(jsonObject: UpdateTxInSequenceRequest): RawTransactionResponse;
 
 /**
  * Update txout amount.

@@ -430,7 +430,8 @@ const elementsTestCase = [
       descriptor: FIXED_DESCRIPTOR,
       isPegin: true,
       peginBtcTxSize: 210,
-      fedpegScript: '51',
+      peginTxOutProofSize: 150,
+      claimScript: '51',
     }];
     return TestHelper.createElementsTestCase(
       'EstimateFee Elements - 13[6,7]coins-pegin, tx: 2 output, feeRate: 1',
@@ -455,7 +456,8 @@ const elementsTestCase = [
       descriptor: FIXED_DESCRIPTOR,
       isPegin: true,
       peginBtcTxSize: 210,
-      fedpegScript: '51',
+      peginTxOutProofSize: 150,
+      claimScript: '51',
     }];
     return TestHelper.createElementsTestCase(
       'EstimateFee Elements - 13[6,7]coins-pegin, tx: 2 output, feeRate: 0.1',

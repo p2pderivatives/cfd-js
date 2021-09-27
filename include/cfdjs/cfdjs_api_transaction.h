@@ -75,6 +75,14 @@ class CFD_JS_API_EXPORT TransactionStructApi {
       const UpdateWitnessStackRequestStruct& request);
 
   /**
+   * @brief Update sequence number.
+   * @param[in] request     request parameter.
+   * @return transaction hex.
+   */
+  static RawTransactionResponseStruct UpdateTxInSequence(
+      const UpdateTxInSequenceRequestStruct& request);
+
+  /**
    * @brief JSONパラメータの情報を元に、SegwitのMultisig署名情報を追加する.
    * @details 追加するsignatureの順序は、redeem
    * scriptのpubkeyとsignParam内のrelatedPubkeyで

@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  cfd-js-build:
+    image: ghcr.io/cryptogarageinc/elements-testing:v0.1.0
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: /bin/bash -c "./tools/init_package.sh"
+
+  cfd-js-elements-test:
+    image: ghcr.io/cryptogarageinc/elements-testing:v0.1.0
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: /bin/bash -c "./wrap_js/__integration_test__/docker-entrypoint.sh cache"
+
+  cfd-js-bitcoin-test:
+    image: ghcr.io/cryptogarageinc/elements-testing:v0.1.0
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: /bin/bash -c "./wrap_js/__integration_test__/bitcoin-docker-entrypoint.sh cache"
+
+  cfd-js-test:
+    image: ghcr.io/cryptogarageinc/elements-testing:v0.1.0
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: /bin/bash -c "npm run test_example"
+
+  cfd-js-update-package-lock:
+    image: ghcr.io/cryptogarageinc/elements-testing:v0.1.0
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    command: /bin/bash -c "./tools/update_package.sh"

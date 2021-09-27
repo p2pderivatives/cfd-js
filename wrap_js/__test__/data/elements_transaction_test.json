@@ -3847,6 +3847,39 @@
         ]
     },
     {
+        "name": "ConfidentialTransaction.UpdateTxInSequence",
+        "cases": [
+            {
+                "case": "normal",
+                "request": {
+                    "tx": "020000000101319bff5f4311e6255ecf4dd472650a6ef85fde7d11cd10d3e6ba5974174aeb560100008000ffffffff6f1a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f36f2a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f301000000000011223301000000000011224400000000000800110011001100110800110011001100220000",
+                    "isElements": true,
+                    "txid": "56eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
+                    "vout": 1,
+                    "sequence": 4294967294
+                },
+                "expect": {
+                    "hex": "020000000101319bff5f4311e6255ecf4dd472650a6ef85fde7d11cd10d3e6ba5974174aeb560100008000feffffff6f1a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f36f2a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f301000000000011223301000000000011224400000000000800110011001100110800110011001100220000"
+                }
+            },
+            {
+                "case": "unknown outpoint",
+                "request": {
+                    "tx": "020000000101319bff5f4311e6255ecf4dd472650a6ef85fde7d11cd10d3e6ba5974174aeb560100008000ffffffff6f1a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f36f2a4b6bd5571b5f08ab79c314dc6483f9b952af2f5ef206cd6f8e68eb1186f301000000000011223301000000000011224400000000000800110011001100110800110011001100220000",
+                    "isElements": true,
+                    "txid": "66eb4a177459bae6d310cd117dde5ff86e0a6572d44dcf5e25e611435fff9b31",
+                    "vout": 1,
+                    "sequence": 4294967294
+                },
+                "error": {
+                    "code": 1,
+                    "type": "illegal_argument",
+                    "cfd": "Txid is not found."
+                }
+            }
+        ]
+    },
+    {
         "name": "ConfidentialTransaction.UpdatePeginWitnessStack",
         "cases": [
             {

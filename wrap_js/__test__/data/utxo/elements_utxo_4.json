@@ -1,0 +1,73 @@
+[
+    {
+        "base": true,
+        "memo": "The commitment is calculated from asset, amount and blinders.",
+        "txid": "",
+        "vout": 0,
+        "amount": 0,
+        "asset": "",
+        "redeemScript": "",
+        "descriptor": "",
+        "scriptSigTemplate": "",
+        "isIssuance": false,
+        "isBlindIssuance": false,
+        "isPegin": false,
+        "claimScript": "",
+        "peginBtcTxSize": 0,
+        "peginTxOutProofSize": 0,
+        "assetBlindFactor": "",
+        "blindFactor": "",
+        "keyData": {
+            "privkey": "",
+            "blindingKey": ""
+        }
+    },
+    {
+        "base": true,
+        "assetA": "5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225"
+    },
+    {
+        "memo": "Elements CoinSelection UTXO.",
+        "txid": "2bc630021e76ab6bd7f8da54b0c59381e0265b093629e4384207030adba99775",
+        "vout": 0,
+        "amount": 150000000,
+        "asset": "5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225",
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([b8f7f84b/0'/0'/4']029b382de02d1753b04f29e743ec988a7585e16f023d7c76fcb468133781465282))#jm9lh5q5",
+        "scriptSigTemplate": "",
+        "isIssuance": false,
+        "isBlindIssuance": false,
+        "isPegin": false,
+        "claimScript": "",
+        "peginBtcTxSize": 0,
+        "peginTxOutProofSize": 0,
+        "assetBlindFactor": "",
+        "blindFactor": "",
+        "keyData": {
+            "privkey": "",
+            "blindingKey": ""
+        }
+    },
+    {
+        "memo": "Elements CoinSelection UTXO.",
+        "txid": "42120c9e8adc1d0f0d843617a0c91d699a1eb67fb744dde21103d6423fa5c8c5",
+        "vout": 1,
+        "amount": 150000000,
+        "asset": "5ac9f65c0efcc4775e0baec4ec03abdde22473cd3cf33c0419ca290e0751b225",
+        "redeemScript": "",
+        "descriptor": "sh(wpkh([b8f7f84b/0'/0'/4']029b382de02d1753b04f29e743ec988a7585e16f023d7c76fcb468133781465282))#jm9lh5q5",
+        "scriptSigTemplate": "",
+        "isIssuance": false,
+        "isBlindIssuance": false,
+        "isPegin": false,
+        "claimScript": "",
+        "peginBtcTxSize": 0,
+        "peginTxOutProofSize": 0,
+        "assetBlindFactor": "",
+        "blindFactor": "",
+        "keyData": {
+            "privkey": "",
+            "blindingKey": ""
+        }
+    }
+]

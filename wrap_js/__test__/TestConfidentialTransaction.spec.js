@@ -66,6 +66,10 @@ const createTestFunc = (helper) => {
       resp = cfd.UpdateWitnessStack(request);
       resp = await helper.getResponse(resp);
       break;
+    case 'ConfidentialTransaction.UpdateTxInSequence':
+      resp = cfd.UpdateTxInSequence(request);
+      resp = await helper.getResponse(resp);
+      break;
     case 'ConfidentialTransaction.UpdatePeginWitnessStack':
       resp = cfd.UpdatePeginWitnessStack(request);
       resp = await helper.getResponse(resp);

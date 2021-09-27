@@ -617,6 +617,15 @@ Value UpdateWitnessStack(const CallbackInfo &information) {
  * @param[in] information     node addon api callback information
  * @return json string.
  */
+Value UpdateTxInSequence(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::UpdateTxInSequence);
+}
+
+/**
+ * @brief NodeAddon's JSON API.
+ * @param[in] information     node addon api callback information
+ * @return json string.
+ */
 Value GetWitnessStackNum(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::GetWitnessStackNum);
 }
@@ -874,6 +883,24 @@ Value AnalyzeTapScriptTree(const CallbackInfo &information) {
 }
 
 /**
+ * @brief Implements get block information by string for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetBlockInfo(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetBlockInfo);
+}
+
+/**
+ * @brief Implements get block transaction data by string for JSON.
+ * @param[in] information     JSON data.
+ * @return json string.
+ */
+Value GetTxDataFromBlock(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetTxDataFromBlock);
+}
+
+/**
  * @brief Decode PSBT.
  * @param[in] request_message the request json message
  * @return json string
@@ -1042,6 +1069,15 @@ Value CreatePegInAddress(const CallbackInfo &information) {
  * @param[in] information     node addon api callback information
  * @return json string.
  */
+Value CreatePegOutAddress(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::CreatePegOutAddress);
+}
+
+/**
+ * @brief NodeAddon's JSON API.
+ * @param[in] information     node addon api callback information
+ * @return json string.
+ */
 Value ElementsCreateRawTransaction(const CallbackInfo &information) {
   return NodeAddonJsonApi(
       information, JsonMappingApi::ElementsCreateRawTransaction);
@@ -1185,6 +1221,15 @@ Value SerializeLedgerFormat(const CallbackInfo &information) {
 Value GetCommitment(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::GetCommitment);
 }
+
+/**
+ * @brief NodeAddon's JSON API.
+ * @param[in] information     node addon api callback information
+ * @return json string.
+ */
+Value GetUnblindData(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::GetUnblindData);
+}
 #endif  // CFD_DISABLE_ELEMENTS
 
 /**
@@ -1274,6 +1319,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "UpdateWitnessStack"),
       Function::New(env, UpdateWitnessStack));
+  exports->Set(
+      String::New(env, "UpdateTxInSequence"),
+      Function::New(env, UpdateTxInSequence));
   exports->Set(
       String::New(env, "AddMultisigSign"),
       Function::New(env, AddMultisigSign));
@@ -1415,6 +1463,11 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "AnalyzeTapScriptTree"),
       Function::New(env, AnalyzeTapScriptTree));
+  exports->Set(
+      String::New(env, "GetBlockInfo"), Function::New(env, GetBlockInfo));
+  exports->Set(
+      String::New(env, "GetTxDataFromBlock"),
+      Function::New(env, GetTxDataFromBlock));
   exports->Set(String::New(env, "DecodePsbt"), Function::New(env, DecodePsbt));
   exports->Set(String::New(env, "CreatePsbt"), Function::New(env, CreatePsbt));
   exports->Set(
@@ -1452,6 +1505,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
       String::New(env, "CreatePegInAddress"),
       Function::New(env, CreatePegInAddress));
+  exports->Set(
+      String::New(env, "CreatePegOutAddress"),
+      Function::New(env, CreatePegOutAddress));
   exports->Set(
       String::New(env, "ElementsCreateRawTransaction"),
       Function::New(env, ElementsCreateRawTransaction));
@@ -1498,6 +1554,8 @@ void InitializeJsonApi(Env env, Object *exports) {
       Function::New(env, SerializeLedgerFormat));
   exports->Set(
       String::New(env, "GetCommitment"), Function::New(env, GetCommitment));
+  exports->Set(
+      String::New(env, "GetUnblindData"), Function::New(env, GetUnblindData));
 #endif  // CFD_DISABLE_ELEMENTS
 }
 

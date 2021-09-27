@@ -45,6 +45,7 @@ void SelectUtxosWrapRequest::PostDeserialize() {
         json_target_list = GetTargets();
     auto ite2 = json_target_list.cbegin();
     const auto& ite_end2 = json_target_list.cend();
+    map_target_amount_.clear();
     while (ite2 != ite_end2) {
       map_target_amount_.emplace(ite2->GetAsset(), ite2->GetAmount());
       ++ite2;

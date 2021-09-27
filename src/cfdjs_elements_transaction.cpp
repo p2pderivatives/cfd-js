@@ -997,6 +997,27 @@ RawTransactionResponseStruct ElementsTransactionStructApi::UpdateWitnessStack(
   return result;
 }
 
+RawTransactionResponseStruct ElementsTransactionStructApi::UpdateTxInSequence(
+    const UpdateTxInSequenceRequestStruct& request) {
+  auto call_func = [](const UpdateTxInSequenceRequestStruct& request)
+      -> RawTransactionResponseStruct {  // NOLINT
+    RawTransactionResponseStruct response;
+
+    ConfidentialTransactionContext txc(request.tx);
+    auto index = txc.GetTxInIndex(Txid(request.txid), request.vout);
+    txc.SetTxInSequence(index, request.sequence);
+
+    response.hex = txc.GetHex();
+    return response;
+  };
+
+  RawTransactionResponseStruct result;
+  result = ExecuteStructApi<
+      UpdateTxInSequenceRequestStruct, RawTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 CreateSignatureHashResponseStruct
 ElementsTransactionStructApi::CreateSignatureHash(  // NOLINT
     const CreateElementsSignatureHashRequestStruct& request) {
@@ -2264,6 +2285,37 @@ GetCommitmentResponseStruct ElementsTransactionStructApi::GetCommitment(
   return result;
 }
 
+UnblindOutputStruct ElementsTransactionStructApi::GetUnblindData(
+    const GetUnblindDataRequestStruct& request) {
+  auto call_func = [](const GetUnblindDataRequestStruct& request)
+      -> UnblindOutputStruct {  // NOLINT
+    UnblindOutputStruct response;
+    Script locking_script_obj(request.locking_script);
+    ConfidentialAssetId asset_obj(request.asset_commitment);
+    ConfidentialValue value(request.value_commitment);
+    ConfidentialNonce nonce(request.commitment_nonce);
+    ByteData rangeproof_obj(request.rangeproof);
+    Privkey blinding_key_obj = Privkey::HasWif(request.blinding_key)
+                                   ? Privkey::FromWif(request.blinding_key)
+                                   : Privkey(request.blinding_key);
+    ConfidentialTxOut txout(
+        locking_script_obj, asset_obj, value, nonce, ByteData(),
+        rangeproof_obj);
+    auto unblind_data = txout.Unblind(blinding_key_obj);
+
+    response.amount = unblind_data.value.GetAmount().GetSatoshiValue();
+    response.asset = unblind_data.asset.GetHex();
+    response.blind_factor = unblind_data.vbf.GetHex();
+    response.asset_blind_factor = unblind_data.abf.GetHex();
+    return response;
+  };
+
+  UnblindOutputStruct result;
+  result = ExecuteStructApi<GetUnblindDataRequestStruct, UnblindOutputStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 namespace json {
 
 // -----------------------------------------------------------------------------
@@ -2299,8 +2351,11 @@ void ElementsTransactionJsonApi::EstimateFee(
     data.is_blind_issuance = utxo.GetIsBlindIssuance();
     data.is_pegin = utxo.GetIsPegin();
     data.pegin_btc_tx_size = utxo.GetPeginBtcTxSize();
-    if (!utxo.GetFedpegScript().empty()) {
-      data.fedpeg_script = Script(utxo.GetFedpegScript());
+    data.pegin_txoutproof_size = utxo.GetPeginTxOutProofSize();
+    if (!utxo.GetClaimScript().empty()) {
+      data.claim_script = Script(utxo.GetClaimScript());
+    } else if (!utxo.GetFedpegScript().empty()) {
+      data.claim_script = Script(utxo.GetFedpegScript());
     }
     utxos.push_back(data);
   }
@@ -2360,8 +2415,11 @@ void ElementsTransactionJsonApi::FundRawTransaction(
     data.is_blind_issuance = utxo.GetIsBlindIssuance();
     data.is_pegin = utxo.GetIsPegin();
     data.pegin_btc_tx_size = utxo.GetPeginBtcTxSize();
-    if (!utxo.GetFedpegScript().empty()) {
-      data.fedpeg_script = Script(utxo.GetFedpegScript());
+    data.pegin_txoutproof_size = utxo.GetPeginTxOutProofSize();
+    if (!utxo.GetClaimScript().empty()) {
+      data.claim_script = Script(utxo.GetClaimScript());
+    } else if (!utxo.GetFedpegScript().empty()) {
+      data.claim_script = Script(utxo.GetFedpegScript());
     }
     select_utxos.push_back(data);
   }
