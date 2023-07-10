@@ -12,8 +12,8 @@ on:
 
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 4
-  GITHUB_ELEMENTS_VERSION: v0.2.3
-  GITHUB_BITCOIN_VERSION: v0.2.3
+  GITHUB_ELEMENTS_VERSION: v0.1.0
+  GITHUB_BITCOIN_VERSION: v0.1.0
   GITHUB_DOCKER_IMAGE: ghcr.io/cryptogarageinc/elements-testing
   ELEMENTS_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_entrypoint.sh
   BITCOIN_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_bitcoin_entrypoint.sh
