@@ -168,7 +168,7 @@
   "dependencies": {
     "@types/node": "^16.9.2",
     "bindings": "^1.5.0",
-    "cmake-js": "^6.2.1",
+    "cmake-js": "^7.2.1",
     "del-cli": "^4.0.1",
     "got": "^12.5.3",
     "node-addon-api": "^4.1.0",
