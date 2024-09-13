@@ -38,6 +38,12 @@ if(NOT CFD_SRC_ROOT_DIR)
 set(CFD_SRC_ROOT_DIR   ${CMAKE_SOURCE_DIR})
 endif()
 
+# for cmake-js 7.0.0
+if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
+  # Generate node.lib
+  execute_process(COMMAND ${CMAKE_AR} /def:${CMAKE_JS_NODELIB_DEF} /out:${CMAKE_JS_NODELIB_TARGET} ${CMAKE_STATIC_LINKER_FLAGS})
+endif()
+
 # cfd-js
 project(cfd_js CXX)
 set(CMAKE_CXX_STANDARD 11)

@@ -12,8 +12,8 @@ on:
 
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 4
-  GITHUB_ELEMENTS_VERSION: v0.1.0
-  GITHUB_BITCOIN_VERSION: v0.1.0
+  GITHUB_ELEMENTS_VERSION: v0.2.3
+  GITHUB_BITCOIN_VERSION: v0.2.3
   GITHUB_DOCKER_IMAGE: ghcr.io/cryptogarageinc/elements-testing
   ELEMENTS_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_entrypoint.sh
   BITCOIN_ENTRYPOINT_PATH: /github/workspace/.github/workflows/docker/test_bitcoin_entrypoint.sh
@@ -25,17 +25,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11, windows-2019, ubuntu-20.04]
-        node: [16, 18, 19, 20]
+        os: [macos-13, windows-2022, ubuntu-22.04]
+        node: [20, 22]
         exclude:
-          - os: macos-11
-            node: 14
-          - os: macos-11
-            node: 19
+          - os: macos-13
+            node: 20
+          - os: macos-13
+            node: 20
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       timeout-minutes: 2
       with:
         node-version: ${{ matrix.node }}
